@@ -33,8 +33,8 @@ jobs:
         run: node scripts/build-player-db.js --fresh
       - name: Commit database
         run: |
-          git config user.name "lol-grid-bot"
-          git config user.email "lol-grid-bot@users.noreply.github.com"
+          git config user.name "lv333d"
+          git config user.email "137284250+lv333d@users.noreply.github.com"
           git add data/
           git diff --cached --quiet || git commit -m "Player database refresh $(date -u +%F)"
           git push

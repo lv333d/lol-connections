@@ -37,8 +37,8 @@ jobs:
         run: node scripts/fetch-assets.js
       - name: Commit new boards and assets
         run: |
-          git config user.name "lol-grid-bot"
-          git config user.email "lol-grid-bot@users.noreply.github.com"
+          git config user.name "lv333d"
+          git config user.email "137284250+lv333d@users.noreply.github.com"
           git add grid/ players/ assets/logos/
           git diff --cached --quiet || git commit -m "LoL Grid: boards up to $(date -u -d '+6 days' +%F)"
           git push
