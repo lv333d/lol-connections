@@ -2,6 +2,8 @@
 // Usage: npm run admin   →   http://127.0.0.1:4321/admin.html
 // Reads GEMINI_API_KEY / GEMINI_MODEL / ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
 import http from 'node:http';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { readFile, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import {
@@ -122,11 +124,48 @@ async function translate({ source, targets, apiKey }) {
   catch { throw Object.assign(new Error('Gemini zwrócił niepoprawny JSON.'), { status: 502 }); }
 }
 
+/* ---------- Publishing (git) ---------- */
+
+const run = promisify(execFile);
+const git = (...args) => run('git', args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
+
+/** Board files changed since the last commit: { date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
+async function pendingBoards() {
+  const out = await git('status', '--porcelain', '--', 'puzzles/');
+  return out.split('\n').filter(Boolean).map(line => {
+    const code = line.slice(0, 2);
+    const date = line.slice(3).trim().match(/(\d{4}-\d{2}-\d{2})\.json/)?.[1];
+    return date && { date, change: code.includes('D') ? 'usunięta' : code.includes('?') || code.includes('A') ? 'nowa' : 'zmieniona' };
+  }).filter(Boolean);
+}
+
+/** Commits puzzles/ and pushes; the hosting (Vercel) deploys the push automatically. */
+async function publish() {
+  const boards = await pendingBoards();
+  if (!boards.length) return { published: [], message: 'Brak zmian do opublikowania.' };
+  await git('add', '--all', '--', 'puzzles/');
+  const dates = boards.map(b => b.date).sort();
+  await git('commit', '-m', `Connections: ${dates.length === 1 ? dates[0] : `${dates[0]} … ${dates.at(-1)}`} (${dates.length})`);
+  try {
+    await git('pull', '--rebase', '--autostash'); // the weekly Grid bot may have pushed in the meantime
+    await git('push');
+  } catch (e) {
+    throw Object.assign(new Error('Commit zrobiony, ale wysyłka na GitHuba nie powiodła się: ' + (e.stderr || e.message).trim()), { status: 502 });
+  }
+  return { published: boards, message: `Opublikowano ${boards.length} plansz(e). Strona zaktualizuje się za ok. minutę.` };
+}
+
 /* ---------- API ---------- */
 
 async function handleApi(req, res, pathname) {
   if (pathname === '/api/config' && req.method === 'GET') {
     return send(res, 200, { geminiConfigured: Boolean(process.env.GEMINI_API_KEY), geminiModel: GEMINI_MODEL });
+  }
+  if (pathname === '/api/publish' && req.method === 'GET') {
+    return send(res, 200, { pending: await pendingBoards() });
+  }
+  if (pathname === '/api/publish' && req.method === 'POST') {
+    return send(res, 200, await publish());
   }
   if (pathname === '/api/translate' && req.method === 'POST') {
     return send(res, 200, await translate(await readBody(req)));

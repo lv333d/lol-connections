@@ -146,6 +146,12 @@
       padding: 10px 14px; margin-bottom: 18px; font-size: 0.85rem;
     }
     .api-banner code { background: #0004; padding: 1px 6px; border-radius: 4px; }
+    .publish-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: #1d1a0e; border: 1px solid var(--gold); border-radius: 8px;
+      padding: 10px 14px; margin-bottom: 18px; font-size: 0.85rem;
+    }
+    .publish-bar .pending { flex: 1; color: var(--gold-light); }
     .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
     .msg { font-size: 0.85rem; margin-top: 10px; min-height: 20px; white-space: pre-line; }
     .msg.ok { color: var(--green); }
@@ -288,6 +294,10 @@
       <div class="api-banner hidden" id="apiBanner">
         Brak połączenia z lokalnym serwerem admina. Uruchom <code>npm run admin</code> i otwórz
         <code>http://127.0.0.1:4321/admin.html</code>. Bez serwera plansz nie da się odczytać ani zapisać.
+      </div>
+      <div class="publish-bar hidden" id="publishBar">
+        <span class="pending" id="publishPending"></span>
+        <button class="btn btn-sm" id="btnPublish">🚀 Opublikuj na stronę</button>
       </div>
 
       <div class="page active" id="page-dashboard">
@@ -846,8 +856,9 @@
         renderSuggestBadge(getSuggestions().length);
         pendingSuggestionId = null;
       }
-      setMsg(msgEl, `Zapisano puzzles/${board.date}.json (plansza #${loadedBoard.boardId}).`, true);
+      setMsg(msgEl, `Zapisano puzzles/${board.date}.json (plansza #${loadedBoard.boardId}). Kliknij „Opublikuj na stronę”, żeby trafiła na connect4.lol.`, true);
       showToast('Zapisano planszę');
+      refreshPublishBar();
     } catch (e) {
       setMsg(msgEl, e.message + (e.details ? '\n• ' + e.details.join('\n• ') : ''), false);
     } finally {
@@ -864,10 +875,41 @@
         await loadEditor(dateKey);
         setMsg($('editorMsg'), 'Plansza usunięta.', true);
         showToast('Usunięto planszę');
+        refreshPublishBar();
       } catch (e) {
         setMsg($('editorMsg'), e.message, false);
       }
     });
+  });
+
+  /* ---------- Publishing ---------- */
+
+  // Saved boards live only on this computer until they are pushed to GitHub (the host then deploys them).
+  async function refreshPublishBar() {
+    try {
+      const { pending } = await api('/api/publish');
+      $('publishBar').classList.toggle('hidden', !pending.length);
+      $('publishPending').textContent = `Nieopublikowane plansze (${pending.length}): ` +
+        pending.map(p => `${p.date} — ${p.change}`).join(', ');
+    } catch {
+      $('publishBar').classList.add('hidden');
+    }
+  }
+
+  $('btnPublish').addEventListener('click', async () => {
+    const btn = $('btnPublish');
+    btn.disabled = true;
+    btn.textContent = '⏳ Publikuję…';
+    try {
+      const r = await api('/api/publish', { method: 'POST' });
+      showToast(r.message);
+    } catch (e) {
+      showToast(e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🚀 Opublikuj na stronę';
+      refreshPublishBar();
+    }
   });
 
   /* ---------- Gemini translation ---------- */
@@ -1102,6 +1144,7 @@
     $('editorDate').value = todayKey();
     renderDashboard();
     renderGeminiStatus();
+    refreshPublishBar();
   }
 
   ensureAdminHash();
