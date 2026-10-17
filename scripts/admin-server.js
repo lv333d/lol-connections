@@ -9,7 +9,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
   ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard,
-  moveBoard, renumberUpcoming, todayUtc
+  moveBoard, renumberBoards
 } from './lib/puzzles.js';
 
 try { process.loadEnvFile(path.join(ROOT, '.env.local')); } catch { /* optional */ }
@@ -186,8 +186,6 @@ async function handleApi(req, res, pathname) {
     const { to } = await readBody(req);
     if (!DATE_RE.test(from) || !DATE_RE.test(to || '')) return send(res, 400, { error: 'Nieprawidłowa data' });
     if (from === to) return send(res, 400, { error: 'To ta sama data' });
-    // Past boards are part of the public archive (players have played them) — they cannot move.
-    if (from < todayUtc() || to < todayUtc()) return send(res, 409, { error: 'Plansz z przeszłości nie można przenosić.' });
     try { await readBoard(from); } catch { return send(res, 404, { error: 'Brak planszy' }); }
     return send(res, 200, await moveBoard(from, to));
   }
@@ -209,13 +207,12 @@ async function handleApi(req, res, pathname) {
       const errs = validateBoard(board);
       if (errs.length) return send(res, 422, { error: 'Walidacja nie powiodła się', details: errs });
       await writeBoard(board);
-      await renumberUpcoming();
+      await renumberBoards();
       return send(res, 200, await readBoard(date));
     }
     if (req.method === 'DELETE') {
-      if (date < todayUtc()) return send(res, 409, { error: 'Plansz z przeszłości nie można usuwać — są w archiwum graczy.' });
       try { await unlink(boardPath(date)); } catch { return send(res, 404, { error: 'Brak planszy' }); }
-      await renumberUpcoming();
+      await renumberBoards();
       return send(res, 200, { ok: true });
     }
   }

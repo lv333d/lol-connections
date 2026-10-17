@@ -649,21 +649,20 @@ async function validateAndSaveSuggestion() {
         Group_2_Category: groups[1].category, Group_2_Items: groups[1].items.join(', '),
         Group_3_Category: groups[2].category, Group_3_Items: groups[2].items.join(', '),
         Group_4_Category: groups[3].category, Group_4_Items: groups[3].items.join(', '),
+        // Pasted into the admin panel (Propozycje → Wklej z e-maila) to add the suggestion to the queue.
+        Kod_dla_panelu: JSON.stringify(suggestion),
         _subject: `Nowa propozycja planszy LoL Connect od ${suggestion.nick}`
       };
       const res = await fetch('https://formsubmit.co/ajax/' + CONFIG.suggestionEmail, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
-      sent = res.ok;
-      if (!res.ok) fallbackReason = `FormSubmit zwrócił błąd ${res.status}`;
+      // FormSubmit answers 200 with { success: "false" } e.g. while the form is not activated yet.
+      const data = await res.json().catch(() => ({}));
+      sent = res.ok && String(data.success) === 'true';
+      if (!sent) fallbackReason = data.message || `FormSubmit zwrócił błąd ${res.status}`;
     } catch { fallbackReason = 'Błąd połączenia z FormSubmit'; }
   }
 
   submitBtn.disabled = false;
   submitBtn.textContent = originalText;
-
-  let queue = [];
-  try { queue = JSON.parse(localStorage.getItem('lolc_suggest_queue') || '[]'); } catch { queue = []; }
-  queue.push(suggestion);
-  localStorage.setItem('lolc_suggest_queue', JSON.stringify(queue));
 
   $('suggestSuccessIcon').textContent = sent ? '✅' : '❌';
   $('suggestSuccessText').textContent = sent ? 'Twoja propozycja planszy została pomyślnie wysłana do administratora! Dziękujemy za wkład.' : `Wystąpił błąd podczas wysyłania propozycji (${fallbackReason}). Spróbuj ponownie później.`;

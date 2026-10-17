@@ -76,7 +76,7 @@
     .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 560px; }
     .cal-day .cal-num { font-weight: 600; }
     .cal-day .cal-board { font-size: 0.66rem; color: #8fd18a; margin-top: 2px; }
-    .cal-day.past { opacity: 0.45; }
+    .cal-day.past { opacity: 0.7; }
     .cal-day[draggable="true"] { cursor: grab; }
     .cal-day.dragging { opacity: 0.4; }
     .cal-day.drag-over { border-color: var(--gold-light); box-shadow: 0 0 0 2px var(--gold); background: #2a2410; }
@@ -222,56 +222,6 @@
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
 
-    /* Statystyki / Analytics styling */
-    .analytics-setup-box {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-      margin-top: 10px;
-      max-width: 650px;
-    }
-    .analytics-setup-box h2 {
-      font-size: 1.1rem;
-      color: var(--gold-light);
-      margin-bottom: 12px;
-    }
-    .analytics-setup-box p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      line-height: 1.6;
-    }
-    .analytics-setup-box ol {
-      padding-left: 20px;
-      margin-bottom: 18px;
-      color: var(--text);
-      font-size: 0.88rem;
-    }
-    .analytics-setup-box li {
-      margin-bottom: 8px;
-    }
-    .analytics-setup-box code {
-      background: var(--panel2);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
-      color: var(--gold);
-    }
-    .analytics-iframe-container {
-      position: relative;
-      width: 100%;
-      height: 700px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--panel);
-    }
-    .analytics-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
   </style>
 </head>
 <body>
@@ -295,7 +245,6 @@
         <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Dashboard</span></div>
         <div class="nav-item" data-page="editor"><span class="nav-icon">📅</span><span class="nav-label">Plansze</span></div>
         <div class="nav-item" data-page="suggestions"><span class="nav-icon">✉</span><span class="nav-label">Propozycje</span><span class="badge hidden" id="suggestBadge">0</span></div>
-        <div class="nav-item" data-page="analytics"><span class="nav-icon">📈</span><span class="nav-label">Statystyki</span></div>
         <div class="nav-item" data-page="importexport"><span class="nav-icon">📦</span><span class="nav-label">Import / Export</span></div>
       </nav>
       <div class="sidebar-footer">
@@ -328,7 +277,7 @@
             <button class="btn btn-sm" id="calNext" aria-label="Następny miesiąc">›</button>
             <button class="btn btn-sm" id="calToday">Dziś</button>
           </div>
-          <p class="cal-hint">Kliknij dzień, aby edytować. Przeciągnij planszę na inny dzień, aby ją przenieść — na dzień z planszą zamienią się miejscami. × usuwa planszę. Plansze z przeszłości są zablokowane (są w archiwum graczy).</p>
+          <p class="cal-hint">Kliknij dzień, aby edytować. Przeciągnij planszę na inny dzień, aby ją przenieść — na dzień z planszą zamienią się miejscami. × usuwa planszę. Plansze z przeszłości (przyciemnione) też można przenosić — numery wszystkich plansz przeliczą się według dat.</p>
           <div class="cal-header" id="calHeader"></div>
           <div class="cal-grid" id="calGrid"></div>
         </div>
@@ -367,12 +316,14 @@
 
       <div class="page" id="page-suggestions">
         <h1>✉ Propozycje graczy</h1>
+        <div class="io-section">
+          <h3>Wklej z e-maila</h3>
+          <p>Propozycje przychodzą mailem (FormSubmit). Skopiuj z maila wartość pola <code>Kod_dla_panelu</code> i wklej poniżej — możesz wkleić kilka kodów naraz, każdy w osobnej linii.</p>
+          <div class="form-row"><textarea id="suggestImport" placeholder='{"id":…,"groups":[…]}'></textarea></div>
+          <div class="io-btns"><button class="btn btn-sm" id="btnSuggestImport">➕ Dodaj do listy</button></div>
+          <div class="msg" id="suggestImportMsg"></div>
+        </div>
         <div class="suggest-list" id="suggestList"></div>
-      </div>
-
-      <div class="page" id="page-analytics">
-        <h1>📈 Statystyki ruchu</h1>
-        <div id="analyticsWrapper"></div>
       </div>
 
       <div class="page" id="page-importexport">
@@ -435,10 +386,6 @@
 
   /** @typedef {import('./types/puzzle').ConnectionsBoard} ConnectionsBoard */
 
-  const CONFIG = {
-    // Aby wyświetlić statystyki ruchu bezpośrednio w tej zakładce, wklej publiczny adres URL swojego panelu (np. z Umami lub Google Looker Studio):
-    analyticsShareUrl: ''
-  };
   const DEFAULT_HASH = '6fe154bdfd6074961d1521c927fd8f596f53db081882da28b5f4a607f5db071b';
   const LANGS = ['pl', 'en', 'es', 'fr'];
   const TRANSLATE_TARGETS = ['en', 'es', 'fr'];
@@ -620,7 +567,6 @@
     if (page === 'dashboard') renderDashboard();
     if (page === 'editor' && !skipLoad) loadEditor($('editorDate').value || todayKey());
     if (page === 'suggestions') renderSuggestions();
-    if (page === 'analytics') loadAnalytics();
     if (page === 'importexport') renderLegacySection();
   }
 
@@ -685,18 +631,17 @@
     for (let n = 1; n <= daysInMonth; n++) {
       const key = `${calMonth}-${String(n).padStart(2, '0')}`;
       const board = boardsByDate.get(key);
-      const editable = key >= today;
       const el = document.createElement('div');
-      el.className = 'cal-day' + (board ? ' has-puzzle' : '') + (key === today ? ' today' : '') + (editable ? '' : ' past');
+      el.className = 'cal-day' + (board ? ' has-puzzle' : '') + (key === today ? ' today' : '') + (key < today ? ' past' : '');
       el.innerHTML = `<span class="cal-num">${n}</span>` +
         (board ? `<span class="cal-board">#${board.boardId}${board.mode === 'ingame' ? ' ⚙' : ''}</span>` : '');
-      el.title = board ? `Plansza #${board.boardId} (${board.mode})` + (editable ? '' : ' — zablokowana') : '';
+      el.title = board ? `Plansza #${board.boardId} (${board.mode})` : '';
       el.addEventListener('click', () => {
         $('editorDate').value = key;
         navigate('editor');
       });
 
-      if (board && editable) {
+      if (board) {
         el.draggable = true;
         el.addEventListener('dragstart', e => {
           e.dataTransfer.setData('text/plain', key);
@@ -711,16 +656,14 @@
         del.addEventListener('click', e => { e.stopPropagation(); deleteBoardFromCalendar(key); });
         el.appendChild(del);
       }
-      if (editable) {
-        el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
-        el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-        el.addEventListener('drop', e => {
-          e.preventDefault();
-          el.classList.remove('drag-over');
-          const from = e.dataTransfer.getData('text/plain');
-          if (from && from !== key) moveBoardFromCalendar(from, key);
-        });
-      }
+      el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+      el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+      el.addEventListener('drop', e => {
+        e.preventDefault();
+        el.classList.remove('drag-over');
+        const from = e.dataTransfer.getData('text/plain');
+        if (from && from !== key) moveBoardFromCalendar(from, key);
+      });
       grid.appendChild(el);
     }
   }
@@ -728,11 +671,13 @@
   function moveBoardFromCalendar(from, to) {
     const a = boardsByDate.get(from);
     const b = boardsByDate.get(to);
-    const todayNote = [from, to].includes(todayKey()) ? ' Uwaga: to dzisiejsza plansza — gracze, którzy już ją zaczęli, stracą postęp.' : '';
+    const today = todayKey();
+    const playedNote = from <= today || (b && to <= today)
+      ? ' Uwaga: ta plansza była już dostępna dla graczy — kto ją zaczął, straci postęp z tego dnia.' : '';
     const msg = b
       ? `Zamienić plansze miejscami? #${a.boardId} (${from}) ⇄ #${b.boardId} (${to}).`
       : `Przenieść planszę #${a.boardId} z ${from} na ${to}?`;
-    showConfirm(b ? 'Zamień plansze' : 'Przenieś planszę', msg + todayNote + ' Numery kolejnych plansz przeliczą się według dat.', async () => {
+    showConfirm(b ? 'Zamień plansze' : 'Przenieś planszę', msg + playedNote + ' Numery plansz przeliczą się według dat.', async () => {
       try {
         await api(`/api/puzzles/${from}/move`, { method: 'POST', body: { to } });
         showToast(b ? 'Zamieniono plansze' : 'Przeniesiono planszę');
@@ -1117,6 +1062,43 @@
     });
   }
 
+  /** Validates a suggestion pasted from the e-mail (same shape app.js sends); returns it or null. */
+  function parseSuggestion(raw) {
+    const s = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    const ok = s && Array.isArray(s.groups) && s.groups.length === 4 &&
+      s.groups.every(g => typeof g.category === 'string' && Array.isArray(g.items) && g.items.length === 4 && g.items.every(i => typeof i === 'string'));
+    if (!ok) return null;
+    return {
+      id: Number(s.id) || Date.now(),
+      submittedAt: s.submittedAt || new Date().toISOString(),
+      nick: sanitise(s.nick || 'Anonymous').slice(0, 40),
+      notes: sanitise(s.notes || '').slice(0, 500),
+      groups: s.groups.map((g, i) => ({ color: Number.isInteger(g.color) ? g.color : i, category: sanitise(g.category).slice(0, 120), items: g.items.map(it => sanitise(it).slice(0, 60)) }))
+    };
+  }
+
+  $('btnSuggestImport').addEventListener('click', () => {
+    const msgEl = $('suggestImportMsg');
+    // E-mail clients may wrap the code; each suggestion is one {...} object.
+    const chunks = $('suggestImport').value.match(/\{"id"[\s\S]*?\]\}\]\}/g) || [];
+    const queue = getSuggestions();
+    let added = 0, bad = 0, dup = 0;
+    for (const chunk of chunks) {
+      let s = null;
+      try { s = parseSuggestion(chunk.replace(/\s*\n\s*/g, ' ')); } catch { /* invalid JSON */ }
+      if (!s) { bad++; continue; }
+      if (queue.some(q => q.id === s.id)) { dup++; continue; }
+      queue.push(s);
+      added++;
+    }
+    if (!chunks.length) return setMsg(msgEl, 'Nie znaleziono kodu propozycji. Wklej wartość pola Kod_dla_panelu z maila.', false);
+    setSuggestions(queue);
+    $('suggestImport').value = '';
+    setMsg(msgEl, `Dodano ${added}` + (dup ? `, pominięto duplikaty: ${dup}` : '') + (bad ? `, błędne kody: ${bad}` : '') + '.', !bad);
+    renderSuggestions();
+    renderSuggestBadge(queue.length);
+  });
+
   /** Legacy suggestion ({ groups: [{ color, category, items[] }] }) → board for the editor. */
   function suggestionToBoard(s, date) {
     return {
@@ -1157,32 +1139,6 @@
       approveId = null;
     }
   });
-
-  function loadAnalytics() {
-    const wrapper = $('analyticsWrapper');
-    if (CONFIG.analyticsShareUrl) {
-      wrapper.innerHTML = `
-        <div class="analytics-iframe-container">
-          <iframe class="analytics-iframe" src="${CONFIG.analyticsShareUrl}" allowtransparency="true"></iframe>
-        </div>
-      `;
-    } else {
-      wrapper.innerHTML = `
-        <div class="analytics-setup-box">
-          <h2>📊 Konfiguracja śledzenia ruchu</h2>
-          <p>Aby zbierać i wyświetlać statystyki odwiedzin na żywo bezpośrednio w tym panelu, wykonaj następujące kroki:</p>
-          <ol>
-            <li>Zarejestruj się w darmowej usłudze analitycznej, np. na <strong><a href="https://cloud.umami.is/" target="_blank" style="color:var(--gold);">Umami Cloud</a></strong> lub <strong>Google Analytics 4</strong>.</li>
-            <li>Dodaj swoją domenę w panelu wybranego narzędzia i pobierz kod śledzenia (skrypt).</li>
-            <li>Wklej skrypt śledzący w plikach <code>index.html</code> (Grid) i <code>connections.html</code> (miejsce na kod znajdziesz w sekcji <code>&lt;head&gt;</code>).</li>
-            <li>Włącz opcję publicznego udostępniania statystyk (np. "Share / Public link" w Umami) lub utwórz udostępniony raport Looker Studio w przypadku Google Analytics.</li>
-            <li>Otwórz plik <code>admin.html</code> i wklej wygenerowany publiczny adres URL w zmiennej <code>CONFIG.analyticsShareUrl</code>.</li>
-          </ol>
-          <p style="margin-bottom: 0; font-size: 0.82rem; font-style: italic;">Po wklejeniu adresu URL, w tym miejscu wyświetli się interaktywny wykres przedstawiający ruch na Twojej stronie głównej!</p>
-        </div>
-      `;
-    }
-  }
 
   /* ---------- Import / Export ---------- */
 

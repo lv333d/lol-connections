@@ -86,19 +86,15 @@ export async function rebuildManifest() {
   return boards;
 }
 
-export const todayUtc = () => new Date().toISOString().slice(0, 10);
-
 /**
- * Keeps board numbers (#N, shown in shared results) in date order for boards after today:
- * they get consecutive ids following the highest id of today's and earlier boards. Published boards keep theirs.
+ * Keeps board numbers (#N, shown in shared results) consecutive in date order: #1 is the earliest board.
+ * Past boards can be moved and deleted too, so every board is renumbered (player progress is keyed by date, not id).
  */
-export async function renumberUpcoming() {
-  const today = todayUtc();
-  const boards = [];
-  for (const date of await listBoardDates()) boards.push(await readBoard(date));
-  let next = Math.max(0, ...boards.filter(b => b.date <= today).map(b => b.boardId)) + 1;
-  for (const b of boards.filter(b => b.date > today)) {
-    if (b.boardId !== next) await writeFile(boardPath(b.date), JSON.stringify({ ...b, boardId: next }, null, 2) + '\n', 'utf8');
+export async function renumberBoards() {
+  let next = 1;
+  for (const date of await listBoardDates()) {
+    const b = await readBoard(date);
+    if (b.boardId !== next) await writeFile(boardPath(date), JSON.stringify({ ...b, boardId: next }, null, 2) + '\n', 'utf8');
     next++;
   }
   return rebuildManifest();
@@ -111,7 +107,7 @@ export async function moveBoard(from, to) {
   await writeFile(boardPath(to), JSON.stringify({ ...a, date: to }, null, 2) + '\n', 'utf8');
   if (b) await writeFile(boardPath(from), JSON.stringify({ ...b, date: from }, null, 2) + '\n', 'utf8');
   else await unlink(boardPath(from));
-  await renumberUpcoming();
+  await renumberBoards();
   return { swapped: Boolean(b) };
 }
 
