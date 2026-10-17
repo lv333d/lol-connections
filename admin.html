@@ -70,8 +70,21 @@
     .stat-card .val { font-size: 2rem; font-weight: 700; color: var(--gold-light); }
     .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
     .calendar { margin-top: 8px; }
-    .calendar h3 { font-size: 1rem; color: var(--text); margin-bottom: 12px; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 420px; }
+    .calendar h3 { font-size: 1rem; color: var(--text); min-width: 170px; text-align: center; text-transform: capitalize; }
+    .cal-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .cal-hint { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px; max-width: 560px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 560px; }
+    .cal-day .cal-num { font-weight: 600; }
+    .cal-day .cal-board { font-size: 0.66rem; color: #8fd18a; margin-top: 2px; }
+    .cal-day.past { opacity: 0.45; }
+    .cal-day[draggable="true"] { cursor: grab; }
+    .cal-day.dragging { opacity: 0.4; }
+    .cal-day.drag-over { border-color: var(--gold-light); box-shadow: 0 0 0 2px var(--gold); background: #2a2410; }
+    .cal-del {
+      position: absolute; top: 2px; right: 3px; border: none; background: none; cursor: pointer;
+      color: #e88; font-size: 0.9rem; line-height: 1; padding: 2px; opacity: 0; transition: opacity .15s;
+    }
+    .cal-day:hover .cal-del { opacity: 1; }
     .cal-day {
       aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--border);
       background: var(--panel2); display: flex; flex-direction: column;
@@ -86,7 +99,7 @@
     }
     .cal-day.today { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
     .cal-day.empty { visibility: hidden; pointer-events: none; }
-    .cal-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 420px; margin-bottom: 4px; }
+    .cal-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 560px; margin-bottom: 4px; }
     .cal-header span { text-align: center; font-size: 0.68rem; color: var(--text-muted); }
     .editor-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
     .editor-toolbar input[type=date], .editor-toolbar select, .ed-select {
@@ -309,7 +322,13 @@
           <div class="stat-card"><div class="val" id="statToday">✗</div><div class="lbl">Plansza na dziś</div></div>
         </div>
         <div class="calendar">
-          <h3>Najbliższe 30 dni</h3>
+          <div class="cal-toolbar">
+            <button class="btn btn-sm" id="calPrev" aria-label="Poprzedni miesiąc">‹</button>
+            <h3 id="calTitle"></h3>
+            <button class="btn btn-sm" id="calNext" aria-label="Następny miesiąc">›</button>
+            <button class="btn btn-sm" id="calToday">Dziś</button>
+          </div>
+          <p class="cal-hint">Kliknij dzień, aby edytować. Przeciągnij planszę na inny dzień, aby ją przenieść — na dzień z planszą zamienią się miejscami. × usuwa planszę. Plansze z przeszłości są zablokowane (są w archiwum graczy).</p>
           <div class="cal-header" id="calHeader"></div>
           <div class="cal-grid" id="calGrid"></div>
         </div>
@@ -622,47 +641,121 @@
     $('statSuggestions').textContent = suggestions.length;
     renderSuggestBadge(suggestions.length);
 
-    let dates = [];
-    try { dates = (await api('/api/puzzles')).boards.map(b => b.date); }
+    let boards = [];
+    try { boards = (await api('/api/puzzles')).boards; }
     catch { /* banner already shown */ }
+    boardsByDate = new Map(boards.map(b => [b.date, b]));
     const today = todayKey();
-    $('statTotal').textContent = dates.length;
-    $('statScheduled').textContent = dates.filter(k => k >= today).length;
-    $('statToday').textContent = dates.includes(today) ? '✓' : '✗';
-    renderCalendar(new Set(dates), today);
+    $('statTotal').textContent = boards.length;
+    $('statScheduled').textContent = boards.filter(b => b.date >= today).length;
+    $('statToday').textContent = boardsByDate.has(today) ? '✓' : '✗';
+    renderCalendar();
   }
 
-  function renderCalendar(dates, today) {
+  /** @type {Map<string, { date: string, boardId: number, mode: string }>} */
+  let boardsByDate = new Map();
+  let calMonth = ''; // 'YYYY-MM' shown in the calendar
+
+  const shiftMonth = (ym, delta) => {
+    const d = new Date(Date.UTC(Number(ym.slice(0, 4)), Number(ym.slice(5, 7)) - 1 + delta, 1));
+    return d.toISOString().slice(0, 7);
+  };
+  $('calPrev').addEventListener('click', () => { calMonth = shiftMonth(calMonth, -1); renderCalendar(); });
+  $('calNext').addEventListener('click', () => { calMonth = shiftMonth(calMonth, 1); renderCalendar(); });
+  $('calToday').addEventListener('click', () => { calMonth = todayKey().slice(0, 7); renderCalendar(); });
+
+  // Puzzle days roll over at 00:00 UTC, so the calendar is built in UTC too.
+  function renderCalendar() {
+    const today = todayKey();
+    if (!calMonth) calMonth = today.slice(0, 7);
     const days = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'];
     $('calHeader').innerHTML = days.map(d => '<span>' + d + '</span>').join('');
+    const first = new Date(calMonth + '-01T00:00:00Z');
+    $('calTitle').textContent = first.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 
     const grid = $('calGrid');
     grid.innerHTML = '';
-
-    // Puzzle days roll over at 00:00 UTC, so the calendar is built in UTC too.
-    const start = new Date(today + 'T00:00:00Z');
-    const dow = (start.getUTCDay() + 6) % 7;
-    for (let i = 0; i < dow; i++) {
+    for (let i = 0; i < (first.getUTCDay() + 6) % 7; i++) {
       const empty = document.createElement('div');
       empty.className = 'cal-day empty';
       grid.appendChild(empty);
     }
 
-    for (let i = 0; i < 30; i++) {
-      const d = new Date(start);
-      d.setUTCDate(d.getUTCDate() + i);
-      const key = d.toISOString().slice(0, 10);
+    const daysInMonth = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
+    for (let n = 1; n <= daysInMonth; n++) {
+      const key = `${calMonth}-${String(n).padStart(2, '0')}`;
+      const board = boardsByDate.get(key);
+      const editable = key >= today;
       const el = document.createElement('div');
-      el.className = 'cal-day';
-      if (dates.has(key)) el.classList.add('has-puzzle');
-      if (key === today) el.classList.add('today');
-      el.innerHTML = '<span>' + d.getUTCDate() + '</span>';
+      el.className = 'cal-day' + (board ? ' has-puzzle' : '') + (key === today ? ' today' : '') + (editable ? '' : ' past');
+      el.innerHTML = `<span class="cal-num">${n}</span>` +
+        (board ? `<span class="cal-board">#${board.boardId}${board.mode === 'ingame' ? ' ⚙' : ''}</span>` : '');
+      el.title = board ? `Plansza #${board.boardId} (${board.mode})` + (editable ? '' : ' — zablokowana') : '';
       el.addEventListener('click', () => {
         $('editorDate').value = key;
         navigate('editor');
       });
+
+      if (board && editable) {
+        el.draggable = true;
+        el.addEventListener('dragstart', e => {
+          e.dataTransfer.setData('text/plain', key);
+          e.dataTransfer.effectAllowed = 'move';
+          el.classList.add('dragging');
+        });
+        el.addEventListener('dragend', () => el.classList.remove('dragging'));
+        const del = document.createElement('button');
+        del.className = 'cal-del';
+        del.title = 'Usuń planszę';
+        del.textContent = '×';
+        del.addEventListener('click', e => { e.stopPropagation(); deleteBoardFromCalendar(key); });
+        el.appendChild(del);
+      }
+      if (editable) {
+        el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+        el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+        el.addEventListener('drop', e => {
+          e.preventDefault();
+          el.classList.remove('drag-over');
+          const from = e.dataTransfer.getData('text/plain');
+          if (from && from !== key) moveBoardFromCalendar(from, key);
+        });
+      }
       grid.appendChild(el);
     }
+  }
+
+  function moveBoardFromCalendar(from, to) {
+    const a = boardsByDate.get(from);
+    const b = boardsByDate.get(to);
+    const todayNote = [from, to].includes(todayKey()) ? ' Uwaga: to dzisiejsza plansza — gracze, którzy już ją zaczęli, stracą postęp.' : '';
+    const msg = b
+      ? `Zamienić plansze miejscami? #${a.boardId} (${from}) ⇄ #${b.boardId} (${to}).`
+      : `Przenieść planszę #${a.boardId} z ${from} na ${to}?`;
+    showConfirm(b ? 'Zamień plansze' : 'Przenieś planszę', msg + todayNote + ' Numery kolejnych plansz przeliczą się według dat.', async () => {
+      try {
+        await api(`/api/puzzles/${from}/move`, { method: 'POST', body: { to } });
+        showToast(b ? 'Zamieniono plansze' : 'Przeniesiono planszę');
+      } catch (e) {
+        showToast(e.message);
+      }
+      await renderDashboard();
+      refreshPublishBar();
+    });
+  }
+
+  function deleteBoardFromCalendar(date) {
+    const b = boardsByDate.get(date);
+    showConfirm('Usuń planszę', `Czy na pewno usunąć planszę #${b.boardId} z ${date}? Zniknie ze strony po kliknięciu „Opublikuj na stronę”.`, async () => {
+      try {
+        await api('/api/puzzles/' + date, { method: 'DELETE' });
+        showToast('Usunięto planszę');
+      } catch (e) {
+        showToast(e.message);
+      }
+      await renderDashboard();
+      refreshPublishBar();
+    });
   }
 
   /* ---------- Editor ---------- */

@@ -1,5 +1,5 @@
 // Shared helpers for per-day Connections board files (puzzles/YYYY-MM-DD.json).
-import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, readdir, mkdir, unlink } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -84,6 +84,35 @@ export async function rebuildManifest() {
   }
   await writeFile(MANIFEST_PATH, JSON.stringify({ boards }, null, 2) + '\n', 'utf8');
   return boards;
+}
+
+export const todayUtc = () => new Date().toISOString().slice(0, 10);
+
+/**
+ * Keeps board numbers (#N, shown in shared results) in date order for boards after today:
+ * they get consecutive ids following the highest id of today's and earlier boards. Published boards keep theirs.
+ */
+export async function renumberUpcoming() {
+  const today = todayUtc();
+  const boards = [];
+  for (const date of await listBoardDates()) boards.push(await readBoard(date));
+  let next = Math.max(0, ...boards.filter(b => b.date <= today).map(b => b.boardId)) + 1;
+  for (const b of boards.filter(b => b.date > today)) {
+    if (b.boardId !== next) await writeFile(boardPath(b.date), JSON.stringify({ ...b, boardId: next }, null, 2) + '\n', 'utf8');
+    next++;
+  }
+  return rebuildManifest();
+}
+
+/** Moves a board to another date; if that date already has a board, the two swap dates. */
+export async function moveBoard(from, to) {
+  const a = await readBoard(from);
+  const b = await readBoard(to).catch(() => null);
+  await writeFile(boardPath(to), JSON.stringify({ ...a, date: to }, null, 2) + '\n', 'utf8');
+  if (b) await writeFile(boardPath(from), JSON.stringify({ ...b, date: from }, null, 2) + '\n', 'utf8');
+  else await unlink(boardPath(from));
+  await renumberUpcoming();
+  return { swapped: Boolean(b) };
 }
 
 /** Next free boardId: one more than the highest existing id. */

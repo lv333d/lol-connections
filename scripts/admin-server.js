@@ -5,9 +5,11 @@ import http from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile, unlink } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
-  ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard
+  ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard,
+  moveBoard, renumberUpcoming, todayUtc
 } from './lib/puzzles.js';
 
 try { process.loadEnvFile(path.join(ROOT, '.env.local')); } catch { /* optional */ }
@@ -127,7 +129,11 @@ async function translate({ source, targets, apiKey }) {
 /* ---------- Publishing (git) ---------- */
 
 const run = promisify(execFile);
-const git = (...args) => run('git', args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
+// A desktop shortcut inherits Explorer's PATH, which may predate the Git install — fall back to the default location.
+const GIT = process.env.GIT_PATH
+  || [path.join(process.env.ProgramFiles || 'C:\\Program Files', 'Git', 'cmd', 'git.exe')].find(p => existsSync(p))
+  || 'git';
+const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
 
 /** Board files changed since the last commit: { date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
 async function pendingBoards() {
@@ -174,6 +180,18 @@ async function handleApi(req, res, pathname) {
     return send(res, 200, { boards: await rebuildManifest() });
   }
 
+  const mv = pathname.match(/^\/api\/puzzles\/([^/]+)\/move$/);
+  if (mv && req.method === 'POST') {
+    const from = mv[1];
+    const { to } = await readBody(req);
+    if (!DATE_RE.test(from) || !DATE_RE.test(to || '')) return send(res, 400, { error: 'Nieprawidłowa data' });
+    if (from === to) return send(res, 400, { error: 'To ta sama data' });
+    // Past boards are part of the public archive (players have played them) — they cannot move.
+    if (from < todayUtc() || to < todayUtc()) return send(res, 409, { error: 'Plansz z przeszłości nie można przenosić.' });
+    try { await readBoard(from); } catch { return send(res, 404, { error: 'Brak planszy' }); }
+    return send(res, 200, await moveBoard(from, to));
+  }
+
   const m = pathname.match(/^\/api\/puzzles\/([^/]+)$/);
   if (m) {
     const date = m[1];
@@ -191,18 +209,20 @@ async function handleApi(req, res, pathname) {
       const errs = validateBoard(board);
       if (errs.length) return send(res, 422, { error: 'Walidacja nie powiodła się', details: errs });
       await writeBoard(board);
-      return send(res, 200, board);
+      await renumberUpcoming();
+      return send(res, 200, await readBoard(date));
     }
     if (req.method === 'DELETE') {
+      if (date < todayUtc()) return send(res, 409, { error: 'Plansz z przeszłości nie można usuwać — są w archiwum graczy.' });
       try { await unlink(boardPath(date)); } catch { return send(res, 404, { error: 'Brak planszy' }); }
-      await rebuildManifest();
+      await renumberUpcoming();
       return send(res, 200, { ok: true });
     }
   }
   return send(res, 404, { error: 'Unknown endpoint' });
 }
 
-http.createServer(async (req, res) => {
+const server = http.createServer(async (req, res) => {
   const { pathname } = new URL(req.url, 'http://localhost');
   try {
     if (pathname.startsWith('/api/')) await handleApi(req, res, pathname);
@@ -211,7 +231,14 @@ http.createServer(async (req, res) => {
     console.error(e);
     send(res, e.status || 500, { error: e.message });
   }
-}).listen(PORT, '127.0.0.1', () => {
+});
+// Started twice (e.g. the desktop shortcut clicked again): the panel is already up, nothing to do.
+server.on('error', e => {
+  if (e.code !== 'EADDRINUSE') throw e;
+  console.log(`Panel już działa: http://127.0.0.1:${PORT}/admin.html`);
+  process.exit(0);
+});
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`Admin:  http://127.0.0.1:${PORT}/admin.html`);
   console.log(`Gra:    http://127.0.0.1:${PORT}/`);
   console.log(`Gemini: ${process.env.GEMINI_API_KEY ? 'klucz z .env.local' : 'brak klucza w .env.local'} (model ${GEMINI_MODEL})`);
