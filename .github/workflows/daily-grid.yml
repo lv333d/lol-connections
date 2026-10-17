@@ -1,0 +1,44 @@
+# Keeps LoL Grid boards generated ahead of time. Boards roll over at 00:00 UTC; this runs at 22:00 UTC and
+# fills the next 7 days, so a delayed or skipped run never leaves players without a board.
+# Existing days are never regenerated (no --force), so a board players already started cannot change.
+# Portraits for players in new boards are fetched from Leaguepedia (needs the LEAGUEPEDIA_BOT_* secrets);
+# if that step fails the boards are still published and the game shows initials instead of photos.
+name: Daily LoL Grid
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-updates
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Generate upcoming boards
+        run: node scripts/generate-grid.js --days=7
+      - name: Fetch missing portraits and logos
+        continue-on-error: true
+        env:
+          LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
+          LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
+        run: node scripts/fetch-assets.js
+      - name: Commit new boards and assets
+        run: |
+          git config user.name "lol-grid-bot"
+          git config user.email "lol-grid-bot@users.noreply.github.com"
+          git add grid/ players/ assets/logos/
+          git diff --cached --quiet || git commit -m "LoL Grid: boards up to $(date -u -d '+6 days' +%F)"
+          git push

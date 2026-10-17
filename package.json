@@ -1,0 +1,19 @@
+{
+  "name": "lol-connections",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "migrate": "node scripts/migrate-puzzles.js",
+    "admin": "node scripts/admin-server.js",
+    "leaguepedia:check": "node scripts/leaguepedia-check.js",
+    "fetch-assets": "node scripts/fetch-assets.js",
+    "build-players": "node scripts/build-player-db.js",
+    "generate-grid": "node scripts/generate-grid.js"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connections — LoL Connect</title>
+  <meta name="description" content="Codzienna słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connect4.lol/connections.html">
+  <meta property="og:title" content="LoL Connect — Codzienna zagadka League of Legends">
+  <meta property="og:description" content="Codzienna słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
+  <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
+        <p id="subtitle">codzienna zagadka League of Legends</p>
+      </div>
+      <nav class="game-tabs" aria-label="Game mode">
+        <a href="index.html" class="game-tab"><span class="game-tab-icon">▦</span>Grid 3x3</a>
+        <a href="connections.html" class="game-tab active" aria-current="page"><span class="game-tab-icon">▤</span>Connections</a>
+      </nav>
+      <div class="header-controls">
+        <div class="lang-wrap">
+          <span class="lang-icon">🌐</span>
+          <select id="langSelect" class="lang-select">
+            <option value="pl">PL</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
+        <div class="date-nav-wrap">
+          <button id="btnPrevDate" class="date-nav-btn">&lt;</button>
+          <div id="dateDisplay" class="date-display"></div>
+          <button id="btnNextDate" class="date-nav-btn">&gt;</button>
+        </div>
+        <div class="header-buttons">
+          <button id="btnGuide" class="text-btn">
+            <span class="text-btn-icon">📖</span>
+            <span id="btnGuideLabel">Poradnik</span>
+          </button>
+          <button id="btnSuggest" class="text-btn">
+            <span class="text-btn-icon">✉</span>
+            <span id="btnSuggestLabel">Propozycja</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="puzzleCredit" class="puzzle-credit hidden"></div>
+
+    <div id="noPuzzleScreen" class="no-puzzle hidden">
+      <h2 id="noPuzzleTitle"></h2>
+      <p id="noPuzzleText"></p>
+    </div>
+
+    <div id="gameArea" class="game-area hidden">
+      <div class="lives-row">
+        <span id="livesLabel" class="lives-label"></span>
+        <div id="livesPips" class="lives-pips"></div>
+      </div>
+      <div id="progressBar" class="progress-bar"></div>
+      <div id="solvedBanners" class="solved-banners"></div>
+      <div class="grid-wrap">
+        <div id="tileGrid" class="tile-grid"></div>
+      </div>
+      <div id="hintMsg" class="hint-msg"></div>
+      <div class="actions">
+        <button id="btnDeselect" class="btn btn-secondary">Odznacz</button>
+        <button id="btnSubmit" class="btn" disabled>Zatwierdź</button>
+        <button id="btnShowResults" class="btn hidden">Wyniki</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay: Results Popup -->
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="resultOverlay">&times;</button>
+      <h2 id="resultTitle"></h2>
+      <div id="emojiGrid" class="emoji-grid"></div>
+      <div class="result-actions">
+        <button id="btnShare" class="btn">𝕏 Udostępnij wynik</button>
+        <button id="btnCopy" class="btn btn-secondary">📋 Kopiuj wynik</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay: Guide -->
+  <div id="guideOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="guideOverlay">&times;</button>
+      <h2 id="guideTitle">📖 Poradnik</h2>
+      <div id="guideContent"></div>
+    </div>
+  </div>
+
+  <!-- Overlay: Suggestion -->
+  <div id="suggestOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="suggestOverlay">&times;</button>
+      <div id="suggestFormView">
+        <h2 id="suggestTitle">✉ Propozycja planszy</h2>
+        <div class="form-group">
+          <label id="suggestNickLabel" for="suggestNick">Nick (opcjonalnie)</label>
+          <input type="text" id="suggestNick" maxlength="40">
+        </div>
+        <div id="suggestGroups"></div>
+        <div class="form-group">
+          <label id="suggestNotesLabel" for="suggestNotes">Dodatkowe uwagi</label>
+          <textarea id="suggestNotes" maxlength="500"></textarea>
+        </div>
+        <div id="suggestError" class="form-error hidden"></div>
+        <button id="btnSuggestSubmit" class="btn" style="width:100%;margin-top:10px;">Wyślij propozycję</button>
+      </div>
+      <div id="suggestSuccessView" class="success-screen hidden">
+        <div id="suggestSuccessIcon" class="check">✅</div>
+        <h2 id="suggestSuccessTitle">Dziękujemy!</h2>
+        <p id="suggestSuccessText">Twoja propozycja została zapisana.</p>
+        <div id="suggestCopyContainer" class="hidden" style="margin-top:15px;">
+          <textarea id="suggestCopyArea" readonly style="width:100%;height:80px;font-size:0.75rem;margin-bottom:8px;"></textarea>
+          <button id="btnSuggestCopyCode" class="btn btn-secondary">Kopiuj kod</button>
+        </div>
+        <button id="btnSuggestClose" class="btn" style="margin-top:20px;">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

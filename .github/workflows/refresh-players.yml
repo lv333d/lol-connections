@@ -1,0 +1,40 @@
+# Monthly refresh of the LoL Grid player database from Leaguepedia (new rosters, retirements, Worlds/MSI winners).
+# Only boards generated afterwards use the new data — published boards keep their answers.
+# A full import takes ~30–60 min because Leaguepedia rate-limits Cargo queries.
+name: Refresh player database
+
+on:
+  schedule:
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-updates
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Rebuild player database
+        env:
+          LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
+          LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
+        run: node scripts/build-player-db.js --fresh
+      - name: Commit database
+        run: |
+          git config user.name "lol-grid-bot"
+          git config user.email "lol-grid-bot@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "Player database refresh $(date -u +%F)"
+          git push

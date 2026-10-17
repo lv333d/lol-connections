@@ -1,0 +1,24 @@
+# Netlify deploys automatically on every push (including the daily LoL Grid bot commits).
+[build]
+  command = "node scripts/build-site.js"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Daily data is fetched with a cache-busting query, but keep HTML/JSON revalidated anyway.
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Portraits and logos never change under the same name.
+[[headers]]
+  for = "/players/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

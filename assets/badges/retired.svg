@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Slippers and newspaper">
+  <!-- newspaper -->
+  <g transform="rotate(-10 34 20)">
+    <rect x="18" y="6" width="34" height="26" rx="2" fill="#ece6d6" stroke="#6b6250" stroke-width="1.5"/>
+    <rect x="22" y="10" width="26" height="5" fill="#3a3a3a"/>
+    <path d="M22 19h11M22 22.5h11M22 26h11" stroke="#8a826e" stroke-width="1.6" stroke-linecap="round"/>
+    <rect x="36" y="18" width="12" height="9" fill="#b9b19c"/>
+  </g>
+  <!-- left slipper -->
+  <path d="M8 50c0-6 4-11 10-11s9 4 9 9v6c0 3-3 5-9 5S8 56 8 50z" fill="#8b3a3a" stroke="#4a1c1c" stroke-width="1.5"/>
+  <path d="M10 47c2-5 6-7 10-7 4 0 6 3 6 6l-16 1z" fill="#c25b5b"/>
+  <ellipse cx="17" cy="44" rx="5" ry="2.6" fill="#f2dfc2" opacity=".85"/>
+  <!-- right slipper -->
+  <path d="M33 52c0-6 4-11 10-11s9 4 9 9v6c0 3-3 5-9 5s-10-3-10-9z" fill="#8b3a3a" stroke="#4a1c1c" stroke-width="1.5"/>
+  <path d="M35 49c2-5 6-7 10-7 4 0 6 3 6 6l-16 1z" fill="#c25b5b"/>
+  <ellipse cx="42" cy="46" rx="5" ry="2.6" fill="#f2dfc2" opacity=".85"/>
+</svg>

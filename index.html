@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoL Connect</title>
+  <meta name="description" content="Codzienne zagadki League of Legends: siatka 3x3 pro-graczy i Connections.">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connect4.lol/">
+  <meta property="og:title" content="LoL Connect — Codzienne zagadki League of Legends">
+  <meta property="og:description" content="Znajdź pro-gracza, który spełnia warunek wiersza i kolumny, albo pogrupuj 16 haseł w 4 kategorie.">
+  <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="grid.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
+        <p id="subtitle">codzienna zagadka League of Legends</p>
+      </div>
+      <nav class="game-tabs" aria-label="Game mode">
+        <a href="index.html" class="game-tab active" aria-current="page"><span class="game-tab-icon">▦</span>Grid 3x3</a>
+        <a href="connections.html" class="game-tab"><span class="game-tab-icon">▤</span>Connections</a>
+      </nav>
+      <div class="header-controls">
+        <div class="lang-wrap">
+          <span class="lang-icon">🌐</span>
+          <select id="langSelect" class="lang-select" aria-label="Language">
+            <option value="pl">PL</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
+        <div class="date-nav-wrap">
+          <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">&lt;</button>
+          <div id="dateDisplay" class="date-display"></div>
+          <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">&gt;</button>
+        </div>
+        <div class="header-buttons">
+          <button id="btnGuide" class="text-btn"><span class="text-btn-icon">📖</span><span id="btnGuideLabel"></span></button>
+        </div>
+      </div>
+    </header>
+
+    <div id="noPuzzleScreen" class="no-puzzle hidden">
+      <h2 id="noPuzzleTitle"></h2>
+      <p id="noPuzzleText"></p>
+    </div>
+
+    <div id="gameArea" class="game-area hidden">
+      <div class="grid-status">
+        <span id="guessesLabel"></span>
+        <span id="guessesLeft" class="guesses-left"></span>
+      </div>
+      <div id="lolGrid" class="lolgrid"></div>
+      <div class="actions">
+        <button id="btnGiveUp" class="btn btn-secondary"></button>
+        <button id="btnShowResults" class="btn hidden"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player search -->
+  <div id="searchOverlay" class="overlay hidden">
+    <div class="modal search-modal" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <button class="modal-close" data-close="searchOverlay" aria-label="Close">&times;</button>
+      <h2 id="searchTitle" class="visually-hidden"></h2>
+      <div id="searchConds" class="search-conds"></div>
+      <input id="searchInput" class="search-input" type="search" autocomplete="off" spellcheck="false"
+             role="combobox" aria-expanded="true" aria-controls="searchResults" aria-autocomplete="list">
+      <ul id="searchResults" class="search-results" role="listbox"></ul>
+      <div id="searchMsg" class="search-msg" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="resultOverlay" aria-label="Close">&times;</button>
+      <h2 id="resultTitle"></h2>
+      <div id="resultScore" class="result-score"></div>
+      <div id="emojiGrid" class="emoji-grid"></div>
+      <div class="result-actions">
+        <button id="btnShare" class="btn"></button>
+        <button id="btnCopy" class="btn btn-secondary"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide -->
+  <div id="guideOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="guideOverlay" aria-label="Close">&times;</button>
+      <h2 id="guideTitle"></h2>
+      <div id="guideContent"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="grid.js"></script>
+</body>
+</html>

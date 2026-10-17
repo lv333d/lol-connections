@@ -1,0 +1,31 @@
+{
+  "_doc": [
+    "Rules that decide which team names count as the same organization in LoL Grid (applied by npm run build-players).",
+    "Principle: one organization = one team, across sponsor renames and sister rosters (SKT T1 K/S → T1, Gamers2 → G2, KSV → Gen.G).",
+    "A sold league slot is a different organization (Samsung Galaxy ≠ KSV/Gen.G, OpTic Gaming ≠ Immortals).",
+    "merge: organization name (the label shown in the game) → other names that belong to it.",
+    "split: names whose Leaguepedia 'RenamedTo' link must NOT be followed (the name stays its own team).",
+    "labels: display name for an organization whose Leaguepedia page title is awkward (the id stays derived from the page title).",
+    "Leaguepedia renames not listed here are followed automatically (e.g. Gamers2 → G2 Esports, KSV eSports → Gen.G)."
+  ],
+  "merge": {
+    "T1": ["SK Telecom T1", "SK Telecom T1 1", "SK Telecom T1 2", "SK Telecom T1 K", "SK Telecom T1 S"],
+    "Samsung Galaxy": ["Samsung Ozone", "Samsung Blue", "Samsung White", "MiG Blaze", "MiG Frost"],
+    "Dplus Kia": ["DAMWON Gaming", "DWG KIA"],
+    "DRX": ["Incredible Miracle", "Longzhu Gaming", "Kingzone DragonX", "DragonX", "Kiwoom DRX"],
+    "DN Freecs": ["Rebels Anarchy", "Afreeca Freecs", "Kwangdong Freecs"],
+    "KT Rolster": ["KT Rolster Bullets", "KT Rolster Arrows", "KT Rolster A", "KT Rolster B"],
+    "CJ Entus": ["CJ Entus Blaze", "CJ Entus Frost"],
+    "Jin Air Green Wings": ["Jin Air Green Wings Falcons", "Jin Air Green Wings Stealths"],
+    "NaJin e-mFire": ["NaJin Sword", "NaJin Black Sword", "NaJin Shield", "NaJin White Shield", "e-mFire"],
+    "ROX Tigers": ["GE Tigers", "KOO Tigers"],
+    "Movistar KOI": ["MAD Lions", "MAD Lions KOI"],
+    "Rogue (European Team)": ["KOI (Spanish Team)"],
+    "Counter Logic Gaming": ["CLG Prime"]
+  },
+  "split": ["OpTic Gaming", "Samsung Galaxy", "Splyce"],
+  "labels": {
+    "Rogue (European Team)": "Rogue",
+    "Evil Geniuses.NA": "Evil Geniuses"
+  }
+}
