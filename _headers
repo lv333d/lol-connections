@@ -1,0 +1,9 @@
+# Cloudflare Pages response headers (copied into dist/ by scripts/build-site.js).
+/*.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/players/*
+  Cache-Control: public, max-age=604800
+
+/assets/*
+  Cache-Control: public, max-age=604800

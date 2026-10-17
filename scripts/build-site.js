@@ -1,5 +1,5 @@
-// Copies only the public game files into dist/ for Netlify (see netlify.toml).
-// Publishing the project root would also expose scripts/, node_modules/ (Netlify installs them there),
+// Copies only the public game files into dist/ for the static host (Cloudflare Pages; netlify.toml also works).
+// Publishing the project root would also expose scripts/, node_modules/ (the host installs them there),
 // the full player database and the admin panel, which only works with the local admin server.
 import { cp, rm, mkdir, access } from 'node:fs/promises';
 import path from 'node:path';
@@ -8,7 +8,8 @@ import { ROOT } from './lib/puzzles.js';
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
   'index.html', 'connections.html', 'app.js', 'grid.js', 'footer.js', 'style.css', 'grid.css', 'icon.svg',
-  'puzzles', 'grid', 'players', 'assets', 'data/players-index.json'
+  'puzzles', 'grid', 'players', 'assets', 'data/players-index.json',
+  '_headers' // Cloudflare Pages cache rules
 ];
 
 await rm(DIST, { recursive: true, force: true });
