@@ -1,13 +1,14 @@
-# Keeps LoL Grid boards generated ahead of time. Boards roll over at 00:00 UTC; this runs at 22:00 UTC and
-# fills the next 7 days, so a delayed or skipped run never leaves players without a board.
+# Keeps LoL Grid boards generated ahead of time. Boards roll over at 00:00 UTC; this runs weekly (Monday 22:00 UTC)
+# and fills the next 14 days, so a delayed or skipped run never leaves players without a board.
+# Weekly instead of daily keeps Netlify deploys (each push = one production deploy) to ~4–5 per month.
 # Existing days are never regenerated (no --force), so a board players already started cannot change.
 # Portraits for players in new boards are fetched from Leaguepedia (needs the LEAGUEPEDIA_BOT_* secrets);
 # if that step fails the boards are still published and the game shows initials instead of photos.
-name: Daily LoL Grid
+name: LoL Grid boards
 
 on:
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '0 22 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -28,7 +29,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Generate upcoming boards
-        run: node scripts/generate-grid.js --days=7
+        run: node scripts/generate-grid.js --days=14
       - name: Fetch missing portraits and logos
         continue-on-error: true
         env:
@@ -40,5 +41,5 @@ jobs:
           git config user.name "lv333d"
           git config user.email "137284250+lv333d@users.noreply.github.com"
           git add grid/ players/ assets/logos/
-          git diff --cached --quiet || git commit -m "LoL Grid: boards up to $(date -u -d '+6 days' +%F)"
+          git diff --cached --quiet || git commit -m "LoL Grid: boards up to $(date -u -d '+13 days' +%F)"
           git push
