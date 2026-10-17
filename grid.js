@@ -19,7 +19,7 @@ const I18N = {
     guessesLabel: 'Pozostałe próby:', giveUp: 'Poddaj się', results: 'Wyniki',
     searchPh: 'Wpisz nick lub imię gracza…', searchTitle: 'Wybierz gracza',
     noResults: 'Brak graczy o takim nicku.', typeMore: 'Zacznij pisać, aby wyszukać gracza.',
-    used: 'już użyty', wrong: '{nick} nie spełnia obu warunków.', correct: 'Trafione!',
+    used: 'już użyty', wrong: '{nick} nie spełnia obu warunków.', correct: 'Trafione!', finished: 'Koniec gry — kliknij „Wyniki”.',
     winTitle: '🏆 Perfekcyjna siatka!', doneTitle: '⚔ Koniec gry', score: '{n}/9',
     share: '𝕏 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
@@ -42,7 +42,7 @@ const I18N = {
     guessesLabel: 'Guesses left:', giveUp: 'Give up', results: 'Results',
     searchPh: 'Type a nickname or real name…', searchTitle: 'Pick a player',
     noResults: 'No player matches.', typeMore: 'Start typing to search for a player.',
-    used: 'already used', wrong: '{nick} does not meet both conditions.', correct: 'Correct!',
+    used: 'already used', wrong: '{nick} does not meet both conditions.', correct: 'Correct!', finished: 'Game over — press “Results”.',
     winTitle: '🏆 Immaculate grid!', doneTitle: '⚔ Game over', score: '{n}/9',
     share: '𝕏 Share result', copy: '📋 Copy result', copied: 'Copied!',
     answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
@@ -65,7 +65,7 @@ const I18N = {
     guessesLabel: 'Intentos restantes:', giveUp: 'Rendirse', results: 'Resultados',
     searchPh: 'Escribe un nick o nombre…', searchTitle: 'Elige un jugador',
     noResults: 'Ningún jugador coincide.', typeMore: 'Empieza a escribir para buscar.',
-    used: 'ya usado', wrong: '{nick} no cumple ambas condiciones.', correct: '¡Correcto!',
+    used: 'ya usado', wrong: '{nick} no cumple ambas condiciones.', correct: '¡Correcto!', finished: 'Fin del juego — pulsa «Resultados».',
     winTitle: '🏆 ¡Cuadrícula perfecta!', doneTitle: '⚔ Fin del juego', score: '{n}/9',
     share: '𝕏 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
@@ -88,7 +88,7 @@ const I18N = {
     guessesLabel: 'Essais restants :', giveUp: 'Abandonner', results: 'Résultats',
     searchPh: 'Tapez un pseudo ou un nom…', searchTitle: 'Choisissez un joueur',
     noResults: 'Aucun joueur trouvé.', typeMore: 'Commencez à taper pour chercher.',
-    used: 'déjà utilisé', wrong: '{nick} ne remplit pas les deux conditions.', correct: 'Correct !',
+    used: 'déjà utilisé', wrong: '{nick} ne remplit pas les deux conditions.', correct: 'Correct !', finished: 'Partie terminée — cliquez sur « Résultats ».',
     winTitle: '🏆 Grille parfaite !', doneTitle: '⚔ Partie terminée', score: '{n}/9',
     share: '𝕏 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
@@ -460,8 +460,8 @@ function guess(id) {
 
   if (ok || state.gameOver) {
     closeSearch();
-    if (ok) showToast(t('correct'));
-    if (state.gameOver) setTimeout(showResult, 400);
+    // The results popup opens only from the "Results" button; the end of the game is announced with a toast.
+    showToast(state.gameOver ? t('finished') : t('correct'));
     return;
   }
   const modal = document.querySelector('.search-modal');
@@ -517,7 +517,7 @@ $('btnGiveUp').addEventListener('click', () => {
   state.gameOver = true;
   saveState();
   render();
-  showResult();
+  showToast(t('finished'));
 });
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
