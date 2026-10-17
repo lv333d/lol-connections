@@ -5,7 +5,8 @@
     "A sold league slot is a different organization (Samsung Galaxy ≠ KSV/Gen.G, OpTic Gaming ≠ Immortals).",
     "merge: organization name (the label shown in the game) → other names that belong to it.",
     "split: names whose Leaguepedia 'RenamedTo' link must NOT be followed (the name stays its own team).",
-    "labels: display name for an organization whose Leaguepedia page title is awkward (the id stays derived from the page title).",
+    "labels: display name for an organization whose Leaguepedia page title is awkward or outdated (the id stays derived from the page title).",
+    "logos: Leaguepedia file name of the logo, when the Teams table has none or an outdated one.",
     "Leaguepedia renames not listed here are followed automatically (e.g. Gamers2 → G2 Esports, KSV eSports → Gen.G)."
   ],
   "merge": {
@@ -13,7 +14,7 @@
     "Samsung Galaxy": ["Samsung Ozone", "Samsung Blue", "Samsung White", "MiG Blaze", "MiG Frost"],
     "Dplus Kia": ["DAMWON Gaming", "DWG KIA"],
     "DRX": ["Incredible Miracle", "Longzhu Gaming", "Kingzone DragonX", "DragonX", "Kiwoom DRX"],
-    "DN Freecs": ["Rebels Anarchy", "Afreeca Freecs", "Kwangdong Freecs"],
+    "DN Freecs": ["Rebels Anarchy", "Afreeca Freecs", "Kwangdong Freecs", "DN SOOPers"],
     "KT Rolster": ["KT Rolster Bullets", "KT Rolster Arrows", "KT Rolster A", "KT Rolster B"],
     "CJ Entus": ["CJ Entus Blaze", "CJ Entus Frost"],
     "Jin Air Green Wings": ["Jin Air Green Wings Falcons", "Jin Air Green Wings Stealths"],
@@ -26,6 +27,10 @@
   "split": ["OpTic Gaming", "Samsung Galaxy", "Splyce"],
   "labels": {
     "Rogue (European Team)": "Rogue",
-    "Evil Geniuses.NA": "Evil Geniuses"
+    "Evil Geniuses.NA": "Evil Geniuses",
+    "DN Freecs": "DN SOOPers"
+  },
+  "logos": {
+    "DN Freecs": "DN SOOPerslogo square.png"
   }
 }

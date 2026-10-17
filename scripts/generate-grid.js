@@ -4,6 +4,8 @@
 //   --days   how many consecutive days to generate (default 1)
 //   --force  overwrite boards that already exist (by default existing days are kept, so players' boards never change)
 //   --min    minimum valid players per cell (default 2; the hard requirement is ≥ 1)
+//   --recompute  for existing boards in the range: keep the conditions, recompute the answers from the current
+//                database (use after fixing data, so a live board accepts every correct player)
 // Each board is seeded by its date, so re-running with the same database reproduces the same board.
 import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -22,6 +24,7 @@ const ANCHOR_POOL_SIZE = 60;
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const FORCE = process.argv.includes('--force');
+const RECOMPUTE = process.argv.includes('--recompute');
 const MIN_PER_CELL = Math.max(1, Number(arg('min')) || 2);
 const DAYS = Math.max(1, Number(arg('days')) || 1);
 const START = arg('date') || new Date().toISOString().slice(0, 10);
@@ -154,6 +157,28 @@ async function main() {
 
   for (let i = 0; i < DAYS; i++) {
     const date = addDays(START, i);
+    if (existing.has(date) && RECOMPUTE) {
+      const file = path.join(GRID_DIR, `${date}.json`);
+      const board = JSON.parse(await readFile(file, 'utf8'));
+      const answers = board.rows.map(r => board.cols.map(c => players
+        .filter(p => matches(p, r) && matches(p, c)).map(p => p.id)
+        .sort((a, b) => byId.get(b).tournaments - byId.get(a).tournaments || a.localeCompare(b))));
+      // Conditions stay; the board must still be solvable with the current data.
+      if (answers.flat().some(cell => cell.length < 1) || !hasDistinctAssignment(answers)) {
+        failed++;
+        console.error(`✗ ${date}: po przeliczeniu plansza nie jest rozwiązywalna — zostawiam starą wersję`);
+        continue;
+      }
+      const before = board.answers.flat(2).length;
+      // Team display data (name, short, former names) may have changed with the database.
+      const teamById = new Map(teams.map(t => [t.id, t]));
+      const refresh = c => (c.kind === 'team' && teamById.has(c.id)
+        ? { ...c, label: teamById.get(c.id).name, short: teamById.get(c.id).short, aliases: (teamById.get(c.id).aliases || []).slice(0, 6) }
+        : c);
+      await writeFile(file, JSON.stringify({ ...board, rows: board.rows.map(refresh), cols: board.cols.map(refresh), answers }) + '\n');
+      console.log(`↻ ${date} #${board.boardId}: odpowiedzi ${before} → ${answers.flat(2).length}`);
+      continue;
+    }
     if (existing.has(date) && !FORCE) { console.log(`· ${date} już istnieje (#${existing.get(date)}), pomijam`); continue; }
     const result = generateBoard(date, pool, byId);
     if (!result) { failed++; console.error(`✗ ${date}: nie znaleziono rozwiązywalnej planszy w ${MAX_ATTEMPTS} próbach`); continue; }

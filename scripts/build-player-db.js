@@ -18,13 +18,13 @@ const LEAGUES = {
   LCK: ['LoL Champions Korea', 'LoL The Champions'],
   LPL: ['Tencent LoL Pro League'],
   LEC: ['LoL EMEA Championship', 'Europe League Championship Series'],
-  LCS: ['League of Legends Championship Series', 'North America League Championship Series'],
-  LTA: [
-    'League of Legends Championship of The Americas',
-    'League of Legends Championship of The Americas North',
-    'League of Legends Championship of The Americas South'
-  ]
+  // LTA North (2025) is the LCS under another name.
+  LCS: ['League of Legends Championship Series', 'North America League Championship Series', 'League of Legends Championship of The Americas North'],
+  LTA: ['League of Legends Championship of The Americas', 'League of Legends Championship of The Americas South']
 };
+// Cross-conference LTA events (e.g. Split playoffs) mix North and South teams: North teams count as LCS there too.
+const LTA_COMBINED = 'League of Legends Championship of The Americas';
+const LTA_NORTH = 'League of Legends Championship of The Americas North';
 const INTERNATIONAL = ['World Championship', 'Mid-Season Invitational', 'First Stand'];
 const LEAGUE_OF = new Map(Object.entries(LEAGUES).flatMap(([id, names]) => names.map(n => [n, id])));
 
@@ -118,6 +118,8 @@ async function main() {
     }
     return name;
   };
+  const northTeams = new Set(rosterRows.filter(r => r.League === LTA_NORTH).map(r => franchiseOf(r.Team)));
+  const leagueOf = r => (r.League === LTA_COMBINED && northTeams.has(franchiseOf(r.Team)) ? 'LCS' : LEAGUE_OF.get(r.League));
   const known = new Set([...teamInfo.keys(), ...teamNames]);
   const unknown = [...overrides.mergeInto.keys(), ...overrides.split].filter(n => !known.has(n));
   if (unknown.length) console.warn(`  ⚠ team-overrides.json: brak w danych (literówka albo drużyna bez meczów w ligach): ${unknown.join(', ')}`);
@@ -158,14 +160,19 @@ async function main() {
   step('Składanie bazy');
   const players = new Map(); // wikiPage → Player
   const teamUsage = new Map(); // franchise → number of player-tournaments
-  const rosters = new Map(); // "page|team" → Set<wikiPage> (players only)
+  const rosters = new Map(); // "page|team" → Set<wikiPage> (players only — used for trophies)
+  const squads = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for teammates)
   const coachedPages = new Set();
+  const addTo = (map, key, link) => { if (!map.has(key)) map.set(key, new Set()); map.get(key).add(link); };
 
   // One person may appear under several links (old nick, redirect) — key everything by the canonical page.
   const canonical = link => profiles.get(link)?.OverviewPage || pageKey(link);
   for (const row of rosterRows) {
     const r = { ...row, Link: canonical(row.Link) };
-    if (isCoachRole(r.Role)) { coachedPages.add(r.Link); continue; }
+    const key = r.Page + '|' + r.Team;
+    // A coach on someone's roster counts as having been on the same team (e.g. "Odoamne × coach" accepts
+    // the coaches who coached Odoamne), but coaching never adds team, league or trophy credit.
+    if (isCoachRole(r.Role)) { coachedPages.add(r.Link); addTo(squads, key, r.Link); continue; }
     if (!r.Role || /analyst|manager|owner|staff/i.test(r.Role)) continue;
     let p = players.get(r.Link);
     if (!p) {
@@ -179,17 +186,20 @@ async function main() {
     }
     const franchise = franchiseOf(r.Team);
     p.teams.add(franchise);
-    if (LEAGUE_OF.has(r.League)) p.leagues.add(LEAGUE_OF.get(r.League));
+    if (leagueOf(r)) p.leagues.add(leagueOf(r));
     p.pages.add(r.Page);
     teamUsage.set(franchise, (teamUsage.get(franchise) || 0) + 1);
-    const key = r.Page + '|' + r.Team;
-    if (!rosters.has(key)) rosters.set(key, new Set());
-    rosters.get(key).add(r.Link);
+    addTo(rosters, key, r.Link);
+    addTo(squads, key, r.Link);
   }
   coachedPages.forEach(link => { if (players.has(link)) players.get(link).coach = true; });
 
-  for (const members of rosters.values()) {
-    for (const a of members) for (const b of members) if (a !== b) players.get(a).teammates.add(b);
+  // Only people who also played can be grid answers, so pairs are kept when both sides are players.
+  for (const members of squads.values()) {
+    for (const a of members) {
+      if (!players.has(a)) continue;
+      for (const b of members) if (a !== b && players.has(b)) players.get(a).teammates.add(b);
+    }
   }
 
   // A winning roster is the team's roster on the event page or any of its sub-pages (Main Event, Play-In…).
@@ -235,12 +245,14 @@ async function main() {
     // No logo → the game shows a text emblem; borrowing an old name's logo (e.g. Rebels Anarchy for DN Freecs) misleads.
     const info = teamInfo.get(name);
     const label = overrides.raw.labels?.[name] || name;
-    franchises.set(name, { id: teamId(name), name: label, short: info?.Short || label, logo: info?.Image || '', aliases: [], players: 0 });
+    const logo = overrides.raw.logos?.[name] || info?.Image || '';
+    franchises.set(name, { id: teamId(name), name: label, page: name, short: overrides.raw.labels?.[name] ? label : info?.Short || label, logo, aliases: [], players: 0 });
   }
   for (const name of new Set([...teamInfo.keys(), ...teamNames])) {
     const org = franchiseOf(name);
     const f = franchises.get(org);
-    if (f && name !== org && name !== f.name) f.aliases.push(name);
+    // The organization's own page title counts as a former name when it is displayed under a newer label.
+    if (f && name !== f.name && (name !== org || f.name !== org)) f.aliases.push(name);
   }
   out.forEach(p => p.teams.forEach(t => { const f = [...franchises.values()].find(x => x.id === t); if (f) f.players++; }));
   const teams = [...franchises.values()].filter(t => t.players > 0).sort((a, b) => b.players - a.players);

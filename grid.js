@@ -26,14 +26,14 @@ const I18N = {
     guide: [
       ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
       ['Jak grać', 'Kliknij <strong>+</strong>, wyszukaj gracza po nicku lub imieniu i wybierz go z listy. Masz 9 prób — błędna odpowiedź też zużywa próbę. Każdego gracza możesz użyć tylko raz.'],
-      ['Warunki', '🏳️ logo ligi lub drużyny — grał w tej lidze / drużynie (dawne nazwy drużyn się liczą) · 📣 gwizdek — był też trenerem · 🩴 kapcie i gazeta — zakończył karierę · 🏆 trofeum — wygrał Worlds, MSI lub First Stand · 🤝 twarz gracza — grał w jednej drużynie z tym graczem.'],
+      ['Warunki', '🏳️ logo ligi lub drużyny — grał w tej lidze / drużynie (dawne nazwy drużyn się liczą) · 📣 gwizdek — był też trenerem · 🩴 kapcie i gazeta — zakończył karierę · 🏆 trofeum — wygrał Worlds, MSI lub First Stand · 🤝 twarz gracza — był w jednej drużynie z tym graczem (jako zawodnik lub jego trener).'],
       ['Nowa siatka', 'Codziennie o 00:00 UTC. Każda siatka ma co najmniej jedno poprawne rozwiązanie.']
     ],
     cond: {
       coach: 'Trener', coachLong: 'Był też trenerem',
       retired: 'Emeryt', retiredLong: 'Zakończył karierę',
       worlds: 'Mistrz Worlds', msi: 'Mistrz MSI', 'first-stand': 'Mistrz First Stand',
-      league: 'Grał w {id}', team: 'Grał w {label}', alsoAs: 'też jako', teammate: 'Grał z {label}'
+      league: 'Grał w {id}', team: 'Grał w {label}', alsoAs: 'też jako', teammate: 'W drużynie z {label}'
     }
   },
   en: {
@@ -49,14 +49,14 @@ const I18N = {
     guide: [
       ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player who meets the row condition <strong>and</strong> the column condition.'],
       ['How to play', 'Click <strong>+</strong>, search by nickname or real name and pick from the list. You have 9 guesses — wrong answers use one too. Each player can be used once.'],
-      ['Conditions', '🏳️ league or team logo — played in that league / for that team (former team names count) · 📣 whistle — also worked as a coach · 🩴 slippers & newspaper — retired · 🏆 trophy — won Worlds, MSI or First Stand · 🤝 player face — was a teammate of that player.'],
+      ['Conditions', '🏳️ league or team logo — played in that league / for that team (former team names count) · 📣 whistle — also worked as a coach · 🩴 slippers & newspaper — retired · 🏆 trophy — won Worlds, MSI or First Stand · 🤝 player face — was on a team with that player (as a teammate or as their coach).'],
       ['New grid', 'Every day at 00:00 UTC. Every grid has at least one valid solution.']
     ],
     cond: {
       coach: 'Coach', coachLong: 'Also worked as a coach',
       retired: 'Retired', retiredLong: 'Retired from pro play',
       worlds: 'Worlds winner', msi: 'MSI winner', 'first-stand': 'First Stand winner',
-      league: 'Played in {id}', team: 'Played for {label}', alsoAs: 'incl.', teammate: 'Played with {label}'
+      league: 'Played in {id}', team: 'Played for {label}', alsoAs: 'incl.', teammate: 'Teammate of {label}'
     }
   },
   es: {
@@ -72,14 +72,14 @@ const I18N = {
     guide: [
       ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro que cumpla la condición de la fila <strong>y</strong> de la columna.'],
       ['Cómo jugar', 'Pulsa <strong>+</strong>, busca por nick o nombre real y elige de la lista. Tienes 9 intentos — los fallos también cuentan. Cada jugador solo se puede usar una vez.'],
-      ['Condiciones', '🏳️ logo de liga o equipo — jugó en esa liga / equipo (cuentan nombres antiguos) · 📣 silbato — también fue entrenador · 🩴 zapatillas y periódico — retirado · 🏆 trofeo — ganó Worlds, MSI o First Stand · 🤝 cara de jugador — fue compañero de ese jugador.'],
+      ['Condiciones', '🏳️ logo de liga o equipo — jugó en esa liga / equipo (cuentan nombres antiguos) · 📣 silbato — también fue entrenador · 🩴 zapatillas y periódico — retirado · 🏆 trofeo — ganó Worlds, MSI o First Stand · 🤝 cara de jugador — estuvo en un equipo con ese jugador (como compañero o como su entrenador).'],
       ['Nueva cuadrícula', 'Cada día a las 00:00 UTC. Cada cuadrícula tiene al menos una solución.']
     ],
     cond: {
       coach: 'Entrenador', coachLong: 'También fue entrenador',
       retired: 'Retirado', retiredLong: 'Se retiró',
       worlds: 'Campeón de Worlds', msi: 'Campeón del MSI', 'first-stand': 'Campeón de First Stand',
-      league: 'Jugó en {id}', team: 'Jugó en {label}', alsoAs: 'incl.', teammate: 'Jugó con {label}'
+      league: 'Jugó en {id}', team: 'Jugó en {label}', alsoAs: 'incl.', teammate: 'Compañero de {label}'
     }
   },
   fr: {
@@ -95,14 +95,14 @@ const I18N = {
     guide: [
       ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
       ['Comment jouer', 'Cliquez sur <strong>+</strong>, cherchez par pseudo ou nom et choisissez dans la liste. Vous avez 9 essais — les erreurs comptent aussi. Chaque joueur ne peut être utilisé qu\'une fois.'],
-      ['Conditions', '🏳️ logo de ligue ou d\'équipe — a joué dans cette ligue / équipe (anciens noms inclus) · 📣 sifflet — a aussi été coach · 🩴 chaussons et journal — retraité · 🏆 trophée — a gagné les Worlds, le MSI ou First Stand · 🤝 visage — a été coéquipier de ce joueur.'],
+      ['Conditions', '🏳️ logo de ligue ou d\'équipe — a joué dans cette ligue / équipe (anciens noms inclus) · 📣 sifflet — a aussi été coach · 🩴 chaussons et journal — retraité · 🏆 trophée — a gagné les Worlds, le MSI ou First Stand · 🤝 visage — a été dans une équipe avec ce joueur (comme coéquipier ou comme son coach).'],
       ['Nouvelle grille', 'Chaque jour à 00:00 UTC. Chaque grille a au moins une solution.']
     ],
     cond: {
       coach: 'Coach', coachLong: 'A aussi été coach',
       retired: 'Retraité', retiredLong: 'A pris sa retraite',
       worlds: 'Champion des Worlds', msi: 'Champion du MSI', 'first-stand': 'Champion de First Stand',
-      league: 'A joué en {id}', team: 'A joué pour {label}', alsoAs: 'y compris', teammate: 'A joué avec {label}'
+      league: 'A joué en {id}', team: 'A joué pour {label}', alsoAs: 'y compris', teammate: 'Coéquipier de {label}'
     }
   }
 };
@@ -292,8 +292,8 @@ async function loadDate(date) {
   board = b;
   state = loadState(date) || newState();
   $('gameArea').classList.remove('hidden');
+  // A finished board shows the revealed grid and the "Results" button; the popup only appears when the game ends.
   render();
-  if (state.gameOver) setTimeout(showResult, 300);
 }
 
 const cellAnswers = i => board.answers[Math.floor(i / 3)][i % 3];

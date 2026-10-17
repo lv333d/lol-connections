@@ -16,6 +16,15 @@ import { cargoQuery, cargoStr, imageUrls, fetchBinary } from './lib/leaguepedia.
 const PLAYERS_DIR = path.join(ROOT, 'players');
 const TEAM_LOGOS_DIR = path.join(ROOT, 'assets', 'logos', 'teams');
 const GRID_DIR = path.join(ROOT, 'grid');
+const LEAGUE_LOGOS_DIR = path.join(ROOT, 'assets', 'logos', 'leagues');
+// Leaguepedia file names of the current league logos (the league pages have no page image).
+const LEAGUE_LOGOS = {
+  LCK: 'LCK 2021 logo.png',
+  LPL: 'LoL Pro Leaguelogo std.png',
+  LEC: 'LEC logo small.png',
+  LCS: 'LCS 2020 Logo.png',
+  LTA: 'LTA logo.png'
+};
 const PORTRAIT_SIZE = 256;
 const LOGO_SIZE = 128;
 const DOWNLOAD_CONCURRENCY = 4;
@@ -167,18 +176,25 @@ async function main() {
     });
   }
 
+  // Logos: the Teams table file, else Leaguepedia's naming convention "{Team page}logo square.png".
   const wantedTeams = teams.filter(t => ALL_TEAMS || gridTeams.has(t.id));
+  const logoJobs = Object.entries(LEAGUE_LOGOS).map(([id, file]) => ({ label: `[liga] ${id}`, files: [file], out: path.join(LEAGUE_LOGOS_DIR, `${id}.webp`) }));
+  for (const t of wantedTeams) {
+    const files = [t.logo, `${t.page || t.name}logo square.png`].filter(Boolean);
+    logoJobs.push({ label: `[drużyna] ${t.name}`, files, out: path.join(TEAM_LOGOS_DIR, `${t.id}.webp`) });
+  }
   await mkdir(TEAM_LOGOS_DIR, { recursive: true });
-  const teamTodo = [];
-  for (const t of wantedTeams) if (t.logo && !(await exists(path.join(TEAM_LOGOS_DIR, `${t.id}.webp`)))) teamTodo.push(t);
-  console.log(`\nLoga drużyn: ${wantedTeams.length} potrzebnych, pobieram ${teamTodo.length}.`);
-  if (teamTodo.length) {
-    const logoUrls = await imageUrls(teamTodo.map(t => t.logo));
-    await runPool(teamTodo, async t => {
-      const url = logoUrls.get(t.logo);
-      if (!url) return report.noImage.push(`[team] ${t.name}`);
-      try { await convert(url, path.join(TEAM_LOGOS_DIR, `${t.id}.webp`), 'logo'); report.ok++; }
-      catch (e) { report.failed.push(`[team] ${t.name}: ${e.message}`); }
+  await mkdir(LEAGUE_LOGOS_DIR, { recursive: true });
+  const logoTodo = [];
+  for (const job of logoJobs) if (!(await exists(job.out))) logoTodo.push(job);
+  console.log(`\nLoga lig i drużyn: ${logoJobs.length} potrzebnych, pobieram ${logoTodo.length}.`);
+  if (logoTodo.length) {
+    const logoUrls = await imageUrls([...new Set(logoTodo.flatMap(j => j.files))]);
+    await runPool(logoTodo, async job => {
+      const url = job.files.map(f => logoUrls.get(f)).find(Boolean);
+      if (!url) return report.noImage.push(job.label);
+      try { await convert(url, job.out, 'logo'); report.ok++; }
+      catch (e) { report.failed.push(`${job.label}: ${e.message}`); }
     });
   }
 

@@ -336,8 +336,8 @@ async function loadPuzzleForDate(dateStr) {
   }
 
   $('gameArea').classList.remove('hidden');
+  // A finished board shows its banners and the "Results" button; the popup only appears when the game ends.
   renderGame();
-  if (state.gameOver) setTimeout(showResult, 300);
 }
 
 function setLanguage(lang) {
