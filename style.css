@@ -491,6 +491,19 @@ header::after {
   .app { margin: 16px auto; padding: 16px; }
 }
 
+/* Legal notice: deliberately small and low-contrast, below the game panel. */
+.site-footer {
+  max-width: 680px;
+  margin: 0 auto 28px;
+  padding: 0 24px;
+  font-size: 0.64rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  opacity: 0.45;
+  text-align: center;
+}
+.site-footer a { color: inherit; }
+
 .group-banner.missed {
   border-style: dashed;
   opacity: 0.95;

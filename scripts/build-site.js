@@ -7,7 +7,7 @@ import { ROOT } from './lib/puzzles.js';
 
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
-  'index.html', 'connections.html', 'app.js', 'grid.js', 'style.css', 'grid.css', 'icon.svg',
+  'index.html', 'connections.html', 'app.js', 'grid.js', 'footer.js', 'style.css', 'grid.css', 'icon.svg',
   'puzzles', 'grid', 'players', 'assets', 'data/players-index.json'
 ];
 
