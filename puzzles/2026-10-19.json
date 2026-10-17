@@ -1,155 +1,155 @@
 {
   "date": "2026-10-19",
-  "mode": "ingame",
+  "boardId": 1,
+  "mode": "esport",
   "categories": [
     {
       "title": {
-        "pl": "Usunięte, ale przywrócone",
-        "en": "Removed, but restored",
-        "es": "Eliminados, pero restaurados",
-        "fr": "Supprimés, puis réintégrés"
+        "pl": "Awansowali do EU LCS przez system promocyjny",
+        "en": "Qualified for EU LCS through the promotion tournament",
+        "es": "Clasificaron a la EU LCS a través del torneo de promoción",
+        "fr": "Ont accédé à l'EU LCS via le tournoi de promotion"
       },
       "difficulty": "green",
       "items": [
         {
-          "id": "atmas-impaler",
-          "name": "Atma's Impaler",
-          "type": "item"
+          "id": "jankos",
+          "name": "Jankos",
+          "type": "player"
         },
         {
-          "id": "statikk-shiv",
-          "name": "Statikk Shiv",
-          "type": "item"
+          "id": "vizicsacsi",
+          "name": "Vizicsacsi",
+          "type": "player"
         },
         {
-          "id": "rod-of-ages",
-          "name": "Rod of Ages",
-          "type": "item"
+          "id": "kobbe",
+          "name": "Kobbe",
+          "type": "player"
         },
         {
-          "id": "force-of-nature",
-          "name": "Force of Nature",
-          "type": "item"
+          "id": "alphari",
+          "name": "Alphari",
+          "type": "player"
         }
       ],
       "explain": {
-        "pl": "Usunięte w starszych sezonach i przywrócone w późniejszych patchach.",
-        "en": "Removed in earlier seasons and restored in later patches.",
-        "es": "Eliminados en temporadas anteriores y restaurados en parches posteriores.",
-        "fr": "Retirés lors de saisons précédentes et réintroduits plus tard."
+        "pl": "Jankos: Kiedyś Miałem Team (2014 Spring Promotion). Vizicsacsi: Unicorns of Love (2015 Spring Promotion). Kobbe: Dignitas EU / Splyce (2016 Summer Promotion). Alphari: Misfits Gaming (2017 Spring Promotion).",
+        "en": "Jankos: Kiedyś Miałem Team (2014 Spring Promotion). Vizicsacsi: Unicorns of Love (2015 Spring Promotion). Kobbe: Dignitas EU / Splyce (2016 Summer Promotion). Alphari: Misfits Gaming (2017 Spring Promotion).",
+        "es": "Jankos: Kiedyś Miałem Team (Promoción Spring 2014). Vizicsacsi: Unicorns of Love (Promoción Spring 2015). Kobbe: Dignitas EU / Splyce (Promoción Summer 2016). Alphari: Misfits Gaming (Promoción Spring 2017).",
+        "fr": "Jankos : Kiedyś Miałem Team (Promotion Spring 2014). Vizicsacsi : Unicorns of Love (Promotion Spring 2015). Kobbe : Dignitas EU / Splyce (Promotion Summer 2016). Alphari : Misfits Gaming (Promotion Spring 2017)."
       }
     },
     {
       "title": {
-        "pl": "Nazwane czyimś nickiem lub pseudonimem",
-        "en": "Named after a person's handle or nickname",
-        "es": "Nombrados en honor al nick o seudónimo de alguien",
-        "fr": "Nommés d'après le pseudo de quelqu'un"
+        "pl": "Wygrali zarówno Worlds jak i MSI w karierze",
+        "en": "Won both Worlds and MSI in their career",
+        "es": "Ganaron tanto Worlds como MSI en su carrera",
+        "fr": "Ont remporté à la fois les Worlds et le MSI dans leur carrière"
       },
       "difficulty": "yellow",
       "items": [
         {
-          "id": "shurelyas-reverie",
-          "name": "Shurelya's Reverie",
-          "type": "item"
+          "id": "deft",
+          "name": "Deft",
+          "type": "player"
         },
         {
-          "id": "guinsoos-rageblade",
-          "name": "Guinsoo's Rageblade",
-          "type": "item"
+          "id": "ruler",
+          "name": "Ruler",
+          "type": "player"
         },
         {
-          "id": "morellonomicon",
-          "name": "Morellonomicon",
-          "type": "item"
+          "id": "bang",
+          "name": "Bang",
+          "type": "player"
         },
         {
-          "id": "randuins-omen",
-          "name": "Randuin's Omen",
-          "type": "item"
+          "id": "gumayusi",
+          "name": "Gumayusi",
+          "type": "player"
         }
       ],
       "explain": {
-        "pl": "Nazwane na cześć konkretnych osób lub postaci z społeczności/lore.",
-        "en": "Named after specific community/lore figures or real people.",
-        "es": "Nombrados en honor a figuras o personas específicas.",
-        "fr": "Nommés d'après des figures ou personnes spécifiques."
+        "pl": "Deft: Worlds 2022 (DRX) + MSI 2015 (EDG). Ruler: Worlds 2017 (SSG) + MSI 2023 (JDG). Bang: Worlds 2015/16 (SKT) + MSI 2016 (SKT). Gumayusi: Worlds 2023/24/25 (T1) + MSI 2026 (HLE).",
+        "en": "Deft: Worlds 2022 (DRX) + MSI 2015 (EDG). Ruler: Worlds 2017 (SSG) + MSI 2023 (JDG). Bang: Worlds 2015/16 (SKT) + MSI 2016 (SKT). Gumayusi: Worlds 2023/24/25 (T1) + MSI 2026 (HLE).",
+        "es": "Deft: Worlds 2022 (DRX) + MSI 2015 (EDG). Ruler: Worlds 2017 (SSG) + MSI 2023 (JDG). Bang: Worlds 2015/16 (SKT) + MSI 2016 (SKT). Gumayusi: Worlds 2023/24/25 (T1) + MSI 2026 (HLE).",
+        "fr": "Deft : Worlds 2022 (DRX) + MSI 2015 (EDG). Ruler : Worlds 2017 (SSG) + MSI 2023 (JDG). Bang : Worlds 2015/16 (SKT) + MSI 2016 (SKT). Gumayusi : Worlds 2023/24/25 (T1) + MSI 2026 (HLE)."
       }
     },
     {
       "title": {
-        "pl": "Dające burn",
-        "en": "Dealing burn damage",
-        "es": "Que infligen quemadura",
-        "fr": "Infligeant des brûlures"
+        "pl": "Royal Roaderzy — wygrali ligę w debiutanckim sezonie",
+        "en": "Royal Roaders — won a league title in their debut split",
+        "es": "Royal Roaders — ganaron el título de liga en su primera temporada",
+        "fr": "Royal Roaders — ont remporté le titre de ligue lors de leur première saison"
       },
       "difficulty": "blue",
       "items": [
         {
-          "id": "malignance",
-          "name": "Malignance",
-          "type": "item"
+          "id": "elyoya",
+          "name": "Elyoya",
+          "type": "player"
         },
         {
-          "id": "liandrys-torment",
-          "name": "Liandry's Torment",
-          "type": "item"
+          "id": "biofrost",
+          "name": "Biofrost",
+          "type": "player"
         },
         {
-          "id": "blackfire-torch",
-          "name": "Blackfire Torch",
-          "type": "item"
+          "id": "cuzz",
+          "name": "Cuzz",
+          "type": "player"
         },
         {
-          "id": "hollow-radiance-2",
-          "name": "Hollow Radiance",
-          "type": "item"
+          "id": "bwipo",
+          "name": "Bwipo",
+          "type": "player"
         }
       ],
       "explain": {
-        "pl": "Posiadają pasywne efekty zadające obrażenia typu burn / Immolate.",
-        "en": "Feature passive burn / Immolate damage effects.",
-        "es": "Tienen efectos pasivos de daño de quemadura / Immolate.",
-        "fr": "Possèdent des effets passifs de brûlure / Immolate."
+        "pl": "Elyoya: LEC Spring 2021 (MAD Lions). Biofrost: NA LCS Summer 2016 (TSM). Cuzz: LCK Summer 2017 (Longzhu). Bwipo: EU LCS Spring 2018 (Fnatic).",
+        "en": "Elyoya: LEC Spring 2021 (MAD Lions). Biofrost: NA LCS Summer 2016 (TSM). Cuzz: LCK Summer 2017 (Longzhu). Bwipo: EU LCS Spring 2018 (Fnatic).",
+        "es": "Elyoya: LEC Spring 2021 (MAD Lions). Biofrost: NA LCS Summer 2016 (TSM). Cuzz: LCK Summer 2017 (Longzhu). Bwipo: EU LCS Spring 2018 (Fnatic).",
+        "fr": "Elyoya : LEC Spring 2021 (MAD Lions). Biofrost : NA LCS Summer 2016 (TSM). Cuzz : LCK Summer 2017 (Longzhu). Bwipo : EU LCS Spring 2018 (Fnatic)."
       }
     },
     {
       "title": {
-        "pl": "Epickie",
-        "en": "Epic tier",
-        "es": "De rango épico",
-        "fr": "De rang épiques"
+        "pl": "Zmienili swój nick w trakcie kariery zawodowej",
+        "en": "Changed their competitive nickname during their pro career",
+        "es": "Cambiaron su apodo competitivo durante su carrera profesional",
+        "fr": "Ont changé leur pseudo compétitif au cours de leur carrière professionnelle"
       },
       "difficulty": "purple",
       "items": [
         {
-          "id": "serrated-dirk",
-          "name": "Serrated Dirk",
-          "type": "item"
+          "id": "crownie",
+          "name": "Crownie",
+          "type": "player"
         },
         {
-          "id": "lost-chapter",
-          "name": "Lost Chapter",
-          "type": "item"
+          "id": "patrik",
+          "name": "Patrik",
+          "type": "player"
         },
         {
-          "id": "phage",
-          "name": "Phage",
-          "type": "item"
+          "id": "nuc",
+          "name": "nuc",
+          "type": "player"
         },
         {
-          "id": "verdant-barrier",
-          "name": "Verdant Barrier",
-          "type": "item"
+          "id": "execute",
+          "name": "Execute",
+          "type": "player"
         }
       ],
       "explain": {
-        "pl": "Komponenty poziomu epickiego (Epic rank).",
-        "en": "Epic rank components.",
-        "es": "Componentes de rango épico.",
-        "fr": "Composants de rang épique."
+        "pl": "Crownie: Crownshot → Crownie. Patrik: Sheriff → Patrik. nuc: NUCLEARINT → nuc. Execute: JeongHoon → Execute.",
+        "en": "Crownie: Crownshot → Crownie. Patrik: Sheriff → Patrik. nuc: NUCLEARINT → nuc. Execute: JeongHoon → Execute.",
+        "es": "Crownie: Crownshot → Crownie. Patrik: Sheriff → Patrik. nuc: NUCLEARINT → nuc. Execute: JeongHoon → Execute.",
+        "fr": "Crownie : Crownshot → Crownie. Patrik : Sheriff → Patrik. nuc : NUCLEARINT → nuc. Execute : JeongHoon → Execute."
       }
     }
-  ],
-  "boardId": 3
+  ]
 }

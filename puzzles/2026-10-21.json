@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-21",
+  "mode": "ingame",
+  "categories": [
+    {
+      "title": {
+        "pl": "Usunięte, ale przywrócone",
+        "en": "Removed, but restored",
+        "es": "Eliminados, pero restaurados",
+        "fr": "Supprimés, puis réintégrés"
+      },
+      "difficulty": "green",
+      "items": [
+        {
+          "id": "atmas-impaler",
+          "name": "Atma's Impaler",
+          "type": "item"
+        },
+        {
+          "id": "statikk-shiv",
+          "name": "Statikk Shiv",
+          "type": "item"
+        },
+        {
+          "id": "rod-of-ages",
+          "name": "Rod of Ages",
+          "type": "item"
+        },
+        {
+          "id": "force-of-nature",
+          "name": "Force of Nature",
+          "type": "item"
+        }
+      ],
+      "explain": {
+        "pl": "Usunięte w starszych sezonach i przywrócone w późniejszych patchach.",
+        "en": "Removed in earlier seasons and restored in later patches.",
+        "es": "Eliminados en temporadas anteriores y restaurados en parches posteriores.",
+        "fr": "Retirés lors de saisons précédentes et réintroduits plus tard."
+      }
+    },
+    {
+      "title": {
+        "pl": "Nazwane czyimś nickiem lub pseudonimem",
+        "en": "Named after a person's handle or nickname",
+        "es": "Nombrados en honor al nick o seudónimo de alguien",
+        "fr": "Nommés d'après le pseudo de quelqu'un"
+      },
+      "difficulty": "yellow",
+      "items": [
+        {
+          "id": "shurelyas-reverie",
+          "name": "Shurelya's Reverie",
+          "type": "item"
+        },
+        {
+          "id": "guinsoos-rageblade",
+          "name": "Guinsoo's Rageblade",
+          "type": "item"
+        },
+        {
+          "id": "morellonomicon",
+          "name": "Morellonomicon",
+          "type": "item"
+        },
+        {
+          "id": "randuins-omen",
+          "name": "Randuin's Omen",
+          "type": "item"
+        }
+      ],
+      "explain": {
+        "pl": "Nazwane na cześć konkretnych osób lub postaci z społeczności/lore.",
+        "en": "Named after specific community/lore figures or real people.",
+        "es": "Nombrados en honor a figuras o personas específicas.",
+        "fr": "Nommés d'après des figures ou personnes spécifiques."
+      }
+    },
+    {
+      "title": {
+        "pl": "Dające burn",
+        "en": "Dealing burn damage",
+        "es": "Que infligen quemadura",
+        "fr": "Infligeant des brûlures"
+      },
+      "difficulty": "blue",
+      "items": [
+        {
+          "id": "malignance",
+          "name": "Malignance",
+          "type": "item"
+        },
+        {
+          "id": "liandrys-torment",
+          "name": "Liandry's Torment",
+          "type": "item"
+        },
+        {
+          "id": "blackfire-torch",
+          "name": "Blackfire Torch",
+          "type": "item"
+        },
+        {
+          "id": "hollow-radiance-2",
+          "name": "Hollow Radiance",
+          "type": "item"
+        }
+      ],
+      "explain": {
+        "pl": "Posiadają pasywne efekty zadające obrażenia typu burn / Immolate.",
+        "en": "Feature passive burn / Immolate damage effects.",
+        "es": "Tienen efectos pasivos de daño de quemadura / Immolate.",
+        "fr": "Possèdent des effets passifs de brûlure / Immolate."
+      }
+    },
+    {
+      "title": {
+        "pl": "Epickie",
+        "en": "Epic tier",
+        "es": "De rango épico",
+        "fr": "De rang épiques"
+      },
+      "difficulty": "purple",
+      "items": [
+        {
+          "id": "serrated-dirk",
+          "name": "Serrated Dirk",
+          "type": "item"
+        },
+        {
+          "id": "lost-chapter",
+          "name": "Lost Chapter",
+          "type": "item"
+        },
+        {
+          "id": "phage",
+          "name": "Phage",
+          "type": "item"
+        },
+        {
+          "id": "verdant-barrier",
+          "name": "Verdant Barrier",
+          "type": "item"
+        }
+      ],
+      "explain": {
+        "pl": "Komponenty poziomu epickiego (Epic rank).",
+        "en": "Epic rank components.",
+        "es": "Componentes de rango épico.",
+        "fr": "Composants de rang épique."
+      }
+    }
+  ],
+  "boardId": 3
+}

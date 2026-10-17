@@ -1,14 +1,14 @@
 {
   "date": "2026-10-20",
-  "boardId": 4,
+  "boardId": 2,
   "mode": "esport",
   "categories": [
     {
       "title": {
-        "pl": "Wygrali MSI więcej niż raz",
-        "en": "Won MSI more than once",
-        "es": "Ganaron el MSI más de una vez",
-        "fr": "Ont remporté le MSI plus d'une fois"
+        "pl": "Grali w Gen.G",
+        "en": "Played for Gen.G",
+        "es": "Jugaron en Gen.G",
+        "fr": "Ont joué pour Gen.G"
       },
       "difficulty": "green",
       "items": [
@@ -18,138 +18,128 @@
           "type": "player"
         },
         {
-          "id": "xiaohu",
-          "name": "Xiaohu",
+          "id": "canyon",
+          "name": "Canyon",
           "type": "player"
         },
         {
-          "id": "ruler",
-          "name": "Ruler",
+          "id": "peanut",
+          "name": "Peanut",
           "type": "player"
         },
         {
-          "id": "bang",
-          "name": "Bang",
+          "id": "doran",
+          "name": "Doran",
           "type": "player"
         }
       ],
       "explain": {
-        "pl": "Chovy: MSI 2024, 2025 (Gen.G). Xiaohu: MSI 2018, 2021, 2022 (RNG). Ruler: MSI 2023, 2024 (JDG/Gen.G). Bang: MSI 2016, 2017 (SKT).",
-        "en": "Chovy: MSI 2024, 2025 (Gen.G). Xiaohu: MSI 2018, 2021, 2022 (RNG). Ruler: MSI 2023, 2024 (JDG/Gen.G). Bang: MSI 2016, 2017 (SKT).",
-        "es": "Chovy: MSI 2024, 2025 (Gen.G). Xiaohu: MSI 2018, 2021, 2022 (RNG). Ruler: MSI 2023, 2024 (JDG/Gen.G). Bang: MSI 2016, 2017 (SKT).",
-        "fr": "Chovy : MSI 2024, 2025 (Gen.G). Xiaohu : MSI 2018, 2021, 2022 (RNG). Ruler : MSI 2023, 2024 (JDG/Gen.G). Bang : MSI 2016, 2017 (SKT)."
+        "pl": "Wszyscy tworzyli roster Gen.G.",
+        "en": "All were on the Gen.G roster.",
+        "es": "Todos formaron parte del roster de Gen.G.",
+        "fr": "Tous faisaient partie du roster Gen.G."
       }
     },
     {
       "title": {
-        "pl": "Grali w finale Worlds po obu stronach — raz wygrali, raz przegrali",
-        "en": "Played in a Worlds Final on both the winning and losing side",
-        "es": "Jugaron la final de Worlds en ambos lados — ganando y perdiendo",
-        "fr": "Ont joué une finale des Worlds des deux côtés — gagnant et perdant"
+        "pl": "Zrobili role swap w karierze zawodowej",
+        "en": "Did a role swap in their pro career",
+        "es": "Hicieron role swap en su carrera profesional",
+        "fr": "Ont changé de rôle en carrière pro"
       },
       "difficulty": "yellow",
       "items": [
         {
-          "id": "beryl",
-          "name": "BeryL",
+          "id": "nisqy",
+          "name": "Nisqy",
           "type": "player"
         },
         {
-          "id": "corejj",
-          "name": "CoreJJ",
+          "id": "ambition",
+          "name": "Ambition",
+          "type": "player"
+        },
+        {
+          "id": "caedrel",
+          "name": "Caedrel",
+          "type": "player"
+        },
+        {
+          "id": "rekkles",
+          "name": "Rekkles",
+          "type": "player"
+        }
+      ],
+      "explain": {
+        "pl": "Nisqy: mid→support. Ambition: mid→jungle. Caedrel: mid→jungle. Rekkles: ADC→support.",
+        "en": "Nisqy: mid→support. Ambition: mid→jungle. Caedrel: mid→jungle. Rekkles: ADC→support.",
+        "es": "Nisqy: mid→support. Ambition: mid→jungla. Caedrel: mid→jungla. Rekkles: ADC→support.",
+        "fr": "Nisqy : mid→support. Ambition : mid→jungle. Caedrel : mid→jungle. Rekkles : ADC→support."
+      }
+    },
+    {
+      "title": {
+        "pl": "Zawodowy gracz, który przeszedł na head coacha",
+        "en": "Pro player who became head coach",
+        "es": "Jugador pro que pasó a head coach",
+        "fr": "Joueur pro devenu head coach"
+      },
+      "difficulty": "blue",
+      "items": [
+        {
+          "id": "nukeduck",
+          "name": "Nukeduck",
+          "type": "player"
+        },
+        {
+          "id": "bjergsen",
+          "name": "Bjergsen",
+          "type": "player"
+        },
+        {
+          "id": "mithy",
+          "name": "Mithy",
+          "type": "player"
+        },
+        {
+          "id": "bengi",
+          "name": "Bengi",
+          "type": "player"
+        }
+      ],
+      "explain": "Nukeduck→Heretics, Bjergsen→TSM, Mithy→Fnatic, Bengi→DK."
+    },
+    {
+      "title": {
+        "pl": "Zdobywcy nagrody Finals MVP na Worlds",
+        "en": "Worlds Finals MVP award winners",
+        "es": "Ganadores del MVP de la final de Worlds",
+        "fr": "Vainqueurs du MVP de la finale des Worlds"
+      },
+      "difficulty": "purple",
+      "items": [
+        {
+          "id": "tian",
+          "name": "Tian",
+          "type": "player"
+        },
+        {
+          "id": "marin",
+          "name": "MaRin",
+          "type": "player"
+        },
+        {
+          "id": "showmaker",
+          "name": "ShowMaker",
           "type": "player"
         },
         {
           "id": "zeus",
           "name": "Zeus",
           "type": "player"
-        },
-        {
-          "id": "crown",
-          "name": "Crown",
-          "type": "player"
         }
       ],
-      "explain": {
-        "pl": "BeryL: wygrał 2020 (DAMWON), 2022 (DRX), przegrał 2021 (DWG KIA). CoreJJ: wygrał 2017 (SSG), przegrał 2016 (SSG). Zeus: wygrał 2023, 2024 (T1), przegrał 2022 (T1). Crown: wygrał 2017 (SSG), przegrał 2016 (SSG).",
-        "en": "BeryL: won 2020 (DAMWON), 2022 (DRX), lost 2021 (DWG KIA). CoreJJ: won 2017 (SSG), lost 2016 (SSG). Zeus: won 2023, 2024 (T1), lost 2022 (T1). Crown: won 2017 (SSG), lost 2016 (SSG).",
-        "es": "BeryL: ganó 2020 (DAMWON), 2022 (DRX), perdió 2021 (DWG KIA). CoreJJ: ganó 2017 (SSG), perdió 2016 (SSG). Zeus: ganó 2023, 2024 (T1), perdió 2022 (T1). Crown: ganó 2017 (SSG), perdió 2016 (SSG).",
-        "fr": "BeryL : gagné 2020 (DAMWON), 2022 (DRX), perdu 2021 (DWG KIA). CoreJJ : gagné 2017 (SSG), perdu 2016 (SSG). Zeus : gagné 2023, 2024 (T1), perdu 2022 (T1). Crown : gagné 2017 (SSG), perdu 2016 (SSG)."
-      }
-    },
-    {
-      "title": {
-        "pl": "Zagrał w min. 3 głównych regionach",
-        "en": "Played in at least 3 major regions",
-        "es": "Jugó en al menos 3 regiones principales",
-        "fr": "A joué dans au moins 3 grandes régions"
-      },
-      "difficulty": "blue",
-      "items": [
-        {
-          "id": "wadid",
-          "name": "Wadid",
-          "type": "player"
-        },
-        {
-          "id": "kakao",
-          "name": "KaKAO",
-          "type": "player"
-        },
-        {
-          "id": "bvoy",
-          "name": "Bvoy",
-          "type": "player"
-        },
-        {
-          "id": "huni",
-          "name": "Huni",
-          "type": "player"
-        }
-      ],
-      "explain": {
-        "pl": "Wadid: LCK, LEC, LCS. KaKAO: LCK, LPL, EU LCS. Bvoy: LCK, LEC, LCS. Huni: LCK, LCS, LEC.",
-        "en": "Wadid: LCK, LEC, LCS. KaKAO: LCK, LPL, EU LCS, LCK, LPL. Bvoy: LCK, LEC, LCS. Huni: LCK, LCS, LEC.",
-        "es": "Wadid: LCK, LEC, LCS. KaKAO: LCK, LPL, LCK, EU LCS. Bvoy: LCK, LEC, LCS. Huni: LCK, LCS, LEC.",
-        "fr": "Wadid : LCK, LEC, LCS. KaKAO : LCK, LPL, LCK, EU LCS. Bvoy : LCK, LEC, LCS. Huni : LCK, LCS, LEC."
-      }
-    },
-    {
-      "title": {
-        "pl": "Wygrali Worlds nie grając w finale (jako substitute lub nieużywany rezerwowy)",
-        "en": "Won Worlds without playing in the Finals",
-        "es": "Ganaron Worlds sin jugar en la final",
-        "fr": "Ont remporté les Worlds sans jouer en finale"
-      },
-      "difficulty": "purple",
-      "items": [
-        {
-          "id": "duke",
-          "name": "Duke",
-          "type": "player"
-        },
-        {
-          "id": "haru",
-          "name": "Haru",
-          "type": "player"
-        },
-        {
-          "id": "blank",
-          "name": "Blank",
-          "type": "player"
-        },
-        {
-          "id": "juhan",
-          "name": "Juhan",
-          "type": "player"
-        }
-      ],
-      "explain": {
-        "pl": "Duke: Worlds 2018 (IG, nie zagrał w finale). Haru: Worlds 2017 (SSG, nie zagrał w finale). Blank: Worlds 2016 (SKT, rezerwowy bez występu w finale). Juhan: Worlds 2022 (DRX, nie zagrał w finale).",
-        "en": "Duke: Worlds 2018 (IG, did not play in the final). Haru: Worlds 2017 (SSG, did not play in the final). Blank: Worlds 2016 (SKT, substitute without playing in the final). Juhan: Worlds 2022 (DRX, did not play in the final).",
-        "es": "Duke: Worlds 2018 (IG, no jugó la final). Haru: Worlds 2017 (SSG, no jugó la final). Blank: Worlds 2016 (SKT, sustituto sin jugar la final). Juhan: Worlds 2022 (DRX, no jugó la final).",
-        "fr": "Duke : Worlds 2018 (IG, n'a pas joué la finale). Haru : Worlds 2017 (SSG, n'a pas joué la finale). Blank : Worlds 2016 (SKT, remplaçant sans jouer la finale). Juhan : Worlds 2022 (DRX, n'a pas joué la finale)."
-      }
+      "explain": "Tian 2019, MaRin 2015, ShowMaker 2020, Zeus 2023."
     }
   ]
 }
