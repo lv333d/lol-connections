@@ -1,6 +1,5 @@
 {
-  "date": "2026-10-11",
-  "boardId": 3,
+  "date": "2026-10-19",
   "mode": "ingame",
   "categories": [
     {
@@ -50,8 +49,8 @@
       "difficulty": "yellow",
       "items": [
         {
-          "id": "dorans-blade",
-          "name": "Doran's Blade",
+          "id": "shurelyas-reverie",
+          "name": "Shurelya's Reverie",
           "type": "item"
         },
         {
@@ -60,13 +59,13 @@
           "type": "item"
         },
         {
-          "id": "zekes-convergence",
-          "name": "Zeke's Convergence",
+          "id": "morellonomicon",
+          "name": "Morellonomicon",
           "type": "item"
         },
         {
-          "id": "hollow-radiance",
-          "name": "Hollow Radiance",
+          "id": "randuins-omen",
+          "name": "Randuin's Omen",
           "type": "item"
         }
       ],
@@ -151,5 +150,6 @@
         "fr": "Composants de rang épique."
       }
     }
-  ]
+  ],
+  "boardId": 3
 }
