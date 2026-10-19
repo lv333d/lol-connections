@@ -20,7 +20,7 @@ const MAX_PER_CELL = 120;
 // Condition pairs that nearly imply each other make a pointless cell (almost every coach is a retired player).
 const REDUNDANT_PAIRS = new Set(['coach|retired', 'retired|coach']);
 // Nationality × home league is too obvious: never Korean × LCK or Chinese × LPL; American × LCS only when
-// no other board can be found for the day.
+// no other board can be found for the day. The same goes for a team from that league (Korean × T1).
 const FORBIDDEN_CELLS = new Set(['nationality:kr|league:LCK', 'nationality:cn|league:LPL']);
 const LAST_RESORT_CELLS = new Set(['nationality:us|league:LCS']);
 // A nationality becomes a condition only when this many players share it.
@@ -62,6 +62,7 @@ export function buildPool(players, teams) {
   for (const id of ['LCK', 'LPL', 'LEC', 'LCS', 'LTA']) pool.push({ cond: { kind: 'league', id }, weight: 2 });
   teams.slice(0, TEAM_POOL_SIZE).forEach(t => pool.push({
     cond: { kind: 'team', id: t.id, label: t.name, short: t.short, aliases: (t.aliases || []).slice(0, 6) },
+    homeLeague: t.league,
     weight: 1.5
   }));
   pool.push({ cond: { kind: 'coach' }, weight: 2 });
@@ -71,7 +72,8 @@ export function buildPool(players, teams) {
     .filter(([, ps]) => ps.length >= MIN_NATIONALITY_PLAYERS);
   // Weighted by size: small countries rarely give every cell enough answers, big ones fit almost any board.
   nationalities.forEach(([id, ps]) => pool.push({ cond: { kind: 'nationality', id }, weight: Math.min(1.2, ps.length / 100) }));
-  [...players].sort((a, b) => b.tournaments - a.tournaments).slice(0, ANCHOR_POOL_SIZE)
+  // Anchors are players: "on a team with BigWei" would really mean "coached by".
+  players.filter(p => !p.coachOnly).sort((a, b) => b.tournaments - a.tournaments).slice(0, ANCHOR_POOL_SIZE)
     .forEach(p => pool.push({ cond: { kind: 'teammate', playerId: p.id, label: p.nick }, weight: 0.4 }));
 
   // Precompute matching player ids per condition; drop conditions nobody satisfies.
@@ -112,9 +114,11 @@ function drawAxes(rng, pool) {
  * redundant conditions, and the 9 cells can be filled with 9 different players.
  */
 function evaluate(axes, byId, allowLastResort) {
-  const pairs = axes.rows.flatMap(r => axes.cols.map(c => [r.cond, c.cond]));
-  if (pairs.some(([r, c]) => REDUNDANT_PAIRS.has(`${r.kind}|${c.kind}`))) return null;
-  const cellKeys = pairs.flatMap(([r, c]) => [`${conditionKey(r)}|${conditionKey(c)}`, `${conditionKey(c)}|${conditionKey(r)}`]);
+  const pairs = axes.rows.flatMap(r => axes.cols.map(c => [r, c]));
+  if (pairs.some(([r, c]) => REDUNDANT_PAIRS.has(`${r.cond.kind}|${c.cond.kind}`))) return null;
+  // A team also stands for its home league in the nationality rules.
+  const keysOf = e => [conditionKey(e.cond), ...(e.homeLeague ? [`league:${e.homeLeague}`] : [])];
+  const cellKeys = pairs.flatMap(([r, c]) => keysOf(r).flatMap(a => keysOf(c).flatMap(b => [`${a}|${b}`, `${b}|${a}`])));
   if (cellKeys.some(k => FORBIDDEN_CELLS.has(k) || (!allowLastResort && LAST_RESORT_CELLS.has(k)))) return null;
   const answers = axes.rows.map(r => axes.cols.map(c => {
     const ids = [...r.ids].filter(id => c.ids.has(id));

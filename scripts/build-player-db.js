@@ -52,7 +52,7 @@ const COUNTRY_CODES = {
   'Netherlands': 'nl', 'Belgium': 'be', 'Luxembourg': 'lu', 'Switzerland': 'ch', 'Austria': 'at', 'Lithuania': 'lt',
   'Latvia': 'lv', 'Estonia': 'ee', 'Ukraine': 'ua', 'Belarus': 'by', 'Russia': 'ru', 'Armenia': 'am', 'Georgia': 'ge',
   'Israel': 'il', 'Egypt': 'eg', 'Morocco': 'ma', 'Tunisia': 'tn', 'Algeria': 'dz', 'South Africa': 'za', 'Iran': 'ir',
-  'India': 'in', 'Pakistan': 'pk', 'Kazakhstan': 'kz', 'Mongolia': 'mn', 'Saudi Arabia': 'sa', 'Lebanon': 'lb', 'Jordan': 'jo', 'Afghanistan': 'af', 'Guatemala': 'gt'
+  'India': 'in', 'Pakistan': 'pk', 'Kazakhstan': 'kz', 'Mongolia': 'mn', 'Saudi Arabia': 'sa', 'Lebanon': 'lb', 'Jordan': 'jo', 'Afghanistan': 'af', 'Guatemala': 'gt', 'El Salvador': 'sv', 'Republic of Ireland': 'ie'
 };
 const isCoachRole = role => /coach/i.test(role || '');
 // "Retired" in the grid means retired as a player: fully retired on Leaguepedia, or now in a non-playing
@@ -190,6 +190,8 @@ async function main() {
   const teamUsage = new Map(); // franchise → number of player-tournaments
   const rosters = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for trophies)
   const squads = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for teammates)
+  const teamLeagues = new Map(); // franchise → Map<league, player-tournaments> (its home league is the top one)
+  const coached = new Map(); // wikiPage → { leagues, pages } coached in the major leagues
   const coachedPages = new Set();
   const addTo = (map, key, link) => { if (!map.has(key)) map.set(key, new Set()); map.get(key).add(link); };
 
@@ -201,7 +203,15 @@ async function main() {
     // A coach on someone's roster counts as having been on the same team (e.g. "Odoamne × coach" accepts
     // the coaches who coached Odoamne). Coaching a winning roster earns the trophy too (e.g. kkOma × Worlds),
     // but never adds team or league credit.
-    if (isCoachRole(r.Role)) { coachedPages.add(r.Link); addTo(squads, key, r.Link); addTo(rosters, key, r.Link); continue; }
+    if (isCoachRole(r.Role)) {
+      coachedPages.add(r.Link);
+      addTo(squads, key, r.Link);
+      addTo(rosters, key, r.Link);
+      if (!coached.has(r.Link)) coached.set(r.Link, { leagues: new Set(), pages: new Set() });
+      if (leagueOf(r)) coached.get(r.Link).leagues.add(leagueOf(r));
+      coached.get(r.Link).pages.add(r.Page);
+      continue;
+    }
     if (!r.Role || /analyst|manager|owner|staff/i.test(r.Role)) continue;
     let p = players.get(r.Link);
     if (!p) {
@@ -218,12 +228,27 @@ async function main() {
     if (leagueOf(r)) p.leagues.add(leagueOf(r));
     p.pages.add(r.Page);
     teamUsage.set(franchise, (teamUsage.get(franchise) || 0) + 1);
+    if (leagueOf(r)) {
+      if (!teamLeagues.has(franchise)) teamLeagues.set(franchise, new Map());
+      teamLeagues.get(franchise).set(leagueOf(r), (teamLeagues.get(franchise).get(leagueOf(r)) || 0) + 1);
+    }
     addTo(rosters, key, r.Link);
     addTo(squads, key, r.Link);
   }
   coachedPages.forEach(link => { if (players.has(link)) players.get(link).coach = true; });
+  // Coaches who never played (e.g. BigWei) are answers too, but only for conditions that do not mean playing:
+  // coach, trophy, nationality and "on a team with X". They get no teams or leagues.
+  for (const [link, c] of coached) {
+    if (players.has(link) || !c.leagues.size) continue;
+    const prof = profiles.get(link) || findProfile(link);
+    players.set(link, {
+      id: slugify(link), nick: decodeEntities(prof?.ID) || nickFromPage(link), name: decodeEntities(prof?.Name), wikiPage: link,
+      retired: false, coach: true, coachOnly: true, nationality: nationalityOf(prof),
+      teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: c.pages
+    });
+  }
 
-  // Only people who also played can be grid answers, so pairs are kept when both sides are players.
+  // Everyone in the database (players and coaches) who shared a roster is "on a team with" each other.
   for (const members of squads.values()) {
     for (const a of members) {
       if (!players.has(a)) continue;
@@ -237,14 +262,14 @@ async function main() {
       const [page, team] = key.split('|');
       // Compare organizations: results may name "SK Telecom T1" while the roster says "SK Telecom T1 K".
       if (franchiseOf(team) === franchiseOf(w.team) && (page === w.page || page.startsWith(w.page + '/'))) {
-        // Coaches who never played are not in the database.
+        // Coaches outside the major leagues are not in the database.
         members.forEach(link => players.get(link)?.trophies.add(w.trophy));
       }
     }
   }
 
-  // Only keep players from the five major leagues (international-only players are noise for the grid).
-  const kept = [...players.values()].filter(p => p.leagues.size > 0);
+  // Only keep people from the five major leagues (international-only players are noise for the grid).
+  const kept = [...players.values()].filter(p => p.leagues.size > 0 || (p.coachOnly && coached.get(p.wikiPage).leagues.size > 0));
   const keptPages = new Set(kept.map(p => p.wikiPage));
 
   // Ids must be unique; disambiguated pages ("Clear (Song Hyeon-min)") already slugify differently.
@@ -261,7 +286,7 @@ async function main() {
   const out = kept
     .map(p => ({
       id: idOf.get(p.wikiPage), nick: p.nick, name: p.name, wikiPage: p.wikiPage,
-      retired: p.retired, coach: p.coach, nationality: p.nationality,
+      retired: p.retired, coach: p.coach, ...(p.coachOnly ? { coachOnly: true } : {}), nationality: p.nationality,
       teams: [...p.teams].map(teamId).sort(),
       leagues: [...p.leagues].sort(),
       trophies: [...p.trophies].sort(),
@@ -276,7 +301,8 @@ async function main() {
     const info = teamInfo.get(name);
     const label = overrides.raw.labels?.[name] || name;
     const logo = overrides.raw.logos?.[name] || info?.Image || '';
-    franchises.set(name, { id: teamId(name), name: label, page: name, short: overrides.raw.labels?.[name] ? label : info?.Short || label, logo, aliases: [], players: 0 });
+    const league = [...(teamLeagues.get(name) || [])].sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+    franchises.set(name, { id: teamId(name), name: label, page: name, short: overrides.raw.labels?.[name] ? label : info?.Short || label, logo, league, aliases: [], players: 0 });
   }
   for (const name of new Set([...teamInfo.keys(), ...teamNames])) {
     const org = franchiseOf(name);
@@ -293,7 +319,7 @@ async function main() {
   await writeFile(path.join(DATA_DIR, 'teams.json'), JSON.stringify(teams, null, 1) + '\n');
 
   step('Podsumowanie');
-  console.log(`  graczy: ${out.length} (emeryci: ${out.filter(p => p.retired).length}, trenerzy: ${out.filter(p => p.coach).length})`);
+  console.log(`  graczy: ${out.length} (emeryci: ${out.filter(p => p.retired).length}, trenerzy: ${out.filter(p => p.coach).length}, w tym tylko trenerzy: ${out.filter(p => p.coachOnly).length})`);
   console.log(`  ligi: ${Object.keys(LEAGUES).map(l => `${l} ${out.filter(p => p.leagues.includes(l)).length}`).join(', ')}`);
   console.log(`  trofea: ${['worlds', 'msi', 'first-stand'].map(t => `${t} ${out.filter(p => p.trophies.includes(t)).length}`).join(', ')}`);
   const nat = Object.entries(Object.groupBy(out.filter(p => p.nationality), p => p.nationality))

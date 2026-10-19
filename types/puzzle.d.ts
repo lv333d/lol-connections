@@ -69,7 +69,8 @@ export interface GridBoard {
 export interface PlayerIndexEntry { id: string; nick: string; name: string; /** tournaments played — search ranking */ t: number }
 
 /** data/teams.json — franchises (renames such as SK Telecom T1 → T1 are merged). */
-export interface Team { id: string; name: string; short: string; logo: string; aliases: string[] }
+export interface Team { id: string; name: string; short: string; logo: string;
+  /** Home league: the one most of its player-tournaments were in ('' when none of the five). */ league: string; aliases: string[] }
 
 /** data/players.json — full database, used only by scripts (generator, fetch-assets). */
 export interface Player {
@@ -80,8 +81,10 @@ export interface Player {
   /** Leaguepedia page title, used by fetch-assets. */
   wikiPage: string;
   retired: boolean;
-  /** Played professionally and has also been listed as a coach. */
+  /** Has been listed as a coach (most also played; see coachOnly). */
   coach: boolean;
+  /** Only ever a coach (e.g. BigWei): no teams or leagues, matches coach / trophy / nationality / teammate. */
+  coachOnly?: boolean;
   /** ISO 3166-1 alpha-2 code (lower-case), '' when Leaguepedia has none. */
   nationality: string;
   /** Team (franchise) ids played for, as a player. */

@@ -5,6 +5,7 @@
   "page": "Dignitas",
   "short": "DIG",
   "logo": "Dignitaslogo profile.png",
+  "league": "LCS",
   "aliases": [
    "Clutch Gaming"
   ],
@@ -16,6 +17,7 @@
   "page": "KT Rolster",
   "short": "KT",
   "logo": "KT Rolsterlogo profile.png",
+  "league": "LCK",
   "aliases": [
    "KT Rolster Arrows",
    "KT Rolster Bullets",
@@ -30,6 +32,7 @@
   "page": "LGD Gaming",
   "short": "LGD",
   "logo": "LGD_logo.png",
+  "league": "LPL",
   "aliases": [],
   "players": 76
  },
@@ -39,6 +42,7 @@
   "page": "DRX",
   "short": "DRX",
   "logo": "",
+  "league": "LCK",
   "aliases": [
    "Kingzone DragonX",
    "Longzhu Gaming",
@@ -54,6 +58,7 @@
   "page": "Team WE",
   "short": "WE",
   "logo": "Team WElogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 69
  },
@@ -63,6 +68,7 @@
   "page": "Oh My God",
   "short": "OMG",
   "logo": "Oh My Godlogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 66
  },
@@ -72,6 +78,7 @@
   "page": "Invictus Gaming",
   "short": "iG",
   "logo": "Invictus Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 62
  },
@@ -81,6 +88,7 @@
   "page": "Rare Atom",
   "short": "RA",
   "logo": "Rare Atomlogo profile.png",
+  "league": "LPL",
   "aliases": [
    "Vici Gaming"
   ],
@@ -92,6 +100,7 @@
   "page": "Team Liquid",
   "short": "TL",
   "logo": "Team Liquidlogo profile.png",
+  "league": "LCS",
   "aliases": [
    "Team Curse"
   ],
@@ -103,6 +112,7 @@
   "page": "LNG Esports",
   "short": "LNG",
   "logo": "LNG Esportslogo square.png",
+  "league": "LPL",
   "aliases": [
    "Snake Esports"
   ],
@@ -114,6 +124,7 @@
   "page": "Royal Never Give Up",
   "short": "RNG",
   "logo": "Royal Never Give Uplogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 56
  },
@@ -123,6 +134,7 @@
   "page": "DN Freecs",
   "short": "DN SOOPers",
   "logo": "DN SOOPerslogo square.png",
+  "league": "LCK",
   "aliases": [
    "Rebels Anarchy",
    "Afreeca Freecs",
@@ -137,6 +149,7 @@
   "page": "SK Gaming",
   "short": "SK",
   "logo": "SK Gaminglogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 55
  },
@@ -146,6 +159,7 @@
   "page": "EDward Gaming",
   "short": "EDG",
   "logo": "EDward Gaminglogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 53
  },
@@ -155,6 +169,7 @@
   "page": "Counter Logic Gaming",
   "short": "CLG",
   "logo": "Counter Logic Gaminglogo profile.png",
+  "league": "LCS",
   "aliases": [
    "CLG Prime"
   ],
@@ -166,6 +181,7 @@
   "page": "FlyQuest",
   "short": "FLY",
   "logo": "FlyQuestlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 53
  },
@@ -175,6 +191,7 @@
   "page": "Ninjas in Pyjamas.CN",
   "short": "Ninjas in Pyjamas.CN",
   "logo": "",
+  "league": "LPL",
   "aliases": [
    "Victory Five"
   ],
@@ -186,6 +203,7 @@
   "page": "T1",
   "short": "T1",
   "logo": "T1logo profile.png",
+  "league": "LCK",
   "aliases": [
    "SK Telecom T1",
    "SK Telecom T1 K",
@@ -201,6 +219,7 @@
   "page": "Team Vitality",
   "short": "VIT",
   "logo": "Team Vitalitylogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 51
  },
@@ -210,6 +229,7 @@
   "page": "TSM",
   "short": "TSM",
   "logo": "TSMlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 49
  },
@@ -219,6 +239,7 @@
   "page": "Hanwha Life Esports",
   "short": "HLE",
   "logo": "Hanwha Life Esportslogo profile.png",
+  "league": "LCK",
   "aliases": [],
   "players": 49
  },
@@ -228,6 +249,7 @@
   "page": "Fnatic",
   "short": "FNC",
   "logo": "Fnaticlogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 48
  },
@@ -237,6 +259,7 @@
   "page": "Jin Air Green Wings",
   "short": "JAG",
   "logo": "Jin Air Green Wingslogo square.png",
+  "league": "LCK",
   "aliases": [
    "Jin Air Green Wings Falcons",
    "Jin Air Green Wings Stealths"
@@ -249,6 +272,7 @@
   "page": "ThunderTalk Gaming",
   "short": "TT",
   "logo": "ThunderTalk Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [
    "Dominus Esports",
    "SinoDragon Gaming"
@@ -261,6 +285,7 @@
   "page": "Bilibili Gaming",
   "short": "BLG",
   "logo": "Bilibili Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 44
  },
@@ -270,6 +295,7 @@
   "page": "Cloud9",
   "short": "C9",
   "logo": "Cloud9logo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 43
  },
@@ -279,6 +305,7 @@
   "page": "FunPlus Phoenix",
   "short": "FPX",
   "logo": "FunPlus Phoenixlogo_square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 43
  },
@@ -288,6 +315,7 @@
   "page": "Immortals",
   "short": "IMT",
   "logo": "Immortalslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 42
  },
@@ -297,6 +325,7 @@
   "page": "JD Gaming",
   "short": "JDG",
   "logo": "JD Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 42
  },
@@ -306,6 +335,7 @@
   "page": "CJ Entus",
   "short": "CJ",
   "logo": "CJ Entuslogo square.png",
+  "league": "LCK",
   "aliases": [
    "CJ Entus Blaze",
    "CJ Entus Frost"
@@ -318,6 +348,7 @@
   "page": "Nongshim RedForce",
   "short": "NS",
   "logo": "Nongshim RedForcelogo square.png",
+  "league": "LCK",
   "aliases": [
    "Team Dynamics"
   ],
@@ -329,6 +360,7 @@
   "page": "Evil Geniuses.NA",
   "short": "Evil Geniuses",
   "logo": "",
+  "league": "LCS",
   "aliases": [
    "Evil Geniuses.EU",
    "Evil Geniuses.NA"
@@ -341,6 +373,7 @@
   "page": "Ultra Prime",
   "short": "UP",
   "logo": "Ultra Primelogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 36
  },
@@ -350,6 +383,7 @@
   "page": "Astralis",
   "short": "AST",
   "logo": "Astralislogo profile.png",
+  "league": "LEC",
   "aliases": [
    "Origen"
   ],
@@ -361,6 +395,7 @@
   "page": "Rogue Warriors",
   "short": "RW",
   "logo": "Rogue Warriorslogo_square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 35
  },
@@ -370,6 +405,7 @@
   "page": "Samsung Galaxy",
   "short": "SSG",
   "logo": "Samsung Galaxylogo profile.png",
+  "league": "LCK",
   "aliases": [
    "Samsung Blue",
    "Samsung White",
@@ -385,6 +421,7 @@
   "page": "G2 Esports",
   "short": "G2",
   "logo": "G2 Esportslogo profile.png",
+  "league": "LEC",
   "aliases": [
    "Gamers2"
   ],
@@ -396,6 +433,7 @@
   "page": "100 Thieves",
   "short": "100T",
   "logo": "100 Thieveslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 34
  },
@@ -405,6 +443,7 @@
   "page": "Gen.G",
   "short": "GEN",
   "logo": "Gen.Glogo square.png",
+  "league": "LCK",
   "aliases": [
    "KSV eSports"
   ],
@@ -416,6 +455,7 @@
   "page": "Giants Gaming",
   "short": "GIA",
   "logo": "Giants Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 34
  },
@@ -425,6 +465,7 @@
   "page": "Golden Guardians",
   "short": "GG",
   "logo": "Golden Guardianslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 33
  },
@@ -434,6 +475,7 @@
   "page": "Echo Fox",
   "short": "FOX",
   "logo": "Echo Foxlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 33
  },
@@ -443,6 +485,7 @@
   "page": "Misfits Gaming",
   "short": "MSF",
   "logo": "Misfits Gaminglogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 32
  },
@@ -452,6 +495,7 @@
   "page": "NaJin e-mFire",
   "short": "NJF",
   "logo": "NaJin_logo.png",
+  "league": "LCK",
   "aliases": [
    "NaJin White Shield",
    "NaJin Black Sword",
@@ -467,6 +511,7 @@
   "page": "Team ROCCAT",
   "short": "ROC",
   "logo": "Team ROCCATlogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 30
  },
@@ -476,6 +521,7 @@
   "page": "FC Schalke 04 Esports",
   "short": "S04",
   "logo": "FC Schalke 04 Esportslogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 30
  },
@@ -485,6 +531,7 @@
   "page": "Top Esports",
   "short": "TES",
   "logo": "Top Esportslogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 29
  },
@@ -494,6 +541,7 @@
   "page": "H2k-Gaming",
   "short": "H2K",
   "logo": "H2k-Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 28
  },
@@ -503,6 +551,7 @@
   "page": "Dplus Kia",
   "short": "DK",
   "logo": "Dplus Kialogo profile.png",
+  "league": "LCK",
   "aliases": [
    "DAMWON Gaming",
    "DWG KIA"
@@ -515,6 +564,7 @@
   "page": "Excel Esports",
   "short": "XL",
   "logo": "Excel Esportslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 27
  },
@@ -524,6 +574,7 @@
   "page": "Weibo Gaming",
   "short": "WBG",
   "logo": "Weibo Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 26
  },
@@ -533,6 +584,7 @@
   "page": "Copenhagen Wolves",
   "short": "CW",
   "logo": "wolveslogobund.png",
+  "league": "LEC",
   "aliases": [],
   "players": 26
  },
@@ -542,6 +594,7 @@
   "page": "Unicorns of Love.CIS",
   "short": "UOL",
   "logo": "Unicorns of Love.CISlogo profile.png",
+  "league": "LEC",
   "aliases": [
    "Unicorns of Love"
   ],
@@ -553,6 +606,7 @@
   "page": "Xenics Storm",
   "short": "XS",
   "logo": "Xenics Storm new logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 24
  },
@@ -562,6 +616,7 @@
   "page": "Suning",
   "short": "SN",
   "logo": "SN Gaminglogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 23
  },
@@ -571,6 +626,7 @@
   "page": "FearX",
   "short": "FearX",
   "logo": "",
+  "league": "LCK",
   "aliases": [
    "Liiv SANDBOX"
   ],
@@ -582,6 +638,7 @@
   "page": "Newbee",
   "short": "NB",
   "logo": "Newbeelogo profile.png",
+  "league": "LPL",
   "aliases": [
    "Qiao Gu Reapers"
   ],
@@ -593,6 +650,7 @@
   "page": "Team Impulse",
   "short": "TIP",
   "logo": "Team Impulselogo square.png",
+  "league": "LCS",
   "aliases": [
    "LMQ"
   ],
@@ -604,6 +662,7 @@
   "page": "Rogue (European Team)",
   "short": "Rogue",
   "logo": "",
+  "league": "LEC",
   "aliases": [
    "Rogue (European Team)",
    "KOI (Spanish Team)"
@@ -616,6 +675,7 @@
   "page": "Sentinels",
   "short": "SEN",
   "logo": "Sentinelslogo profile.png",
+  "league": "LCS",
   "aliases": [
    "Phoenix1"
   ],
@@ -627,6 +687,7 @@
   "page": "Team Heretics",
   "short": "TH",
   "logo": "Team Hereticslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 22
  },
@@ -636,6 +697,7 @@
   "page": "Anyone's Legend",
   "short": "AL",
   "logo": "Anyone's Legendlogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 21
  },
@@ -645,6 +707,7 @@
   "page": "Gambit Gaming",
   "short": "GMB",
   "logo": "Gambit_Gaming_Logo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 21
  },
@@ -654,6 +717,7 @@
   "page": "ESC Shane",
   "short": "ESC",
   "logo": "ESC Shanelogo square.png",
+  "league": "LCK",
   "aliases": [
    "ESC Ever",
    "bbq Olivers",
@@ -668,6 +732,7 @@
   "page": "Shifters",
   "short": "SHFT",
   "logo": "Shifterslogo profile.png",
+  "league": "LEC",
   "aliases": [
    "Team BDS"
   ],
@@ -679,6 +744,7 @@
   "page": "OKSavingsBank BRION",
   "short": "OKSavingsBank BRION",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 20
  },
@@ -688,6 +754,7 @@
   "page": "Winners",
   "short": "WNS",
   "logo": "Winnerslogo square.png",
+  "league": "LCK",
   "aliases": [
    "Ever8 Winners"
   ],
@@ -699,6 +766,7 @@
   "page": "Ninjas in Pyjamas",
   "short": "NIP",
   "logo": "Ninjas in Pyjamaslogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 19
  },
@@ -708,6 +776,7 @@
   "page": "Team Coast",
   "short": "CST",
   "logo": "Team Coast.png",
+  "league": "LCS",
   "aliases": [],
   "players": 19
  },
@@ -717,6 +786,7 @@
   "page": "ROX Tigers",
   "short": "ROX",
   "logo": "ROX Tigerslogo square.png",
+  "league": "LCK",
   "aliases": [
    "KOO Tigers",
    "GE Tigers"
@@ -729,6 +799,7 @@
   "page": "Millenium",
   "short": "MIL",
   "logo": "Milleniumlogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 18
  },
@@ -738,6 +809,7 @@
   "page": "Team WE Academy",
   "short": "WE.A",
   "logo": "Team WE Academylogo square.png",
+  "league": "LPL",
   "aliases": [
    "Game Talents"
   ],
@@ -749,6 +821,7 @@
   "page": "Movistar KOI",
   "short": "MKOI",
   "logo": "Movistar KOIlogo square.png",
+  "league": "LEC",
   "aliases": [
    "MAD Lions KOI",
    "MAD Lions"
@@ -761,6 +834,7 @@
   "page": "LYON (2024 American Team)",
   "short": "LYON (2024 American Team)",
   "logo": "",
+  "league": "LCS",
   "aliases": [
    "Movistar R7"
   ],
@@ -772,6 +846,7 @@
   "page": "Incredible Miracle 2",
   "short": "IM2",
   "logo": "Im_2_new.png",
+  "league": "LCK",
   "aliases": [],
   "players": 17
  },
@@ -781,6 +856,7 @@
   "page": "Masters 3",
   "short": "M3",
   "logo": "M3 logo.png",
+  "league": "LPL",
   "aliases": [],
   "players": 16
  },
@@ -790,6 +866,7 @@
   "page": "compLexity Gaming",
   "short": "COL",
   "logo": "CompLexity_Gaminglogo_square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 16
  },
@@ -799,6 +876,7 @@
   "page": "Elements",
   "short": "EL",
   "logo": "Elements logo summer.png",
+  "league": "LEC",
   "aliases": [
    "Alliance"
   ],
@@ -810,6 +888,7 @@
   "page": "Isurus",
   "short": "ISG",
   "logo": "Isuruslogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 15
  },
@@ -819,6 +898,7 @@
   "page": "Fredit BRION",
   "short": "Fredit BRION",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 15
  },
@@ -828,6 +908,7 @@
   "page": "Team Dragon Knights",
   "short": "TDK",
   "logo": "TDK logo 2015.jpg",
+  "league": "LCS",
   "aliases": [],
   "players": 15
  },
@@ -837,6 +918,7 @@
   "page": "Splyce",
   "short": "SPY",
   "logo": "Splycelogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 14
  },
@@ -846,6 +928,7 @@
   "page": "RED Canids",
   "short": "RED",
   "logo": "RED Canidslogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 14
  },
@@ -855,6 +938,7 @@
   "page": "LOUD",
   "short": "LOUD",
   "logo": "LOUDlogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 14
  },
@@ -864,6 +948,7 @@
   "page": "Natus Vincere",
   "short": "NAVI",
   "logo": "Natus Vincerelogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 14
  },
@@ -873,6 +958,7 @@
   "page": "SUPA HOT CREW",
   "short": "SHC",
   "logo": "SHCLogo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 14
  },
@@ -882,6 +968,7 @@
   "page": "SANDBOX Gaming",
   "short": "SANDBOX Gaming",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 14
  },
@@ -891,6 +978,7 @@
   "page": "OpTic Gaming",
   "short": "OPT",
   "logo": "OpTic Gaminglogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 14
  },
@@ -900,6 +988,7 @@
   "page": "GIANTX",
   "short": "GX",
   "logo": "GIANTXlogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 14
  },
@@ -909,6 +998,7 @@
   "page": "Young Glory",
   "short": "YG",
   "logo": "Young Glorylogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 14
  },
@@ -918,6 +1008,7 @@
   "page": "DAN Gaming",
   "short": "DAN",
   "logo": "DAN_Gaminglogo_square.png",
+  "league": "LPL",
   "aliases": [
    "2144 Danmu Gaming"
   ],
@@ -929,6 +1020,7 @@
   "page": "Topsports Gaming",
   "short": "Topsports Gaming",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 14
  },
@@ -938,6 +1030,7 @@
   "page": "Gravity (North American Team)",
   "short": "Gravity (North American Team)",
   "logo": "",
+  "league": "LCS",
   "aliases": [
    "Curse Academy"
   ],
@@ -949,6 +1042,7 @@
   "page": "Star Horn Royal Club",
   "short": "Star Horn Royal Club",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 13
  },
@@ -958,6 +1052,7 @@
   "page": "Griffin (Korean Team)",
   "short": "Griffin (Korean Team)",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 13
  },
@@ -967,6 +1062,7 @@
   "page": "BNK FEARX",
   "short": "BFX",
   "logo": "BNK FEARXlogo profile.png",
+  "league": "LCK",
   "aliases": [],
   "players": 13
  },
@@ -976,6 +1072,7 @@
   "page": "MeetYourMakers",
   "short": "MYM",
   "logo": "MeetYourMakerslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 13
  },
@@ -985,6 +1082,7 @@
   "page": "Disguised",
   "short": "DSG",
   "logo": "Disguisedlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 13
  },
@@ -994,6 +1092,7 @@
   "page": "Wings of Aurora",
   "short": "WOA",
   "logo": "Wings of Auroralogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 13
  },
@@ -1003,6 +1102,7 @@
   "page": "Royal Club",
   "short": "RYL",
   "logo": "Royal Clublogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 13
  },
@@ -1012,6 +1112,7 @@
   "page": "Team King",
   "short": "KNG",
   "logo": "King_logo_HD.png",
+  "league": "LPL",
   "aliases": [],
   "players": 13
  },
@@ -1021,6 +1122,7 @@
   "page": "Karmine Corp",
   "short": "KC",
   "logo": "Karmine Corplogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 12
  },
@@ -1030,6 +1132,7 @@
   "page": "Team OP",
   "short": "OP",
   "logo": "OPlogo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 12
  },
@@ -1039,6 +1142,7 @@
   "page": "Incredible Miracle 1",
   "short": "IM1",
   "logo": "IM_logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 12
  },
@@ -1048,6 +1152,7 @@
   "page": "Positive Energy",
   "short": "PE",
   "logo": "Positive Energylogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 12
  },
@@ -1057,6 +1162,7 @@
   "page": "Saint Gaming",
   "short": "SAT",
   "logo": "Saintlogo square.png",
+  "league": "LPL",
   "aliases": [
    "Hyper Youth Gaming"
   ],
@@ -1068,6 +1174,7 @@
   "page": "eStar (Chinese Team)",
   "short": "eStar (Chinese Team)",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 12
  },
@@ -1077,6 +1184,7 @@
   "page": "Team LoLPro",
   "short": "PRO",
   "logo": "Team LoLPrologo square.png",
+  "league": "LCS",
   "aliases": [
    "Team Curse Europe"
   ],
@@ -1088,6 +1196,7 @@
   "page": "NRG Esports",
   "short": "NRG Esports",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 12
  },
@@ -1097,6 +1206,7 @@
   "page": "I May",
   "short": "IM",
   "logo": "I Maylogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 11
  },
@@ -1106,6 +1216,7 @@
   "page": "PSG Talon",
   "short": "PSG",
   "logo": "PSG Talonlogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 11
  },
@@ -1115,6 +1226,7 @@
   "page": "MVP Blue",
   "short": "MVP.B",
   "logo": "MVPlogo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 11
  },
@@ -1124,6 +1236,7 @@
   "page": "Shopify Rebellion",
   "short": "SR",
   "logo": "Shopify Rebellionlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 11
  },
@@ -1133,6 +1246,7 @@
   "page": "QG Reapers",
   "short": "QGR",
   "logo": "QG_Reaperslogo_square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 11
  },
@@ -1142,6 +1256,7 @@
   "page": "Renegades",
   "short": "REN",
   "logo": "Renegadeslogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 11
  },
@@ -1151,6 +1266,7 @@
   "page": "paiN Gaming",
   "short": "PAIN",
   "logo": "PaiN Gaminglogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 10
  },
@@ -1160,6 +1276,7 @@
   "page": "Estral Esports",
   "short": "EST",
   "logo": "Estral Esportslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 10
  },
@@ -1169,6 +1286,7 @@
   "page": "Prime Sentinel",
   "short": "Prime Sentinel",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1178,6 +1296,7 @@
   "page": "Prime Clan",
   "short": "Prime",
   "logo": "Prime Clanlogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1187,6 +1306,7 @@
   "page": "Xenics",
   "short": "XEN",
   "logo": "Xenics logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1196,6 +1316,7 @@
   "page": "SBENU Sonicboom",
   "short": "SBENU Sonicboom",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1205,6 +1326,7 @@
   "page": "TCM Gaming",
   "short": "TCM",
   "logo": "TCM Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 10
  },
@@ -1214,6 +1336,7 @@
   "page": "SK Gaming Prime",
   "short": "SKP",
   "logo": "SK Gaminglogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 10
  },
@@ -1223,6 +1346,7 @@
   "page": "mousesports",
   "short": "mousesports",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 10
  },
@@ -1232,6 +1356,7 @@
   "page": "against All authority",
   "short": "aAa",
   "logo": "Against All authoritylogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 10
  },
@@ -1241,6 +1366,7 @@
   "page": "Kongdoo Monster",
   "short": "KDM",
   "logo": "Kongdoo Monsterlogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1250,6 +1376,7 @@
   "page": "VSG (Korean Team)",
   "short": "VSG (Korean Team)",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1259,6 +1386,7 @@
   "page": "BRION",
   "short": "BRION",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 10
  },
@@ -1268,6 +1396,7 @@
   "page": "Quantic Gaming",
   "short": "QTC",
   "logo": "QuanticGamingLogo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 10
  },
@@ -1277,6 +1406,7 @@
   "page": "Team Green Forest",
   "short": "TGF",
   "logo": "Team_Green_Forest.png",
+  "league": "LCS",
   "aliases": [],
   "players": 10
  },
@@ -1286,6 +1416,7 @@
   "page": "Team EnVyUs",
   "short": "NV",
   "logo": "Team EnVyUslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 10
  },
@@ -1295,6 +1426,7 @@
   "page": "Flash Wolves",
   "short": "FW",
   "logo": "Flash Wolves logo.png",
+  "league": "",
   "aliases": [],
   "players": 9
  },
@@ -1304,6 +1436,7 @@
   "page": "MKZ",
   "short": "MKZ",
   "logo": "MKZ_Logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1313,6 +1446,7 @@
   "page": "Chunnam Techno University",
   "short": "CTU",
   "logo": "CTU_logo2.png",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1322,6 +1456,7 @@
   "page": "Mook Secret",
   "short": "Mook Secret",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1331,6 +1466,7 @@
   "page": "Prime Optimus",
   "short": "PO",
   "logo": "Prime Clanlogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1340,6 +1476,7 @@
   "page": "APK Prince",
   "short": "APK Prince",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1349,6 +1486,7 @@
   "page": "SeolHaeOne Prince",
   "short": "SP",
   "logo": "SeolHaeOne Princelogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 9
  },
@@ -1358,6 +1496,7 @@
   "page": "Fluxo W7M",
   "short": "FX",
   "logo": "Fluxo W7Mlogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 9
  },
@@ -1367,6 +1506,7 @@
   "page": "Good Game University",
   "short": "Good Game University",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 9
  },
@@ -1376,6 +1516,7 @@
   "page": "Xenics Blast",
   "short": "XB",
   "logo": "Xenicsblastlogo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 8
  },
@@ -1385,6 +1526,7 @@
   "page": "Anarchy",
   "short": "Anarchy",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 8
  },
@@ -1394,6 +1536,7 @@
   "page": "Wayi Spider China",
   "short": "WS",
   "logo": "Wayi Spider.jpg",
+  "league": "LPL",
   "aliases": [],
   "players": 8
  },
@@ -1403,6 +1546,7 @@
   "page": "Energy Pacemaker",
   "short": "EP",
   "logo": "EP.png",
+  "league": "LPL",
   "aliases": [],
   "players": 8
  },
@@ -1412,6 +1556,7 @@
   "page": "Energy Pacemaker.All",
   "short": "EPA",
   "logo": "Energy Pacemaker.Alllogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 8
  },
@@ -1421,6 +1566,7 @@
   "page": "Young Miracles",
   "short": "YM",
   "logo": "Young_Miracleslogo_square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 8
  },
@@ -1430,6 +1576,7 @@
   "page": "XDG Gaming",
   "short": "XDG",
   "logo": "XDGG.jpg",
+  "league": "LCS",
   "aliases": [
    "Team Vulcun"
   ],
@@ -1441,6 +1588,7 @@
   "page": "Enemy",
   "short": "NME",
   "logo": "Enemy_logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 8
  },
@@ -1450,6 +1598,7 @@
   "page": "Winterfox",
   "short": "WFX",
   "logo": "Winterfox_Logo_Update.png",
+  "league": "LCS",
   "aliases": [],
   "players": 8
  },
@@ -1459,6 +1608,7 @@
   "page": "Apex Gaming",
   "short": "APX",
   "logo": "Apexsquare.png",
+  "league": "LCS",
   "aliases": [],
   "players": 8
  },
@@ -1468,6 +1618,7 @@
   "page": "Gold Coin United",
   "short": "GCU",
   "logo": "Gold Coin Unitedlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 8
  },
@@ -1477,6 +1628,7 @@
   "page": "Vivo Keyd Stars",
   "short": "VKS",
   "logo": "Vivo Keyd Starslogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 7
  },
@@ -1486,6 +1638,7 @@
   "page": "StarTale",
   "short": "ST",
   "logo": "StarTalelogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 7
  },
@@ -1495,6 +1648,7 @@
   "page": "Team NB",
   "short": "NB",
   "logo": "Team NBlogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 7
  },
@@ -1504,6 +1658,7 @@
   "page": "Alienware Arena",
   "short": "AWA",
   "logo": "Alienware Arenalogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 7
  },
@@ -1513,6 +1668,7 @@
   "page": "Kiedys Mialem Team",
   "short": "Kiedys Mialem Team",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 7
  },
@@ -1522,6 +1678,7 @@
   "page": "Team Property",
   "short": "prOp",
   "logo": "Property.png",
+  "league": "LEC",
   "aliases": [],
   "players": 7
  },
@@ -1531,6 +1688,7 @@
   "page": "ad hoc gaming",
   "short": "AHG",
   "logo": "Ad Hoc Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [
    "Mysterious Monkeys"
   ],
@@ -1542,6 +1700,7 @@
   "page": "DragonBorns",
   "short": "DB",
   "logo": "DragonBornslogo_square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 7
  },
@@ -1551,6 +1710,7 @@
   "page": "Wizards e-Sports Club",
   "short": "Wizards e-Sports Club",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 7
  },
@@ -1560,6 +1720,7 @@
   "page": "MVP",
   "short": "MVP",
   "logo": "MVPlogo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 7
  },
@@ -1569,6 +1730,7 @@
   "page": "Gamtee",
   "short": "GT",
   "logo": "GT logo new.png",
+  "league": "LPL",
   "aliases": [],
   "players": 7
  },
@@ -1578,6 +1740,7 @@
   "page": "Leviatan",
   "short": "LEV",
   "logo": "Leviatanlogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 7
  },
@@ -1587,6 +1750,7 @@
   "page": "COGnitive Gaming",
   "short": "COG",
   "logo": "COG_Logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1596,6 +1760,7 @@
   "page": "compLexity.Black",
   "short": "CLB",
   "logo": "CoLBlack.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1605,6 +1770,7 @@
   "page": "Team Fusion",
   "short": "FSN",
   "logo": "Team Fusion Gaming Profile v2.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1614,6 +1780,7 @@
   "page": "Team 8",
   "short": "T8",
   "logo": "Team8_logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1623,6 +1790,7 @@
   "page": "eUnited",
   "short": "EUN",
   "logo": "EUnitedlogo_square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1632,6 +1800,7 @@
   "page": "Epik Gamer",
   "short": "Epik Gamer",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1641,6 +1810,7 @@
   "page": "Team MRN",
   "short": "MRN",
   "logo": "mrnlogo3.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1650,6 +1820,7 @@
   "page": "The Salad Bar",
   "short": "TSB",
   "logo": "The Salad Barlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 7
  },
@@ -1659,6 +1830,7 @@
   "page": "Lyon Gaming (2013 Latin American Team)",
   "short": "Lyon Gaming (2013 Latin American Team)",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
@@ -1668,6 +1840,7 @@
   "page": "CTBC Flying Oyster",
   "short": "CFO",
   "logo": "CTBC Flying Oysterlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 6
  },
@@ -1677,6 +1850,7 @@
   "page": "NRG",
   "short": "NRG",
   "logo": "NRGlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
@@ -1686,6 +1860,7 @@
   "page": "DDoL",
   "short": "DDoL",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 6
  },
@@ -1695,6 +1870,7 @@
   "page": "Azubu Blaze",
   "short": "AZB",
   "logo": "Azubu Blazelogo profile.png",
+  "league": "LCK",
   "aliases": [],
   "players": 6
  },
@@ -1704,6 +1880,7 @@
   "page": "MVP White",
   "short": "MVP White",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 6
  },
@@ -1713,6 +1890,7 @@
   "page": "Salade Tomate Oignon",
   "short": "STO",
   "logo": "Salade Tomate Oignonlogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 6
  },
@@ -1722,6 +1900,7 @@
   "page": "RoughNeX Academy",
   "short": "RoughNeX Academy",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 6
  },
@@ -1731,6 +1910,7 @@
   "page": "Lemondogs",
   "short": "LD",
   "logo": "Lemondogslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 6
  },
@@ -1740,6 +1920,7 @@
   "page": "Team ALTERNATE",
   "short": "Team ALTERNATE",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 6
  },
@@ -1749,6 +1930,7 @@
   "page": "HANJIN BRION",
   "short": "BRO",
   "logo": "HANJIN BRIONlogo profile.png",
+  "league": "LCK",
   "aliases": [],
   "players": 6
  },
@@ -1758,6 +1940,7 @@
   "page": "Energy Pacemaker.HK",
   "short": "Energy Pacemaker.HK",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 6
  },
@@ -1767,6 +1950,7 @@
   "page": "Unlimited Potential",
   "short": "UP",
   "logo": "UP logo.png",
+  "league": "LPL",
   "aliases": [],
   "players": 6
  },
@@ -1776,6 +1960,7 @@
   "page": "Isurus Estral",
   "short": "IE",
   "logo": "Isurus Estrallogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 6
  },
@@ -1785,6 +1970,7 @@
   "page": "vVv Gaming",
   "short": "VVV",
   "logo": "vVv_Gaming.png",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
@@ -1794,6 +1980,7 @@
   "page": "SouLControL",
   "short": "SouLControL",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
@@ -1803,6 +1990,7 @@
   "page": "Velocity eSports",
   "short": "VES",
   "logo": "Velocity_eSportslogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
@@ -1812,6 +2000,7 @@
   "page": "Fenerbahçe Esports",
   "short": "FB",
   "logo": "Fenerbahçe Esportslogo square.png",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -1821,6 +2010,7 @@
   "page": "Hong Kong Attitude",
   "short": "HKA",
   "logo": "Hong_Kong_Attitudelogo_square.png",
+  "league": "",
   "aliases": [
    "Hong Kong Esports"
   ],
@@ -1832,6 +2022,7 @@
   "page": "Rainbow7",
   "short": "Rainbow7",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -1841,6 +2032,7 @@
   "page": "G-Rex",
   "short": "GRX",
   "logo": "G-Rexlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -1850,6 +2042,7 @@
   "page": "DetonatioN FocusMe",
   "short": "DFM",
   "logo": "DetonatioN FocusMelogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -1859,6 +2052,7 @@
   "page": "FURIA",
   "short": "FUR",
   "logo": "FURIAlogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -1868,6 +2062,7 @@
   "page": "Little Hippo",
   "short": "LITT",
   "logo": "Unknown Infobox Image - Team.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1877,6 +2072,7 @@
   "page": "NEB",
   "short": "NEB",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1886,6 +2082,7 @@
   "page": "NeL",
   "short": "NeL",
   "logo": "smallNEL.gif",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1895,6 +2092,7 @@
   "page": "SuperStar",
   "short": "SS",
   "logo": "SmallSS.gif",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1904,6 +2102,7 @@
   "page": "Team Hunters",
   "short": "TH",
   "logo": "Team_Hunterslogo_square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1913,6 +2112,7 @@
   "page": "Team XD",
   "short": "Team XD",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1922,6 +2122,7 @@
   "page": "Azubu Frost",
   "short": "AZF",
   "logo": "Azubu Frostlogo profile.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1931,6 +2132,7 @@
   "page": "Counter Logic Gaming Europe",
   "short": "CLG.EU",
   "logo": "Clgeu logo2.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1940,6 +2142,7 @@
   "page": "GJR",
   "short": "GJR",
   "logo": "gjr_logo.jpg",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1949,6 +2152,7 @@
   "page": "RoMg",
   "short": "RoMg",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1958,6 +2162,7 @@
   "page": "ahq e-Sports Club Korea",
   "short": "ahq.KR",
   "logo": "AHQ2.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1967,6 +2172,7 @@
   "page": "MVP Ozone",
   "short": "MVP.O",
   "logo": "MVPlogo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1976,6 +2182,7 @@
   "page": "Beggars",
   "short": "Beggars",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1985,6 +2192,7 @@
   "page": "Virtual Throne Gaming",
   "short": "Virtual Throne Gaming",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -1994,6 +2202,7 @@
   "page": "MiG Blitz",
   "short": "MiG Blitz",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2003,6 +2212,7 @@
   "page": "C.Ruru",
   "short": "C.Ruru",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2012,6 +2222,7 @@
   "page": "CTU Revolt",
   "short": "CTU Revolt",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2021,6 +2232,7 @@
   "page": "Global Feeding",
   "short": "Global Feeding",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2030,6 +2242,7 @@
   "page": "GOL",
   "short": "GOL",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2039,6 +2252,7 @@
   "page": "Hoon Good Day",
   "short": "Hoon Good Day",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2048,6 +2262,7 @@
   "page": "MiG Wicked",
   "short": "MiG Wicked",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2057,6 +2272,7 @@
   "page": "SuMa",
   "short": "SuMa",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2066,6 +2282,7 @@
   "page": "TAL",
   "short": "TAL",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2075,6 +2292,7 @@
   "page": "Team Positive",
   "short": "Team Positive",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2084,6 +2302,7 @@
   "page": "GSG",
   "short": "GSG",
   "logo": "Unknown Infobox Image - Team.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2093,6 +2312,7 @@
   "page": "BBT",
   "short": "BBT",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2102,6 +2322,7 @@
   "page": "Call (Korean Team)",
   "short": "Call (Korean Team)",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2111,6 +2332,7 @@
   "page": "LEO Rook",
   "short": "LEO Rook",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2120,6 +2342,7 @@
   "page": "NaB",
   "short": "NaB",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2129,6 +2352,7 @@
   "page": "PSW Ares",
   "short": "PSW Ares",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2138,6 +2362,7 @@
   "page": "Alienware TOP",
   "short": "Alienware TOP",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2147,6 +2372,7 @@
   "page": "Bigfile Amor",
   "short": "Bigfile Amor",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2156,6 +2382,7 @@
   "page": "God-sin",
   "short": "God-sin",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2165,6 +2392,7 @@
   "page": "Midas FIO",
   "short": "FIO",
   "logo": "Midas_FIO.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2174,6 +2402,7 @@
   "page": "Mook Comet",
   "short": "Mook Comet",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2183,6 +2412,7 @@
   "page": "Team Olympus",
   "short": "Team Olympus",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2192,6 +2422,7 @@
   "page": "Bigfile Miracle",
   "short": "BFM",
   "logo": "Bigfile Miracle logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2201,6 +2432,7 @@
   "page": "Invengers",
   "short": "Invengers",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2210,6 +2442,7 @@
   "page": "Team Massive Throwing",
   "short": "Team Massive Throwing",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2219,6 +2452,7 @@
   "page": "VTG 2",
   "short": "VTG 2",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2228,6 +2462,7 @@
   "page": "Alienware Andromeda",
   "short": "Alienware Andromeda",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2237,6 +2472,7 @@
   "page": "Alienware Rangers",
   "short": "Alienware Rangers",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2246,6 +2482,7 @@
   "page": "Mook",
   "short": "Mook",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2255,6 +2492,7 @@
   "page": "Must Study Hard",
   "short": "Must Study Hard",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2264,6 +2502,7 @@
   "page": "Team Dark",
   "short": "Dark",
   "logo": "Team Darklogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2273,6 +2512,7 @@
   "page": "Team Gdpg",
   "short": "Team Gdpg",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2282,6 +2522,7 @@
   "page": "HUYA Tigers",
   "short": "HUYA Tigers",
   "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2291,6 +2532,7 @@
   "page": "Karont3 e-Sports Club",
   "short": "K3",
   "logo": "K3LOGO.jpg",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2300,6 +2542,7 @@
   "page": "Black Unicorns",
   "short": "Black Unicorns",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2309,6 +2552,7 @@
   "page": "Cupcake is God",
   "short": "Cupcake is God",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2318,6 +2562,7 @@
   "page": "ex-GamingGear.EU",
   "short": "ex-GamingGear.EU",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2327,6 +2572,7 @@
   "page": "Heroes Team",
   "short": "HT",
   "logo": "Heroes Teamlogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2336,6 +2582,7 @@
   "page": "Intellectual Playground",
   "short": "IPG",
   "logo": "Intellectual Playgroundlogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2345,6 +2592,7 @@
   "page": "Mad Gods Gaming",
   "short": "MG",
   "logo": "302833_514113985273325_819114531_n.jpg",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2354,6 +2602,7 @@
   "page": "RoughNeX",
   "short": "RoughNeX",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2363,6 +2612,7 @@
   "page": "Skill Or Luck",
   "short": "Skill Or Luck",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2372,6 +2622,7 @@
   "page": "Yalta Conference",
   "short": "Yalta Conference",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2381,6 +2632,7 @@
   "page": "bleiz eSPORTS",
   "short": "bleiz eSPORTS",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2390,6 +2642,7 @@
   "page": "ColliadesPoop",
   "short": "ColliadesPoop",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2399,6 +2652,7 @@
   "page": "EVG-Serv",
   "short": "EVG-Serv",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2408,6 +2662,7 @@
   "page": "headshotBG",
   "short": "headshotBG",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2417,6 +2672,7 @@
   "page": "Team Dignitas UK",
   "short": "d UK",
   "logo": "Diglogo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2426,6 +2682,7 @@
   "page": "Team Ultra Vires",
   "short": "TUV",
   "logo": "UltraVires.jpg",
+  "league": "LEC",
   "aliases": [
    "Gaminggear.EU"
   ],
@@ -2437,6 +2694,7 @@
   "page": "The Dark Side",
   "short": "The Dark Side",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2446,6 +2704,7 @@
   "page": "The Fox Sound",
   "short": "TFS",
   "logo": "TheFoxSound.jpg",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2455,6 +2714,7 @@
   "page": "Cloud9 Eclipse",
   "short": "C9E",
   "logo": "Cloud9 Eclipselogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2464,6 +2724,7 @@
   "page": "Denial eSports EU",
   "short": "Denial eSports EU",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2473,6 +2734,7 @@
   "page": "Ascension",
   "short": "Ascension",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2482,6 +2744,7 @@
   "page": "Cyber Gaming",
   "short": "CG",
   "logo": "Cyber Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2491,6 +2754,7 @@
   "page": "Different Dimension",
   "short": "DD",
   "logo": "Different Dimensionlogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2500,6 +2764,7 @@
   "page": "Meloncats",
   "short": "MC",
   "logo": "Meloncats logo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2509,6 +2774,7 @@
   "page": "n!faculty",
   "short": "FAC",
   "logo": "N!faculty.jpg",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2518,6 +2784,7 @@
   "page": "Reason Gaming",
   "short": "RG",
   "logo": "ReasonGamingLogo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2527,6 +2794,7 @@
   "page": "Team Strix",
   "short": "Team Strix",
   "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2536,6 +2804,7 @@
   "page": "ThunderBot SPARTA",
   "short": "TBS",
   "logo": "thunderboltSPARTA Logo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2545,6 +2814,7 @@
   "page": "Tricked Esport",
   "short": "TRC",
   "logo": "Tricked eSportslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2554,6 +2824,7 @@
   "page": "Copenhagen Wolves Academy",
   "short": "CWA",
   "logo": "CW Academy.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2563,6 +2834,7 @@
   "page": "Huma",
   "short": "HMA",
   "logo": "Humalogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2572,6 +2844,7 @@
   "page": "Fnatic TQ",
   "short": "Fnatic TQ",
   "logo": "",
+  "league": "LEC",
   "aliases": [
    "Fnatic Academy",
    "Fnatic Rising"
@@ -2584,6 +2857,7 @@
   "page": "Misfits Premier",
   "short": "MSFP",
   "logo": "Misfits Premierlogo profile.png",
+  "league": "LEC",
   "aliases": [
    "Misfits Academy"
   ],
@@ -2595,6 +2869,7 @@
   "page": "Anexis eSports",
   "short": "AXS",
   "logo": "Anexis_eSports_logo.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2604,6 +2879,7 @@
   "page": "Samurai in Jeans",
   "short": "SAMU",
   "logo": "Unknown Infobox Image - Team.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2613,6 +2889,7 @@
   "page": "Sinners Never Sleep",
   "short": "SNS",
   "logo": "Sinners_Never_sleepuu.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2622,6 +2899,7 @@
   "page": "AT Gaming",
   "short": "AT",
   "logo": "AT Gaming.jpg",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2631,6 +2909,7 @@
   "page": "Dark Wolves",
   "short": "DW",
   "logo": "Dark Wolves logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2640,6 +2919,7 @@
   "page": "SBENU Korea",
   "short": "SBK",
   "logo": "SBENU logo.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2649,6 +2929,7 @@
   "page": "Team BattleComics",
   "short": "BtC",
   "logo": "Team BattleComicslogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2658,6 +2939,7 @@
   "page": "ES Sharks",
   "short": "ESS",
   "logo": "ES Sharkslogo square.png",
+  "league": "LCK",
   "aliases": [],
   "players": 5
  },
@@ -2667,6 +2949,7 @@
   "page": "Cupid Esports",
   "short": "CPD",
   "logo": "Cupid Esportslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2676,6 +2959,7 @@
   "page": "Fuego",
   "short": "FUE",
   "logo": "Fuegologo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2685,6 +2969,7 @@
   "page": "Maryville University",
   "short": "MU",
   "logo": "Maryville Universitylogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2694,6 +2979,7 @@
   "page": "Zeu5 Esports",
   "short": "Z5",
   "logo": "Zeu5 Esportslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2703,6 +2989,7 @@
   "page": "Karmine Corp Blue",
   "short": "KCB",
   "logo": "Karmine Corp Bluelogo profile.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2712,6 +2999,7 @@
   "page": "Los Ratones",
   "short": "LR",
   "logo": "Los Ratoneslogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -2721,6 +3009,7 @@
   "page": "Team LH",
   "short": "Team LH",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2730,6 +3019,7 @@
   "page": "Team Livemore",
   "short": "LM",
   "logo": "Team Livemorelogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2739,6 +3029,7 @@
   "page": "Energy Pacemaker.Carries",
   "short": "EPC",
   "logo": "EP.C_logo.png",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2748,6 +3039,7 @@
   "page": "Gamtee Fenghui",
   "short": "Gamtee Fenghui",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2757,6 +3049,7 @@
   "page": "Team DK",
   "short": "DK",
   "logo": "Team DKlogo profile.png",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2766,6 +3059,7 @@
   "page": "Vici Stand Gaming",
   "short": "Vici Stand Gaming",
   "logo": "",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2775,6 +3069,7 @@
   "page": "EDward Esports",
   "short": "EDE",
   "logo": "EDward Esportslogo square.png",
+  "league": "LPL",
   "aliases": [
    "AD Gaming"
   ],
@@ -2786,6 +3081,7 @@
   "page": "Revenger (Chinese Team)",
   "short": "Revenger (Chinese Team)",
   "logo": "",
+  "league": "LPL",
   "aliases": [
    "Kx.Happy"
   ],
@@ -2797,6 +3093,7 @@
   "page": "Legend Dragon",
   "short": "LD",
   "logo": "LDG logo new.png",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2806,6 +3103,7 @@
   "page": "Mighty Eagle",
   "short": "ME",
   "logo": "Mighty Eaglelogo square.png",
+  "league": "LPL",
   "aliases": [
    "Team WE Future"
   ],
@@ -2817,6 +3115,7 @@
   "page": "MF Gaming",
   "short": "MFG",
   "logo": "MF Gaminglogo square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 5
  },
@@ -2826,6 +3125,7 @@
   "page": "Conviction",
   "short": "CNV",
   "logo": "Convictionlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2835,6 +3135,7 @@
   "page": "Luminosity Gaming",
   "short": "LG",
   "logo": "Luminosity Gaminglogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2844,6 +3145,7 @@
   "page": "SDM Tigres",
   "short": "SDM",
   "logo": "SDM Tigreslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2853,6 +3155,7 @@
   "page": "Alpha7 Esports",
   "short": "A7",
   "logo": "Alpha7 Esportslogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -2862,6 +3165,7 @@
   "page": "Farenvehn",
   "short": "FVN",
   "logo": "Farenvehnlogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -2871,6 +3175,7 @@
   "page": "Flamengo MDL",
   "short": "FLA",
   "logo": "Flamengo MDLlogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -2880,6 +3185,7 @@
   "page": "Sicar Esports",
   "short": "SIC",
   "logo": "Sicar Esportslogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -2889,6 +3195,7 @@
   "page": "Determined Gaming",
   "short": "DTG",
   "logo": "DTLogo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2898,6 +3205,7 @@
   "page": "The Walking Zed",
   "short": "TWZ",
   "logo": "Twz_Logo_-_Riot.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2907,6 +3215,7 @@
   "page": "New World Eclipse",
   "short": "NWE",
   "logo": "NWE.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2916,6 +3225,7 @@
   "page": "To Be Determined",
   "short": "To Be Determined",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2925,6 +3235,7 @@
   "page": "1UP Gaming",
   "short": "1UP Gaming",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2934,6 +3245,7 @@
   "page": "Denial eSports.East",
   "short": "DNL.E",
   "logo": "denialtrans.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2943,6 +3255,7 @@
   "page": "Gold Gaming LA",
   "short": "GG",
   "logo": "GgLA-small.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2952,6 +3265,7 @@
   "page": "Napkins in Disguise",
   "short": "NID",
   "logo": "Unknown Infobox Image - Team.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2961,6 +3275,7 @@
   "page": "Otacool",
   "short": "Otacool",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2970,6 +3285,7 @@
   "page": "Sirens A Team",
   "short": "Sirens A Team",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2979,6 +3295,7 @@
   "page": "Team Tempest",
   "short": "TMP",
   "logo": "Team_Tempestlogo_square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2988,6 +3305,7 @@
   "page": "Girlfriends",
   "short": "GFS",
   "logo": "Unknown Infobox Image - Team.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -2997,6 +3315,7 @@
   "page": "No Dice Gaming",
   "short": "NDG",
   "logo": "NDGaming.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3006,6 +3325,7 @@
   "page": "Pink Pwnys",
   "short": "Pink Pwnys",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3015,6 +3335,7 @@
   "page": "Team Shy Nuns",
   "short": "Team Shy Nuns",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3024,6 +3345,7 @@
   "page": "Team Such Doge",
   "short": "Team Such Doge",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3033,6 +3355,7 @@
   "page": "Cloud9 Tempest",
   "short": "C9T",
   "logo": "Cloud9 Tempestlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3042,6 +3365,7 @@
   "page": "Call Gaming",
   "short": "CG",
   "logo": "Call Gaminglogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3051,6 +3375,7 @@
   "page": "compLexity.White",
   "short": "COW",
   "logo": "Complexity Whitelogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3060,6 +3385,7 @@
   "page": "Vortex (North American Team)",
   "short": "Vortex (North American Team)",
   "logo": "",
+  "league": "LCS",
   "aliases": [
    "Final Five"
   ],
@@ -3071,6 +3397,7 @@
   "page": "Fission Esports",
   "short": "FIS",
   "logo": "FIS logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3080,6 +3407,7 @@
   "page": "Monster Kittens",
   "short": "Monster Kittens",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3089,6 +3417,7 @@
   "page": "Noble Truth",
   "short": "NTR",
   "logo": "Ntr_logo_lg.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3098,6 +3427,7 @@
   "page": "Zenith Esports",
   "short": "ZEN",
   "logo": "Zenith_logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3107,6 +3437,7 @@
   "page": "Team Imagine",
   "short": "IMG",
   "logo": "Imagine logo solid.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3116,6 +3447,7 @@
   "page": "Cloud9 Challenger",
   "short": "C9C",
   "logo": "Cloud9 Challengerlogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3125,6 +3457,7 @@
   "page": "Team Liquid Challengers",
   "short": "TLC",
   "logo": "Team Liquidlogo profile.png",
+  "league": "LCS",
   "aliases": [
    "Team Liquid Academy"
   ],
@@ -3136,6 +3469,7 @@
   "page": "1 Trick Ponies",
   "short": "1TP",
   "logo": "1trickponies_logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3145,6 +3479,7 @@
   "page": "Azure Gaming",
   "short": "Azure Gaming",
   "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3154,6 +3489,7 @@
   "page": "compLexity Academy",
   "short": "CLA",
   "logo": "CompLexity Academylogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3163,6 +3499,7 @@
   "page": "Dirt Nap Gaming",
   "short": "DNG",
   "logo": "Dirtnap.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3172,6 +3509,7 @@
   "page": "Falafel Gaming",
   "short": "FLFG",
   "logo": "Falafel Gaminglogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3181,6 +3519,7 @@
   "page": "Meat Playground",
   "short": "MP",
   "logo": "Meat Playgroundlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3190,6 +3529,7 @@
   "page": "Departed",
   "short": "DPD",
   "logo": "Departedlogo square.png",
+  "league": "LCS",
   "aliases": [
    "Pulse Esports"
   ],
@@ -3201,6 +3541,7 @@
   "page": "Team FeaR",
   "short": "FR",
   "logo": "teamfearlogo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3210,6 +3551,7 @@
   "page": "Team TowerDiveTV",
   "short": "TDTV",
   "logo": "Team TowerDiveTVlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3219,6 +3561,7 @@
   "page": "The Brunch Club",
   "short": "TBC",
   "logo": "brunchclub.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3228,6 +3571,7 @@
   "page": "Azure Cats",
   "short": "AC",
   "logo": "Azure Catslogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3237,6 +3581,7 @@
   "page": "DoubleBuff",
   "short": "DBB",
   "logo": "DoubleBuff Logo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3246,6 +3591,7 @@
   "page": "Fidelis",
   "short": "FD",
   "logo": "Fidelislogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3255,6 +3601,7 @@
   "page": "Team Astral Poke",
   "short": "TAP",
   "logo": "Team Astral Pokelogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3264,6 +3611,7 @@
   "page": "Team Summon",
   "short": "TS",
   "logo": "TeamSummonlogo.png",
+  "league": "LCS",
   "aliases": [],
   "players": 5
  },
@@ -3273,6 +3621,7 @@
   "page": "Moscow Five",
   "short": "Moscow Five",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -3282,6 +3631,7 @@
   "page": "GamingGear.eu",
   "short": "GamingGear.eu",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -3291,6 +3641,7 @@
   "page": "ahq eSports Club",
   "short": "ahq",
   "logo": "Ahq eSports Clublogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3300,6 +3651,7 @@
   "page": "Dire Wolves",
   "short": "DW",
   "logo": "Dire Wolveslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3309,6 +3661,7 @@
   "page": "INFINITY",
   "short": "INF",
   "logo": "INFINITYlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3318,6 +3671,7 @@
   "page": "MAMMOTH",
   "short": "MEC",
   "logo": "MAMMOTHlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3327,6 +3681,7 @@
   "page": "NASR eSports Turkey",
   "short": "NASR",
   "logo": "NASR ESPORTSlogo profile.png",
+  "league": "",
   "aliases": [
    "Royal Youth"
   ],
@@ -3338,6 +3693,7 @@
   "page": "Papara SuperMassive",
   "short": "SUP",
   "logo": "Papara SuperMassivelogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3347,6 +3703,7 @@
   "page": "LØS",
   "short": "LOS",
   "logo": "LØSlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3356,6 +3713,7 @@
   "page": "Rock Solid",
   "short": "RS",
   "logo": "R_S_logo.jpeg",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3365,6 +3723,7 @@
   "page": "Noah's Ark",
   "short": "NA",
   "logo": "NAlogo.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3374,6 +3733,7 @@
   "page": "Team Acer Poland",
   "short": "ACER.PL",
   "logo": "Team Acer Polandlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 4
  },
@@ -3383,6 +3743,7 @@
   "page": "KaBuM! Ilha das Lendas",
   "short": "KBM",
   "logo": "KaBuM! Ilha das Lendaslogo profile.png",
+  "league": "",
   "aliases": [
    "KaBuM! Esports"
   ],
@@ -3394,6 +3755,7 @@
   "page": "INTZ",
   "short": "INTZ",
   "logo": "INTZlogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3403,6 +3765,7 @@
   "page": "Flamengo Esports",
   "short": "Flamengo Esports",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3412,6 +3775,7 @@
   "page": "Legacy Esports",
   "short": "LGC",
   "logo": "Legacy Esportslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3421,6 +3785,7 @@
   "page": "Chiefs Esports Club",
   "short": "CHF",
   "logo": "Chiefs Esports Clublogo square.png",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3430,6 +3795,7 @@
   "page": "Team gamed!de",
   "short": "GDE",
   "logo": "Gamed!de_logo.jpg",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3439,6 +3805,7 @@
   "page": "Tic-Tacs",
   "short": "Tic-Tacs",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3448,6 +3815,7 @@
   "page": "EHOME",
   "short": "EHOME",
   "logo": "EHOMElogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3457,6 +3825,7 @@
   "page": "EloHell",
   "short": "EH",
   "logo": "EloHelllogo square.png",
+  "league": "",
   "aliases": [],
   "players": 3
  },
@@ -3466,6 +3835,7 @@
   "page": "SuperMassive Esports",
   "short": "SuperMassive Esports",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3475,6 +3845,7 @@
   "page": "Gambit Esports",
   "short": "GMB",
   "logo": "Gambit Esportslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3484,6 +3855,7 @@
   "page": "Bombers",
   "short": "BMR",
   "logo": "Bomberslogo_square.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3493,6 +3865,7 @@
   "page": "J Team",
   "short": "JT",
   "logo": "J Teamlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3502,6 +3875,7 @@
   "page": "Machi Esports",
   "short": "MCX",
   "logo": "Machi Esportslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3511,6 +3885,7 @@
   "page": "Istanbul Wildcats",
   "short": "Istanbul Wildcats",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3520,6 +3895,7 @@
   "page": "Beyond Gaming",
   "short": "BYG",
   "logo": "Beyond Gaminglogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3529,6 +3905,7 @@
   "page": "Galatasaray Esports",
   "short": "GS",
   "logo": "Galatasaray Esportslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3538,6 +3915,7 @@
   "page": "Team Aze",
   "short": "AZE",
   "logo": "Team Azelogo square.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3547,6 +3925,7 @@
   "page": "Fukuoka SoftBank HAWKS gaming",
   "short": "SHG",
   "logo": "Fukuoka_SoftBank_HAWKS_gaminglogo_profile.png",
+  "league": "",
   "aliases": [],
   "players": 2
  },
@@ -3556,6 +3935,7 @@
   "page": "GashBears",
   "short": "GB",
   "logo": "GashBearslogo square.png",
+  "league": "",
   "aliases": [
    "Gamania Bears"
   ],
@@ -3567,6 +3947,7 @@
   "page": "Taipei Snipers",
   "short": "TPS",
   "logo": "Taipei Sniperslogo square.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3576,6 +3957,7 @@
   "page": "Dark Passage",
   "short": "DP",
   "logo": "Dark Passagelogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3585,6 +3967,7 @@
   "page": "Full Louis",
   "short": "FL",
   "logo": "Full Louislogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3594,6 +3977,7 @@
   "page": "GIGABYTE Marines",
   "short": "GIGABYTE Marines",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3603,6 +3987,7 @@
   "page": "PENTAGRAM",
   "short": "PGM",
   "logo": "PENTAGRAMlogo profile.png",
+  "league": "",
   "aliases": [
    "Rampage"
   ],
@@ -3614,6 +3999,7 @@
   "page": "Los Grandes",
   "short": "Los Grandes",
   "logo": "",
+  "league": "",
   "aliases": [
    "Team oNe eSports"
   ],
@@ -3625,6 +4011,7 @@
   "page": "MAD Team",
   "short": "MAD",
   "logo": "MAD Teamlogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3634,6 +4021,7 @@
   "page": "MEGA",
   "short": "MG",
   "logo": "MEGAlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3643,6 +4031,7 @@
   "page": "Vega Squadron",
   "short": "VEG",
   "logo": "Vega Squadronlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3652,6 +4041,7 @@
   "page": "GAM Esports",
   "short": "GAM",
   "logo": "GAM Esportslogo square.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3661,6 +4051,7 @@
   "page": "V3 Esports",
   "short": "V3",
   "logo": "V3 Esportslogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3670,6 +4061,7 @@
   "page": "PEACE (Oceanic Team)",
   "short": "PEACE (Oceanic Team)",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3679,6 +4071,7 @@
   "page": "ORDER",
   "short": "ORD",
   "logo": "ORDERlogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3688,6 +4081,7 @@
   "page": "Deep Cross Gaming",
   "short": "DCG",
   "logo": "Deep Cross Gaminglogo profile.png",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3697,6 +4091,7 @@
   "page": "Team Ozone Xenon",
   "short": "Team Ozone Xenon",
   "logo": "",
+  "league": "",
   "aliases": [],
   "players": 1
  },
@@ -3706,6 +4101,7 @@
   "page": "Wayi Spider",
   "short": "WS",
   "logo": "Wayi Spider.jpg",
+  "league": "",
   "aliases": [],
   "players": 1
  }
