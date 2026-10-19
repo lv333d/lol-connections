@@ -11,6 +11,7 @@ export function matches(p, c) {
     case 'coach': return p.coach;
     case 'retired': return p.retired;
     case 'trophy': return p.trophies.includes(c.id);
+    case 'nationality': return p.nationality === c.id;
     case 'teammate': return p.id !== c.playerId && p.teammates.includes(c.playerId);
     default: return false;
   }

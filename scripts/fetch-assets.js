@@ -1,9 +1,10 @@
 // Downloads missing player portraits (players/{id}.webp) and team logos (assets/logos/teams/{id}.webp)
-// from Leaguepedia, converting them to compressed WebP with sharp.
+// from Leaguepedia, converting them to compressed WebP with sharp, plus country flags (assets/flags/{code}.svg)
+// for nationality conditions from the flag-icons package (MIT).
 //
 // Usage: npm run fetch-assets [-- --all] [-- --teams] [-- --limit=50]
 //   default   players used in puzzles/*.json (type "player") and in grid/*.json (answers + teammate conditions),
-//             plus logos of teams used by grid conditions
+//             plus logos of teams and flags of countries used by grid conditions
 //   --all     every player in data/players.json (the search list shows a portrait for each)
 //   --teams   logos of every team in data/teams.json
 //   --limit   stop after N portraits (handy for a first test)
@@ -17,6 +18,8 @@ const PLAYERS_DIR = path.join(ROOT, 'players');
 const TEAM_LOGOS_DIR = path.join(ROOT, 'assets', 'logos', 'teams');
 const GRID_DIR = path.join(ROOT, 'grid');
 const LEAGUE_LOGOS_DIR = path.join(ROOT, 'assets', 'logos', 'leagues');
+const FLAGS_DIR = path.join(ROOT, 'assets', 'flags');
+const FLAG_URL = code => `https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/${code}.svg`;
 // Leaguepedia file names of the current league logos (the league pages have no page image).
 const LEAGUE_LOGOS = {
   LCK: 'LCK 2021 logo.png',
@@ -70,16 +73,18 @@ async function collectTargets(db) {
     }));
   }
   const gridTeams = new Set();
+  const gridFlags = new Set();
   for (const file of await jsonFiles(GRID_DIR)) {
     const board = await readJson(file, null);
     board?.answers?.flat(2).forEach(id => targets.set(id, db.byId.get(id)?.nick || id));
     [...(board?.rows || []), ...(board?.cols || [])].forEach(c => {
       if (c.kind === 'teammate') targets.set(c.playerId, db.byId.get(c.playerId)?.nick || c.playerId);
       if (c.kind === 'team') gridTeams.add(c.id);
+      if (c.kind === 'nationality') gridFlags.add(c.id);
     });
   }
   if (ALL) db.players.forEach(p => targets.set(p.id, p.nick));
-  return { targets, gridTeams };
+  return { targets, gridTeams, gridFlags };
 }
 
 /** Maps target ids to Leaguepedia pages: DB id → DB nick → PlayerRedirects (old/alternate nicknames). */
@@ -149,7 +154,7 @@ async function main() {
     db.byNickSlug.get(k).push(p);
   });
 
-  const { targets, gridTeams } = await collectTargets(db);
+  const { targets, gridTeams, gridFlags } = await collectTargets(db);
   await mkdir(PLAYERS_DIR, { recursive: true });
   const missing = [];
   for (const [id, name] of targets) if (!(await exists(path.join(PLAYERS_DIR, `${id}.webp`)))) missing.push([id, name]);
@@ -196,6 +201,15 @@ async function main() {
       try { await convert(url, job.out, 'logo'); report.ok++; }
       catch (e) { report.failed.push(`${job.label}: ${e.message}`); }
     });
+  }
+
+  await mkdir(FLAGS_DIR, { recursive: true });
+  const flagTodo = [];
+  for (const code of gridFlags) if (!(await exists(path.join(FLAGS_DIR, `${code}.svg`)))) flagTodo.push(code);
+  console.log(`\nFlagi: ${gridFlags.size} potrzebnych, pobieram ${flagTodo.length}.`);
+  for (const code of flagTodo) {
+    try { await writeFile(path.join(FLAGS_DIR, `${code}.svg`), await fetchBinary(FLAG_URL(code))); report.ok++; }
+    catch (e) { report.failed.push(`[flaga] ${code}: ${e.message}`); }
   }
 
   console.log(`\nGotowe: ${report.ok} plików zapisanych.`);

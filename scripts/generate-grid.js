@@ -19,6 +19,12 @@ const MAX_ATTEMPTS = 20000;
 const MAX_PER_CELL = 120;
 // Condition pairs that nearly imply each other make a pointless cell (almost every coach is a retired player).
 const REDUNDANT_PAIRS = new Set(['coach|retired', 'retired|coach']);
+// Nationality × home league is too obvious: never Korean × LCK or Chinese × LPL; American × LCS only when
+// no other board can be found for the day.
+const FORBIDDEN_CELLS = new Set(['nationality:kr|league:LCK', 'nationality:cn|league:LPL']);
+const LAST_RESORT_CELLS = new Set(['nationality:us|league:LCS']);
+// A nationality becomes a condition only when this many players share it.
+const MIN_NATIONALITY_PLAYERS = 12;
 const TEAM_POOL_SIZE = 40;
 const ANCHOR_POOL_SIZE = 60;
 
@@ -61,6 +67,10 @@ export function buildPool(players, teams) {
   pool.push({ cond: { kind: 'coach' }, weight: 2 });
   pool.push({ cond: { kind: 'retired' }, weight: 2 });
   for (const id of ['worlds', 'msi', 'first-stand']) pool.push({ cond: { kind: 'trophy', id }, weight: 1.5 });
+  const nationalities = Object.entries(Object.groupBy(players.filter(p => p.nationality), p => p.nationality))
+    .filter(([, ps]) => ps.length >= MIN_NATIONALITY_PLAYERS);
+  // Weighted by size: small countries rarely give every cell enough answers, big ones fit almost any board.
+  nationalities.forEach(([id, ps]) => pool.push({ cond: { kind: 'nationality', id }, weight: Math.min(1.2, ps.length / 100) }));
   [...players].sort((a, b) => b.tournaments - a.tournaments).slice(0, ANCHOR_POOL_SIZE)
     .forEach(p => pool.push({ cond: { kind: 'teammate', playerId: p.id, label: p.nick }, weight: 0.4 }));
 
@@ -77,7 +87,7 @@ function weightedPick(rng, pool) {
 }
 
 // Per-board variety limits: how many conditions of one kind may appear on the whole board.
-const KIND_LIMITS = { league: 2, team: 4, coach: 1, retired: 1, trophy: 2, teammate: 2 };
+const KIND_LIMITS = { league: 2, team: 4, coach: 1, retired: 1, trophy: 2, teammate: 2, nationality: 2 };
 
 function drawAxes(rng, pool) {
   const chosen = [];
@@ -101,8 +111,11 @@ function drawAxes(rng, pool) {
  * Solvability check: every cell has between MIN_PER_CELL and MAX_PER_CELL players, no cell pairs
  * redundant conditions, and the 9 cells can be filled with 9 different players.
  */
-function evaluate(axes, byId) {
-  if (axes.rows.some(r => axes.cols.some(c => REDUNDANT_PAIRS.has(`${r.cond.kind}|${c.cond.kind}`)))) return null;
+function evaluate(axes, byId, allowLastResort) {
+  const pairs = axes.rows.flatMap(r => axes.cols.map(c => [r.cond, c.cond]));
+  if (pairs.some(([r, c]) => REDUNDANT_PAIRS.has(`${r.kind}|${c.kind}`))) return null;
+  const cellKeys = pairs.flatMap(([r, c]) => [`${conditionKey(r)}|${conditionKey(c)}`, `${conditionKey(c)}|${conditionKey(r)}`]);
+  if (cellKeys.some(k => FORBIDDEN_CELLS.has(k) || (!allowLastResort && LAST_RESORT_CELLS.has(k)))) return null;
   const answers = axes.rows.map(r => axes.cols.map(c => {
     const ids = [...r.ids].filter(id => c.ids.has(id));
     return ids.sort((a, b) => byId.get(b).tournaments - byId.get(a).tournaments || a.localeCompare(b));
@@ -114,11 +127,13 @@ function evaluate(axes, byId) {
 
 export function generateBoard(date, pool, byId) {
   const rng = mulberry32(seedFrom('lol-grid:' + date));
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const axes = drawAxes(rng, pool);
-    if (!axes) continue;
-    const answers = evaluate(axes, byId);
-    if (answers) return { rows: axes.rows.map(e => e.cond), cols: axes.cols.map(e => e.cond), answers, attempt };
+  for (const allowLastResort of [false, true]) {
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      const axes = drawAxes(rng, pool);
+      if (!axes) continue;
+      const answers = evaluate(axes, byId, allowLastResort);
+      if (answers) return { rows: axes.rows.map(e => e.cond), cols: axes.cols.map(e => e.cond), answers, attempt };
+    }
   }
   return null;
 }

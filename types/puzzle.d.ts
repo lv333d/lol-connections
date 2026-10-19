@@ -51,6 +51,7 @@ export type Condition =
   | { kind: 'coach' }
   | { kind: 'retired' }
   | { kind: 'trophy'; id: Trophy }
+  | { kind: 'nationality'; /** ISO 3166-1 alpha-2, lower-case, e.g. "kr" */ id: string }
   | { kind: 'teammate'; playerId: string; /** the anchor's nickname */ label: string };
 
 export interface GridBoard {
@@ -81,10 +82,13 @@ export interface Player {
   retired: boolean;
   /** Played professionally and has also been listed as a coach. */
   coach: boolean;
+  /** ISO 3166-1 alpha-2 code (lower-case), '' when Leaguepedia has none. */
+  nationality: string;
   /** Team (franchise) ids played for, as a player. */
   teams: string[];
   /** League ids played in: LCK, LPL, LEC, LCS, LTA. */
   leagues: string[];
+  /** Won as a player or as the coach of the winning roster. */
   trophies: Trophy[];
   /** Player ids that shared a roster in at least one tournament. */
   teammates: string[];

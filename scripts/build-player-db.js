@@ -37,6 +37,23 @@ const TROPHY_EVENTS = [
   { trophy: 'first-stand', where: "TR.OverviewPage LIKE '% First Stand'" }
 ];
 
+// Leaguepedia country names → ISO 3166-1 alpha-2 codes (flags and localized names in the game use the code).
+const COUNTRY_CODES = {
+  'South Korea': 'kr', 'Korea': 'kr', 'China': 'cn', 'Taiwan': 'tw', 'Hong Kong': 'hk', 'Macau': 'mo', 'Japan': 'jp',
+  'Vietnam': 'vn', 'Philippines': 'ph', 'Thailand': 'th', 'Malaysia': 'my', 'Singapore': 'sg', 'Indonesia': 'id',
+  'Australia': 'au', 'New Zealand': 'nz', 'United States': 'us', 'Canada': 'ca', 'Mexico': 'mx', 'Brazil': 'br',
+  'Argentina': 'ar', 'Chile': 'cl', 'Peru': 'pe', 'Colombia': 'co', 'Uruguay': 'uy', 'Venezuela': 've', 'Paraguay': 'py',
+  'Ecuador': 'ec', 'Bolivia': 'bo', 'Costa Rica': 'cr', 'Puerto Rico': 'pr', 'Dominican Republic': 'do',
+  'Denmark': 'dk', 'Sweden': 'se', 'Norway': 'no', 'Finland': 'fi', 'Iceland': 'is', 'Germany': 'de', 'France': 'fr',
+  'Spain': 'es', 'Portugal': 'pt', 'Italy': 'it', 'Poland': 'pl', 'Czech Republic': 'cz', 'Czechia': 'cz', 'Slovakia': 'sk',
+  'Slovenia': 'si', 'Croatia': 'hr', 'Serbia': 'rs', 'Bosnia and Herzegovina': 'ba', 'Montenegro': 'me', 'North Macedonia': 'mk',
+  'Bulgaria': 'bg', 'Romania': 'ro', 'Hungary': 'hu', 'Greece': 'gr', 'Cyprus': 'cy', 'Turkey': 'tr', 'Türkiye': 'tr',
+  'United Kingdom': 'gb', 'England': 'gb', 'Scotland': 'gb', 'Wales': 'gb', 'Northern Ireland': 'gb', 'Ireland': 'ie',
+  'Netherlands': 'nl', 'Belgium': 'be', 'Luxembourg': 'lu', 'Switzerland': 'ch', 'Austria': 'at', 'Lithuania': 'lt',
+  'Latvia': 'lv', 'Estonia': 'ee', 'Ukraine': 'ua', 'Belarus': 'by', 'Russia': 'ru', 'Armenia': 'am', 'Georgia': 'ge',
+  'Israel': 'il', 'Egypt': 'eg', 'Morocco': 'ma', 'Tunisia': 'tn', 'Algeria': 'dz', 'South Africa': 'za', 'Iran': 'ir',
+  'India': 'in', 'Pakistan': 'pk', 'Kazakhstan': 'kz', 'Mongolia': 'mn', 'Saudi Arabia': 'sa', 'Lebanon': 'lb', 'Jordan': 'jo', 'Afghanistan': 'af', 'Guatemala': 'gt'
+};
 const isCoachRole = role => /coach/i.test(role || '');
 // "Retired" in the grid means retired as a player: fully retired on Leaguepedia, or now in a non-playing
 // role (coach, analyst, caster…) — Leaguepedia's IsRetired stays 0 for players who became coaches.
@@ -127,40 +144,51 @@ async function main() {
   step('Profile graczy (Players)');
   const links = [...new Set(rosterRows.map(r => r.Link))];
   const byPage = new Map(); // canonical OverviewPage → profile
+  // Cargo compares strings case-insensitively and returns the canonical spelling: a roster link "IgNar"
+  // comes back as page "Ignar". Without a case-insensitive fallback such players were split in two.
+  const byPageLower = new Map();
+  const addProfile = p => { byPage.set(p.OverviewPage, p); byPageLower.set(p.OverviewPage.toLowerCase(), p); };
+  const findProfile = page => byPage.get(page) || byPageLower.get(page?.toLowerCase());
   const profileQuery = (where, i, n) => {
     process.stdout.write(`  partia ${i + 1}/${n}\r`);
-    return cargoQuery({ tables: 'Players', fields: 'ID,OverviewPage,Name,IsRetired,Role', where, fresh });
+    return cargoQuery({ tables: 'Players', fields: 'ID,OverviewPage,Name,IsRetired,Role,Country,NationalityPrimary', where, fresh });
   };
   const keys = [...new Set(links.map(pageKey))];
   for (const [i, batch] of chunk(keys, 150).entries()) {
     (await profileQuery(`OverviewPage IN (${batch.map(cargoStr).join(',')})`, i, Math.ceil(keys.length / 150)))
-      .forEach(p => byPage.set(p.OverviewPage, p));
+      .forEach(addProfile);
   }
   // Links that are redirects (renamed players, alternate spellings) resolve through PlayerRedirects.
-  const unresolved = keys.filter(k => !byPage.has(k));
+  const unresolved = keys.filter(k => !findProfile(k));
   const redirectTo = new Map();
   for (const batch of chunk(unresolved, 150)) {
     (await cargoQuery({ tables: 'PlayerRedirects', fields: 'AllName,OverviewPage', where: `AllName IN (${batch.map(cargoStr).join(',')})`, fresh }))
-      .forEach(r => redirectTo.set(pageKey(r.AllName), r.OverviewPage));
+      .forEach(r => redirectTo.set(r.AllName.toLowerCase(), r.OverviewPage));
   }
-  const targets = [...new Set(redirectTo.values())].filter(p => !byPage.has(p));
+  const targets = [...new Set(redirectTo.values())].filter(p => !findProfile(p));
   for (const [i, batch] of chunk(targets, 150).entries()) {
     (await profileQuery(`OverviewPage IN (${batch.map(cargoStr).join(',')})`, i, Math.ceil(targets.length / 150)))
-      .forEach(p => byPage.set(p.OverviewPage, p));
+      .forEach(addProfile);
   }
   /** Roster link → its profile (direct page, or via redirect). */
   const profiles = new Map();
   for (const link of links) {
     const k = pageKey(link);
-    const prof = byPage.get(k) || byPage.get(redirectTo.get(k));
+    const prof = findProfile(k) || findProfile(redirectTo.get(k.toLowerCase()));
     if (prof) profiles.set(link, prof);
   }
   console.log(`  ${profiles.size}/${links.length} profili`);
 
   step('Składanie bazy');
+  const unknownCountries = new Map();
+  const nationalityOf = prof => {
+    const country = decodeEntities(prof?.NationalityPrimary || prof?.Country);
+    if (country && !COUNTRY_CODES[country]) unknownCountries.set(country, (unknownCountries.get(country) || 0) + 1);
+    return COUNTRY_CODES[country] || '';
+  };
   const players = new Map(); // wikiPage → Player
   const teamUsage = new Map(); // franchise → number of player-tournaments
-  const rosters = new Map(); // "page|team" → Set<wikiPage> (players only — used for trophies)
+  const rosters = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for trophies)
   const squads = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for teammates)
   const coachedPages = new Set();
   const addTo = (map, key, link) => { if (!map.has(key)) map.set(key, new Set()); map.get(key).add(link); };
@@ -171,15 +199,16 @@ async function main() {
     const r = { ...row, Link: canonical(row.Link) };
     const key = r.Page + '|' + r.Team;
     // A coach on someone's roster counts as having been on the same team (e.g. "Odoamne × coach" accepts
-    // the coaches who coached Odoamne), but coaching never adds team, league or trophy credit.
-    if (isCoachRole(r.Role)) { coachedPages.add(r.Link); addTo(squads, key, r.Link); continue; }
+    // the coaches who coached Odoamne). Coaching a winning roster earns the trophy too (e.g. kkOma × Worlds),
+    // but never adds team or league credit.
+    if (isCoachRole(r.Role)) { coachedPages.add(r.Link); addTo(squads, key, r.Link); addTo(rosters, key, r.Link); continue; }
     if (!r.Role || /analyst|manager|owner|staff/i.test(r.Role)) continue;
     let p = players.get(r.Link);
     if (!p) {
       const prof = profiles.get(row.Link);
       p = {
         id: slugify(r.Link), nick: decodeEntities(prof?.ID) || nickFromPage(r.Link), name: decodeEntities(prof?.Name), wikiPage: r.Link,
-        retired: isRetiredPlayer(prof), coach: isCoachRole(prof?.Role),
+        retired: isRetiredPlayer(prof), coach: isCoachRole(prof?.Role), nationality: nationalityOf(prof),
         teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: new Set()
       };
       players.set(r.Link, p);
@@ -208,7 +237,8 @@ async function main() {
       const [page, team] = key.split('|');
       // Compare organizations: results may name "SK Telecom T1" while the roster says "SK Telecom T1 K".
       if (franchiseOf(team) === franchiseOf(w.team) && (page === w.page || page.startsWith(w.page + '/'))) {
-        members.forEach(link => players.get(link).trophies.add(w.trophy));
+        // Coaches who never played are not in the database.
+        members.forEach(link => players.get(link)?.trophies.add(w.trophy));
       }
     }
   }
@@ -231,7 +261,7 @@ async function main() {
   const out = kept
     .map(p => ({
       id: idOf.get(p.wikiPage), nick: p.nick, name: p.name, wikiPage: p.wikiPage,
-      retired: p.retired, coach: p.coach,
+      retired: p.retired, coach: p.coach, nationality: p.nationality,
       teams: [...p.teams].map(teamId).sort(),
       leagues: [...p.leagues].sort(),
       trophies: [...p.trophies].sort(),
@@ -266,6 +296,10 @@ async function main() {
   console.log(`  graczy: ${out.length} (emeryci: ${out.filter(p => p.retired).length}, trenerzy: ${out.filter(p => p.coach).length})`);
   console.log(`  ligi: ${Object.keys(LEAGUES).map(l => `${l} ${out.filter(p => p.leagues.includes(l)).length}`).join(', ')}`);
   console.log(`  trofea: ${['worlds', 'msi', 'first-stand'].map(t => `${t} ${out.filter(p => p.trophies.includes(t)).length}`).join(', ')}`);
+  const nat = Object.entries(Object.groupBy(out.filter(p => p.nationality), p => p.nationality))
+    .map(([c, ps]) => [c, ps.length]).sort((a, b) => b[1] - a[1]);
+  console.log(`  narodowości: ${nat.map(([c, n]) => `${c} ${n}`).join(', ')}; bez narodowości: ${out.filter(p => !p.nationality).length}`);
+  if (unknownCountries.size) console.warn(`  ⚠ nieznane kraje (dodaj do COUNTRY_CODES): ${[...unknownCountries].map(([c, n]) => `${c} (${n})`).join(', ')}`);
   console.log(`  drużyn: ${teams.length}; top: ${teams.slice(0, 8).map(t => `${t.short}(${t.players})`).join(' ')}`);
 }
 
