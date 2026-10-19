@@ -83,18 +83,18 @@ export interface Player {
   retired: boolean;
   /** Has been listed as a coach (most also played; see coachOnly). */
   coach: boolean;
-  /** Only ever a coach (e.g. BigWei): no teams or leagues, matches coach / trophy / nationality / teammate. */
+  /** Only ever a coach (e.g. BigWei); teams, leagues and trophies count coaching too. */
   coachOnly?: boolean;
   /** ISO 3166-1 alpha-2 code (lower-case), '' when Leaguepedia has none. */
   nationality: string;
-  /** Team (franchise) ids played for, as a player. */
+  /** Team (franchise) ids played for or coached. */
   teams: string[];
-  /** League ids played in: LCK, LPL, LEC, LCS, LTA. */
+  /** League ids played or coached in: LCK, LPL, LEC, LCS, LTA. */
   leagues: string[];
   /** Won as a player or as the coach of the winning roster. */
   trophies: Trophy[];
-  /** Player ids that shared a roster in at least one tournament. */
+  /** Ids that shared a roster (as players or coaches) in at least one tournament. */
   teammates: string[];
-  /** Number of tournaments played — a popularity proxy for picking teammate anchors. */
+  /** Number of tournaments played or coached — a popularity proxy for picking teammate anchors. */
   tournaments: number;
 }

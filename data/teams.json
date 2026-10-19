@@ -9,7 +9,7 @@
   "aliases": [
    "Clutch Gaming"
   ],
-  "players": 82
+  "players": 106
  },
  {
   "id": "kt-rolster",
@@ -24,7 +24,7 @@
    "KT Rolster A",
    "KT Rolster B"
   ],
-  "players": 81
+  "players": 92
  },
  {
   "id": "lgd-gaming",
@@ -34,7 +34,7 @@
   "logo": "LGD_logo.png",
   "league": "LPL",
   "aliases": [],
-  "players": 76
+  "players": 92
  },
  {
   "id": "drx",
@@ -50,7 +50,7 @@
    "Kiwoom DRX",
    "DragonX"
   ],
-  "players": 71
+  "players": 90
  },
  {
   "id": "team-we",
@@ -60,7 +60,7 @@
   "logo": "Team WElogo profile.png",
   "league": "LPL",
   "aliases": [],
-  "players": 69
+  "players": 83
  },
  {
   "id": "oh-my-god",
@@ -70,7 +70,7 @@
   "logo": "Oh My Godlogo square.png",
   "league": "LPL",
   "aliases": [],
-  "players": 66
+  "players": 82
  },
  {
   "id": "invictus-gaming",
@@ -80,53 +80,7 @@
   "logo": "Invictus Gaminglogo profile.png",
   "league": "LPL",
   "aliases": [],
-  "players": 62
- },
- {
-  "id": "rare-atom",
-  "name": "Rare Atom",
-  "page": "Rare Atom",
-  "short": "RA",
-  "logo": "Rare Atomlogo profile.png",
-  "league": "LPL",
-  "aliases": [
-   "Vici Gaming"
-  ],
-  "players": 62
- },
- {
-  "id": "team-liquid",
-  "name": "Team Liquid",
-  "page": "Team Liquid",
-  "short": "TL",
-  "logo": "Team Liquidlogo profile.png",
-  "league": "LCS",
-  "aliases": [
-   "Team Curse"
-  ],
-  "players": 61
- },
- {
-  "id": "lng-esports",
-  "name": "LNG Esports",
-  "page": "LNG Esports",
-  "short": "LNG",
-  "logo": "LNG Esportslogo square.png",
-  "league": "LPL",
-  "aliases": [
-   "Snake Esports"
-  ],
-  "players": 59
- },
- {
-  "id": "royal-never-give-up",
-  "name": "Royal Never Give Up",
-  "page": "Royal Never Give Up",
-  "short": "RNG",
-  "logo": "Royal Never Give Uplogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 56
+  "players": 81
  },
  {
   "id": "dn-freecs",
@@ -141,39 +95,53 @@
    "Kwangdong Freecs",
    "DN Freecs"
   ],
-  "players": 56
+  "players": 77
  },
  {
-  "id": "sk-gaming",
-  "name": "SK Gaming",
-  "page": "SK Gaming",
-  "short": "SK",
-  "logo": "SK Gaminglogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 55
+  "id": "lng-esports",
+  "name": "LNG Esports",
+  "page": "LNG Esports",
+  "short": "LNG",
+  "logo": "LNG Esportslogo square.png",
+  "league": "LPL",
+  "aliases": [
+   "Snake Esports"
+  ],
+  "players": 76
  },
  {
-  "id": "edward-gaming",
-  "name": "EDward Gaming",
-  "page": "EDward Gaming",
-  "short": "EDG",
-  "logo": "EDward Gaminglogo square.png",
+  "id": "royal-never-give-up",
+  "name": "Royal Never Give Up",
+  "page": "Royal Never Give Up",
+  "short": "RNG",
+  "logo": "Royal Never Give Uplogo profile.png",
   "league": "LPL",
   "aliases": [],
-  "players": 53
+  "players": 75
  },
  {
-  "id": "counter-logic-gaming",
-  "name": "Counter Logic Gaming",
-  "page": "Counter Logic Gaming",
-  "short": "CLG",
-  "logo": "Counter Logic Gaminglogo profile.png",
+  "id": "team-liquid",
+  "name": "Team Liquid",
+  "page": "Team Liquid",
+  "short": "TL",
+  "logo": "Team Liquidlogo profile.png",
   "league": "LCS",
   "aliases": [
-   "CLG Prime"
+   "Team Curse"
   ],
-  "players": 53
+  "players": 74
+ },
+ {
+  "id": "rare-atom",
+  "name": "Rare Atom",
+  "page": "Rare Atom",
+  "short": "RA",
+  "logo": "Rare Atomlogo profile.png",
+  "league": "LPL",
+  "aliases": [
+   "Vici Gaming"
+  ],
+  "players": 73
  },
  {
   "id": "flyquest",
@@ -183,7 +151,7 @@
   "logo": "FlyQuestlogo profile.png",
   "league": "LCS",
   "aliases": [],
-  "players": 53
+  "players": 70
  },
  {
   "id": "ninjas-in-pyjamascn",
@@ -195,7 +163,90 @@
   "aliases": [
    "Victory Five"
   ],
-  "players": 53
+  "players": 70
+ },
+ {
+  "id": "sk-gaming",
+  "name": "SK Gaming",
+  "page": "SK Gaming",
+  "short": "SK",
+  "logo": "SK Gaminglogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 69
+ },
+ {
+  "id": "edward-gaming",
+  "name": "EDward Gaming",
+  "page": "EDward Gaming",
+  "short": "EDG",
+  "logo": "EDward Gaminglogo square.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 66
+ },
+ {
+  "id": "fnatic",
+  "name": "Fnatic",
+  "page": "Fnatic",
+  "short": "FNC",
+  "logo": "Fnaticlogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 66
+ },
+ {
+  "id": "team-vitality",
+  "name": "Team Vitality",
+  "page": "Team Vitality",
+  "short": "VIT",
+  "logo": "Team Vitalitylogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 65
+ },
+ {
+  "id": "thundertalk-gaming",
+  "name": "ThunderTalk Gaming",
+  "page": "ThunderTalk Gaming",
+  "short": "TT",
+  "logo": "ThunderTalk Gaminglogo profile.png",
+  "league": "LPL",
+  "aliases": [
+   "Dominus Esports",
+   "SinoDragon Gaming"
+  ],
+  "players": 65
+ },
+ {
+  "id": "hanwha-life-esports",
+  "name": "Hanwha Life Esports",
+  "page": "Hanwha Life Esports",
+  "short": "HLE",
+  "logo": "Hanwha Life Esportslogo profile.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 64
+ },
+ {
+  "id": "tsm",
+  "name": "TSM",
+  "page": "TSM",
+  "short": "TSM",
+  "logo": "TSMlogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 63
+ },
+ {
+  "id": "bilibili-gaming",
+  "name": "Bilibili Gaming",
+  "page": "Bilibili Gaming",
+  "short": "BLG",
+  "logo": "Bilibili Gaminglogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 63
  },
  {
   "id": "t1",
@@ -211,47 +262,59 @@
    "SK Telecom T1 1",
    "SK Telecom T1 2"
   ],
-  "players": 51
+  "players": 62
  },
  {
-  "id": "team-vitality",
-  "name": "Team Vitality",
-  "page": "Team Vitality",
-  "short": "VIT",
-  "logo": "Team Vitalitylogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 51
+  "id": "counter-logic-gaming",
+  "name": "Counter Logic Gaming",
+  "page": "Counter Logic Gaming",
+  "short": "CLG",
+  "logo": "Counter Logic Gaminglogo profile.png",
+  "league": "LCS",
+  "aliases": [
+   "CLG Prime"
+  ],
+  "players": 62
  },
  {
-  "id": "tsm",
-  "name": "TSM",
-  "page": "TSM",
-  "short": "TSM",
-  "logo": "TSMlogo profile.png",
+  "id": "cloud9",
+  "name": "Cloud9",
+  "page": "Cloud9",
+  "short": "C9",
+  "logo": "Cloud9logo profile.png",
   "league": "LCS",
   "aliases": [],
-  "players": 49
+  "players": 61
  },
  {
-  "id": "hanwha-life-esports",
-  "name": "Hanwha Life Esports",
-  "page": "Hanwha Life Esports",
-  "short": "HLE",
-  "logo": "Hanwha Life Esportslogo profile.png",
-  "league": "LCK",
+  "id": "jd-gaming",
+  "name": "JD Gaming",
+  "page": "JD Gaming",
+  "short": "JDG",
+  "logo": "JD Gaminglogo profile.png",
+  "league": "LPL",
   "aliases": [],
-  "players": 49
+  "players": 60
  },
  {
-  "id": "fnatic",
-  "name": "Fnatic",
-  "page": "Fnatic",
-  "short": "FNC",
-  "logo": "Fnaticlogo profile.png",
-  "league": "LEC",
+  "id": "funplus-phoenix",
+  "name": "FunPlus Phoenix",
+  "page": "FunPlus Phoenix",
+  "short": "FPX",
+  "logo": "FunPlus Phoenixlogo_square.png",
+  "league": "LPL",
   "aliases": [],
-  "players": 48
+  "players": 59
+ },
+ {
+  "id": "immortals",
+  "name": "Immortals",
+  "page": "Immortals",
+  "short": "IMT",
+  "logo": "Immortalslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 56
  },
  {
   "id": "jin-air-green-wings",
@@ -264,70 +327,31 @@
    "Jin Air Green Wings Falcons",
    "Jin Air Green Wings Stealths"
   ],
-  "players": 46
+  "players": 52
  },
  {
-  "id": "thundertalk-gaming",
-  "name": "ThunderTalk Gaming",
-  "page": "ThunderTalk Gaming",
-  "short": "TT",
-  "logo": "ThunderTalk Gaminglogo profile.png",
-  "league": "LPL",
+  "id": "nongshim-redforce",
+  "name": "Nongshim RedForce",
+  "page": "Nongshim RedForce",
+  "short": "NS",
+  "logo": "Nongshim RedForcelogo square.png",
+  "league": "LCK",
   "aliases": [
-   "Dominus Esports",
-   "SinoDragon Gaming"
+   "Team Dynamics"
   ],
-  "players": 46
+  "players": 50
  },
  {
-  "id": "bilibili-gaming",
-  "name": "Bilibili Gaming",
-  "page": "Bilibili Gaming",
-  "short": "BLG",
-  "logo": "Bilibili Gaminglogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 44
- },
- {
-  "id": "cloud9",
-  "name": "Cloud9",
-  "page": "Cloud9",
-  "short": "C9",
-  "logo": "Cloud9logo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 43
- },
- {
-  "id": "funplus-phoenix",
-  "name": "FunPlus Phoenix",
-  "page": "FunPlus Phoenix",
-  "short": "FPX",
-  "logo": "FunPlus Phoenixlogo_square.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 43
- },
- {
-  "id": "immortals",
-  "name": "Immortals",
-  "page": "Immortals",
-  "short": "IMT",
-  "logo": "Immortalslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 42
- },
- {
-  "id": "jd-gaming",
-  "name": "JD Gaming",
-  "page": "JD Gaming",
-  "short": "JDG",
-  "logo": "JD Gaminglogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 42
+  "id": "geng",
+  "name": "Gen.G",
+  "page": "Gen.G",
+  "short": "GEN",
+  "logo": "Gen.Glogo square.png",
+  "league": "LCK",
+  "aliases": [
+   "KSV eSports"
+  ],
+  "players": 48
  },
  {
   "id": "cj-entus",
@@ -340,19 +364,19 @@
    "CJ Entus Blaze",
    "CJ Entus Frost"
   ],
-  "players": 40
+  "players": 47
  },
  {
-  "id": "nongshim-redforce",
-  "name": "Nongshim RedForce",
-  "page": "Nongshim RedForce",
-  "short": "NS",
-  "logo": "Nongshim RedForcelogo square.png",
-  "league": "LCK",
+  "id": "astralis",
+  "name": "Astralis",
+  "page": "Astralis",
+  "short": "AST",
+  "logo": "Astralislogo profile.png",
+  "league": "LEC",
   "aliases": [
-   "Team Dynamics"
+   "Origen"
   ],
-  "players": 40
+  "players": 47
  },
  {
   "id": "evil-geniusesna",
@@ -365,7 +389,17 @@
    "Evil Geniuses.EU",
    "Evil Geniuses.NA"
   ],
-  "players": 37
+  "players": 47
+ },
+ {
+  "id": "100-thieves",
+  "name": "100 Thieves",
+  "page": "100 Thieves",
+  "short": "100T",
+  "logo": "100 Thieveslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 46
  },
  {
   "id": "ultra-prime",
@@ -375,19 +409,50 @@
   "logo": "Ultra Primelogo profile.png",
   "league": "LPL",
   "aliases": [],
-  "players": 36
+  "players": 46
  },
  {
-  "id": "astralis",
-  "name": "Astralis",
-  "page": "Astralis",
-  "short": "AST",
-  "logo": "Astralislogo profile.png",
-  "league": "LEC",
+  "id": "dplus-kia",
+  "name": "Dplus Kia",
+  "page": "Dplus Kia",
+  "short": "DK",
+  "logo": "Dplus Kialogo profile.png",
+  "league": "LCK",
   "aliases": [
-   "Origen"
+   "DAMWON Gaming",
+   "DWG KIA"
   ],
-  "players": 35
+  "players": 44
+ },
+ {
+  "id": "top-esports",
+  "name": "Top Esports",
+  "page": "Top Esports",
+  "short": "TES",
+  "logo": "Top Esportslogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 44
+ },
+ {
+  "id": "golden-guardians",
+  "name": "Golden Guardians",
+  "page": "Golden Guardians",
+  "short": "GG",
+  "logo": "Golden Guardianslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 44
+ },
+ {
+  "id": "echo-fox",
+  "name": "Echo Fox",
+  "page": "Echo Fox",
+  "short": "FOX",
+  "logo": "Echo Foxlogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 42
  },
  {
   "id": "rogue-warriors",
@@ -397,7 +462,19 @@
   "logo": "Rogue Warriorslogo_square.png",
   "league": "LPL",
   "aliases": [],
-  "players": 35
+  "players": 42
+ },
+ {
+  "id": "g2-esports",
+  "name": "G2 Esports",
+  "page": "G2 Esports",
+  "short": "G2",
+  "logo": "G2 Esportslogo profile.png",
+  "league": "LEC",
+  "aliases": [
+   "Gamers2"
+  ],
+  "players": 41
  },
  {
   "id": "samsung-galaxy",
@@ -413,71 +490,7 @@
    "MiG Frost",
    "Samsung Ozone"
   ],
-  "players": 34
- },
- {
-  "id": "g2-esports",
-  "name": "G2 Esports",
-  "page": "G2 Esports",
-  "short": "G2",
-  "logo": "G2 Esportslogo profile.png",
-  "league": "LEC",
-  "aliases": [
-   "Gamers2"
-  ],
-  "players": 34
- },
- {
-  "id": "100-thieves",
-  "name": "100 Thieves",
-  "page": "100 Thieves",
-  "short": "100T",
-  "logo": "100 Thieveslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 34
- },
- {
-  "id": "geng",
-  "name": "Gen.G",
-  "page": "Gen.G",
-  "short": "GEN",
-  "logo": "Gen.Glogo square.png",
-  "league": "LCK",
-  "aliases": [
-   "KSV eSports"
-  ],
-  "players": 34
- },
- {
-  "id": "giants-gaming",
-  "name": "Giants Gaming",
-  "page": "Giants Gaming",
-  "short": "GIA",
-  "logo": "Giants Gaminglogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 34
- },
- {
-  "id": "golden-guardians",
-  "name": "Golden Guardians",
-  "page": "Golden Guardians",
-  "short": "GG",
-  "logo": "Golden Guardianslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 33
- },
- {
-  "id": "echo-fox",
-  "name": "Echo Fox",
-  "page": "Echo Fox",
-  "short": "FOX",
-  "logo": "Echo Foxlogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 33
+  "players": 38
  },
  {
   "id": "misfits-gaming",
@@ -487,7 +500,67 @@
   "logo": "Misfits Gaminglogo profile.png",
   "league": "LEC",
   "aliases": [],
-  "players": 32
+  "players": 38
+ },
+ {
+  "id": "weibo-gaming",
+  "name": "Weibo Gaming",
+  "page": "Weibo Gaming",
+  "short": "WBG",
+  "logo": "Weibo Gaminglogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 38
+ },
+ {
+  "id": "anyones-legend",
+  "name": "Anyone's Legend",
+  "page": "Anyone's Legend",
+  "short": "AL",
+  "logo": "Anyone's Legendlogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 37
+ },
+ {
+  "id": "giants-gaming",
+  "name": "Giants Gaming",
+  "page": "Giants Gaming",
+  "short": "GIA",
+  "logo": "Giants Gaminglogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 37
+ },
+ {
+  "id": "excel-esports",
+  "name": "Excel Esports",
+  "page": "Excel Esports",
+  "short": "XL",
+  "logo": "Excel Esportslogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 36
+ },
+ {
+  "id": "team-roccat",
+  "name": "Team ROCCAT",
+  "page": "Team ROCCAT",
+  "short": "ROC",
+  "logo": "Team ROCCATlogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 35
+ },
+ {
+  "id": "fc-schalke-04-esports",
+  "name": "FC Schalke 04 Esports",
+  "page": "FC Schalke 04 Esports",
+  "short": "S04",
+  "logo": "FC Schalke 04 Esportslogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 34
  },
  {
   "id": "najin-e-mfire",
@@ -503,37 +576,17 @@
    "NaJin Shield",
    "NaJin Sword"
   ],
-  "players": 30
+  "players": 32
  },
  {
-  "id": "team-roccat",
-  "name": "Team ROCCAT",
-  "page": "Team ROCCAT",
-  "short": "ROC",
-  "logo": "Team ROCCATlogo profile.png",
+  "id": "team-heretics",
+  "name": "Team Heretics",
+  "page": "Team Heretics",
+  "short": "TH",
+  "logo": "Team Hereticslogo square.png",
   "league": "LEC",
   "aliases": [],
-  "players": 30
- },
- {
-  "id": "fc-schalke-04-esports",
-  "name": "FC Schalke 04 Esports",
-  "page": "FC Schalke 04 Esports",
-  "short": "S04",
-  "logo": "FC Schalke 04 Esportslogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 30
- },
- {
-  "id": "top-esports",
-  "name": "Top Esports",
-  "page": "Top Esports",
-  "short": "TES",
-  "logo": "Top Esportslogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 29
+  "players": 32
  },
  {
   "id": "h2k-gaming",
@@ -543,82 +596,7 @@
   "logo": "H2k-Gaminglogo square.png",
   "league": "LEC",
   "aliases": [],
-  "players": 28
- },
- {
-  "id": "dplus-kia",
-  "name": "Dplus Kia",
-  "page": "Dplus Kia",
-  "short": "DK",
-  "logo": "Dplus Kialogo profile.png",
-  "league": "LCK",
-  "aliases": [
-   "DAMWON Gaming",
-   "DWG KIA"
-  ],
-  "players": 28
- },
- {
-  "id": "excel-esports",
-  "name": "Excel Esports",
-  "page": "Excel Esports",
-  "short": "XL",
-  "logo": "Excel Esportslogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 27
- },
- {
-  "id": "weibo-gaming",
-  "name": "Weibo Gaming",
-  "page": "Weibo Gaming",
-  "short": "WBG",
-  "logo": "Weibo Gaminglogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 26
- },
- {
-  "id": "copenhagen-wolves",
-  "name": "Copenhagen Wolves",
-  "page": "Copenhagen Wolves",
-  "short": "CW",
-  "logo": "wolveslogobund.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 26
- },
- {
-  "id": "unicorns-of-lovecis",
-  "name": "Unicorns of Love.CIS",
-  "page": "Unicorns of Love.CIS",
-  "short": "UOL",
-  "logo": "Unicorns of Love.CISlogo profile.png",
-  "league": "LEC",
-  "aliases": [
-   "Unicorns of Love"
-  ],
-  "players": 25
- },
- {
-  "id": "xenics-storm",
-  "name": "Xenics Storm",
-  "page": "Xenics Storm",
-  "short": "XS",
-  "logo": "Xenics Storm new logo.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 24
- },
- {
-  "id": "suning",
-  "name": "Suning",
-  "page": "Suning",
-  "short": "SN",
-  "logo": "SN Gaminglogo square.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 23
+  "players": 31
  },
  {
   "id": "fearx",
@@ -630,31 +608,7 @@
   "aliases": [
    "Liiv SANDBOX"
   ],
-  "players": 23
- },
- {
-  "id": "newbee",
-  "name": "Newbee",
-  "page": "Newbee",
-  "short": "NB",
-  "logo": "Newbeelogo profile.png",
-  "league": "LPL",
-  "aliases": [
-   "Qiao Gu Reapers"
-  ],
-  "players": 23
- },
- {
-  "id": "team-impulse",
-  "name": "Team Impulse",
-  "page": "Team Impulse",
-  "short": "TIP",
-  "logo": "Team Impulselogo square.png",
-  "league": "LCS",
-  "aliases": [
-   "LMQ"
-  ],
-  "players": 22
+  "players": 31
  },
  {
   "id": "rogue-european-team",
@@ -667,49 +621,17 @@
    "Rogue (European Team)",
    "KOI (Spanish Team)"
   ],
-  "players": 22
+  "players": 29
  },
  {
-  "id": "sentinels",
-  "name": "Sentinels",
-  "page": "Sentinels",
-  "short": "SEN",
-  "logo": "Sentinelslogo profile.png",
-  "league": "LCS",
-  "aliases": [
-   "Phoenix1"
-  ],
-  "players": 22
- },
- {
-  "id": "team-heretics",
-  "name": "Team Heretics",
-  "page": "Team Heretics",
-  "short": "TH",
-  "logo": "Team Hereticslogo square.png",
+  "id": "copenhagen-wolves",
+  "name": "Copenhagen Wolves",
+  "page": "Copenhagen Wolves",
+  "short": "CW",
+  "logo": "wolveslogobund.png",
   "league": "LEC",
   "aliases": [],
-  "players": 22
- },
- {
-  "id": "anyones-legend",
-  "name": "Anyone's Legend",
-  "page": "Anyone's Legend",
-  "short": "AL",
-  "logo": "Anyone's Legendlogo profile.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 21
- },
- {
-  "id": "gambit-gaming",
-  "name": "Gambit Gaming",
-  "page": "Gambit Gaming",
-  "short": "GMB",
-  "logo": "Gambit_Gaming_Logo.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 21
+  "players": 28
  },
  {
   "id": "esc-shane",
@@ -724,7 +646,53 @@
    "Seorabeol Gaming",
    "ESports Connected"
   ],
-  "players": 21
+  "players": 27
+ },
+ {
+  "id": "sentinels",
+  "name": "Sentinels",
+  "page": "Sentinels",
+  "short": "SEN",
+  "logo": "Sentinelslogo profile.png",
+  "league": "LCS",
+  "aliases": [
+   "Phoenix1"
+  ],
+  "players": 27
+ },
+ {
+  "id": "newbee",
+  "name": "Newbee",
+  "page": "Newbee",
+  "short": "NB",
+  "logo": "Newbeelogo profile.png",
+  "league": "LPL",
+  "aliases": [
+   "Qiao Gu Reapers"
+  ],
+  "players": 27
+ },
+ {
+  "id": "unicorns-of-lovecis",
+  "name": "Unicorns of Love.CIS",
+  "page": "Unicorns of Love.CIS",
+  "short": "UOL",
+  "logo": "Unicorns of Love.CISlogo profile.png",
+  "league": "LEC",
+  "aliases": [
+   "Unicorns of Love"
+  ],
+  "players": 26
+ },
+ {
+  "id": "suning",
+  "name": "Suning",
+  "page": "Suning",
+  "short": "SN",
+  "logo": "SN Gaminglogo square.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 26
  },
  {
   "id": "shifters",
@@ -736,84 +704,19 @@
   "aliases": [
    "Team BDS"
   ],
-  "players": 20
+  "players": 26
  },
  {
-  "id": "oksavingsbank-brion",
-  "name": "OKSavingsBank BRION",
-  "page": "OKSavingsBank BRION",
-  "short": "OKSavingsBank BRION",
-  "logo": "",
-  "league": "LCK",
-  "aliases": [],
-  "players": 20
- },
- {
-  "id": "winners",
-  "name": "Winners",
-  "page": "Winners",
-  "short": "WNS",
-  "logo": "Winnerslogo square.png",
-  "league": "LCK",
-  "aliases": [
-   "Ever8 Winners"
-  ],
-  "players": 19
- },
- {
-  "id": "ninjas-in-pyjamas",
-  "name": "Ninjas in Pyjamas",
-  "page": "Ninjas in Pyjamas",
-  "short": "NIP",
-  "logo": "Ninjas in Pyjamaslogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 19
- },
- {
-  "id": "team-coast",
-  "name": "Team Coast",
-  "page": "Team Coast",
-  "short": "CST",
-  "logo": "Team Coast.png",
+  "id": "team-impulse",
+  "name": "Team Impulse",
+  "page": "Team Impulse",
+  "short": "TIP",
+  "logo": "Team Impulselogo square.png",
   "league": "LCS",
-  "aliases": [],
-  "players": 19
- },
- {
-  "id": "rox-tigers",
-  "name": "ROX Tigers",
-  "page": "ROX Tigers",
-  "short": "ROX",
-  "logo": "ROX Tigerslogo square.png",
-  "league": "LCK",
   "aliases": [
-   "KOO Tigers",
-   "GE Tigers"
+   "LMQ"
   ],
-  "players": 18
- },
- {
-  "id": "millenium",
-  "name": "Millenium",
-  "page": "Millenium",
-  "short": "MIL",
-  "logo": "Milleniumlogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 18
- },
- {
-  "id": "team-we-academy",
-  "name": "Team WE Academy",
-  "page": "Team WE Academy",
-  "short": "WE.A",
-  "logo": "Team WE Academylogo square.png",
-  "league": "LPL",
-  "aliases": [
-   "Game Talents"
-  ],
-  "players": 18
+  "players": 25
  },
  {
   "id": "movistar-koi",
@@ -826,7 +729,90 @@
    "MAD Lions KOI",
    "MAD Lions"
   ],
-  "players": 17
+  "players": 25
+ },
+ {
+  "id": "oksavingsbank-brion",
+  "name": "OKSavingsBank BRION",
+  "page": "OKSavingsBank BRION",
+  "short": "OKSavingsBank BRION",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 25
+ },
+ {
+  "id": "xenics-storm",
+  "name": "Xenics Storm",
+  "page": "Xenics Storm",
+  "short": "XS",
+  "logo": "Xenics Storm new logo.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 24
+ },
+ {
+  "id": "gambit-gaming",
+  "name": "Gambit Gaming",
+  "page": "Gambit Gaming",
+  "short": "GMB",
+  "logo": "Gambit_Gaming_Logo.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 24
+ },
+ {
+  "id": "rox-tigers",
+  "name": "ROX Tigers",
+  "page": "ROX Tigers",
+  "short": "ROX",
+  "logo": "ROX Tigerslogo square.png",
+  "league": "LCK",
+  "aliases": [
+   "KOO Tigers",
+   "GE Tigers"
+  ],
+  "players": 23
+ },
+ {
+  "id": "team-coast",
+  "name": "Team Coast",
+  "page": "Team Coast",
+  "short": "CST",
+  "logo": "Team Coast.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 23
+ },
+ {
+  "id": "sandbox-gaming",
+  "name": "SANDBOX Gaming",
+  "page": "SANDBOX Gaming",
+  "short": "SANDBOX Gaming",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 22
+ },
+ {
+  "id": "giantx",
+  "name": "GIANTX",
+  "page": "GIANTX",
+  "short": "GX",
+  "logo": "GIANTXlogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 22
+ },
+ {
+  "id": "loud",
+  "name": "LOUD",
+  "page": "LOUD",
+  "short": "LOUD",
+  "logo": "LOUDlogo profile.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 21
  },
  {
   "id": "lyon-2024-american-team",
@@ -838,6 +824,184 @@
   "aliases": [
    "Movistar R7"
   ],
+  "players": 21
+ },
+ {
+  "id": "winners",
+  "name": "Winners",
+  "page": "Winners",
+  "short": "WNS",
+  "logo": "Winnerslogo square.png",
+  "league": "LCK",
+  "aliases": [
+   "Ever8 Winners"
+  ],
+  "players": 21
+ },
+ {
+  "id": "ninjas-in-pyjamas",
+  "name": "Ninjas in Pyjamas",
+  "page": "Ninjas in Pyjamas",
+  "short": "NIP",
+  "logo": "Ninjas in Pyjamaslogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 20
+ },
+ {
+  "id": "splyce",
+  "name": "Splyce",
+  "page": "Splyce",
+  "short": "SPY",
+  "logo": "Splycelogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "karmine-corp",
+  "name": "Karmine Corp",
+  "page": "Karmine Corp",
+  "short": "KC",
+  "logo": "Karmine Corplogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "bnk-fearx",
+  "name": "BNK FEARX",
+  "page": "BNK FEARX",
+  "short": "BFX",
+  "logo": "BNK FEARXlogo profile.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "natus-vincere",
+  "name": "Natus Vincere",
+  "page": "Natus Vincere",
+  "short": "NAVI",
+  "logo": "Natus Vincerelogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "millenium",
+  "name": "Millenium",
+  "page": "Millenium",
+  "short": "MIL",
+  "logo": "Milleniumlogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "fredit-brion",
+  "name": "Fredit BRION",
+  "page": "Fredit BRION",
+  "short": "Fredit BRION",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 19
+ },
+ {
+  "id": "team-we-academy",
+  "name": "Team WE Academy",
+  "page": "Team WE Academy",
+  "short": "WE.A",
+  "logo": "Team WE Academylogo square.png",
+  "league": "LPL",
+  "aliases": [
+   "Game Talents"
+  ],
+  "players": 19
+ },
+ {
+  "id": "gravity-north-american-team",
+  "name": "Gravity (North American Team)",
+  "page": "Gravity (North American Team)",
+  "short": "Gravity (North American Team)",
+  "logo": "",
+  "league": "LCS",
+  "aliases": [
+   "Curse Academy"
+  ],
+  "players": 19
+ },
+ {
+  "id": "red-canids",
+  "name": "RED Canids",
+  "page": "RED Canids",
+  "short": "RED",
+  "logo": "RED Canidslogo profile.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 18
+ },
+ {
+  "id": "masters-3",
+  "name": "Masters 3",
+  "page": "Masters 3",
+  "short": "M3",
+  "logo": "M3 logo.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 18
+ },
+ {
+  "id": "team-dragon-knights",
+  "name": "Team Dragon Knights",
+  "page": "Team Dragon Knights",
+  "short": "TDK",
+  "logo": "TDK logo 2015.jpg",
+  "league": "LCS",
+  "aliases": [],
+  "players": 18
+ },
+ {
+  "id": "elements",
+  "name": "Elements",
+  "page": "Elements",
+  "short": "EL",
+  "logo": "Elements logo summer.png",
+  "league": "LEC",
+  "aliases": [
+   "Alliance"
+  ],
+  "players": 17
+ },
+ {
+  "id": "isurus",
+  "name": "Isurus",
+  "page": "Isurus",
+  "short": "ISG",
+  "logo": "Isuruslogo square.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 17
+ },
+ {
+  "id": "griffin-korean-team",
+  "name": "Griffin (Korean Team)",
+  "page": "Griffin (Korean Team)",
+  "short": "Griffin (Korean Team)",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 17
+ },
+ {
+  "id": "psg-talon",
+  "name": "PSG Talon",
+  "page": "PSG Talon",
+  "short": "PSG",
+  "logo": "PSG Talonlogo profile.png",
+  "league": "",
+  "aliases": [],
   "players": 17
  },
  {
@@ -851,14 +1015,34 @@
   "players": 17
  },
  {
-  "id": "masters-3",
-  "name": "Masters 3",
-  "page": "Masters 3",
-  "short": "M3",
-  "logo": "M3 logo.png",
+  "id": "disguised",
+  "name": "Disguised",
+  "page": "Disguised",
+  "short": "DSG",
+  "logo": "Disguisedlogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 17
+ },
+ {
+  "id": "topsports-gaming",
+  "name": "Topsports Gaming",
+  "page": "Topsports Gaming",
+  "short": "Topsports Gaming",
+  "logo": "",
   "league": "LPL",
   "aliases": [],
-  "players": 16
+  "players": 17
+ },
+ {
+  "id": "estar-chinese-team",
+  "name": "eStar (Chinese Team)",
+  "page": "eStar (Chinese Team)",
+  "short": "eStar (Chinese Team)",
+  "logo": "",
+  "league": "LPL",
+  "aliases": [],
+  "players": 17
  },
  {
   "id": "complexity-gaming",
@@ -868,109 +1052,17 @@
   "logo": "CompLexity_Gaminglogo_square.png",
   "league": "LCS",
   "aliases": [],
+  "players": 17
+ },
+ {
+  "id": "kongdoo-monster",
+  "name": "Kongdoo Monster",
+  "page": "Kongdoo Monster",
+  "short": "KDM",
+  "logo": "Kongdoo Monsterlogo square.png",
+  "league": "LCK",
+  "aliases": [],
   "players": 16
- },
- {
-  "id": "elements",
-  "name": "Elements",
-  "page": "Elements",
-  "short": "EL",
-  "logo": "Elements logo summer.png",
-  "league": "LEC",
-  "aliases": [
-   "Alliance"
-  ],
-  "players": 15
- },
- {
-  "id": "isurus",
-  "name": "Isurus",
-  "page": "Isurus",
-  "short": "ISG",
-  "logo": "Isuruslogo square.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 15
- },
- {
-  "id": "fredit-brion",
-  "name": "Fredit BRION",
-  "page": "Fredit BRION",
-  "short": "Fredit BRION",
-  "logo": "",
-  "league": "LCK",
-  "aliases": [],
-  "players": 15
- },
- {
-  "id": "team-dragon-knights",
-  "name": "Team Dragon Knights",
-  "page": "Team Dragon Knights",
-  "short": "TDK",
-  "logo": "TDK logo 2015.jpg",
-  "league": "LCS",
-  "aliases": [],
-  "players": 15
- },
- {
-  "id": "splyce",
-  "name": "Splyce",
-  "page": "Splyce",
-  "short": "SPY",
-  "logo": "Splycelogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "red-canids",
-  "name": "RED Canids",
-  "page": "RED Canids",
-  "short": "RED",
-  "logo": "RED Canidslogo profile.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "loud",
-  "name": "LOUD",
-  "page": "LOUD",
-  "short": "LOUD",
-  "logo": "LOUDlogo profile.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "natus-vincere",
-  "name": "Natus Vincere",
-  "page": "Natus Vincere",
-  "short": "NAVI",
-  "logo": "Natus Vincerelogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "supa-hot-crew",
-  "name": "SUPA HOT CREW",
-  "page": "SUPA HOT CREW",
-  "short": "SHC",
-  "logo": "SHCLogo.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "sandbox-gaming",
-  "name": "SANDBOX Gaming",
-  "page": "SANDBOX Gaming",
-  "short": "SANDBOX Gaming",
-  "logo": "",
-  "league": "LCK",
-  "aliases": [],
-  "players": 14
  },
  {
   "id": "optic-gaming",
@@ -980,27 +1072,7 @@
   "logo": "OpTic Gaminglogo profile.png",
   "league": "LCS",
   "aliases": [],
-  "players": 14
- },
- {
-  "id": "giantx",
-  "name": "GIANTX",
-  "page": "GIANTX",
-  "short": "GX",
-  "logo": "GIANTXlogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "young-glory",
-  "name": "Young Glory",
-  "page": "Young Glory",
-  "short": "YG",
-  "logo": "Young Glorylogo square.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 14
+  "players": 16
  },
  {
   "id": "dan-gaming",
@@ -1012,29 +1084,7 @@
   "aliases": [
    "2144 Danmu Gaming"
   ],
-  "players": 14
- },
- {
-  "id": "topsports-gaming",
-  "name": "Topsports Gaming",
-  "page": "Topsports Gaming",
-  "short": "Topsports Gaming",
-  "logo": "",
-  "league": "LPL",
-  "aliases": [],
-  "players": 14
- },
- {
-  "id": "gravity-north-american-team",
-  "name": "Gravity (North American Team)",
-  "page": "Gravity (North American Team)",
-  "short": "Gravity (North American Team)",
-  "logo": "",
-  "league": "LCS",
-  "aliases": [
-   "Curse Academy"
-  ],
-  "players": 14
+  "players": 16
  },
  {
   "id": "star-horn-royal-club",
@@ -1044,27 +1094,59 @@
   "logo": "",
   "league": "LPL",
   "aliases": [],
-  "players": 13
+  "players": 15
  },
  {
-  "id": "griffin-korean-team",
-  "name": "Griffin (Korean Team)",
-  "page": "Griffin (Korean Team)",
-  "short": "Griffin (Korean Team)",
-  "logo": "",
-  "league": "LCK",
+  "id": "supa-hot-crew",
+  "name": "SUPA HOT CREW",
+  "page": "SUPA HOT CREW",
+  "short": "SHC",
+  "logo": "SHCLogo.png",
+  "league": "LEC",
   "aliases": [],
-  "players": 13
+  "players": 15
  },
  {
-  "id": "bnk-fearx",
-  "name": "BNK FEARX",
-  "page": "BNK FEARX",
-  "short": "BFX",
-  "logo": "BNK FEARXlogo profile.png",
-  "league": "LCK",
+  "id": "young-glory",
+  "name": "Young Glory",
+  "page": "Young Glory",
+  "short": "YG",
+  "logo": "Young Glorylogo square.png",
+  "league": "LPL",
   "aliases": [],
-  "players": 13
+  "players": 15
+ },
+ {
+  "id": "team-king",
+  "name": "Team King",
+  "page": "Team King",
+  "short": "KNG",
+  "logo": "King_logo_HD.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 15
+ },
+ {
+  "id": "saint-gaming",
+  "name": "Saint Gaming",
+  "page": "Saint Gaming",
+  "short": "SAT",
+  "logo": "Saintlogo square.png",
+  "league": "LPL",
+  "aliases": [
+   "Hyper Youth Gaming"
+  ],
+  "players": 15
+ },
+ {
+  "id": "flash-wolves",
+  "name": "Flash Wolves",
+  "page": "Flash Wolves",
+  "short": "FW",
+  "logo": "Flash Wolves logo.png",
+  "league": "",
+  "aliases": [],
+  "players": 14
  },
  {
   "id": "meetyourmakers",
@@ -1074,15 +1156,55 @@
   "logo": "MeetYourMakerslogo square.png",
   "league": "LEC",
   "aliases": [],
+  "players": 14
+ },
+ {
+  "id": "brion",
+  "name": "BRION",
+  "page": "BRION",
+  "short": "BRION",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 14
+ },
+ {
+  "id": "shopify-rebellion",
+  "name": "Shopify Rebellion",
+  "page": "Shopify Rebellion",
+  "short": "SR",
+  "logo": "Shopify Rebellionlogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 14
+ },
+ {
+  "id": "royal-club",
+  "name": "Royal Club",
+  "page": "Royal Club",
+  "short": "RYL",
+  "logo": "Royal Clublogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 14
+ },
+ {
+  "id": "sbenu-sonicboom",
+  "name": "SBENU Sonicboom",
+  "page": "SBENU Sonicboom",
+  "short": "SBENU Sonicboom",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
   "players": 13
  },
  {
-  "id": "disguised",
-  "name": "Disguised",
-  "page": "Disguised",
-  "short": "DSG",
-  "logo": "Disguisedlogo profile.png",
-  "league": "LCS",
+  "id": "apk-prince",
+  "name": "APK Prince",
+  "page": "APK Prince",
+  "short": "APK Prince",
+  "logo": "",
+  "league": "LCK",
   "aliases": [],
   "players": 13
  },
@@ -1097,32 +1219,62 @@
   "players": 13
  },
  {
-  "id": "royal-club",
-  "name": "Royal Club",
-  "page": "Royal Club",
-  "short": "RYL",
-  "logo": "Royal Clublogo profile.png",
-  "league": "LPL",
+  "id": "team-envyus",
+  "name": "Team EnVyUs",
+  "page": "Team EnVyUs",
+  "short": "NV",
+  "logo": "Team EnVyUslogo profile.png",
+  "league": "LCS",
   "aliases": [],
   "players": 13
  },
  {
-  "id": "team-king",
-  "name": "Team King",
-  "page": "Team King",
-  "short": "KNG",
-  "logo": "King_logo_HD.png",
-  "league": "LPL",
+  "id": "nrg-esports",
+  "name": "NRG Esports",
+  "page": "NRG Esports",
+  "short": "NRG Esports",
+  "logo": "",
+  "league": "LCS",
   "aliases": [],
   "players": 13
  },
  {
-  "id": "karmine-corp",
-  "name": "Karmine Corp",
-  "page": "Karmine Corp",
-  "short": "KC",
-  "logo": "Karmine Corplogo profile.png",
-  "league": "LEC",
+  "id": "pain-gaming",
+  "name": "paiN Gaming",
+  "page": "paiN Gaming",
+  "short": "PAIN",
+  "logo": "PaiN Gaminglogo square.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "i-may",
+  "name": "I May",
+  "page": "I May",
+  "short": "IM",
+  "logo": "I Maylogo square.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "estral-esports",
+  "name": "Estral Esports",
+  "page": "Estral Esports",
+  "short": "EST",
+  "logo": "Estral Esportslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "vivo-keyd-stars",
+  "name": "Vivo Keyd Stars",
+  "page": "Vivo Keyd Stars",
+  "short": "VKS",
+  "logo": "Vivo Keyd Starslogo profile.png",
+  "league": "LTA",
   "aliases": [],
   "players": 12
  },
@@ -1147,6 +1299,46 @@
   "players": 12
  },
  {
+  "id": "prime-clan",
+  "name": "Prime Clan",
+  "page": "Prime Clan",
+  "short": "Prime",
+  "logo": "Prime Clanlogo square.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "xenics",
+  "name": "Xenics",
+  "page": "Xenics",
+  "short": "XEN",
+  "logo": "Xenics logo.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "vsg-korean-team",
+  "name": "VSG (Korean Team)",
+  "page": "VSG (Korean Team)",
+  "short": "VSG (Korean Team)",
+  "logo": "",
+  "league": "LCK",
+  "aliases": [],
+  "players": 12
+ },
+ {
+  "id": "seolhaeone-prince",
+  "name": "SeolHaeOne Prince",
+  "page": "SeolHaeOne Prince",
+  "short": "SP",
+  "logo": "SeolHaeOne Princelogo square.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 12
+ },
+ {
   "id": "positive-energy",
   "name": "Positive Energy",
   "page": "Positive Energy",
@@ -1157,24 +1349,22 @@
   "players": 12
  },
  {
-  "id": "saint-gaming",
-  "name": "Saint Gaming",
-  "page": "Saint Gaming",
-  "short": "SAT",
-  "logo": "Saintlogo square.png",
+  "id": "qg-reapers",
+  "name": "QG Reapers",
+  "page": "QG Reapers",
+  "short": "QGR",
+  "logo": "QG_Reaperslogo_square.png",
   "league": "LPL",
-  "aliases": [
-   "Hyper Youth Gaming"
-  ],
+  "aliases": [],
   "players": 12
  },
  {
-  "id": "estar-chinese-team",
-  "name": "eStar (Chinese Team)",
-  "page": "eStar (Chinese Team)",
-  "short": "eStar (Chinese Team)",
-  "logo": "",
-  "league": "LPL",
+  "id": "fluxo-w7m",
+  "name": "Fluxo W7M",
+  "page": "Fluxo W7M",
+  "short": "FX",
+  "logo": "Fluxo W7Mlogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 12
  },
@@ -1191,34 +1381,24 @@
   "players": 12
  },
  {
-  "id": "nrg-esports",
-  "name": "NRG Esports",
-  "page": "NRG Esports",
-  "short": "NRG Esports",
-  "logo": "",
+  "id": "winterfox",
+  "name": "Winterfox",
+  "page": "Winterfox",
+  "short": "WFX",
+  "logo": "Winterfox_Logo_Update.png",
   "league": "LCS",
   "aliases": [],
   "players": 12
  },
  {
-  "id": "i-may",
-  "name": "I May",
-  "page": "I May",
-  "short": "IM",
-  "logo": "I Maylogo square.png",
-  "league": "LPL",
+  "id": "renegades",
+  "name": "Renegades",
+  "page": "Renegades",
+  "short": "REN",
+  "logo": "Renegadeslogo square.png",
+  "league": "LCS",
   "aliases": [],
-  "players": 11
- },
- {
-  "id": "psg-talon",
-  "name": "PSG Talon",
-  "page": "PSG Talon",
-  "short": "PSG",
-  "logo": "PSG Talonlogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 11
+  "players": 12
  },
  {
   "id": "mvp-blue",
@@ -1231,54 +1411,44 @@
   "players": 11
  },
  {
-  "id": "shopify-rebellion",
-  "name": "Shopify Rebellion",
-  "page": "Shopify Rebellion",
-  "short": "SR",
-  "logo": "Shopify Rebellionlogo profile.png",
-  "league": "LCS",
+  "id": "tcm-gaming",
+  "name": "TCM Gaming",
+  "page": "TCM Gaming",
+  "short": "TCM",
+  "logo": "TCM Gaminglogo square.png",
+  "league": "LEC",
   "aliases": [],
   "players": 11
  },
  {
-  "id": "qg-reapers",
-  "name": "QG Reapers",
-  "page": "QG Reapers",
-  "short": "QGR",
-  "logo": "QG_Reaperslogo_square.png",
-  "league": "LPL",
+  "id": "mousesports",
+  "name": "mousesports",
+  "page": "mousesports",
+  "short": "mousesports",
+  "logo": "",
+  "league": "LEC",
   "aliases": [],
   "players": 11
  },
  {
-  "id": "renegades",
-  "name": "Renegades",
-  "page": "Renegades",
-  "short": "REN",
-  "logo": "Renegadeslogo square.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 11
- },
- {
-  "id": "pain-gaming",
-  "name": "paiN Gaming",
-  "page": "paiN Gaming",
-  "short": "PAIN",
-  "logo": "PaiN Gaminglogo square.png",
+  "id": "leviatan",
+  "name": "Leviatan",
+  "page": "Leviatan",
+  "short": "LEV",
+  "logo": "Leviatanlogo profile.png",
   "league": "LTA",
   "aliases": [],
-  "players": 10
+  "players": 11
  },
  {
-  "id": "estral-esports",
-  "name": "Estral Esports",
-  "page": "Estral Esports",
-  "short": "EST",
-  "logo": "Estral Esportslogo profile.png",
+  "id": "enemy",
+  "name": "Enemy",
+  "page": "Enemy",
+  "short": "NME",
+  "logo": "Enemy_logo.png",
   "league": "LCS",
   "aliases": [],
-  "players": 10
+  "players": 11
  },
  {
   "id": "prime-sentinel",
@@ -1291,61 +1461,11 @@
   "players": 10
  },
  {
-  "id": "prime-clan",
-  "name": "Prime Clan",
-  "page": "Prime Clan",
-  "short": "Prime",
-  "logo": "Prime Clanlogo square.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "xenics",
-  "name": "Xenics",
-  "page": "Xenics",
-  "short": "XEN",
-  "logo": "Xenics logo.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "sbenu-sonicboom",
-  "name": "SBENU Sonicboom",
-  "page": "SBENU Sonicboom",
-  "short": "SBENU Sonicboom",
-  "logo": "",
-  "league": "LCK",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "tcm-gaming",
-  "name": "TCM Gaming",
-  "page": "TCM Gaming",
-  "short": "TCM",
-  "logo": "TCM Gaminglogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 10
- },
- {
   "id": "sk-gaming-prime",
   "name": "SK Gaming Prime",
   "page": "SK Gaming Prime",
   "short": "SKP",
   "logo": "SK Gaminglogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "mousesports",
-  "name": "mousesports",
-  "page": "mousesports",
-  "short": "mousesports",
-  "logo": "",
   "league": "LEC",
   "aliases": [],
   "players": 10
@@ -1361,32 +1481,22 @@
   "players": 10
  },
  {
-  "id": "kongdoo-monster",
-  "name": "Kongdoo Monster",
-  "page": "Kongdoo Monster",
-  "short": "KDM",
-  "logo": "Kongdoo Monsterlogo square.png",
-  "league": "LCK",
+  "id": "energy-pacemaker",
+  "name": "Energy Pacemaker",
+  "page": "Energy Pacemaker",
+  "short": "EP",
+  "logo": "EP.png",
+  "league": "LPL",
   "aliases": [],
   "players": 10
  },
  {
-  "id": "vsg-korean-team",
-  "name": "VSG (Korean Team)",
-  "page": "VSG (Korean Team)",
-  "short": "VSG (Korean Team)",
-  "logo": "",
-  "league": "LCK",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "brion",
-  "name": "BRION",
-  "page": "BRION",
-  "short": "BRION",
-  "logo": "",
-  "league": "LCK",
+  "id": "young-miracles",
+  "name": "Young Miracles",
+  "page": "Young Miracles",
+  "short": "YM",
+  "logo": "Young_Miracleslogo_square.png",
+  "league": "LPL",
   "aliases": [],
   "players": 10
  },
@@ -1409,26 +1519,6 @@
   "league": "LCS",
   "aliases": [],
   "players": 10
- },
- {
-  "id": "team-envyus",
-  "name": "Team EnVyUs",
-  "page": "Team EnVyUs",
-  "short": "NV",
-  "logo": "Team EnVyUslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 10
- },
- {
-  "id": "flash-wolves",
-  "name": "Flash Wolves",
-  "page": "Flash Wolves",
-  "short": "FW",
-  "logo": "Flash Wolves logo.png",
-  "league": "",
-  "aliases": [],
-  "players": 9
  },
  {
   "id": "mkz",
@@ -1471,32 +1561,72 @@
   "players": 9
  },
  {
-  "id": "apk-prince",
-  "name": "APK Prince",
-  "page": "APK Prince",
-  "short": "APK Prince",
-  "logo": "",
+  "id": "mvp",
+  "name": "MVP",
+  "page": "MVP",
+  "short": "MVP",
+  "logo": "MVPlogo.png",
   "league": "LCK",
   "aliases": [],
   "players": 9
  },
  {
-  "id": "seolhaeone-prince",
-  "name": "SeolHaeOne Prince",
-  "page": "SeolHaeOne Prince",
-  "short": "SP",
-  "logo": "SeolHaeOne Princelogo square.png",
-  "league": "LCK",
+  "id": "gamtee",
+  "name": "Gamtee",
+  "page": "Gamtee",
+  "short": "GT",
+  "logo": "GT logo new.png",
+  "league": "LPL",
   "aliases": [],
   "players": 9
  },
  {
-  "id": "fluxo-w7m",
-  "name": "Fluxo W7M",
-  "page": "Fluxo W7M",
-  "short": "FX",
-  "logo": "Fluxo W7Mlogo square.png",
-  "league": "LTA",
+  "id": "energy-pacemakerall",
+  "name": "Energy Pacemaker.All",
+  "page": "Energy Pacemaker.All",
+  "short": "EPA",
+  "logo": "Energy Pacemaker.Alllogo square.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 9
+ },
+ {
+  "id": "team-8",
+  "name": "Team 8",
+  "page": "Team 8",
+  "short": "T8",
+  "logo": "Team8_logo.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 9
+ },
+ {
+  "id": "apex-gaming",
+  "name": "Apex Gaming",
+  "page": "Apex Gaming",
+  "short": "APX",
+  "logo": "Apexsquare.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 9
+ },
+ {
+  "id": "eunited",
+  "name": "eUnited",
+  "page": "eUnited",
+  "short": "EUN",
+  "logo": "EUnitedlogo_square.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 9
+ },
+ {
+  "id": "gold-coin-united",
+  "name": "Gold Coin United",
+  "page": "Gold Coin United",
+  "short": "GCU",
+  "logo": "Gold Coin Unitedlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 9
  },
@@ -1509,6 +1639,36 @@
   "league": "LCS",
   "aliases": [],
   "players": 9
+ },
+ {
+  "id": "ctbc-flying-oyster",
+  "name": "CTBC Flying Oyster",
+  "page": "CTBC Flying Oyster",
+  "short": "CFO",
+  "logo": "CTBC Flying Oysterlogo square.png",
+  "league": "",
+  "aliases": [],
+  "players": 8
+ },
+ {
+  "id": "nrg",
+  "name": "NRG",
+  "page": "NRG",
+  "short": "NRG",
+  "logo": "NRGlogo square.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 8
+ },
+ {
+  "id": "furia",
+  "name": "FURIA",
+  "page": "FURIA",
+  "short": "FUR",
+  "logo": "FURIAlogo profile.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 8
  },
  {
   "id": "xenics-blast",
@@ -1531,6 +1691,48 @@
   "players": 8
  },
  {
+  "id": "ad-hoc-gaming",
+  "name": "ad hoc gaming",
+  "page": "ad hoc gaming",
+  "short": "AHG",
+  "logo": "Ad Hoc Gaminglogo square.png",
+  "league": "LEC",
+  "aliases": [
+   "Mysterious Monkeys"
+  ],
+  "players": 8
+ },
+ {
+  "id": "hanjin-brion",
+  "name": "HANJIN BRION",
+  "page": "HANJIN BRION",
+  "short": "BRO",
+  "logo": "HANJIN BRIONlogo profile.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 8
+ },
+ {
+  "id": "zeu5-esports",
+  "name": "Zeu5 Esports",
+  "page": "Zeu5 Esports",
+  "short": "Z5",
+  "logo": "Zeu5 Esportslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 8
+ },
+ {
+  "id": "los-ratones",
+  "name": "Los Ratones",
+  "page": "Los Ratones",
+  "short": "LR",
+  "logo": "Los Ratoneslogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 8
+ },
+ {
   "id": "wayi-spider-china",
   "name": "Wayi Spider China",
   "page": "Wayi Spider China",
@@ -1541,32 +1743,12 @@
   "players": 8
  },
  {
-  "id": "energy-pacemaker",
-  "name": "Energy Pacemaker",
-  "page": "Energy Pacemaker",
-  "short": "EP",
-  "logo": "EP.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 8
- },
- {
-  "id": "energy-pacemakerall",
-  "name": "Energy Pacemaker.All",
-  "page": "Energy Pacemaker.All",
-  "short": "EPA",
-  "logo": "Energy Pacemaker.Alllogo square.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 8
- },
- {
-  "id": "young-miracles",
-  "name": "Young Miracles",
-  "page": "Young Miracles",
-  "short": "YM",
-  "logo": "Young_Miracleslogo_square.png",
-  "league": "LPL",
+  "id": "isurus-estral",
+  "name": "Isurus Estral",
+  "page": "Isurus Estral",
+  "short": "IE",
+  "logo": "Isurus Estrallogo square.png",
+  "league": "LTA",
   "aliases": [],
   "players": 8
  },
@@ -1583,53 +1765,35 @@
   "players": 8
  },
  {
-  "id": "enemy",
-  "name": "Enemy",
-  "page": "Enemy",
-  "short": "NME",
-  "logo": "Enemy_logo.png",
+  "id": "complexityblack",
+  "name": "compLexity.Black",
+  "page": "compLexity.Black",
+  "short": "CLB",
+  "logo": "CoLBlack.png",
   "league": "LCS",
   "aliases": [],
   "players": 8
  },
  {
-  "id": "winterfox",
-  "name": "Winterfox",
-  "page": "Winterfox",
-  "short": "WFX",
-  "logo": "Winterfox_Logo_Update.png",
+  "id": "team-fusion",
+  "name": "Team Fusion",
+  "page": "Team Fusion",
+  "short": "FSN",
+  "logo": "Team Fusion Gaming Profile v2.png",
   "league": "LCS",
   "aliases": [],
   "players": 8
  },
  {
-  "id": "apex-gaming",
-  "name": "Apex Gaming",
-  "page": "Apex Gaming",
-  "short": "APX",
-  "logo": "Apexsquare.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 8
- },
- {
-  "id": "gold-coin-united",
-  "name": "Gold Coin United",
-  "page": "Gold Coin United",
-  "short": "GCU",
-  "logo": "Gold Coin Unitedlogo square.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 8
- },
- {
-  "id": "vivo-keyd-stars",
-  "name": "Vivo Keyd Stars",
-  "page": "Vivo Keyd Stars",
-  "short": "VKS",
-  "logo": "Vivo Keyd Starslogo profile.png",
-  "league": "LTA",
-  "aliases": [],
+  "id": "hong-kong-attitude",
+  "name": "Hong Kong Attitude",
+  "page": "Hong Kong Attitude",
+  "short": "HKA",
+  "logo": "Hong_Kong_Attitudelogo_square.png",
+  "league": "",
+  "aliases": [
+   "Hong Kong Esports"
+  ],
   "players": 7
  },
  {
@@ -1683,18 +1847,6 @@
   "players": 7
  },
  {
-  "id": "ad-hoc-gaming",
-  "name": "ad hoc gaming",
-  "page": "ad hoc gaming",
-  "short": "AHG",
-  "logo": "Ad Hoc Gaminglogo square.png",
-  "league": "LEC",
-  "aliases": [
-   "Mysterious Monkeys"
-  ],
-  "players": 7
- },
- {
   "id": "dragonborns",
   "name": "DragonBorns",
   "page": "DragonBorns",
@@ -1715,31 +1867,71 @@
   "players": 7
  },
  {
-  "id": "mvp",
-  "name": "MVP",
-  "page": "MVP",
-  "short": "MVP",
-  "logo": "MVPlogo.png",
+  "id": "team-battlecomics",
+  "name": "Team BattleComics",
+  "page": "Team BattleComics",
+  "short": "BtC",
+  "logo": "Team BattleComicslogo square.png",
   "league": "LCK",
   "aliases": [],
   "players": 7
  },
  {
-  "id": "gamtee",
-  "name": "Gamtee",
-  "page": "Gamtee",
-  "short": "GT",
-  "logo": "GT logo new.png",
+  "id": "es-sharks",
+  "name": "ES Sharks",
+  "page": "ES Sharks",
+  "short": "ESS",
+  "logo": "ES Sharkslogo square.png",
+  "league": "LCK",
+  "aliases": [],
+  "players": 7
+ },
+ {
+  "id": "cupid-esports",
+  "name": "Cupid Esports",
+  "page": "Cupid Esports",
+  "short": "CPD",
+  "logo": "Cupid Esportslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 7
+ },
+ {
+  "id": "karmine-corp-blue",
+  "name": "Karmine Corp Blue",
+  "page": "Karmine Corp Blue",
+  "short": "KCB",
+  "logo": "Karmine Corp Bluelogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 7
+ },
+ {
+  "id": "energy-pacemakerhk",
+  "name": "Energy Pacemaker.HK",
+  "page": "Energy Pacemaker.HK",
+  "short": "Energy Pacemaker.HK",
+  "logo": "",
   "league": "LPL",
   "aliases": [],
   "players": 7
  },
  {
-  "id": "leviatan",
-  "name": "Leviatan",
-  "page": "Leviatan",
-  "short": "LEV",
-  "logo": "Leviatanlogo profile.png",
+  "id": "unlimited-potential",
+  "name": "Unlimited Potential",
+  "page": "Unlimited Potential",
+  "short": "UP",
+  "logo": "UP logo.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 7
+ },
+ {
+  "id": "flamengo-mdl",
+  "name": "Flamengo MDL",
+  "page": "Flamengo MDL",
+  "short": "FLA",
+  "logo": "Flamengo MDLlogo profile.png",
   "league": "LTA",
   "aliases": [],
   "players": 7
@@ -1750,46 +1942,6 @@
   "page": "COGnitive Gaming",
   "short": "COG",
   "logo": "COG_Logo.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 7
- },
- {
-  "id": "complexityblack",
-  "name": "compLexity.Black",
-  "page": "compLexity.Black",
-  "short": "CLB",
-  "logo": "CoLBlack.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 7
- },
- {
-  "id": "team-fusion",
-  "name": "Team Fusion",
-  "page": "Team Fusion",
-  "short": "FSN",
-  "logo": "Team Fusion Gaming Profile v2.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 7
- },
- {
-  "id": "team-8",
-  "name": "Team 8",
-  "page": "Team 8",
-  "short": "T8",
-  "logo": "Team8_logo.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 7
- },
- {
-  "id": "eunited",
-  "name": "eUnited",
-  "page": "eUnited",
-  "short": "EUN",
-  "logo": "EUnitedlogo_square.png",
   "league": "LCS",
   "aliases": [],
   "players": 7
@@ -1825,6 +1977,16 @@
   "players": 7
  },
  {
+  "id": "ahq-esports-club",
+  "name": "ahq eSports Club",
+  "page": "ahq eSports Club",
+  "short": "ahq",
+  "logo": "Ahq eSports Clublogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 6
+ },
+ {
   "id": "lyon-gaming-2013-latin-american-team",
   "name": "Lyon Gaming (2013 Latin American Team)",
   "page": "Lyon Gaming (2013 Latin American Team)",
@@ -1835,22 +1997,42 @@
   "players": 6
  },
  {
-  "id": "ctbc-flying-oyster",
-  "name": "CTBC Flying Oyster",
-  "page": "CTBC Flying Oyster",
-  "short": "CFO",
-  "logo": "CTBC Flying Oysterlogo square.png",
+  "id": "g-rex",
+  "name": "G-Rex",
+  "page": "G-Rex",
+  "short": "GRX",
+  "logo": "G-Rexlogo square.png",
   "league": "",
   "aliases": [],
   "players": 6
  },
  {
-  "id": "nrg",
-  "name": "NRG",
-  "page": "NRG",
-  "short": "NRG",
-  "logo": "NRGlogo square.png",
-  "league": "LCS",
+  "id": "detonation-focusme",
+  "name": "DetonatioN FocusMe",
+  "page": "DetonatioN FocusMe",
+  "short": "DFM",
+  "logo": "DetonatioN FocusMelogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "infinity",
+  "name": "INFINITY",
+  "page": "INFINITY",
+  "short": "INF",
+  "logo": "INFINITYlogo square.png",
+  "league": "",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "j-team",
+  "name": "J Team",
+  "page": "J Team",
+  "short": "JT",
+  "logo": "J Teamlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 6
  },
@@ -1905,6 +2087,61 @@
   "players": 6
  },
  {
+  "id": "different-dimension",
+  "name": "Different Dimension",
+  "page": "Different Dimension",
+  "short": "DD",
+  "logo": "Different Dimensionlogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "tricked-esport",
+  "name": "Tricked Esport",
+  "page": "Tricked Esport",
+  "short": "TRC",
+  "logo": "Tricked eSportslogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "huma",
+  "name": "Huma",
+  "page": "Huma",
+  "short": "HMA",
+  "logo": "Humalogo square.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "fnatic-tq",
+  "name": "Fnatic TQ",
+  "page": "Fnatic TQ",
+  "short": "Fnatic TQ",
+  "logo": "",
+  "league": "LEC",
+  "aliases": [
+   "Fnatic Academy",
+   "Fnatic Rising"
+  ],
+  "players": 6
+ },
+ {
+  "id": "misfits-premier",
+  "name": "Misfits Premier",
+  "page": "Misfits Premier",
+  "short": "MSFP",
+  "logo": "Misfits Premierlogo profile.png",
+  "league": "LEC",
+  "aliases": [
+   "Misfits Academy"
+  ],
+  "players": 6
+ },
+ {
   "id": "lemondogs",
   "name": "Lemondogs",
   "page": "Lemondogs",
@@ -1925,41 +2162,123 @@
   "players": 6
  },
  {
-  "id": "hanjin-brion",
-  "name": "HANJIN BRION",
-  "page": "HANJIN BRION",
-  "short": "BRO",
-  "logo": "HANJIN BRIONlogo profile.png",
+  "id": "sinners-never-sleep",
+  "name": "Sinners Never Sleep",
+  "page": "Sinners Never Sleep",
+  "short": "SNS",
+  "logo": "Sinners_Never_sleepuu.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "sbenu-korea",
+  "name": "SBENU Korea",
+  "page": "SBENU Korea",
+  "short": "SBK",
+  "logo": "SBENU logo.png",
   "league": "LCK",
   "aliases": [],
   "players": 6
  },
  {
-  "id": "energy-pacemakerhk",
-  "name": "Energy Pacemaker.HK",
-  "page": "Energy Pacemaker.HK",
-  "short": "Energy Pacemaker.HK",
-  "logo": "",
+  "id": "fuego",
+  "name": "Fuego",
+  "page": "Fuego",
+  "short": "FUE",
+  "logo": "Fuegologo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "maryville-university",
+  "name": "Maryville University",
+  "page": "Maryville University",
+  "short": "MU",
+  "logo": "Maryville Universitylogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "mighty-eagle",
+  "name": "Mighty Eagle",
+  "page": "Mighty Eagle",
+  "short": "ME",
+  "logo": "Mighty Eaglelogo square.png",
+  "league": "LPL",
+  "aliases": [
+   "Team WE Future"
+  ],
+  "players": 6
+ },
+ {
+  "id": "mf-gaming",
+  "name": "MF Gaming",
+  "page": "MF Gaming",
+  "short": "MFG",
+  "logo": "MF Gaminglogo square.png",
   "league": "LPL",
   "aliases": [],
   "players": 6
  },
  {
-  "id": "unlimited-potential",
-  "name": "Unlimited Potential",
-  "page": "Unlimited Potential",
-  "short": "UP",
-  "logo": "UP logo.png",
-  "league": "LPL",
+  "id": "conviction",
+  "name": "Conviction",
+  "page": "Conviction",
+  "short": "CNV",
+  "logo": "Convictionlogo square.png",
+  "league": "LCS",
   "aliases": [],
   "players": 6
  },
  {
-  "id": "isurus-estral",
-  "name": "Isurus Estral",
-  "page": "Isurus Estral",
-  "short": "IE",
-  "logo": "Isurus Estrallogo square.png",
+  "id": "luminosity-gaming",
+  "name": "Luminosity Gaming",
+  "page": "Luminosity Gaming",
+  "short": "LG",
+  "logo": "Luminosity Gaminglogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "sdm-tigres",
+  "name": "SDM Tigres",
+  "page": "SDM Tigres",
+  "short": "SDM",
+  "logo": "SDM Tigreslogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "alpha7-esports",
+  "name": "Alpha7 Esports",
+  "page": "Alpha7 Esports",
+  "short": "A7",
+  "logo": "Alpha7 Esportslogo square.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "farenvehn",
+  "name": "Farenvehn",
+  "page": "Farenvehn",
+  "short": "FVN",
+  "logo": "Farenvehnlogo square.png",
+  "league": "LTA",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "sicar-esports",
+  "name": "Sicar Esports",
+  "page": "Sicar Esports",
+  "short": "SIC",
+  "logo": "Sicar Esportslogo profile.png",
   "league": "LTA",
   "aliases": [],
   "players": 6
@@ -1985,6 +2304,38 @@
   "players": 6
  },
  {
+  "id": "team-imagine",
+  "name": "Team Imagine",
+  "page": "Team Imagine",
+  "short": "IMG",
+  "logo": "Imagine logo solid.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "cloud9-challenger",
+  "name": "Cloud9 Challenger",
+  "page": "Cloud9 Challenger",
+  "short": "C9C",
+  "logo": "Cloud9 Challengerlogo profile.png",
+  "league": "LCS",
+  "aliases": [],
+  "players": 6
+ },
+ {
+  "id": "team-liquid-challengers",
+  "name": "Team Liquid Challengers",
+  "page": "Team Liquid Challengers",
+  "short": "TLC",
+  "logo": "Team Liquidlogo profile.png",
+  "league": "LCS",
+  "aliases": [
+   "Team Liquid Academy"
+  ],
+  "players": 6
+ },
+ {
   "id": "velocity-esports",
   "name": "Velocity eSports",
   "page": "Velocity eSports",
@@ -1995,6 +2346,16 @@
   "players": 6
  },
  {
+  "id": "dire-wolves",
+  "name": "Dire Wolves",
+  "page": "Dire Wolves",
+  "short": "DW",
+  "logo": "Dire Wolveslogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 5
+ },
+ {
   "id": "fenerbahce-esports",
   "name": "Fenerbahçe Esports",
   "page": "Fenerbahçe Esports",
@@ -2002,18 +2363,6 @@
   "logo": "Fenerbahçe Esportslogo square.png",
   "league": "",
   "aliases": [],
-  "players": 5
- },
- {
-  "id": "hong-kong-attitude",
-  "name": "Hong Kong Attitude",
-  "page": "Hong Kong Attitude",
-  "short": "HKA",
-  "logo": "Hong_Kong_Attitudelogo_square.png",
-  "league": "",
-  "aliases": [
-   "Hong Kong Esports"
-  ],
   "players": 5
  },
  {
@@ -2027,32 +2376,44 @@
   "players": 5
  },
  {
-  "id": "g-rex",
-  "name": "G-Rex",
-  "page": "G-Rex",
-  "short": "GRX",
-  "logo": "G-Rexlogo square.png",
+  "id": "mammoth",
+  "name": "MAMMOTH",
+  "page": "MAMMOTH",
+  "short": "MEC",
+  "logo": "MAMMOTHlogo square.png",
   "league": "",
   "aliases": [],
   "players": 5
  },
  {
-  "id": "detonation-focusme",
-  "name": "DetonatioN FocusMe",
-  "page": "DetonatioN FocusMe",
-  "short": "DFM",
-  "logo": "DetonatioN FocusMelogo profile.png",
+  "id": "nasr-esports-turkey",
+  "name": "NASR eSports Turkey",
+  "page": "NASR eSports Turkey",
+  "short": "NASR",
+  "logo": "NASR ESPORTSlogo profile.png",
+  "league": "",
+  "aliases": [
+   "Royal Youth"
+  ],
+  "players": 5
+ },
+ {
+  "id": "papara-supermassive",
+  "name": "Papara SuperMassive",
+  "page": "Papara SuperMassive",
+  "short": "SUP",
+  "logo": "Papara SuperMassivelogo profile.png",
   "league": "",
   "aliases": [],
   "players": 5
  },
  {
-  "id": "furia",
-  "name": "FURIA",
-  "page": "FURIA",
-  "short": "FUR",
-  "logo": "FURIAlogo profile.png",
-  "league": "LTA",
+  "id": "l-s",
+  "name": "LØS",
+  "page": "LØS",
+  "short": "LOS",
+  "logo": "LØSlogo square.png",
+  "league": "",
   "aliases": [],
   "players": 5
  },
@@ -2749,16 +3110,6 @@
   "players": 5
  },
  {
-  "id": "different-dimension",
-  "name": "Different Dimension",
-  "page": "Different Dimension",
-  "short": "DD",
-  "logo": "Different Dimensionlogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 5
- },
- {
   "id": "meloncats",
   "name": "Meloncats",
   "page": "Meloncats",
@@ -2809,16 +3160,6 @@
   "players": 5
  },
  {
-  "id": "tricked-esport",
-  "name": "Tricked Esport",
-  "page": "Tricked Esport",
-  "short": "TRC",
-  "logo": "Tricked eSportslogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 5
- },
- {
   "id": "copenhagen-wolves-academy",
   "name": "Copenhagen Wolves Academy",
   "page": "Copenhagen Wolves Academy",
@@ -2826,41 +3167,6 @@
   "logo": "CW Academy.png",
   "league": "LEC",
   "aliases": [],
-  "players": 5
- },
- {
-  "id": "huma",
-  "name": "Huma",
-  "page": "Huma",
-  "short": "HMA",
-  "logo": "Humalogo square.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "fnatic-tq",
-  "name": "Fnatic TQ",
-  "page": "Fnatic TQ",
-  "short": "Fnatic TQ",
-  "logo": "",
-  "league": "LEC",
-  "aliases": [
-   "Fnatic Academy",
-   "Fnatic Rising"
-  ],
-  "players": 5
- },
- {
-  "id": "misfits-premier",
-  "name": "Misfits Premier",
-  "page": "Misfits Premier",
-  "short": "MSFP",
-  "logo": "Misfits Premierlogo profile.png",
-  "league": "LEC",
-  "aliases": [
-   "Misfits Academy"
-  ],
   "players": 5
  },
  {
@@ -2884,16 +3190,6 @@
   "players": 5
  },
  {
-  "id": "sinners-never-sleep",
-  "name": "Sinners Never Sleep",
-  "page": "Sinners Never Sleep",
-  "short": "SNS",
-  "logo": "Sinners_Never_sleepuu.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 5
- },
- {
   "id": "at-gaming",
   "name": "AT Gaming",
   "page": "AT Gaming",
@@ -2910,96 +3206,6 @@
   "short": "DW",
   "logo": "Dark Wolves logo.png",
   "league": "LCK",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "sbenu-korea",
-  "name": "SBENU Korea",
-  "page": "SBENU Korea",
-  "short": "SBK",
-  "logo": "SBENU logo.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "team-battlecomics",
-  "name": "Team BattleComics",
-  "page": "Team BattleComics",
-  "short": "BtC",
-  "logo": "Team BattleComicslogo square.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "es-sharks",
-  "name": "ES Sharks",
-  "page": "ES Sharks",
-  "short": "ESS",
-  "logo": "ES Sharkslogo square.png",
-  "league": "LCK",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "cupid-esports",
-  "name": "Cupid Esports",
-  "page": "Cupid Esports",
-  "short": "CPD",
-  "logo": "Cupid Esportslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "fuego",
-  "name": "Fuego",
-  "page": "Fuego",
-  "short": "FUE",
-  "logo": "Fuegologo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "maryville-university",
-  "name": "Maryville University",
-  "page": "Maryville University",
-  "short": "MU",
-  "logo": "Maryville Universitylogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "zeu5-esports",
-  "name": "Zeu5 Esports",
-  "page": "Zeu5 Esports",
-  "short": "Z5",
-  "logo": "Zeu5 Esportslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "karmine-corp-blue",
-  "name": "Karmine Corp Blue",
-  "page": "Karmine Corp Blue",
-  "short": "KCB",
-  "logo": "Karmine Corp Bluelogo profile.png",
-  "league": "LEC",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "los-ratones",
-  "name": "Los Ratones",
-  "page": "Los Ratones",
-  "short": "LR",
-  "logo": "Los Ratoneslogo square.png",
-  "league": "LEC",
   "aliases": [],
   "players": 5
  },
@@ -3094,98 +3300,6 @@
   "short": "LD",
   "logo": "LDG logo new.png",
   "league": "LPL",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "mighty-eagle",
-  "name": "Mighty Eagle",
-  "page": "Mighty Eagle",
-  "short": "ME",
-  "logo": "Mighty Eaglelogo square.png",
-  "league": "LPL",
-  "aliases": [
-   "Team WE Future"
-  ],
-  "players": 5
- },
- {
-  "id": "mf-gaming",
-  "name": "MF Gaming",
-  "page": "MF Gaming",
-  "short": "MFG",
-  "logo": "MF Gaminglogo square.png",
-  "league": "LPL",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "conviction",
-  "name": "Conviction",
-  "page": "Conviction",
-  "short": "CNV",
-  "logo": "Convictionlogo square.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "luminosity-gaming",
-  "name": "Luminosity Gaming",
-  "page": "Luminosity Gaming",
-  "short": "LG",
-  "logo": "Luminosity Gaminglogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "sdm-tigres",
-  "name": "SDM Tigres",
-  "page": "SDM Tigres",
-  "short": "SDM",
-  "logo": "SDM Tigreslogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "alpha7-esports",
-  "name": "Alpha7 Esports",
-  "page": "Alpha7 Esports",
-  "short": "A7",
-  "logo": "Alpha7 Esportslogo square.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "farenvehn",
-  "name": "Farenvehn",
-  "page": "Farenvehn",
-  "short": "FVN",
-  "logo": "Farenvehnlogo square.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "flamengo-mdl",
-  "name": "Flamengo MDL",
-  "page": "Flamengo MDL",
-  "short": "FLA",
-  "logo": "Flamengo MDLlogo profile.png",
-  "league": "LTA",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "sicar-esports",
-  "name": "Sicar Esports",
-  "page": "Sicar Esports",
-  "short": "SIC",
-  "logo": "Sicar Esportslogo profile.png",
-  "league": "LTA",
   "aliases": [],
   "players": 5
  },
@@ -3432,38 +3546,6 @@
   "players": 5
  },
  {
-  "id": "team-imagine",
-  "name": "Team Imagine",
-  "page": "Team Imagine",
-  "short": "IMG",
-  "logo": "Imagine logo solid.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "cloud9-challenger",
-  "name": "Cloud9 Challenger",
-  "page": "Cloud9 Challenger",
-  "short": "C9C",
-  "logo": "Cloud9 Challengerlogo profile.png",
-  "league": "LCS",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "team-liquid-challengers",
-  "name": "Team Liquid Challengers",
-  "page": "Team Liquid Challengers",
-  "short": "TLC",
-  "logo": "Team Liquidlogo profile.png",
-  "league": "LCS",
-  "aliases": [
-   "Team Liquid Academy"
-  ],
-  "players": 5
- },
- {
   "id": "1-trick-ponies",
   "name": "1 Trick Ponies",
   "page": "1 Trick Ponies",
@@ -3636,73 +3718,43 @@
   "players": 5
  },
  {
-  "id": "ahq-esports-club",
-  "name": "ahq eSports Club",
-  "page": "ahq eSports Club",
-  "short": "ahq",
-  "logo": "Ahq eSports Clublogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 4
- },
- {
-  "id": "dire-wolves",
-  "name": "Dire Wolves",
-  "page": "Dire Wolves",
-  "short": "DW",
-  "logo": "Dire Wolveslogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 4
- },
- {
-  "id": "infinity",
-  "name": "INFINITY",
-  "page": "INFINITY",
-  "short": "INF",
-  "logo": "INFINITYlogo square.png",
-  "league": "",
-  "aliases": [],
-  "players": 4
- },
- {
-  "id": "mammoth",
-  "name": "MAMMOTH",
-  "page": "MAMMOTH",
-  "short": "MEC",
-  "logo": "MAMMOTHlogo square.png",
-  "league": "",
-  "aliases": [],
-  "players": 4
- },
- {
-  "id": "nasr-esports-turkey",
-  "name": "NASR eSports Turkey",
-  "page": "NASR eSports Turkey",
-  "short": "NASR",
-  "logo": "NASR ESPORTSlogo profile.png",
+  "id": "kabum-ilha-das-lendas",
+  "name": "KaBuM! Ilha das Lendas",
+  "page": "KaBuM! Ilha das Lendas",
+  "short": "KBM",
+  "logo": "KaBuM! Ilha das Lendaslogo profile.png",
   "league": "",
   "aliases": [
-   "Royal Youth"
+   "KaBuM! Esports"
   ],
   "players": 4
  },
  {
-  "id": "papara-supermassive",
-  "name": "Papara SuperMassive",
-  "page": "Papara SuperMassive",
-  "short": "SUP",
-  "logo": "Papara SuperMassivelogo profile.png",
+  "id": "intz",
+  "name": "INTZ",
+  "page": "INTZ",
+  "short": "INTZ",
+  "logo": "INTZlogo profile.png",
   "league": "",
   "aliases": [],
   "players": 4
  },
  {
-  "id": "l-s",
-  "name": "LØS",
-  "page": "LØS",
-  "short": "LOS",
-  "logo": "LØSlogo square.png",
+  "id": "flamengo-esports",
+  "name": "Flamengo Esports",
+  "page": "Flamengo Esports",
+  "short": "Flamengo Esports",
+  "logo": "",
+  "league": "",
+  "aliases": [],
+  "players": 4
+ },
+ {
+  "id": "galatasaray-esports",
+  "name": "Galatasaray Esports",
+  "page": "Galatasaray Esports",
+  "short": "GS",
+  "logo": "Galatasaray Esportslogo profile.png",
   "league": "",
   "aliases": [],
   "players": 4
@@ -3728,6 +3780,16 @@
   "players": 4
  },
  {
+  "id": "elohell",
+  "name": "EloHell",
+  "page": "EloHell",
+  "short": "EH",
+  "logo": "EloHelllogo square.png",
+  "league": "",
+  "aliases": [],
+  "players": 4
+ },
+ {
   "id": "team-acer-poland",
   "name": "Team Acer Poland",
   "page": "Team Acer Poland",
@@ -3738,33 +3800,31 @@
   "players": 4
  },
  {
-  "id": "kabum-ilha-das-lendas",
-  "name": "KaBuM! Ilha das Lendas",
-  "page": "KaBuM! Ilha das Lendas",
-  "short": "KBM",
-  "logo": "KaBuM! Ilha das Lendaslogo profile.png",
-  "league": "",
-  "aliases": [
-   "KaBuM! Esports"
-  ],
-  "players": 3
- },
- {
-  "id": "intz",
-  "name": "INTZ",
-  "page": "INTZ",
-  "short": "INTZ",
-  "logo": "INTZlogo profile.png",
+  "id": "supermassive-esports",
+  "name": "SuperMassive Esports",
+  "page": "SuperMassive Esports",
+  "short": "SuperMassive Esports",
+  "logo": "",
   "league": "",
   "aliases": [],
   "players": 3
  },
  {
-  "id": "flamengo-esports",
-  "name": "Flamengo Esports",
-  "page": "Flamengo Esports",
-  "short": "Flamengo Esports",
-  "logo": "",
+  "id": "mad-team",
+  "name": "MAD Team",
+  "page": "MAD Team",
+  "short": "MAD",
+  "logo": "MAD Teamlogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 3
+ },
+ {
+  "id": "machi-esports",
+  "name": "Machi Esports",
+  "page": "Machi Esports",
+  "short": "MCX",
+  "logo": "Machi Esportslogo profile.png",
   "league": "",
   "aliases": [],
   "players": 3
@@ -3780,11 +3840,31 @@
   "players": 3
  },
  {
+  "id": "beyond-gaming",
+  "name": "Beyond Gaming",
+  "page": "Beyond Gaming",
+  "short": "BYG",
+  "logo": "Beyond Gaminglogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 3
+ },
+ {
   "id": "chiefs-esports-club",
   "name": "Chiefs Esports Club",
   "page": "Chiefs Esports Club",
   "short": "CHF",
   "logo": "Chiefs Esports Clublogo square.png",
+  "league": "",
+  "aliases": [],
+  "players": 3
+ },
+ {
+  "id": "fukuoka-softbank-hawks-gaming",
+  "name": "Fukuoka SoftBank HAWKS gaming",
+  "page": "Fukuoka SoftBank HAWKS gaming",
+  "short": "SHG",
+  "logo": "Fukuoka_SoftBank_HAWKS_gaminglogo_profile.png",
   "league": "",
   "aliases": [],
   "players": 3
@@ -3820,21 +3900,23 @@
   "players": 3
  },
  {
-  "id": "elohell",
-  "name": "EloHell",
-  "page": "EloHell",
-  "short": "EH",
-  "logo": "EloHelllogo square.png",
+  "id": "gashbears",
+  "name": "GashBears",
+  "page": "GashBears",
+  "short": "GB",
+  "logo": "GashBearslogo square.png",
   "league": "",
-  "aliases": [],
+  "aliases": [
+   "Gamania Bears"
+  ],
   "players": 3
  },
  {
-  "id": "supermassive-esports",
-  "name": "SuperMassive Esports",
-  "page": "SuperMassive Esports",
-  "short": "SuperMassive Esports",
-  "logo": "",
+  "id": "taipei-assassins",
+  "name": "Taipei Assassins",
+  "page": "Taipei Assassins",
+  "short": "TPA",
+  "logo": "Tpa logo.png",
   "league": "",
   "aliases": [],
   "players": 2
@@ -3860,21 +3942,11 @@
   "players": 2
  },
  {
-  "id": "j-team",
-  "name": "J Team",
-  "page": "J Team",
-  "short": "JT",
-  "logo": "J Teamlogo square.png",
-  "league": "",
-  "aliases": [],
-  "players": 2
- },
- {
-  "id": "machi-esports",
-  "name": "Machi Esports",
-  "page": "Machi Esports",
-  "short": "MCX",
-  "logo": "Machi Esportslogo profile.png",
+  "id": "mega",
+  "name": "MEGA",
+  "page": "MEGA",
+  "short": "MG",
+  "logo": "MEGAlogo square.png",
   "league": "",
   "aliases": [],
   "players": 2
@@ -3890,26 +3962,6 @@
   "players": 2
  },
  {
-  "id": "beyond-gaming",
-  "name": "Beyond Gaming",
-  "page": "Beyond Gaming",
-  "short": "BYG",
-  "logo": "Beyond Gaminglogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 2
- },
- {
-  "id": "galatasaray-esports",
-  "name": "Galatasaray Esports",
-  "page": "Galatasaray Esports",
-  "short": "GS",
-  "logo": "Galatasaray Esportslogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 2
- },
- {
   "id": "team-aze",
   "name": "Team Aze",
   "page": "Team Aze",
@@ -3920,25 +3972,23 @@
   "players": 2
  },
  {
-  "id": "fukuoka-softbank-hawks-gaming",
-  "name": "Fukuoka SoftBank HAWKS gaming",
-  "page": "Fukuoka SoftBank HAWKS gaming",
-  "short": "SHG",
-  "logo": "Fukuoka_SoftBank_HAWKS_gaminglogo_profile.png",
+  "id": "deep-cross-gaming",
+  "name": "Deep Cross Gaming",
+  "page": "Deep Cross Gaming",
+  "short": "DCG",
+  "logo": "Deep Cross Gaminglogo profile.png",
   "league": "",
   "aliases": [],
   "players": 2
  },
  {
-  "id": "gashbears",
-  "name": "GashBears",
-  "page": "GashBears",
-  "short": "GB",
-  "logo": "GashBearslogo square.png",
+  "id": "wayi-spider",
+  "name": "Wayi Spider",
+  "page": "Wayi Spider",
+  "short": "WS",
+  "logo": "Wayi Spider.jpg",
   "league": "",
-  "aliases": [
-   "Gamania Bears"
-  ],
+  "aliases": [],
   "players": 2
  },
  {
@@ -3994,6 +4044,16 @@
   "players": 1
  },
  {
+  "id": "virtuspro",
+  "name": "Virtus.pro",
+  "page": "Virtus.pro",
+  "short": "VP",
+  "logo": "Virtus.pro.png",
+  "league": "",
+  "aliases": [],
+  "players": 1
+ },
+ {
   "id": "los-grandes",
   "name": "Los Grandes",
   "page": "Los Grandes",
@@ -4003,26 +4063,6 @@
   "aliases": [
    "Team oNe eSports"
   ],
-  "players": 1
- },
- {
-  "id": "mad-team",
-  "name": "MAD Team",
-  "page": "MAD Team",
-  "short": "MAD",
-  "logo": "MAD Teamlogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 1
- },
- {
-  "id": "mega",
-  "name": "MEGA",
-  "page": "MEGA",
-  "short": "MG",
-  "logo": "MEGAlogo square.png",
-  "league": "",
-  "aliases": [],
   "players": 1
  },
  {
@@ -4076,11 +4116,55 @@
   "players": 1
  },
  {
-  "id": "deep-cross-gaming",
-  "name": "Deep Cross Gaming",
-  "page": "Deep Cross Gaming",
-  "short": "DCG",
-  "logo": "Deep Cross Gaminglogo profile.png",
+  "id": "vikings-esports-2023-vietnamese-team",
+  "name": "Vikings Esports (2023 Vietnamese Team)",
+  "page": "Vikings Esports (2023 Vietnamese Team)",
+  "short": "Vikings Esports (2023 Vietnamese Team)",
+  "logo": "",
+  "league": "",
+  "aliases": [
+   "Saigon Buffalo"
+  ],
+  "players": 1
+ },
+ {
+  "id": "team-secret-whales",
+  "name": "Team Secret Whales",
+  "page": "Team Secret Whales",
+  "short": "TSW",
+  "logo": "Team Secret Whaleslogo profile.png",
+  "league": "",
+  "aliases": [
+   "Team Whales"
+  ],
+  "players": 1
+ },
+ {
+  "id": "mvk-esports",
+  "name": "MVK Esports",
+  "page": "MVK Esports",
+  "short": "MVK",
+  "logo": "MVK Esportslogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 1
+ },
+ {
+  "id": "disciples-of-da-gr8-whale-lord",
+  "name": "Disciples of Da Gr8 Whale Lord",
+  "page": "Disciples of Da Gr8 Whale Lord",
+  "short": "Disciples of Da Gr8 Whale Lord",
+  "logo": "",
+  "league": "",
+  "aliases": [],
+  "players": 1
+ },
+ {
+  "id": "e-sports-dragons-pro",
+  "name": "e-Sports Dragons Pro",
+  "page": "e-Sports Dragons Pro",
+  "short": "EDP",
+  "logo": "E-Sports Dragons Pro.png",
   "league": "",
   "aliases": [],
   "players": 1
@@ -4096,11 +4180,11 @@
   "players": 1
  },
  {
-  "id": "wayi-spider",
-  "name": "Wayi Spider",
-  "page": "Wayi Spider",
-  "short": "WS",
-  "logo": "Wayi Spider.jpg",
+  "id": "yoe-ironmen",
+  "name": "yoe IRONMEN",
+  "page": "yoe IRONMEN",
+  "short": "yoe IRONMEN",
+  "logo": "",
   "league": "",
   "aliases": [],
   "players": 1

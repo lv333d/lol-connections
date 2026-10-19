@@ -187,12 +187,11 @@ async function main() {
     return COUNTRY_CODES[country] || '';
   };
   const players = new Map(); // wikiPage → Player
-  const teamUsage = new Map(); // franchise → number of player-tournaments
+  const teamUsage = new Map(); // franchise → number of player/coach tournaments
   const rosters = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for trophies)
   const squads = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for teammates)
-  const teamLeagues = new Map(); // franchise → Map<league, player-tournaments> (its home league is the top one)
-  const coached = new Map(); // wikiPage → { leagues, pages } coached in the major leagues
-  const coachedPages = new Set();
+  const teamLeagues = new Map(); // franchise → Map<league, tournaments> (its home league is the top one)
+  const played = new Set(); // wikiPages with at least one tournament as a player
   const addTo = (map, key, link) => { if (!map.has(key)) map.set(key, new Set()); map.get(key).add(link); };
 
   // One person may appear under several links (old nick, redirect) — key everything by the canonical page.
@@ -200,29 +199,22 @@ async function main() {
   for (const row of rosterRows) {
     const r = { ...row, Link: canonical(row.Link) };
     const key = r.Page + '|' + r.Team;
-    // A coach on someone's roster counts as having been on the same team (e.g. "Odoamne × coach" accepts
-    // the coaches who coached Odoamne). Coaching a winning roster earns the trophy too (e.g. kkOma × Worlds),
-    // but never adds team or league credit.
-    if (isCoachRole(r.Role)) {
-      coachedPages.add(r.Link);
-      addTo(squads, key, r.Link);
-      addTo(rosters, key, r.Link);
-      if (!coached.has(r.Link)) coached.set(r.Link, { leagues: new Set(), pages: new Set() });
-      if (leagueOf(r)) coached.get(r.Link).leagues.add(leagueOf(r));
-      coached.get(r.Link).pages.add(r.Page);
-      continue;
-    }
-    if (!r.Role || /analyst|manager|owner|staff/i.test(r.Role)) continue;
+    // Being on a roster as a player or as a coach counts the same: team, league, trophy, and everyone else on
+    // that roster (e.g. "Odoamne × coach" accepts the coaches who coached Odoamne, BigWei counts for AL and LPL).
+    const asCoach = isCoachRole(r.Role);
+    if (!asCoach && (!r.Role || /analyst|manager|owner|staff/i.test(r.Role))) continue;
     let p = players.get(r.Link);
     if (!p) {
       const prof = profiles.get(row.Link);
       p = {
         id: slugify(r.Link), nick: decodeEntities(prof?.ID) || nickFromPage(r.Link), name: decodeEntities(prof?.Name), wikiPage: r.Link,
-        retired: isRetiredPlayer(prof), coach: isCoachRole(prof?.Role), nationality: nationalityOf(prof),
+        prof, coach: isCoachRole(prof?.Role), nationality: nationalityOf(prof),
         teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: new Set()
       };
       players.set(r.Link, p);
     }
+    if (asCoach) p.coach = true;
+    else played.add(r.Link);
     const franchise = franchiseOf(r.Team);
     p.teams.add(franchise);
     if (leagueOf(r)) p.leagues.add(leagueOf(r));
@@ -235,17 +227,10 @@ async function main() {
     addTo(rosters, key, r.Link);
     addTo(squads, key, r.Link);
   }
-  coachedPages.forEach(link => { if (players.has(link)) players.get(link).coach = true; });
-  // Coaches who never played (e.g. BigWei) are answers too, but only for conditions that do not mean playing:
-  // coach, trophy, nationality and "on a team with X". They get no teams or leagues.
-  for (const [link, c] of coached) {
-    if (players.has(link) || !c.leagues.size) continue;
-    const prof = profiles.get(link) || findProfile(link);
-    players.set(link, {
-      id: slugify(link), nick: decodeEntities(prof?.ID) || nickFromPage(link), name: decodeEntities(prof?.Name), wikiPage: link,
-      retired: false, coach: true, coachOnly: true, nationality: nationalityOf(prof),
-      teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: c.pages
-    });
+  // "Retired" means retired as a player, so it never applies to people who only coached (e.g. BigWei).
+  for (const p of players.values()) {
+    p.coachOnly = !played.has(p.wikiPage);
+    p.retired = !p.coachOnly && isRetiredPlayer(p.prof);
   }
 
   // Everyone in the database (players and coaches) who shared a roster is "on a team with" each other.
@@ -262,14 +247,13 @@ async function main() {
       const [page, team] = key.split('|');
       // Compare organizations: results may name "SK Telecom T1" while the roster says "SK Telecom T1 K".
       if (franchiseOf(team) === franchiseOf(w.team) && (page === w.page || page.startsWith(w.page + '/'))) {
-        // Coaches outside the major leagues are not in the database.
-        members.forEach(link => players.get(link)?.trophies.add(w.trophy));
+        members.forEach(link => players.get(link).trophies.add(w.trophy));
       }
     }
   }
 
   // Only keep people from the five major leagues (international-only players are noise for the grid).
-  const kept = [...players.values()].filter(p => p.leagues.size > 0 || (p.coachOnly && coached.get(p.wikiPage).leagues.size > 0));
+  const kept = [...players.values()].filter(p => p.leagues.size > 0);
   const keptPages = new Set(kept.map(p => p.wikiPage));
 
   // Ids must be unique; disambiguated pages ("Clear (Song Hyeon-min)") already slugify differently.
