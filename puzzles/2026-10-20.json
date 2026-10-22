@@ -1,9 +1,9 @@
 {
   "date": "2026-10-20",
   "boardId": 2,
-  "mode": "esport",
   "categories": [
     {
+      "key": "team-geng",
       "title": {
         "pl": "Grali w Gen.G",
         "en": "Played for Gen.G",
@@ -14,23 +14,19 @@
       "items": [
         {
           "id": "chovy",
-          "name": "Chovy",
-          "type": "player"
+          "name": "Chovy"
         },
         {
           "id": "canyon",
-          "name": "Canyon",
-          "type": "player"
+          "name": "Canyon"
         },
         {
           "id": "peanut",
-          "name": "Peanut",
-          "type": "player"
+          "name": "Peanut"
         },
         {
           "id": "doran",
-          "name": "Doran",
-          "type": "player"
+          "name": "Doran"
         }
       ],
       "explain": {
@@ -41,6 +37,7 @@
       }
     },
     {
+      "key": "role-swap",
       "title": {
         "pl": "Zrobili role swap w karierze zawodowej",
         "en": "Did a role swap in their pro career",
@@ -51,23 +48,19 @@
       "items": [
         {
           "id": "nisqy",
-          "name": "Nisqy",
-          "type": "player"
+          "name": "Nisqy"
         },
         {
           "id": "ambition",
-          "name": "Ambition",
-          "type": "player"
+          "name": "Ambition"
         },
         {
           "id": "caedrel",
-          "name": "Caedrel",
-          "type": "player"
+          "name": "Caedrel"
         },
         {
           "id": "rekkles",
-          "name": "Rekkles",
-          "type": "player"
+          "name": "Rekkles"
         }
       ],
       "explain": {
@@ -78,6 +71,7 @@
       }
     },
     {
+      "key": "player-to-coach",
       "title": {
         "pl": "Zawodowy gracz, który przeszedł na head coacha",
         "en": "Pro player who became head coach",
@@ -88,28 +82,25 @@
       "items": [
         {
           "id": "nukeduck",
-          "name": "Nukeduck",
-          "type": "player"
+          "name": "Nukeduck"
         },
         {
           "id": "bjergsen",
-          "name": "Bjergsen",
-          "type": "player"
+          "name": "Bjergsen"
         },
         {
           "id": "mithy",
-          "name": "Mithy",
-          "type": "player"
+          "name": "Mithy"
         },
         {
           "id": "bengi",
-          "name": "Bengi",
-          "type": "player"
+          "name": "Bengi"
         }
       ],
       "explain": "Nukeduck→Heretics, Bjergsen→TSM, Mithy→Fnatic, Bengi→DK."
     },
     {
+      "key": "finals-mvp",
       "title": {
         "pl": "Zdobywcy nagrody Finals MVP na Worlds",
         "en": "Worlds Finals MVP award winners",
@@ -120,23 +111,19 @@
       "items": [
         {
           "id": "tian",
-          "name": "Tian",
-          "type": "player"
+          "name": "Tian"
         },
         {
           "id": "marin",
-          "name": "MaRin",
-          "type": "player"
+          "name": "MaRin"
         },
         {
           "id": "showmaker",
-          "name": "ShowMaker",
-          "type": "player"
+          "name": "ShowMaker"
         },
         {
           "id": "zeus",
-          "name": "Zeus",
-          "type": "player"
+          "name": "Zeus"
         }
       ],
       "explain": "Tian 2019, MaRin 2015, ShowMaker 2020, Zeus 2023."

@@ -1,4 +1,5 @@
-// Shared helpers for per-day Connections board files (puzzles/YYYY-MM-DD.json).
+// Shared helpers for Connections board files (puzzles/YYYY-MM-DD.json). Boards come out weekly; the file date is
+// the day a board unlocks (00:00 UTC) and boardId is its week number.
 import { readFile, writeFile, readdir, mkdir, unlink } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -9,8 +10,7 @@ export const MANIFEST_PATH = path.join(PUZZLES_DIR, 'index.json');
 
 export const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 export const DIFFICULTIES = ['yellow', 'green', 'blue', 'purple'];
-export const ITEM_TYPES = ['player', 'champion', 'item'];
-export const MODES = ['esport', 'ingame'];
+export const BOARD_INTERVAL_DAYS = 7;
 
 export const slugify = s => String(s)
   .normalize('NFKD').replace(/[̀-ͯ]/g, '')
@@ -25,7 +25,6 @@ export function validateBoard(b) {
   if (!b || typeof b !== 'object') return ['Board is not an object'];
   if (!DATE_RE.test(b.date || '')) errs.push('date must be YYYY-MM-DD');
   if (!Number.isInteger(b.boardId) || b.boardId < 1) errs.push('boardId must be a positive integer');
-  if (!MODES.includes(b.mode)) errs.push(`mode must be one of ${MODES.join(', ')}`);
   if (!Array.isArray(b.categories) || b.categories.length !== 4) return [...errs, 'categories must have exactly 4 entries'];
 
   const seenDifficulty = new Set();
@@ -33,6 +32,7 @@ export function validateBoard(b) {
   b.categories.forEach((c, ci) => {
     const where = `category ${ci + 1}`;
     if (!isLocalized(c.title)) errs.push(`${where}: title is empty`);
+    if (c.key !== undefined && (typeof c.key !== 'string' || c.key !== slugify(c.key))) errs.push(`${where}: key must be a slug`);
     if (!DIFFICULTIES.includes(c.difficulty)) errs.push(`${where}: invalid difficulty "${c.difficulty}"`);
     else if (seenDifficulty.has(c.difficulty)) errs.push(`${where}: difficulty "${c.difficulty}" used twice`);
     seenDifficulty.add(c.difficulty);
@@ -42,7 +42,6 @@ export function validateBoard(b) {
       const w = `${where}, item ${ii + 1}`;
       if (!it.id || it.id !== slugify(it.id)) errs.push(`${w}: id must be a non-empty slug`);
       if (!isLocalized(it.name)) errs.push(`${w}: name is empty`);
-      if (!ITEM_TYPES.includes(it.type)) errs.push(`${w}: invalid type "${it.type}"`);
       if (seenIds.has(it.id)) errs.push(`${w}: id "${it.id}" already used in category ${seenIds.get(it.id) + 1}`);
       seenIds.set(it.id, ci);
     });
@@ -80,14 +79,14 @@ export async function rebuildManifest() {
   const boards = [];
   for (const date of await listBoardDates()) {
     const b = await readBoard(date);
-    boards.push({ date, boardId: b.boardId, mode: b.mode });
+    boards.push({ date, boardId: b.boardId });
   }
   await writeFile(MANIFEST_PATH, JSON.stringify({ boards }, null, 2) + '\n', 'utf8');
   return boards;
 }
 
 /**
- * Keeps board numbers (#N, shown in shared results) consecutive in date order: #1 is the earliest board.
+ * Keeps board numbers (week N, shown in the game and shared results) consecutive in date order: week 1 is the earliest.
  * Past boards can be moved and deleted too, so every board is renumbered (player progress is keyed by date, not id).
  */
 export async function renumberBoards() {

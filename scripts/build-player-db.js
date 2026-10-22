@@ -59,6 +59,9 @@ const isCoachRole = role => /coach/i.test(role || '');
 // role (coach, analyst, caster…) — Leaguepedia's IsRetired stays 0 for players who became coaches.
 const isRetiredPlayer = prof => prof?.IsRetired === '1'
   || Boolean(prof?.Role && !/^(top|jungle|mid|bot|ad carry|support)$/i.test(prof.Role.trim()));
+// Leaguepedia often never marks free agents as retired: a player whose last roster in any tournament (any level,
+// academy and ERLs included) started this long ago counts as retired too.
+const INACTIVE_MONTHS = 18;
 const nickFromPage = page => page.replace(/\s*\(.*\)\s*$/, '');
 // MediaWiki titles always start upper-case ("kkOma" is stored as page "KkOma").
 const pageKey = link => link.charAt(0).toUpperCase() + link.slice(1);
@@ -179,6 +182,28 @@ async function main() {
   }
   console.log(`  ${profiles.size}/${links.length} profili`);
 
+  step(`Ostatni występ jako gracz (nieaktywni od ${INACTIVE_MONTHS} mies. = emeryci)`);
+  const lastPlayedOf = new Map(); // canonical page → latest tournament start as a player, any league or level
+  for (const [i, batch] of chunk(links, 150).entries()) {
+    process.stdout.write(`  partia ${i + 1}/${Math.ceil(links.length / 150)}\r`);
+    const rows = await cargoQuery({
+      tables: 'TournamentPlayers=TP,Tournaments=T',
+      joinOn: 'TP.OverviewPage=T.OverviewPage',
+      fields: 'TP.Link=Link,MAX(T.DateStart)=Last',
+      where: `TP.Link IN (${batch.map(cargoStr).join(',')}) AND (TP.Role IS NULL OR TP.Role NOT LIKE '%oach%')`,
+      groupBy: 'TP.Link',
+      fresh
+    });
+    for (const r of rows) {
+      const page = profiles.get(r.Link)?.OverviewPage || pageKey(r.Link);
+      if (r.Last && r.Last > (lastPlayedOf.get(page) || '')) lastPlayedOf.set(page, r.Last);
+    }
+  }
+  const inactiveSince = new Date();
+  inactiveSince.setUTCMonth(inactiveSince.getUTCMonth() - INACTIVE_MONTHS);
+  const cutoff = inactiveSince.toISOString().slice(0, 10);
+  console.log(`  ${lastPlayedOf.size} graczy z datą ostatniego turnieju; granica: ${cutoff}`);
+
   step('Składanie bazy');
   const unknownCountries = new Map();
   const nationalityOf = prof => {
@@ -228,10 +253,16 @@ async function main() {
     addTo(squads, key, r.Link);
   }
   // "Retired" means retired as a player, so it never applies to people who only coached (e.g. BigWei).
+  let inactiveRetired = 0;
   for (const p of players.values()) {
     p.coachOnly = !played.has(p.wikiPage);
-    p.retired = !p.coachOnly && isRetiredPlayer(p.prof);
+    // No date (the query missed the player) proves nothing, so only a known old date counts.
+    const last = lastPlayedOf.get(p.wikiPage);
+    const inactive = Boolean(last) && last < cutoff;
+    p.retired = !p.coachOnly && (isRetiredPlayer(p.prof) || inactive);
+    if (p.retired && !isRetiredPlayer(p.prof)) inactiveRetired++;
   }
+  console.log(`  emeryci z powodu nieaktywności (bez statusu na Leaguepedii): ${inactiveRetired}`);
 
   // Everyone in the database (players and coaches) who shared a roster is "on a team with" each other.
   for (const members of squads.values()) {

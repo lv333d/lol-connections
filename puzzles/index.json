@@ -2,23 +2,15 @@
   "boards": [
     {
       "date": "2026-10-19",
-      "boardId": 1,
-      "mode": "esport"
+      "boardId": 1
     },
     {
       "date": "2026-10-20",
-      "boardId": 2,
-      "mode": "esport"
-    },
-    {
-      "date": "2026-10-21",
-      "boardId": 3,
-      "mode": "ingame"
+      "boardId": 2
     },
     {
       "date": "2026-10-22",
-      "boardId": 4,
-      "mode": "esport"
+      "boardId": 3
     }
   ]
 }

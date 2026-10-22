@@ -1,9 +1,9 @@
 {
   "date": "2026-10-22",
-  "boardId": 4,
-  "mode": "esport",
+  "boardId": 3,
   "categories": [
     {
+      "key": "msi-multi",
       "title": {
         "pl": "Wygrali MSI więcej niż raz",
         "en": "Won MSI more than once",
@@ -14,23 +14,19 @@
       "items": [
         {
           "id": "chovy",
-          "name": "Chovy",
-          "type": "player"
+          "name": "Chovy"
         },
         {
           "id": "xiaohu",
-          "name": "Xiaohu",
-          "type": "player"
+          "name": "Xiaohu"
         },
         {
           "id": "ruler",
-          "name": "Ruler",
-          "type": "player"
+          "name": "Ruler"
         },
         {
           "id": "bang",
-          "name": "Bang",
-          "type": "player"
+          "name": "Bang"
         }
       ],
       "explain": {
@@ -41,6 +37,7 @@
       }
     },
     {
+      "key": "worlds-final-both",
       "title": {
         "pl": "Grali w finale Worlds po obu stronach — raz wygrali, raz przegrali",
         "en": "Played in a Worlds Final on both the winning and losing side",
@@ -51,23 +48,19 @@
       "items": [
         {
           "id": "beryl",
-          "name": "BeryL",
-          "type": "player"
+          "name": "BeryL"
         },
         {
           "id": "corejj",
-          "name": "CoreJJ",
-          "type": "player"
+          "name": "CoreJJ"
         },
         {
           "id": "zeus",
-          "name": "Zeus",
-          "type": "player"
+          "name": "Zeus"
         },
         {
           "id": "crown",
-          "name": "Crown",
-          "type": "player"
+          "name": "Crown"
         }
       ],
       "explain": {
@@ -78,6 +71,7 @@
       }
     },
     {
+      "key": "three-regions",
       "title": {
         "pl": "Zagrał w min. 3 głównych regionach",
         "en": "Played in at least 3 major regions",
@@ -88,23 +82,19 @@
       "items": [
         {
           "id": "wadid",
-          "name": "Wadid",
-          "type": "player"
+          "name": "Wadid"
         },
         {
           "id": "kakao",
-          "name": "KaKAO",
-          "type": "player"
+          "name": "KaKAO"
         },
         {
           "id": "bvoy",
-          "name": "Bvoy",
-          "type": "player"
+          "name": "Bvoy"
         },
         {
           "id": "huni",
-          "name": "Huni",
-          "type": "player"
+          "name": "Huni"
         }
       ],
       "explain": {
@@ -115,6 +105,7 @@
       }
     },
     {
+      "key": "worlds-no-final",
       "title": {
         "pl": "Wygrali Worlds nie grając w finale (jako substitute lub nieużywany rezerwowy)",
         "en": "Won Worlds without playing in the Finals",
@@ -125,23 +116,19 @@
       "items": [
         {
           "id": "duke",
-          "name": "Duke",
-          "type": "player"
+          "name": "Duke"
         },
         {
           "id": "haru",
-          "name": "Haru",
-          "type": "player"
+          "name": "Haru"
         },
         {
           "id": "blank",
-          "name": "Blank",
-          "type": "player"
+          "name": "Blank"
         },
         {
           "id": "juhan",
-          "name": "Juhan",
-          "type": "player"
+          "name": "Juhan"
         }
       ],
       "explain": {

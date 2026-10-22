@@ -218,6 +218,11 @@ header::after {
   box-shadow: 0 0 8px rgba(200, 170, 110, 0.2);
 }
 .text-btn-icon { color: var(--gold); font-weight: 800; font-size: 0.85rem; }
+.next-board {
+  font-size: 0.78rem; color: var(--text-muted);
+  margin-top: 10px; text-align: center;
+  letter-spacing: 0.5px; font-variant-numeric: tabular-nums;
+}
 .puzzle-credit {
   font-size: 0.78rem; color: var(--gold); font-style: italic;
   margin-top: 6px; text-align: center;
@@ -462,17 +467,6 @@ header::after {
   box-shadow: 0 0 10px rgba(200, 170, 110, 0.15);
 }
 .form-group textarea { min-height: 80px; resize: vertical; }
-.group-block {
-  border: 1px solid rgba(200, 170, 110, 0.15); border-radius: 6px; padding: 14px; margin-bottom: 14px;
-  background: rgba(255,255,255,0.01);
-}
-.group-block-header {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-  font-weight: 700; font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.5px;
-  color: var(--gold-light);
-}
-.group-dot { width: 10px; height: 10px; border-radius: 50%; }
-.items-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .form-error { color: #f55; font-size: 0.82rem; margin: 8px 0; font-weight: 600; }
 .success-screen { text-align: center; padding: 24px; }
 .success-screen .check { font-size: 3.5rem; margin-bottom: 16px; text-shadow: 0 0 15px rgba(74, 224, 136, 0.3); }

@@ -4,9 +4,12 @@
 //   --days   how many consecutive days to generate (default 1)
 //   --force  overwrite boards that already exist (by default existing days are kept, so players' boards never change)
 //   --min    minimum valid players per cell (default 2; the hard requirement is ≥ 1)
+//   --variant  extra seed text: with --force it draws a different board for the same day (the admin panel's
+//              "generate a new one" uses it); without it a day always gets the same board
 //   --recompute  for existing boards in the range: keep the conditions, recompute the answers from the current
 //                database (use after fixing data, so a live board accepts every correct player)
-// Each board is seeded by its date, so re-running with the same database reproduces the same board.
+// Each board is seeded by its date (+ --variant), so re-running with the same database reproduces the same board.
+// Board numbers (#N in shared results) follow date order and are renumbered after every run.
 import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -34,6 +37,7 @@ const RECOMPUTE = process.argv.includes('--recompute');
 const MIN_PER_CELL = Math.max(1, Number(arg('min')) || 2);
 const DAYS = Math.max(1, Number(arg('days')) || 1);
 const START = arg('date') || new Date().toISOString().slice(0, 10);
+const VARIANT = arg('variant') || '';
 if (!DATE_RE.test(START)) throw new Error('--date musi mieć format YYYY-MM-DD');
 
 /* ---------- seeded RNG ---------- */
@@ -129,8 +133,8 @@ function evaluate(axes, byId, allowLastResort) {
   return answers;
 }
 
-export function generateBoard(date, pool, byId) {
-  const rng = mulberry32(seedFrom('lol-grid:' + date));
+export function generateBoard(date, pool, byId, variant = '') {
+  const rng = mulberry32(seedFrom('lol-grid:' + date + (variant ? ':' + variant : '')));
   for (const allowLastResort of [false, true]) {
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       const axes = drawAxes(rng, pool);
@@ -144,16 +148,20 @@ export function generateBoard(date, pool, byId) {
 
 /* ---------- files ---------- */
 
-async function listGridDates() {
+export async function listGridDates() {
   try { return (await readdir(GRID_DIR)).map(f => f.replace(/\.json$/, '')).filter(d => DATE_RE.test(d)).sort(); }
   catch { return []; }
 }
 
-async function rebuildGridManifest() {
+/** Renumbers boards #1… in date order (a deleted or regenerated day must not leave gaps) and writes grid/index.json. */
+export async function rebuildGridManifest() {
   const boards = [];
+  let next = 1;
   for (const date of await listGridDates()) {
-    const b = JSON.parse(await readFile(path.join(GRID_DIR, `${date}.json`), 'utf8'));
-    boards.push({ date, boardId: b.boardId });
+    const file = path.join(GRID_DIR, `${date}.json`);
+    const b = JSON.parse(await readFile(file, 'utf8'));
+    if (b.boardId !== next) await writeFile(file, JSON.stringify({ ...b, boardId: next }) + '\n');
+    boards.push({ date, boardId: next++ });
   }
   await writeFile(path.join(GRID_DIR, 'index.json'), JSON.stringify({ boards }, null, 2) + '\n');
 }
@@ -199,7 +207,7 @@ async function main() {
       continue;
     }
     if (existing.has(date) && !FORCE) { console.log(`· ${date} już istnieje (#${existing.get(date)}), pomijam`); continue; }
-    const result = generateBoard(date, pool, byId);
+    const result = generateBoard(date, pool, byId, VARIANT);
     if (!result) { failed++; console.error(`✗ ${date}: nie znaleziono rozwiązywalnej planszy w ${MAX_ATTEMPTS} próbach`); continue; }
     const boardId = existing.get(date) ?? nextId++;
     const board = { date, boardId, rows: result.rows, cols: result.cols, answers: result.answers };

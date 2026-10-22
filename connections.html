@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connections — LoL Connect</title>
-  <meta name="description" content="Codzienna słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
+  <meta name="description" content="Cotygodniowa słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://connect4.lol/connections.html">
-  <meta property="og:title" content="LoL Connect — Codzienna zagadka League of Legends">
-  <meta property="og:description" content="Codzienna słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
+  <meta property="og:title" content="LoL Connect — Cotygodniowa zagadka League of Legends">
+  <meta property="og:description" content="Cotygodniowa słowna zagadka League of Legends inspirowana Connections. Dopasuj powiązane elementy w 4 kategorie!">
   <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="stylesheet" href="style.css">
@@ -20,7 +20,7 @@
     <header>
       <div class="logo">
         <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
-        <p id="subtitle">codzienna zagadka League of Legends</p>
+        <p id="subtitle">cotygodniowa zagadka League of Legends</p>
       </div>
       <nav class="game-tabs" aria-label="Game mode">
         <a href="index.html" class="game-tab"><span class="game-tab-icon">▦</span>Grid 3x3</a>
@@ -54,6 +54,7 @@
       </div>
     </header>
 
+    <div id="nextBoard" class="next-board hidden"></div>
     <div id="puzzleCredit" class="puzzle-credit hidden"></div>
 
     <div id="noPuzzleScreen" class="no-puzzle hidden">
@@ -112,7 +113,14 @@
           <label id="suggestNickLabel" for="suggestNick">Nick (opcjonalnie)</label>
           <input type="text" id="suggestNick" maxlength="40">
         </div>
-        <div id="suggestGroups"></div>
+        <div class="form-group">
+          <label id="suggestCategoryLabel" for="suggestCategory">Kategoria</label>
+          <input type="text" id="suggestCategory" maxlength="160">
+        </div>
+        <div class="form-group">
+          <label id="suggestExamplesLabel" for="suggestExamples">Przykładowi gracze (opcjonalnie)</label>
+          <input type="text" id="suggestExamples" maxlength="400">
+        </div>
         <div class="form-group">
           <label id="suggestNotesLabel" for="suggestNotes">Dodatkowe uwagi</label>
           <textarea id="suggestNotes" maxlength="500"></textarea>

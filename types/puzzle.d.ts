@@ -5,19 +5,20 @@ export type Lang = 'pl' | 'en' | 'es' | 'fr';
 /** Plain string (same in every language) or per-language map; missing languages fall back to en → pl. */
 export type Localized = string | Partial<Record<Lang, string>>;
 
-/* ---------- Connections (puzzles/YYYY-MM-DD.json) ---------- */
+/* ---------- Connections (puzzles/YYYY-MM-DD.json, one board per week) ---------- */
 
 export type Difficulty = 'yellow' | 'green' | 'blue' | 'purple';
-export type ItemType = 'player' | 'champion' | 'item';
 
 export interface ConnectionsItem {
-  /** Stable slug; for players it is also the asset name: players/{id}.webp */
+  /** Stable slug of the player's nickname. */
   id: string;
+  /** The nickname; never localized. */
   name: Localized;
-  type: ItemType;
 }
 
 export interface ConnectionsCategory {
+  /** Source category in data/connections-categories.json (e.g. "msi-multi"); lets the generator avoid repeats. */
+  key?: string;
   title: Localized;
   difficulty: Difficulty;
   /** Exactly 4 items. */
@@ -26,10 +27,10 @@ export interface ConnectionsCategory {
 }
 
 export interface ConnectionsBoard {
-  /** YYYY-MM-DD, equals the file name. */
+  /** YYYY-MM-DD, equals the file name: the board unlocks at 00:00 UTC that day. */
   date: string;
+  /** Week number: 1 for the earliest board, consecutive in date order. */
   boardId: number;
-  mode: 'esport' | 'ingame';
   /** Exactly 4 categories. Order matters: saved game state references tiles by category index. */
   categories: ConnectionsCategory[];
   suggestedBy?: string;
@@ -37,7 +38,7 @@ export interface ConnectionsBoard {
 
 /** puzzles/index.json — static hosting cannot list a directory, so the archive reads this. */
 export interface PuzzleManifest {
-  boards: { date: string; boardId: number; mode: ConnectionsBoard['mode'] }[];
+  boards: { date: string; boardId: number }[];
 }
 
 /* ---------- LoL Grid 3x3 (grid/YYYY-MM-DD.json) ---------- */

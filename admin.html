@@ -11,12 +11,13 @@
       --bg: #0A0E17; --gold: #C8A84B; --gold-light: #F0D080;
       --panel: #111827; --panel2: #1C2436; --border: #2A3550;
       --text: #E8E4DC; --text-muted: #8892A8; --sidebar-w: 220px;
-      --green: #3B6E35; --red: #8B3030;
+      --green: #3B6E35; --green-text: #6AB85E; --red: #8B3030;
     }
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--bg); color: var(--text); min-height: 100vh;
     }
+    code { background: var(--panel2); padding: 1px 6px; border-radius: 4px; color: var(--gold); font-size: 0.85em; }
     .login-overlay {
       position: fixed; inset: 0; background: var(--bg); z-index: 1000;
       display: flex; align-items: center; justify-content: center;
@@ -42,6 +43,7 @@
     .sidebar-brand h2 { font-size: 0.95rem; color: var(--gold-light); }
     .sidebar-brand p { font-size: 0.72rem; color: var(--text-muted); }
     .nav { flex: 1; padding: 10px 0; }
+    .nav-section { font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 14px 16px 4px; }
     .nav-item {
       display: flex; align-items: center; gap: 10px; padding: 10px 16px;
       cursor: pointer; color: var(--text-muted); font-size: 0.88rem;
@@ -55,94 +57,92 @@
       background: var(--red); color: #fff; font-size: 0.68rem; padding: 1px 6px;
       border-radius: 10px; margin-left: auto;
     }
-    .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); }
+    .sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
     .sidebar-footer a { color: var(--gold); text-decoration: none; font-size: 0.85rem; }
     .sidebar-footer a:hover { text-decoration: underline; }
-    .main { margin-left: var(--sidebar-w); flex: 1; padding: 24px; min-height: 100vh; }
+    .main { margin-left: var(--sidebar-w); flex: 1; padding: 24px; min-height: 100vh; max-width: calc(1100px + var(--sidebar-w)); }
     .page { display: none; }
     .page.active { display: block; }
-    .page h1 { font-size: 1.4rem; color: var(--gold-light); margin-bottom: 20px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .page h1 { font-size: 1.4rem; color: var(--gold-light); margin-bottom: 8px; }
+    .page-lead { color: var(--text-muted); font-size: 0.86rem; margin-bottom: 20px; max-width: 760px; line-height: 1.5; }
+    .section-title { display: flex; align-items: center; gap: 12px; margin: 26px 0 12px; }
+    .section-title h2 { font-size: 1.05rem; color: var(--gold); }
+    .section-title .sub { font-size: 0.78rem; color: var(--text-muted); }
+    .section-title .btn { margin-left: auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
     .stat-card {
-      background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
-      padding: 18px; text-align: center;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
     }
-    .stat-card .val { font-size: 2rem; font-weight: 700; color: var(--gold-light); }
-    .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-    .calendar { margin-top: 8px; }
-    .calendar h3 { font-size: 1rem; color: var(--text); min-width: 170px; text-align: center; text-transform: capitalize; }
-    .cal-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .cal-hint { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px; max-width: 560px; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 560px; }
-    .cal-day .cal-num { font-weight: 600; }
-    .cal-day .cal-board { font-size: 0.66rem; color: #8fd18a; margin-top: 2px; }
-    .cal-day.past { opacity: 0.7; }
-    .cal-day[draggable="true"] { cursor: grab; }
-    .cal-day.dragging { opacity: 0.4; }
-    .cal-day.drag-over { border-color: var(--gold-light); box-shadow: 0 0 0 2px var(--gold); background: #2a2410; }
-    .cal-del {
-      position: absolute; top: 2px; right: 3px; border: none; background: none; cursor: pointer;
-      color: #e88; font-size: 0.9rem; line-height: 1; padding: 2px; opacity: 0; transition: opacity .15s;
+    .stat-card .lbl { font-size: 0.74rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card .val { font-size: 1.5rem; font-weight: 700; color: var(--gold-light); margin-top: 6px; }
+    .stat-card .note { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+    .stat-card.warn { border-color: var(--red); background: #1f1214; }
+    .stat-card.warn .val { color: #f0a0a0; }
+    .stat-card.ok .val { color: var(--green-text); }
+    .notice {
+      border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 0.84rem; line-height: 1.5;
+      background: var(--panel); border: 1px solid var(--border); color: var(--text-muted);
     }
-    .cal-day:hover .cal-del { opacity: 1; }
-    .cal-day {
-      aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); display: flex; flex-direction: column;
-      align-items: center; justify-content: center; font-size: 0.72rem;
-      cursor: pointer; position: relative; transition: border-color .15s;
-    }
-    .cal-day:hover { border-color: var(--gold); }
-    .cal-day.has-puzzle { background: #152818; }
-    .cal-day.has-puzzle::after {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green); position: absolute; bottom: 4px;
-    }
-    .cal-day.today { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
-    .cal-day.empty { visibility: hidden; pointer-events: none; }
-    .cal-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 560px; margin-bottom: 4px; }
-    .cal-header span { text-align: center; font-size: 0.68rem; color: var(--text-muted); }
-    .editor-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
-    .editor-toolbar input[type=date], .editor-toolbar select, .ed-select {
+    .notice.warn { background: #2a1414; border-color: var(--red); color: #f0b0b0; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th { text-align: left; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);
+      font-weight: 600; padding: 10px 12px; background: var(--panel); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr.is-current td { background: #1d1a0e; }
+    tr.is-past td { opacity: 0.6; }
+    .week { font-weight: 700; color: var(--gold-light); white-space: nowrap; }
+    .nowrap { white-space: nowrap; }
+    .muted { color: var(--text-muted); font-size: 0.78rem; }
+    .gap-bad { color: #f0a0a0; }
+    .pill { display: inline-block; font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
+    .pill.current { border-color: var(--gold); color: var(--gold-light); }
+    .pill.future { border-color: var(--green); color: var(--green-text); }
+    .chips { display: flex; flex-direction: column; gap: 3px; }
+    .chip { display: flex; align-items: baseline; gap: 6px; font-size: 0.8rem; }
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transform: translateY(-1px); }
+    .row-actions { display: flex; gap: 6px; justify-content: flex-end; }
+    .row-actions .btn { white-space: nowrap; }
+    .cond { display: block; font-size: 0.8rem; white-space: nowrap; }
+    .editor-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+    .editor-toolbar input[type=date], .ed-select {
       padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);
       background: var(--panel2); color: var(--text); font-family: inherit;
     }
     .ed-select { padding: 6px 8px; font-size: 0.82rem; }
-    .board-id { font-size: 0.82rem; color: var(--text-muted); }
+    .editor-week { font-size: 1rem; font-weight: 700; color: var(--gold-light); }
+    .editor-info { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 18px; min-height: 1.2em; }
     .btn {
       padding: 8px 18px; border-radius: 8px; border: 1px solid var(--gold);
       background: var(--panel); color: var(--gold-light); font-size: 0.88rem;
-      font-weight: 600; cursor: pointer; transition: background .15s;
+      font-weight: 600; cursor: pointer; transition: background .15s; font-family: inherit;
     }
     .btn:hover { background: var(--panel2); }
     .btn:disabled { opacity: .5; cursor: wait; }
     .btn-danger { border-color: var(--red); color: #e88; }
     .btn-sm { padding: 5px 12px; font-size: 0.8rem; }
+    .btn-ghost { border-color: var(--border); color: var(--text-muted); }
     .group-editor {
       border: 1px solid var(--border); border-left-width: 4px; border-radius: 10px; padding: 16px; margin-bottom: 14px;
     }
     .group-editor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-weight: 600; flex-wrap: wrap; }
     .group-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .items-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 8px; margin-bottom: 12px; }
-    .item-meta { display: flex; gap: 6px; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
-    .item-meta input {
-      flex: 1; min-width: 0; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); font-family: monospace; font-size: 0.8rem;
-    }
+    .players-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+    @media (max-width: 700px) { .players-row { grid-template-columns: 1fr 1fr; } }
     .form-row { margin-bottom: 10px; }
     .form-row label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
     .form-row input, .form-row textarea {
       width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border);
       background: var(--panel2); color: var(--text); font-family: inherit; font-size: 0.88rem;
     }
-    .form-row textarea { min-height: 60px; resize: vertical; }
-    .items-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .lang-block {
-      border: 1px dashed var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px;
-    }
-    .lang-block.required { border-style: solid; border-color: #3B6E35; }
-    .lang-block-header {
-      font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-bottom: 10px;
-    }
+    .form-row textarea { min-height: 52px; resize: vertical; }
+    .players-row .form-row input { font-weight: 600; }
+    .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 900px) { .lang-grid { grid-template-columns: 1fr; } }
+    .lang-block { border: 1px dashed var(--border); border-radius: 8px; padding: 12px; }
+    .lang-block.required { border-style: solid; border-color: var(--green); }
+    .lang-block-header { font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; }
     .lang-block.optional .lang-block-header { color: var(--text-muted); font-weight: 500; }
     .gemini-box {
       background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
@@ -158,29 +158,30 @@
       background: #2a1414; border: 1px solid var(--red); color: #f0b0b0; border-radius: 8px;
       padding: 10px 14px; margin-bottom: 18px; font-size: 0.85rem;
     }
-    .api-banner code { background: #0004; padding: 1px 6px; border-radius: 4px; }
     .publish-bar {
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
       background: #1d1a0e; border: 1px solid var(--gold); border-radius: 8px;
       padding: 10px 14px; margin-bottom: 18px; font-size: 0.85rem;
     }
     .publish-bar .pending { flex: 1; color: var(--gold-light); }
+    .sync-bar { display: flex; align-items: center; gap: 12px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; }
+    .sync-bar span { flex: 1; }
+    .sync-bar.err span { color: #f0a0a0; }
+    tr.is-missing td { background: #1f1214; }
+    .suggest-category { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .suggest-examples { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 8px; }
     .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
     .msg { font-size: 0.85rem; margin-top: 10px; min-height: 20px; white-space: pre-line; }
-    .msg.ok { color: var(--green); }
+    .msg.ok { color: var(--green-text); }
     .msg.err { color: #e55; }
     .suggest-list { display: flex; flex-direction: column; gap: 14px; }
-    .suggest-card {
-      background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
-    }
+    .suggest-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
     .suggest-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
     .suggest-card-header .nick { font-weight: 600; color: var(--gold-light); }
     .suggest-card-header .date { font-size: 0.78rem; color: var(--text-muted); }
     .mini-groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
     @media (max-width: 600px) { .mini-groups { grid-template-columns: 1fr 1fr; } }
-    .mini-group {
-      border-radius: 6px; padding: 8px; font-size: 0.72rem; border: 1px solid;
-    }
+    .mini-group { border-radius: 6px; padding: 8px; font-size: 0.72rem; border: 1px solid; }
     .mini-group .cat { font-weight: 600; margin-bottom: 4px; }
     .suggest-notes { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; font-style: italic; }
     .suggest-actions { display: flex; gap: 8px; }
@@ -188,7 +189,6 @@
     .io-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
     .io-section h3 { font-size: 1rem; color: var(--gold); margin-bottom: 12px; }
     .io-section p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-    .io-section code { background: var(--panel2); padding: 1px 6px; border-radius: 4px; color: var(--gold); }
     .io-btns { display: flex; gap: 10px; flex-wrap: wrap; }
     .hidden { display: none !important; }
     .overlay {
@@ -201,6 +201,11 @@
     }
     .modal h2 { color: var(--gold-light); margin-bottom: 12px; font-size: 1.1rem; }
     .modal p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px; }
+    .modal input[type=date] {
+      width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--panel2); color: var(--text); margin-bottom: 8px; font-family: inherit;
+    }
+    .modal .modal-hint { font-size: 0.8rem; color: var(--text-muted); min-height: 1.2em; margin-bottom: 14px; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
     .toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
@@ -211,7 +216,7 @@
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     @media (max-width: 860px) {
       :root { --sidebar-w: 52px; }
-      .sidebar-brand p, .nav-label, .sidebar-footer span { display: none; }
+      .sidebar-brand p, .nav-label, .nav-section, .sidebar-footer span { display: none; }
       .sidebar-brand { padding: 12px 8px; text-align: center; }
       .sidebar-brand h2 { font-size: 0.7rem; }
       .nav-item { padding: 12px 8px; justify-content: center; }
@@ -221,7 +226,6 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
-
   </style>
 </head>
 <body>
@@ -242,13 +246,17 @@
         <p>LoL Connect</p>
       </div>
       <nav class="nav">
-        <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Dashboard</span></div>
-        <div class="nav-item" data-page="editor"><span class="nav-icon">📅</span><span class="nav-label">Plansze</span></div>
+        <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Przegląd</span></div>
+        <div class="nav-section">Connections · co tydzień</div>
+        <div class="nav-item" data-page="connections"><span class="nav-icon">▤</span><span class="nav-label">Plansze</span></div>
         <div class="nav-item" data-page="suggestions"><span class="nav-icon">✉</span><span class="nav-label">Propozycje</span><span class="badge hidden" id="suggestBadge">0</span></div>
         <div class="nav-item" data-page="importexport"><span class="nav-icon">📦</span><span class="nav-label">Import / Export</span></div>
+        <div class="nav-section">LoL Grid · codziennie</div>
+        <div class="nav-item" data-page="grid"><span class="nav-icon">▦</span><span class="nav-label">Plansze Grida</span></div>
       </nav>
       <div class="sidebar-footer">
-        <a href="index.html"><span>← </span><span class="nav-label">Wróć do gry</span></a>
+        <a href="connections.html"><span>← </span><span class="nav-label">Connections</span></a>
+        <a href="index.html"><span>← </span><span class="nav-label">LoL Grid</span></a>
       </div>
     </aside>
 
@@ -257,45 +265,56 @@
         Brak połączenia z lokalnym serwerem admina. Uruchom <code>npm run admin</code> i otwórz
         <code>http://127.0.0.1:4321/admin.html</code>. Bez serwera plansz nie da się odczytać ani zapisać.
       </div>
+      <div class="sync-bar" id="syncBar">
+        <span id="syncStatus">Pobieram aktualne plansze z GitHuba…</span>
+        <button class="btn btn-sm btn-ghost" id="btnSync">⟳ Synchronizuj</button>
+      </div>
       <div class="publish-bar hidden" id="publishBar">
         <span class="pending" id="publishPending"></span>
         <button class="btn btn-sm" id="btnPublish">🚀 Opublikuj na stronę</button>
       </div>
 
+      <!-- ---------- Overview ---------- -->
       <div class="page active" id="page-dashboard">
-        <h1>📊 Dashboard</h1>
-        <div class="stats-grid">
-          <div class="stat-card"><div class="val" id="statTotal">0</div><div class="lbl">Plansz łącznie</div></div>
-          <div class="stat-card"><div class="val" id="statScheduled">0</div><div class="lbl">Zaplanowane (dziś+)</div></div>
-          <div class="stat-card"><div class="val" id="statSuggestions">0</div><div class="lbl">Propozycje graczy</div></div>
-          <div class="stat-card"><div class="val" id="statToday">✗</div><div class="lbl">Plansza na dziś</div></div>
-        </div>
-        <div class="calendar">
-          <div class="cal-toolbar">
-            <button class="btn btn-sm" id="calPrev" aria-label="Poprzedni miesiąc">‹</button>
-            <h3 id="calTitle"></h3>
-            <button class="btn btn-sm" id="calNext" aria-label="Następny miesiąc">›</button>
-            <button class="btn btn-sm" id="calToday">Dziś</button>
-          </div>
-          <p class="cal-hint">Kliknij dzień, aby edytować. Przeciągnij planszę na inny dzień, aby ją przenieść — na dzień z planszą zamienią się miejscami. × usuwa planszę. Plansze z przeszłości (przyciemnione) też można przenosić — numery wszystkich plansz przeliczą się według dat.</p>
-          <div class="cal-header" id="calHeader"></div>
-          <div class="cal-grid" id="calGrid"></div>
+        <h1>📊 Przegląd</h1>
+        <p class="page-lead">Connections wychodzi raz w tygodniu: panel losuje planszę z zatwierdzonych kategorii, a Ty ją poprawiasz i zapisujesz. LoL Grid jest codziennie i plansze dogenerowuje bot na GitHubie; tutaj pilnujesz zapasu i możesz wylosować nową siatkę na wybrany dzień. Przy wejściu panel pobiera aktualny stan z GitHuba.</p>
+
+        <div class="section-title"><h2>▤ Connections</h2><span class="sub">jedna plansza na tydzień</span>
+          <button class="btn btn-sm" id="btnDashNew">➕ Przygotuj następną planszę</button></div>
+        <div class="stats-grid" id="connStats"></div>
+        <div id="connNotice"></div>
+
+        <div class="section-title"><h2>▦ LoL Grid</h2><span class="sub">nowa plansza codziennie o 00:00 UTC</span></div>
+        <div class="stats-grid" id="gridStats"></div>
+        <div id="gridNotice"></div>
+      </div>
+
+      <!-- ---------- Connections: list ---------- -->
+      <div class="page" id="page-connections">
+        <h1>▤ Plansze Connections</h1>
+        <p class="page-lead">Każda plansza to jeden tydzień. Data to dzień, w którym plansza się odblokowuje (00:00 UTC), a numer tygodnia wynika z kolejności dat i przelicza się sam po przeniesieniu lub usunięciu planszy. Odstęp inny niż 7 dni jest zaznaczony na czerwono. 🎲 losuje nową planszę na ten tydzień z zatwierdzonych kategorii — otwiera się w edytorze i zastępuje starą dopiero po zapisie.</p>
+        <div class="section-title" style="margin-top:0"><h2 id="connCount"></h2>
+          <button class="btn btn-sm" id="btnListNew">➕ Nowa plansza</button></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tydzień</th><th>Odblokowanie</th><th>Status</th><th>Kategorie</th><th></th></tr></thead>
+            <tbody id="connTable"></tbody>
+          </table>
         </div>
       </div>
 
+      <!-- ---------- Connections: editor ---------- -->
       <div class="page" id="page-editor">
-        <h1>📅 Edytor plansz</h1>
-        <p style="color:var(--text-muted);font-size:0.88rem;margin:-12px 0 16px">Każda kategoria ma pola w 4 językach (PL wymagany, EN/ES/FR opcjonalne — brakujące spadają na EN, potem PL). Zapis tworzy plik <code>puzzles/&lt;data&gt;.json</code>.</p>
+        <h1>✏ Edytor planszy</h1>
+        <p class="page-lead">Tytuły i wyjaśnienia kategorii mają 4 języki: PL jest wymagany, a brakujące EN/ES/FR spadają na EN, potem na PL. Nicki graczy wpisujesz raz, bo się ich nie tłumaczy.</p>
         <div class="editor-toolbar">
+          <button class="btn btn-sm btn-ghost" id="btnBackToList">← Lista</button>
           <input type="date" id="editorDate">
-          <button class="btn btn-sm" id="btnToday">Dziś</button>
-          <button class="btn btn-sm" id="btnTomorrow">Jutro</button>
-          <select id="editorMode" title="Tryb planszy">
-            <option value="esport">Tryb: e-sport</option>
-            <option value="ingame">Tryb: in-game</option>
-          </select>
-          <span class="board-id" id="editorBoardId"></span>
+          <button class="btn btn-sm" id="btnNextSlot">Następny termin</button>
+          <button class="btn btn-sm" id="btnGenerate">🎲 Wylosuj planszę</button>
+          <span class="editor-week" id="editorWeek"></span>
         </div>
+        <div class="editor-info" id="editorInfo"></div>
         <div class="form-row" style="margin-bottom:18px;max-width:420px">
           <label>Zaproponowane przez (nick, opcjonalnie)</label>
           <input type="text" id="editorSuggestedBy" maxlength="40" placeholder="Wyświetlane w grze jako autor propozycji">
@@ -303,7 +322,7 @@
         <div class="gemini-box">
           <input type="password" id="geminiKey" placeholder="GEMINI_API_KEY (opcjonalnie — domyślnie z .env.local)" autocomplete="off">
           <label><input type="checkbox" id="geminiOverwrite"> Nadpisz istniejące tłumaczenia</label>
-          <button class="btn btn-sm" id="btnTranslate">🌐 Przetłumacz (Gemini)</button>
+          <button class="btn btn-sm" id="btnTranslate">🌐 Przetłumacz tytuły (Gemini)</button>
           <div class="gemini-status" id="geminiStatus"></div>
         </div>
         <div id="editorGroups"></div>
@@ -314,11 +333,13 @@
         <div class="msg" id="editorMsg"></div>
       </div>
 
+      <!-- ---------- Suggestions ---------- -->
       <div class="page" id="page-suggestions">
-        <h1>✉ Propozycje graczy</h1>
+        <h1>✉ Propozycje kategorii</h1>
+        <p class="page-lead">Gracze proponują pomysły na kategorie (opcjonalnie z przykładowymi graczami). Dobry pomysł skopiuj i przekaż Claude'owi — wygeneruje kandydatów na stronę do oceniania, a po zatwierdzeniu kategoria trafi do puli losowania.</p>
         <div class="io-section">
           <h3>Wklej z e-maila</h3>
-          <p>Propozycje przychodzą mailem (FormSubmit). Skopiuj z maila wartość pola <code>Kod_dla_panelu</code> i wklej poniżej — możesz wkleić kilka kodów naraz, każdy w osobnej linii.</p>
+          <p>Propozycje przychodzą mailem (FormSubmit). Skopiuj z maila wartość pola <code>Kod_dla_panelu</code> i wklej poniżej — możesz wkleić kilka kodów naraz.</p>
           <div class="form-row"><textarea id="suggestImport" placeholder='{"id":…,"groups":[…]}'></textarea></div>
           <div class="io-btns"><button class="btn btn-sm" id="btnSuggestImport">➕ Dodaj do listy</button></div>
           <div class="msg" id="suggestImportMsg"></div>
@@ -326,14 +347,13 @@
         <div class="suggest-list" id="suggestList"></div>
       </div>
 
+      <!-- ---------- Import / Export ---------- -->
       <div class="page" id="page-importexport">
         <h1>📦 Import / Export</h1>
         <div class="io-section">
           <h3>Eksport</h3>
-          <p>Pobierz wszystkie plansze z <code>puzzles/</code> jako jeden plik JSON (kopia zapasowa).</p>
-          <div class="io-btns">
-            <button class="btn" id="btnExport">⬇ Pobierz JSON</button>
-          </div>
+          <p>Pobierz wszystkie plansze Connections z <code>puzzles/</code> jako jeden plik JSON (kopia zapasowa).</p>
+          <div class="io-btns"><button class="btn" id="btnExport">⬇ Pobierz JSON</button></div>
         </div>
         <div class="io-section">
           <h3>Import</h3>
@@ -341,13 +361,17 @@
           <input type="file" id="importFile" accept=".json">
           <div class="msg" id="importMsg"></div>
         </div>
-        <div class="io-section hidden" id="legacySection">
-          <h3>Stare plansze z przeglądarki</h3>
-          <p>Poprzednia wersja panelu trzymała plansze w localStorage tej przeglądarki (<span id="legacyCount">0</span>). Pobierz je i przenieś do plików poleceniem
-            <code>npm run migrate -- --file=lolc_legacy.json</code>.</p>
-          <div class="io-btns">
-            <button class="btn" id="btnLegacyExport">⬇ Pobierz stare plansze</button>
-          </div>
+      </div>
+
+      <!-- ---------- LoL Grid ---------- -->
+      <div class="page" id="page-grid">
+        <h1>▦ Plansze LoL Grid</h1>
+        <p class="page-lead">Plansze Grida generuje bot na GitHubie: w każdy poniedziałek o 22:00 UTC dopisuje brakujące dni na 14 dni do przodu. 🎲 losuje inną siatkę na dany dzień, 🗑 usuwa dzień (bot uzupełni go w najbliższy poniedziałek albo wylosujesz go od razu). Liczby to, ilu graczy pasuje do każdego pola. Zmiany trafiają na stronę po „Opublikuj na stronę”.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dzień</th><th>#</th><th>Wiersze</th><th>Kolumny</th><th>Graczy w polu</th><th></th></tr></thead>
+            <tbody id="gridTable"></tbody>
+          </table>
         </div>
       </div>
     </main>
@@ -364,14 +388,16 @@
     </div>
   </div>
 
-  <div class="overlay hidden" id="approveOverlay">
+  <!-- Shared date picker: moving a board and approving a suggestion. -->
+  <div class="overlay hidden" id="dateOverlay">
     <div class="modal">
-      <h2>✅ Zatwierdź propozycję</h2>
-      <p>Wybierz datę publikacji. Propozycja otworzy się w edytorze — sprawdź typy haseł i zapisz.</p>
-      <input type="date" id="approveDate" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--panel2);color:var(--text);margin-bottom:16px;">
+      <h2 id="dateTitle"></h2>
+      <p id="dateMsg"></p>
+      <input type="date" id="dateInput">
+      <div class="modal-hint" id="dateHint"></div>
       <div class="modal-actions">
-        <button class="btn btn-sm" id="approveCancel">Anuluj</button>
-        <button class="btn btn-sm" id="approveOk">Otwórz w edytorze</button>
+        <button class="btn btn-sm" id="dateCancel">Anuluj</button>
+        <button class="btn btn-sm" id="dateOk"></button>
       </div>
     </div>
   </div>
@@ -385,6 +411,7 @@
   */
 
   /** @typedef {import('./types/puzzle').ConnectionsBoard} ConnectionsBoard */
+  /** @typedef {import('./types/puzzle').Condition} Condition */
 
   const DEFAULT_HASH = '6fe154bdfd6074961d1521c927fd8f596f53db081882da28b5f4a607f5db071b';
   const LANGS = ['pl', 'en', 'es', 'fr'];
@@ -397,9 +424,10 @@
     purple: { border: '#7A1A4A', bg: '#2A0A1E', text: '#DB4A9E', label: 'Fioletowy' }
   };
   const DIFFICULTIES = Object.keys(DIFFICULTY_STYLES);
-  // Player suggestions still use the legacy colour index (0 green, 1 yellow, 2 blue, 3 pink).
-  const LEGACY_COLOR_TO_DIFFICULTY = ['green', 'yellow', 'blue', 'purple'];
-  const ITEM_TYPES = { player: 'Gracz', champion: 'Champion', item: 'Przedmiot' };
+  // Same as BOARD_INTERVAL_DAYS in scripts/lib/puzzles.js and app.js.
+  const BOARD_INTERVAL_DAYS = 7;
+  // Below this many days of Grid boards ahead the overview warns (the bot tops up to 14 every Monday).
+  const GRID_MIN_DAYS_AHEAD = 7;
 
   const $ = id => document.getElementById(id);
 
@@ -426,21 +454,20 @@
     return field[lang] || '';
   }
 
-  /** { pl: 'X', en: 'X' } → 'X' when every filled language is identical (same rule as scripts/migrate-puzzles.js). */
+  /** { pl: 'X', en: 'X' } → 'X' when every filled language is identical. */
   function collapse(loc) {
     const vals = Object.values(loc);
     return vals.length && vals.every(v => v === vals[0]) ? vals[0] : loc;
   }
 
-  function todayKey() {
-    return new Date().toISOString().slice(0, 10);
-  }
+  /* ---------- Dates (UTC: boards of both games roll over at 00:00 UTC) ---------- */
 
-  function tomorrowKey() {
-    const d = new Date();
-    d.setUTCDate(d.getUTCDate() + 1);
-    return d.toISOString().slice(0, 10);
-  }
+  const todayKey = () => new Date().toISOString().slice(0, 10);
+  const addDays = (date, n) => { const d = new Date(date + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  const daysBetween = (a, b) => Math.round((Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / 86400000);
+  const fmtDate = (date, opts = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) =>
+    new Date(date + 'T00:00:00Z').toLocaleDateString('pl-PL', { ...opts, timeZone: 'UTC' });
+  const inDays = n => n === 0 ? 'dziś' : n === 1 ? 'jutro' : n === -1 ? 'wczoraj' : n > 0 ? `za ${n} dni` : `${-n} dni temu`;
 
   async function api(path, opts = {}) {
     let res;
@@ -475,16 +502,6 @@
     localStorage.setItem('lolc_suggest_queue', JSON.stringify(arr));
   }
 
-  function getLegacyPuzzles() {
-    try { return JSON.parse(localStorage.getItem('lolc_puzzles') || '{}'); }
-    catch { return {}; }
-  }
-
-  function ensureAdminHash() {
-    // Hasło jest zawsze brane z DEFAULT_HASH; usuwamy stary hash zapisany w przeglądarce
-    localStorage.removeItem('lolc_admin_hash');
-  }
-
   async function hashPassword(pwd) {
     const enc = new TextEncoder().encode(pwd);
     const buf = await crypto.subtle.digest('SHA-256', enc);
@@ -512,12 +529,9 @@
     URL.revokeObjectURL(url);
   }
 
+  /* ---------- Modals ---------- */
+
   let confirmCallback = null;
-  let approveId = null;
-  /** Suggestion currently loaded into the editor; removed from the queue once saved. */
-  let pendingSuggestionId = null;
-  /** @type {ConnectionsBoard | null} board as loaded from the server for the editor's date */
-  let loadedBoard = null;
 
   function showConfirm(title, msg, cb) {
     $('confirmTitle').textContent = title;
@@ -526,23 +540,58 @@
     $('confirmOverlay').classList.remove('hidden');
   }
 
-  $('confirmCancel').addEventListener('click', () => {
+  function closeConfirm() {
     $('confirmOverlay').classList.add('hidden');
     confirmCallback = null;
-  });
+  }
 
+  $('confirmCancel').addEventListener('click', closeConfirm);
   $('confirmOk').addEventListener('click', () => {
-    $('confirmOverlay').classList.add('hidden');
-    if (confirmCallback) confirmCallback();
-    confirmCallback = null;
+    const cb = confirmCallback;
+    closeConfirm();
+    if (cb) cb();
   });
+  $('confirmOverlay').addEventListener('click', e => { if (e.target.id === 'confirmOverlay') closeConfirm(); });
 
-  $('confirmOverlay').addEventListener('click', e => {
-    if (e.target.id === 'confirmOverlay') {
-      $('confirmOverlay').classList.add('hidden');
-      confirmCallback = null;
-    }
+  let dateCallback = null;
+
+  /** Asks for a date; the hint under the input says which week it becomes and whether that day is taken. */
+  function askDate({ title, msg, okLabel, initial, exclude }, cb) {
+    $('dateTitle').textContent = title;
+    $('dateMsg').textContent = msg;
+    $('dateOk').textContent = okLabel;
+    $('dateInput').value = initial;
+    $('dateInput').dataset.exclude = exclude || '';
+    renderDateHint();
+    dateCallback = cb;
+    $('dateOverlay').classList.remove('hidden');
+  }
+
+  function renderDateHint() {
+    const date = $('dateInput').value;
+    const taken = boards.find(b => b.date === date && b.date !== $('dateInput').dataset.exclude);
+    $('dateHint').textContent = !date ? '' : taken
+      ? `Ten dzień zajmuje Tydzień ${taken.boardId} — plansze zamienią się miejscami.`
+      : `Termin ${inDays(daysBetween(todayKey(), date))}.`;
+  }
+
+  function closeDate() {
+    $('dateOverlay').classList.add('hidden');
+    dateCallback = null;
+  }
+
+  $('dateInput').addEventListener('input', renderDateHint);
+  $('dateCancel').addEventListener('click', closeDate);
+  $('dateOk').addEventListener('click', () => {
+    const date = $('dateInput').value;
+    const cb = dateCallback;
+    if (!date) return;
+    closeDate();
+    if (cb) cb(date);
   });
+  $('dateOverlay').addEventListener('click', e => { if (e.target.id === 'dateOverlay') closeDate(); });
+
+  /* ---------- Login & navigation ---------- */
 
   async function doLogin() {
     const hash = await hashPassword($('loginPassword').value);
@@ -557,24 +606,23 @@
   }
 
   $('btnLogin').addEventListener('click', doLogin);
-  $('loginPassword').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
+  $('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-  function navigate(page, { skipLoad = false } = {}) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+  function navigate(page) {
+    // The editor belongs to the Connections list in the sidebar.
+    const navPage = page === 'editor' ? 'connections' : page;
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === navPage));
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
     if (page === 'dashboard') renderDashboard();
-    if (page === 'editor' && !skipLoad) loadEditor($('editorDate').value || todayKey());
+    if (page === 'connections') renderConnections();
     if (page === 'suggestions') renderSuggestions();
-    if (page === 'importexport') renderLegacySection();
+    if (page === 'grid') renderGrid();
+    window.scrollTo(0, 0);
   }
 
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => navigate(item.dataset.page));
   });
-
-  /* ---------- Dashboard ---------- */
 
   function renderSuggestBadge(count) {
     const badge = $('suggestBadge');
@@ -582,137 +630,176 @@
     badge.classList.toggle('hidden', count === 0);
   }
 
+  /* ---------- Data ---------- */
+
+  /** Connections boards, oldest first. @type {ConnectionsBoard[]} */
+  let boards = [];
+  let gridBoards = [];
+
+  async function loadBoards() {
+    try {
+      const { boards: manifest } = await api('/api/puzzles');
+      boards = (await Promise.all(manifest.map(b => api('/api/puzzles/' + b.date)))).sort((a, b) => a.date.localeCompare(b.date));
+    } catch { boards = []; /* banner already shown */ }
+    return boards;
+  }
+
+  async function loadGrid() {
+    try { gridBoards = (await api('/api/grid')).boards.sort((a, b) => a.date.localeCompare(b.date)); }
+    catch { gridBoards = []; }
+    return gridBoards;
+  }
+
+  /** The board players see today: the latest one that has unlocked. */
+  const currentBoard = () => boards.filter(b => b.date <= todayKey()).at(-1) || null;
+
+  /** Suggested date for a new board: a week after the last one, but never in the past. */
+  function nextSlot() {
+    const last = boards.at(-1);
+    if (!last) return todayKey();
+    const slot = addDays(last.date, BOARD_INTERVAL_DAYS);
+    return slot < todayKey() ? todayKey() : slot;
+  }
+
+  /** Week number a board on `date` has (or will have once saved — numbers follow date order). */
+  const weekFor = date => boards.find(b => b.date === date)?.boardId ?? boards.filter(b => b.date < date).length + 1;
+
+  function boardStatus(b) {
+    const cur = currentBoard();
+    if (cur && b.date === cur.date) return { cls: 'current', label: 'Aktualna' };
+    return b.date > todayKey() ? { cls: 'future', label: 'Zaplanowana' } : { cls: '', label: 'Archiwum' };
+  }
+
+  /* ---------- Overview ---------- */
+
+  const statCard = (label, value, note = '', cls = '') =>
+    `<div class="stat-card ${cls}"><div class="lbl">${label}</div><div class="val">${value}</div>${note ? `<div class="note">${note}</div>` : ''}</div>`;
+
   async function renderDashboard() {
-    const suggestions = getSuggestions();
-    $('statSuggestions').textContent = suggestions.length;
+    const suggestions = getIdeas();
     renderSuggestBadge(suggestions.length);
-
-    let boards = [];
-    try { boards = (await api('/api/puzzles')).boards; }
-    catch { /* banner already shown */ }
-    boardsByDate = new Map(boards.map(b => [b.date, b]));
+    await Promise.all([loadBoards(), loadGrid()]);
     const today = todayKey();
-    $('statTotal').textContent = boards.length;
-    $('statScheduled').textContent = boards.filter(b => b.date >= today).length;
-    $('statToday').textContent = boardsByDate.has(today) ? '✓' : '✗';
-    renderCalendar();
+
+    // Connections
+    const cur = currentBoard();
+    const upcoming = boards.filter(b => b.date > today);
+    const next = upcoming[0];
+    $('connStats').innerHTML = [
+      statCard('Teraz w grze', cur ? `Tydzień ${cur.boardId}` : '—', cur ? `od ${fmtDate(cur.date)}` : 'brak opublikowanych plansz'),
+      next
+        ? statCard('Następna plansza', `Tydzień ${next.boardId}`, `${fmtDate(next.date)} · ${inDays(daysBetween(today, next.date))}`, 'ok')
+        : statCard('Następna plansza', 'brak', `sugerowany termin: ${fmtDate(nextSlot())}`, 'warn'),
+      statCard('Zaplanowane', upcoming.length, upcoming.length ? `do ${fmtDate(upcoming.at(-1).date)}` : 'nic w kolejce'),
+      statCard('Propozycje kategorii', suggestions.length, suggestions.length ? 'czekają na przejrzenie' : '')
+    ].join('');
+    $('connNotice').innerHTML = next ? '' :
+      `<div class="notice warn">Nie ma zaplanowanej następnej planszy. Bez niej w grze dalej będzie Tydzień ${cur?.boardId ?? '—'}, a licznik pokaże „Nowa plansza już wkrótce”.</div>`;
+
+    // LoL Grid
+    const gridToday = gridBoards.find(b => b.date === today);
+    const lastGrid = gridBoards.at(-1);
+    const ahead = lastGrid ? daysBetween(today, lastGrid.date) : -1;
+    $('gridStats').innerHTML = [
+      gridToday ? statCard('Dzisiejsza plansza', `#${gridToday.boardId}`, fmtDate(today), 'ok') : statCard('Dzisiejsza plansza', 'brak', 'gracze nie mają planszy!', 'warn'),
+      statCard('Plansze gotowe do', lastGrid ? fmtDate(lastGrid.date, { day: 'numeric', month: 'short' }) : '—',
+        ahead >= 0 ? `zapas: ${ahead} dni` : '', ahead < GRID_MIN_DAYS_AHEAD ? 'warn' : ''),
+      statCard('Plansz łącznie', gridBoards.length)
+    ].join('');
+    $('gridNotice').innerHTML = ahead < GRID_MIN_DAYS_AHEAD
+      ? `<div class="notice warn">Zapas plansz Grida jest mały. Bot dogeneruje je w poniedziałek o 22:00 UTC; jeśli nie zadziałał, uruchom go ręcznie na GitHubie (Actions → LoL Grid boards → Run workflow) albo lokalnie <code>npm run generate-grid -- --days=14</code>.</div>`
+      : '';
   }
 
-  /** @type {Map<string, { date: string, boardId: number, mode: string }>} */
-  let boardsByDate = new Map();
-  let calMonth = ''; // 'YYYY-MM' shown in the calendar
+  $('btnDashNew').addEventListener('click', () => openEditor(nextSlot()));
 
-  const shiftMonth = (ym, delta) => {
-    const d = new Date(Date.UTC(Number(ym.slice(0, 4)), Number(ym.slice(5, 7)) - 1 + delta, 1));
-    return d.toISOString().slice(0, 7);
-  };
-  $('calPrev').addEventListener('click', () => { calMonth = shiftMonth(calMonth, -1); renderCalendar(); });
-  $('calNext').addEventListener('click', () => { calMonth = shiftMonth(calMonth, 1); renderCalendar(); });
-  $('calToday').addEventListener('click', () => { calMonth = todayKey().slice(0, 7); renderCalendar(); });
+  /* ---------- Connections list ---------- */
 
-  // Puzzle days roll over at 00:00 UTC, so the calendar is built in UTC too.
-  function renderCalendar() {
-    const today = todayKey();
-    if (!calMonth) calMonth = today.slice(0, 7);
-    const days = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'];
-    $('calHeader').innerHTML = days.map(d => '<span>' + d + '</span>').join('');
-    const first = new Date(calMonth + '-01T00:00:00Z');
-    $('calTitle').textContent = first.toLocaleDateString('pl-PL', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-
-    const grid = $('calGrid');
-    grid.innerHTML = '';
-    for (let i = 0; i < (first.getUTCDay() + 6) % 7; i++) {
-      const empty = document.createElement('div');
-      empty.className = 'cal-day empty';
-      grid.appendChild(empty);
-    }
-
-    const daysInMonth = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
-    for (let n = 1; n <= daysInMonth; n++) {
-      const key = `${calMonth}-${String(n).padStart(2, '0')}`;
-      const board = boardsByDate.get(key);
-      const el = document.createElement('div');
-      el.className = 'cal-day' + (board ? ' has-puzzle' : '') + (key === today ? ' today' : '') + (key < today ? ' past' : '');
-      el.innerHTML = `<span class="cal-num">${n}</span>` +
-        (board ? `<span class="cal-board">#${board.boardId}${board.mode === 'ingame' ? ' ⚙' : ''}</span>` : '');
-      el.title = board ? `Plansza #${board.boardId} (${board.mode})` : '';
-      el.addEventListener('click', () => {
-        $('editorDate').value = key;
-        navigate('editor');
-      });
-
-      if (board) {
-        el.draggable = true;
-        el.addEventListener('dragstart', e => {
-          e.dataTransfer.setData('text/plain', key);
-          e.dataTransfer.effectAllowed = 'move';
-          el.classList.add('dragging');
-        });
-        el.addEventListener('dragend', () => el.classList.remove('dragging'));
-        const del = document.createElement('button');
-        del.className = 'cal-del';
-        del.title = 'Usuń planszę';
-        del.textContent = '×';
-        del.addEventListener('click', e => { e.stopPropagation(); deleteBoardFromCalendar(key); });
-        el.appendChild(del);
-      }
-      el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
-      el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-      el.addEventListener('drop', e => {
-        e.preventDefault();
-        el.classList.remove('drag-over');
-        const from = e.dataTransfer.getData('text/plain');
-        if (from && from !== key) moveBoardFromCalendar(from, key);
-      });
-      grid.appendChild(el);
-    }
+  async function renderConnections() {
+    await loadBoards();
+    $('connCount').textContent = `${boards.length} ${boards.length === 1 ? 'plansza' : boards.length % 10 >= 2 && boards.length % 10 <= 4 && (boards.length % 100 < 10 || boards.length % 100 >= 20) ? 'plansze' : 'plansz'}`;
+    const rows = [...boards].reverse().map((b, i, arr) => {
+      const prev = arr[i + 1];
+      const gap = prev ? daysBetween(prev.date, b.date) : null;
+      const st = boardStatus(b);
+      const chips = b.categories.map(c =>
+        `<span class="chip"><span class="chip-dot" style="background:${DIFFICULTY_STYLES[c.difficulty].border}"></span>${esc(fieldFor(c.title, 'pl') || fieldFor(c.title, 'en'))}</span>`).join('');
+      return `<tr class="${st.cls === 'current' ? 'is-current' : st.cls === '' ? 'is-past' : ''}">
+        <td class="week">Tydzień ${b.boardId}</td>
+        <td class="nowrap">${fmtDate(b.date)}<br><span class="muted ${gap !== null && gap !== BOARD_INTERVAL_DAYS ? 'gap-bad' : ''}">${gap === null ? 'pierwsza' : `+${gap} dni`}</span></td>
+        <td><span class="pill ${st.cls}">${st.label}</span></td>
+        <td><div class="chips">${chips}</div></td>
+        <td><div class="row-actions">
+          <button class="btn btn-sm" data-edit="${b.date}">✏ Edytuj</button>
+          <button class="btn btn-sm btn-ghost" data-gen="${b.date}" title="Wylosuj nową planszę na ten tydzień">🎲</button>
+          <button class="btn btn-sm btn-ghost" data-move="${b.date}" title="Zmień datę">📅</button>
+          <button class="btn btn-sm btn-danger" data-del="${b.date}" title="Usuń">🗑</button>
+        </div></td></tr>`;
+    }).join('');
+    $('connTable').innerHTML = rows || '<tr><td colspan="5" class="empty-msg">Brak plansz — dodaj pierwszą.</td></tr>';
   }
 
-  function moveBoardFromCalendar(from, to) {
-    const a = boardsByDate.get(from);
-    const b = boardsByDate.get(to);
-    const today = todayKey();
-    const playedNote = from <= today || (b && to <= today)
-      ? ' Uwaga: ta plansza była już dostępna dla graczy — kto ją zaczął, straci postęp z tego dnia.' : '';
-    const msg = b
-      ? `Zamienić plansze miejscami? #${a.boardId} (${from}) ⇄ #${b.boardId} (${to}).`
-      : `Przenieść planszę #${a.boardId} z ${from} na ${to}?`;
-    showConfirm(b ? 'Zamień plansze' : 'Przenieś planszę', msg + playedNote + ' Numery plansz przeliczą się według dat.', async () => {
+  $('connTable').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.dataset.edit) openEditor(btn.dataset.edit);
+    if (btn.dataset.gen) {
+      const b = boards.find(x => x.date === btn.dataset.gen);
+      showConfirm('Wylosuj nową planszę', `Wylosować nową planszę na Tydzień ${b.boardId} (${fmtDate(b.date)})? Otworzy się w edytorze — obecna zostanie zastąpiona dopiero po zapisie.` + playedNote(b.date),
+        async () => { await openEditor(b.date); await generateIntoEditor(); });
+    }
+    if (btn.dataset.move) moveBoard(btn.dataset.move);
+    if (btn.dataset.del) deleteBoard(btn.dataset.del, renderConnections);
+  });
+  $('btnListNew').addEventListener('click', () => openEditor(nextSlot()));
+
+  const playedNote = date => date <= todayKey() ? ' Ta plansza była już dostępna dla graczy — kto ją zaczął, straci postęp.' : '';
+
+  function moveBoard(from) {
+    const b = boards.find(x => x.date === from);
+    askDate({
+      title: `Przenieś Tydzień ${b.boardId}`,
+      msg: `Teraz: ${fmtDate(from)}. Wybierz nowy dzień odblokowania. Numery tygodni przeliczą się według dat.` + playedNote(from),
+      okLabel: 'Przenieś', initial: from, exclude: from
+    }, async to => {
+      if (to === from) return;
       try {
-        await api(`/api/puzzles/${from}/move`, { method: 'POST', body: { to } });
-        showToast(b ? 'Zamieniono plansze' : 'Przeniesiono planszę');
+        const r = await api(`/api/puzzles/${from}/move`, { method: 'POST', body: { to } });
+        showToast(r.swapped ? 'Zamieniono plansze miejscami' : 'Przeniesiono planszę');
       } catch (e) {
         showToast(e.message);
       }
-      await renderDashboard();
+      await renderConnections();
       refreshPublishBar();
     });
   }
 
-  function deleteBoardFromCalendar(date) {
-    const b = boardsByDate.get(date);
-    showConfirm('Usuń planszę', `Czy na pewno usunąć planszę #${b.boardId} z ${date}? Zniknie ze strony po kliknięciu „Opublikuj na stronę”.`, async () => {
+  function deleteBoard(date, after) {
+    const b = boards.find(x => x.date === date);
+    showConfirm('Usuń planszę', `Usunąć Tydzień ${b?.boardId ?? ''} (${fmtDate(date)})? Zniknie ze strony po kliknięciu „Opublikuj na stronę”, a kolejne tygodnie przesuną numery.` + playedNote(date), async () => {
       try {
         await api('/api/puzzles/' + date, { method: 'DELETE' });
         showToast('Usunięto planszę');
       } catch (e) {
         showToast(e.message);
       }
-      await renderDashboard();
+      await after();
       refreshPublishBar();
     });
   }
 
   /* ---------- Editor ---------- */
 
+  /** @type {ConnectionsBoard | null} board as loaded from the server for the editor's date */
+  let loadedBoard = null;
+  /** Source category key per editor slot (set by the generator, kept on save so later draws avoid repeats). */
+  let categoryKeys = [];
+
   const q = sel => document.querySelector(sel);
   const titleInput = (c, lang) => q(`.ed-title[data-cat="${c}"][data-lang="${lang}"]`);
   const explainInput = (c, lang) => q(`.ed-explain[data-cat="${c}"][data-lang="${lang}"]`);
-  const nameInput = (c, i, lang) => q(`.ed-name[data-cat="${c}"][data-item="${i}"][data-lang="${lang}"]`);
-  const typeSelect = (c, i) => q(`.ed-type[data-cat="${c}"][data-item="${i}"]`);
-  const idInput = (c, i) => q(`.ed-id[data-cat="${c}"][data-item="${i}"]`);
+  const playerInput = (c, i) => q(`.ed-player[data-cat="${c}"][data-item="${i}"]`);
   const difficultySelect = c => q(`.ed-difficulty[data-cat="${c}"]`);
-  const defaultItemType = () => ($('editorMode').value === 'ingame' ? 'item' : 'player');
 
   function paintCategory(c) {
     const style = DIFFICULTY_STYLES[difficultySelect(c).value];
@@ -724,66 +811,37 @@
   function buildEditorForm() {
     const container = $('editorGroups');
     container.innerHTML = '';
+    const diffOptions = DIFFICULTIES.map(d => `<option value="${d}">${DIFFICULTY_STYLES[d].label}</option>`).join('');
     for (let c = 0; c < 4; c++) {
       const block = document.createElement('div');
       block.className = 'group-editor';
       block.dataset.cat = c;
-      const diffOptions = DIFFICULTIES.map(d => `<option value="${d}">${DIFFICULTY_STYLES[d].label}</option>`).join('');
-      const typeOptions = Object.entries(ITEM_TYPES).map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
-      const meta = [0, 1, 2, 3].map(i =>
-        `<div class="item-meta">#${i + 1}
-          <select class="ed-select ed-type" data-cat="${c}" data-item="${i}">${typeOptions}</select>
-          <input class="ed-id" data-cat="${c}" data-item="${i}" placeholder="id (auto)" title="ID hasła — dla graczy to nazwa pliku players/{id}.webp">
-        </div>`).join('');
-      const langSections = LANGS.map(lang => {
-        const req = lang === 'pl';
-        return `<div class="lang-block ${req ? 'required' : 'optional'}">
+      const players = [0, 1, 2, 3].map(i =>
+        `<div class="form-row"><label>Gracz ${i + 1}</label>
+          <input type="text" class="ed-player" data-cat="${c}" data-item="${i}" maxlength="60" autocomplete="off"></div>`).join('');
+      const langs = LANGS.map(lang => `<div class="lang-block ${lang === 'pl' ? 'required' : 'optional'}">
           <div class="lang-block-header">${LANG_NAMES[lang]}</div>
           <div class="form-row"><label>Tytuł kategorii</label>
             <input type="text" class="ed-title" data-cat="${c}" data-lang="${lang}" maxlength="160"></div>
-          <div class="items-2x2">${[0, 1, 2, 3].map(i =>
-            `<div class="form-row"><label>Hasło ${i + 1}${req ? '' : ' (gracze: tylko PL)'}</label>
-              <input type="text" class="ed-name" data-cat="${c}" data-item="${i}" data-lang="${lang}" maxlength="60"></div>`).join('')}
-          </div>
           <div class="form-row"><label>Wyjaśnienie (opcjonalne)</label>
             <textarea class="ed-explain" data-cat="${c}" data-lang="${lang}"></textarea></div>
-        </div>`;
-      }).join('');
+        </div>`).join('');
       block.innerHTML =
         `<div class="group-editor-header"><span class="group-dot"></span>Kategoria ${c + 1}
           <select class="ed-select ed-difficulty" data-cat="${c}" title="Poziom trudności">${diffOptions}</select></div>
-        <div class="items-meta">${meta}</div>` + langSections;
+        <div class="players-row">${players}</div>
+        <div class="lang-grid">${langs}</div>`;
       container.appendChild(block);
     }
-
     container.addEventListener('change', e => {
       if (e.target.classList.contains('ed-difficulty')) paintCategory(e.target.dataset.cat);
-      if (e.target.classList.contains('ed-type')) e.target.dataset.touched = '1';
-    });
-    container.addEventListener('input', e => {
-      const t = e.target;
-      if (t.classList.contains('ed-id')) t.dataset.auto = '0';
-      if (t.classList.contains('ed-name') && (t.dataset.lang === 'pl' || t.dataset.lang === 'en')) {
-        const id = idInput(t.dataset.cat, t.dataset.item);
-        if (id.dataset.auto !== '0') {
-          const { cat, item } = t.dataset;
-          id.value = slugify(nameInput(cat, item, 'en').value || nameInput(cat, item, 'pl').value);
-        }
-      }
     });
   }
 
-  $('editorMode').addEventListener('change', () => {
-    document.querySelectorAll('.ed-type').forEach(sel => {
-      if (sel.dataset.touched !== '1') sel.value = defaultItemType();
-    });
-  });
-
   /** @param {ConnectionsBoard | null} board */
   function fillEditor(board) {
-    $('editorMode').value = board?.mode || 'esport';
     $('editorSuggestedBy').value = board?.suggestedBy || '';
-    $('editorBoardId').textContent = board?.boardId ? `Plansza #${board.boardId}` : 'Nowa plansza';
+    categoryKeys = (board?.categories || []).map(c => c.key);
     for (let c = 0; c < 4; c++) {
       const cat = board?.categories[c];
       difficultySelect(c).value = cat?.difficulty || DIFFICULTIES[c];
@@ -793,16 +851,26 @@
         explainInput(c, lang).value = fieldFor(cat?.explain, lang);
       });
       for (let i = 0; i < 4; i++) {
-        const item = cat?.items[i];
-        const type = typeSelect(c, i);
-        type.value = item?.type || defaultItemType();
-        type.dataset.touched = item ? '1' : '0';
-        const id = idInput(c, i);
-        id.value = item?.id || '';
-        id.dataset.auto = item?.id ? '0' : '1';
-        LANGS.forEach(lang => { nameInput(c, i, lang).value = fieldFor(item?.name, lang); });
+        const name = cat?.items[i]?.name;
+        playerInput(c, i).value = typeof name === 'string' ? name : fieldFor(name, 'pl') || fieldFor(name, 'en');
       }
     }
+  }
+
+  /** Week number, unlock date and the gap to the neighbouring boards for the date in the editor. */
+  function renderEditorInfo() {
+    const date = $('editorDate').value;
+    if (!date) { $('editorWeek').textContent = ''; $('editorInfo').textContent = ''; return; }
+    $('editorWeek').textContent = `Tydzień ${weekFor(date)}` + (loadedBoard ? '' : ' · nowa plansza');
+    const others = boards.filter(b => b.date !== date);
+    const prev = others.filter(b => b.date < date).at(-1);
+    const next = others.find(b => b.date > date);
+    const parts = [`Odblokowanie: ${fmtDate(date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}, 00:00 UTC (${inDays(daysBetween(todayKey(), date))})`];
+    if (prev) parts.push(`${daysBetween(prev.date, date)} dni po poprzedniej planszy`);
+    if (next) parts.push(`${daysBetween(date, next.date)} dni przed następną`);
+    $('editorInfo').textContent = parts.join(' · ');
+    const odd = (prev && daysBetween(prev.date, date) !== BOARD_INTERVAL_DAYS) || (next && daysBetween(date, next.date) !== BOARD_INTERVAL_DAYS);
+    $('editorInfo').style.color = odd ? '#f0a0a0' : '';
   }
 
   async function loadEditor(dateKey) {
@@ -810,7 +878,6 @@
     $('editorDate').value = dateKey;
     $('editorMsg').textContent = '';
     $('editorMsg').className = 'msg';
-    pendingSuggestionId = null;
 
     loadedBoard = null;
     try {
@@ -820,6 +887,13 @@
     }
     if ($('editorDate').value !== dateKey) return; // date changed while loading
     fillEditor(loadedBoard);
+    renderEditorInfo();
+  }
+
+  async function openEditor(dateKey) {
+    if (!boards.length) await loadBoards();
+    navigate('editor');
+    await loadEditor(dateKey);
   }
 
   /** @returns {ConnectionsBoard | string} board or a validation error message */
@@ -846,22 +920,17 @@
 
       const items = [];
       for (let i = 0; i < 4; i++) {
-        const names = {};
-        LANGS.forEach(lang => {
-          const v = sanitise(nameInput(c, i, lang).value).slice(0, 60);
-          if (v) names[lang] = v;
-        });
-        if (!names.pl) return `Kategoria ${c + 1}: hasło ${i + 1} (PL) jest puste.`;
-        const type = typeSelect(c, i).value;
-        const id = slugify(idInput(c, i).value || names.en || names.pl);
-        if (!id) return `Kategoria ${c + 1}: hasło ${i + 1} ma pusty identyfikator.`;
-        if (usedIds.has(id)) return `Identyfikator „${id}” występuje dwa razy (kategorie ${usedIds.get(id) + 1} i ${c + 1}). Każde hasło może należeć tylko do jednej kategorii.`;
+        const name = sanitise(playerInput(c, i).value).slice(0, 60);
+        if (!name) return `Kategoria ${c + 1}: gracz ${i + 1} jest pusty.`;
+        const id = slugify(name);
+        if (!id) return `Kategoria ${c + 1}: nick „${name}” nie daje poprawnego identyfikatora.`;
+        if (usedIds.has(id)) return `Gracz „${name}” występuje dwa razy (kategorie ${usedIds.get(id) + 1} i ${c + 1}). Każdy gracz może należeć tylko do jednej kategorii.`;
         usedIds.set(id, c);
-        // Player nicknames are never localized.
-        items.push({ id, name: type === 'player' ? names.pl : collapse(names), type });
+        items.push({ id, name });
       }
 
       categories.push({
+        ...(categoryKeys[c] ? { key: categoryKeys[c] } : {}),
         title: collapse(title),
         difficulty,
         items,
@@ -869,15 +938,33 @@
       });
     }
 
-    const board = { date, mode: $('editorMode').value, categories };
-    if (loadedBoard?.boardId) board.boardId = loadedBoard.boardId;
+    // Same key order as the files on disk, so saving an unchanged board leaves no diff.
+    const board = { date, ...(loadedBoard?.boardId ? { boardId: loadedBoard.boardId } : {}), categories };
     const suggestedBy = sanitise($('editorSuggestedBy').value).slice(0, 40);
     if (suggestedBy) board.suggestedBy = suggestedBy;
     return board;
   }
 
-  $('btnToday').addEventListener('click', () => loadEditor(todayKey()));
-  $('btnTomorrow').addEventListener('click', () => loadEditor(tomorrowKey()));
+  /** Fills the editor with a board drawn from data/connections-categories.json; saving is still up to you. */
+  async function generateIntoEditor() {
+    const date = $('editorDate').value;
+    if (!date) return setMsg($('editorMsg'), 'Wybierz datę.', false);
+    const btn = $('btnGenerate');
+    btn.disabled = true;
+    try {
+      const { board, notes } = await api(`/api/puzzles/${date}/generate`, { method: 'POST' });
+      fillEditor({ ...board, suggestedBy: $('editorSuggestedBy').value || undefined });
+      setMsg($('editorMsg'), ['Wylosowano planszę — sprawdź ją i zapisz (🎲 losuje kolejną).', ...notes].join('\n'), !notes.length);
+    } catch (e) {
+      setMsg($('editorMsg'), e.message, false);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  $('btnGenerate').addEventListener('click', generateIntoEditor);
+  $('btnBackToList').addEventListener('click', () => navigate('connections'));
+  $('btnNextSlot').addEventListener('click', () => loadEditor(nextSlot()));
   $('editorDate').addEventListener('change', e => loadEditor(e.target.value));
 
   $('btnSavePuzzle').addEventListener('click', async () => {
@@ -888,13 +975,10 @@
     btn.disabled = true;
     try {
       loadedBoard = await api('/api/puzzles/' + board.date, { method: 'PUT', body: board });
-      $('editorBoardId').textContent = `Plansza #${loadedBoard.boardId}`;
-      if (pendingSuggestionId !== null) {
-        setSuggestions(getSuggestions().filter(s => s.id !== pendingSuggestionId));
-        renderSuggestBadge(getSuggestions().length);
-        pendingSuggestionId = null;
-      }
-      setMsg(msgEl, `Zapisano puzzles/${board.date}.json (plansza #${loadedBoard.boardId}). Kliknij „Opublikuj na stronę”, żeby trafiła na connect4.lol.`, true);
+      await loadBoards();
+      loadedBoard = boards.find(b => b.date === board.date) || loadedBoard;
+      renderEditorInfo();
+      setMsg(msgEl, `Zapisano Tydzień ${loadedBoard.boardId} (puzzles/${board.date}.json). Kliknij „Opublikuj na stronę”, żeby trafiła na connect4.lol.`, true);
       showToast('Zapisano planszę');
       refreshPublishBar();
     } catch (e) {
@@ -906,17 +990,11 @@
 
   $('btnDeletePuzzle').addEventListener('click', () => {
     const dateKey = $('editorDate').value;
-    if (!dateKey) return;
-    showConfirm('Usuń planszę', 'Czy na pewno usunąć plik puzzles/' + dateKey + '.json?', async () => {
-      try {
-        await api('/api/puzzles/' + dateKey, { method: 'DELETE' });
-        await loadEditor(dateKey);
-        setMsg($('editorMsg'), 'Plansza usunięta.', true);
-        showToast('Usunięto planszę');
-        refreshPublishBar();
-      } catch (e) {
-        setMsg($('editorMsg'), e.message, false);
-      }
+    if (!dateKey || !loadedBoard) return setMsg($('editorMsg'), 'Na ten dzień nie ma zapisanej planszy.', false);
+    deleteBoard(dateKey, async () => {
+      await loadBoards();
+      await loadEditor(dateKey);
+      setMsg($('editorMsg'), 'Plansza usunięta.', true);
     });
   });
 
@@ -927,8 +1005,8 @@
     try {
       const { pending } = await api('/api/publish');
       $('publishBar').classList.toggle('hidden', !pending.length);
-      $('publishPending').textContent = `Nieopublikowane plansze (${pending.length}): ` +
-        pending.map(p => `${p.date} — ${p.change}`).join(', ');
+      $('publishPending').textContent = `Nieopublikowane zmiany (${pending.length}): ` +
+        pending.map(p => `${p.game} ${p.date} — ${p.change}`).join(', ');
     } catch {
       $('publishBar').classList.add('hidden');
     }
@@ -972,12 +1050,7 @@
     const msgEl = $('editorMsg');
     const source = { categories: [] };
     for (let c = 0; c < 4; c++) {
-      source.categories.push({
-        title: sanitise(titleInput(c, 'pl').value),
-        explain: sanitise(explainInput(c, 'pl').value),
-        // Player nicknames are never translated, so they are not sent.
-        items: [0, 1, 2, 3].map(i => (typeSelect(c, i).value === 'player' ? '' : sanitise(nameInput(c, i, 'pl').value)))
-      });
+      source.categories.push({ title: sanitise(titleInput(c, 'pl').value), explain: sanitise(explainInput(c, 'pl').value) });
     }
     if (source.categories.some(cat => !cat.title)) return setMsg(msgEl, 'Uzupełnij tytuły kategorii po polsku przed tłumaczeniem.', false);
 
@@ -1000,9 +1073,6 @@
         TRANSLATE_TARGETS.forEach(lang => {
           put(titleInput(c, lang), cat.title?.[lang]);
           if (source.categories[c].explain) put(explainInput(c, lang), cat.explain?.[lang]);
-          cat.items?.slice(0, 4).forEach((it, i) => {
-            if (source.categories[c].items[i]) put(nameInput(c, i, lang), it?.[lang]);
-          });
         });
       });
       setMsg(msgEl, `Gemini uzupełnił ${filled} pól. Sprawdź tłumaczenia przed zapisem.`, true);
@@ -1010,142 +1080,107 @@
       setMsg(msgEl, e.message, false);
     } finally {
       btn.disabled = false;
-      btn.textContent = '🌐 Przetłumacz (Gemini)';
+      btn.textContent = '🌐 Przetłumacz tytuły (Gemini)';
     }
   });
 
-  /* ---------- Suggestions ---------- */
+  /* ---------- Suggestions (category ideas) ---------- */
 
-  function renderSuggestions() {
-    const list = $('suggestList');
-    const suggestions = getSuggestions();
-    if (!suggestions.length) {
-      list.innerHTML = '<div class="empty-msg">Brak nowych propozycji</div>';
-      return;
-    }
-    list.innerHTML = suggestions.map(s => {
-      const date = new Date(s.submittedAt).toLocaleString('pl-PL');
-      const miniGroups = s.groups.map((g, i) => {
-        const st = DIFFICULTY_STYLES[LEGACY_COLOR_TO_DIFFICULTY[g.color ?? i]];
-        return '<div class="mini-group" style="background:' + st.bg + ';border-color:' + st.border + ';color:' + st.text + '">' +
-          '<div class="cat">' + esc(g.category) + '</div>' +
-          g.items.map(esc).join(', ') + '</div>';
-      }).join('');
-      const notes = s.notes ? '<div class="suggest-notes">„' + esc(s.notes) + '"</div>' : '';
-      return '<div class="suggest-card" data-id="' + s.id + '">' +
-        '<div class="suggest-card-header"><span class="nick">' + esc(s.nick || 'Anonim') + '</span><span class="date">' + esc(date) + '</span></div>' +
-        '<div class="mini-groups">' + miniGroups + '</div>' + notes +
-        '<div class="suggest-actions">' +
-        '<button class="btn btn-sm btn-approve" data-id="' + s.id + '">✅ Zatwierdź</button>' +
-        '<button class="btn btn-sm btn-danger btn-reject" data-id="' + s.id + '">🗑 Odrzuć</button>' +
-        '</div></div>';
-    }).join('');
-
-    list.querySelectorAll('.btn-approve').forEach(btn => {
-      btn.addEventListener('click', () => {
-        approveId = parseInt(btn.dataset.id, 10);
-        $('approveDate').value = tomorrowKey();
-        $('approveOverlay').classList.remove('hidden');
-      });
-    });
-
-    list.querySelectorAll('.btn-reject').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = parseInt(btn.dataset.id, 10);
-        showConfirm('Odrzuć propozycję', 'Czy na pewno odrzucić tę propozycję?', () => {
-          setSuggestions(getSuggestions().filter(s => s.id !== id));
-          renderSuggestions();
-          renderSuggestBadge(getSuggestions().length);
-          showToast('Propozycja odrzucona');
-        });
-      });
-    });
+  /**
+   * Older versions of the game sent whole boards ({ groups: [{ category, items[] }] }); each of their four groups
+   * becomes a separate category idea.
+   */
+  function toCategoryIdeas(s) {
+    if (s.kind === 'category') return [s];
+    if (!Array.isArray(s.groups)) return [];
+    return s.groups.map((g, i) => ({ id: Number(s.id) * 10 + i, submittedAt: s.submittedAt, nick: s.nick, category: g.category, examples: g.items || [], notes: s.notes, kind: 'category' }));
   }
 
-  /** Validates a suggestion pasted from the e-mail (same shape app.js sends); returns it or null. */
-  function parseSuggestion(raw) {
-    const s = typeof raw === 'string' ? JSON.parse(raw) : raw;
-    const ok = s && Array.isArray(s.groups) && s.groups.length === 4 &&
-      s.groups.every(g => typeof g.category === 'string' && Array.isArray(g.items) && g.items.length === 4 && g.items.every(i => typeof i === 'string'));
-    if (!ok) return null;
+  /** Validates one idea (from the e-mail code or the stored queue); returns it cleaned or null. */
+  function cleanIdea(s) {
+    if (!s || typeof s.category !== 'string' || sanitise(s.category).length < 3) return null;
     return {
       id: Number(s.id) || Date.now(),
       submittedAt: s.submittedAt || new Date().toISOString(),
       nick: sanitise(s.nick || 'Anonymous').slice(0, 40),
-      notes: sanitise(s.notes || '').slice(0, 500),
-      groups: s.groups.map((g, i) => ({ color: Number.isInteger(g.color) ? g.color : i, category: sanitise(g.category).slice(0, 120), items: g.items.map(it => sanitise(it).slice(0, 60)) }))
+      category: sanitise(s.category).slice(0, 160),
+      examples: (Array.isArray(s.examples) ? s.examples : []).map(e => sanitise(String(e)).slice(0, 60)).filter(Boolean).slice(0, 12),
+      notes: sanitise(s.notes && s.notes !== 'Brak' ? s.notes : '').slice(0, 500),
+      kind: 'category'
     };
   }
 
+  const getIdeas = () => getSuggestions().flatMap(toCategoryIdeas).map(cleanIdea).filter(Boolean);
+  const ideaText = s => `Kategoria: ${s.category}` + (s.examples.length ? `\nPrzykładowi gracze: ${s.examples.join(', ')}` : '') +
+    (s.notes ? `\nUwagi: ${s.notes}` : '') + `\nOd: ${s.nick || 'Anonim'}`;
+
+  function renderSuggestions() {
+    const list = $('suggestList');
+    const ideas = getIdeas();
+    setSuggestions(ideas); // stores old-format entries converted
+    renderSuggestBadge(ideas.length);
+    if (!ideas.length) {
+      list.innerHTML = '<div class="empty-msg">Brak nowych propozycji</div>';
+      return;
+    }
+    list.innerHTML = ideas.map(s => `<div class="suggest-card">
+        <div class="suggest-card-header"><span class="nick">${esc(s.nick || 'Anonim')}</span><span class="date">${esc(new Date(s.submittedAt).toLocaleString('pl-PL'))}</span></div>
+        <div class="suggest-category">${esc(s.category)}</div>
+        ${s.examples.length ? `<div class="suggest-examples">Przykłady: ${s.examples.map(esc).join(', ')}</div>` : ''}
+        ${s.notes ? `<div class="suggest-notes">„${esc(s.notes)}"</div>` : ''}
+        <div class="suggest-actions">
+          <button class="btn btn-sm" data-copy="${s.id}">📋 Kopiuj dla Claude'a</button>
+          <button class="btn btn-sm btn-danger" data-reject="${s.id}">🗑 Usuń</button>
+        </div></div>`).join('');
+  }
+
+  $('suggestList').addEventListener('click', async e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const id = Number(btn.dataset.copy || btn.dataset.reject);
+    const idea = getIdeas().find(s => s.id === id);
+    if (!idea) return;
+    if (btn.dataset.copy) {
+      try { await navigator.clipboard.writeText(ideaText(idea)); showToast('Skopiowano propozycję'); }
+      catch { showToast('Nie udało się skopiować'); }
+    }
+    if (btn.dataset.reject) {
+      showConfirm('Usuń propozycję', `Usunąć propozycję „${idea.category}”?`, () => {
+        setSuggestions(getIdeas().filter(s => s.id !== id));
+        renderSuggestions();
+        showToast('Propozycja usunięta');
+      });
+    }
+  });
+
   $('btnSuggestImport').addEventListener('click', () => {
     const msgEl = $('suggestImportMsg');
-    // E-mail clients may wrap the code; each suggestion is one {...} object.
-    const chunks = $('suggestImport').value.match(/\{"id"[\s\S]*?\]\}\]\}/g) || [];
-    const queue = getSuggestions();
+    // E-mail clients may wrap the code. New codes end with "kind":"category"}, old whole-board codes with ]}]}.
+    const chunks = $('suggestImport').value.match(/\{"id"[\s\S]*?("kind"\s*:\s*"category"\s*\}|\]\}\]\})/g) || [];
+    if (!chunks.length) return setMsg(msgEl, 'Nie znaleziono kodu propozycji. Wklej wartość pola Kod_dla_panelu z maila.', false);
+    const queue = getIdeas();
     let added = 0, bad = 0, dup = 0;
     for (const chunk of chunks) {
-      let s = null;
-      try { s = parseSuggestion(chunk.replace(/\s*\n\s*/g, ' ')); } catch { /* invalid JSON */ }
-      if (!s) { bad++; continue; }
-      if (queue.some(q => q.id === s.id)) { dup++; continue; }
-      queue.push(s);
-      added++;
+      let ideas = [];
+      try { ideas = toCategoryIdeas(JSON.parse(chunk.replace(/\s*\n\s*/g, ' '))).map(cleanIdea); } catch { /* invalid JSON */ }
+      if (!ideas.length || ideas.some(i => !i)) { bad++; continue; }
+      for (const idea of ideas) {
+        if (queue.some(q => q.id === idea.id)) { dup++; continue; }
+        queue.push(idea);
+        added++;
+      }
     }
-    if (!chunks.length) return setMsg(msgEl, 'Nie znaleziono kodu propozycji. Wklej wartość pola Kod_dla_panelu z maila.', false);
     setSuggestions(queue);
     $('suggestImport').value = '';
     setMsg(msgEl, `Dodano ${added}` + (dup ? `, pominięto duplikaty: ${dup}` : '') + (bad ? `, błędne kody: ${bad}` : '') + '.', !bad);
     renderSuggestions();
-    renderSuggestBadge(queue.length);
-  });
-
-  /** Legacy suggestion ({ groups: [{ color, category, items[] }] }) → board for the editor. */
-  function suggestionToBoard(s, date) {
-    return {
-      date, mode: 'esport', suggestedBy: s.nick && s.nick !== 'Anonymous' ? s.nick : undefined,
-      categories: s.groups.map((g, i) => ({
-        title: { pl: g.category },
-        difficulty: LEGACY_COLOR_TO_DIFFICULTY[g.color ?? i],
-        items: g.items.map(name => ({ id: slugify(name), name, type: 'player' }))
-      }))
-    };
-  }
-
-  $('approveCancel').addEventListener('click', () => {
-    $('approveOverlay').classList.add('hidden');
-    approveId = null;
-  });
-
-  $('approveOk').addEventListener('click', async () => {
-    const dateKey = $('approveDate').value;
-    const item = getSuggestions().find(s => s.id === approveId);
-    if (!dateKey || !item) return;
-    $('approveOverlay').classList.add('hidden');
-
-    await loadEditor(dateKey);
-    const existing = loadedBoard;
-    fillEditor(suggestionToBoard(item, dateKey));
-    pendingSuggestionId = item.id;
-    approveId = null;
-    navigate('editor', { skipLoad: true });
-    setMsg($('editorMsg'), existing
-      ? `Uwaga: na ${dateKey} istnieje już plansza #${existing.boardId} — zapis ją nadpisze.`
-      : 'Propozycja wczytana. Sprawdź typy haseł i poziomy trudności, potem zapisz.', !existing);
-  });
-
-  $('approveOverlay').addEventListener('click', e => {
-    if (e.target.id === 'approveOverlay') {
-      $('approveOverlay').classList.add('hidden');
-      approveId = null;
-    }
   });
 
   /* ---------- Import / Export ---------- */
 
   $('btnExport').addEventListener('click', async () => {
     try {
-      const { boards } = await api('/api/puzzles');
-      const all = await Promise.all(boards.map(b => api('/api/puzzles/' + b.date)));
+      const all = await loadBoards();
       downloadJson(all, 'lolconnect_puzzles_' + todayKey() + '.json');
       showToast('Pobrano ' + all.length + ' plansz');
     } catch (e) {
@@ -1164,39 +1199,140 @@
       try { data = JSON.parse(reader.result); }
       catch { return setMsg(msgEl, 'Nieprawidłowy plik JSON.', false); }
 
-      const boards = Array.isArray(data) ? data : data?.categories ? [data] : null;
-      if (!boards) {
-        return setMsg(msgEl, 'To wygląda na stary format (obiekt z datami). Przenieś go poleceniem npm run migrate -- --file=<plik>.', false);
-      }
+      const list = Array.isArray(data) ? data : data?.categories ? [data] : null;
+      if (!list) return setMsg(msgEl, 'Nieobsługiwany format — oczekiwana plansza albo tablica plansz z eksportu.', false);
       const errors = [];
       let ok = 0;
-      for (const b of boards) {
+      for (const b of list) {
         try { await api('/api/puzzles/' + b.date, { method: 'PUT', body: b }); ok++; }
         catch (err) { errors.push(`${b.date || '?'}: ${err.message}${err.details ? ' — ' + err.details.join('; ') : ''}`); }
       }
-      setMsg(msgEl, `Zaimportowano ${ok}/${boards.length} plansz.` + (errors.length ? '\n' + errors.join('\n') : ''), !errors.length);
-      if (ok) showToast('Import zakończony');
+      setMsg(msgEl, `Zaimportowano ${ok}/${list.length} plansz.` + (errors.length ? '\n' + errors.join('\n') : ''), !errors.length);
+      if (ok) { showToast('Import zakończony'); refreshPublishBar(); }
     };
     reader.readAsText(file);
   });
 
-  function renderLegacySection() {
-    const count = Object.keys(getLegacyPuzzles()).length;
-    $('legacyCount').textContent = count;
-    $('legacySection').classList.toggle('hidden', count === 0);
+  /* ---------- LoL Grid ---------- */
+
+  const TROPHY_LABELS = { worlds: 'Mistrz Worlds', msi: 'Mistrz MSI', 'first-stand': 'Mistrz First Stand' };
+  const flag = code => code.length === 2 ? String.fromCodePoint(...[...code.toUpperCase()].map(ch => 0x1F1A5 + ch.charCodeAt(0))) : '';
+
+  /** @param {Condition} c */
+  function conditionLabel(c) {
+    switch (c.kind) {
+      case 'league': return c.id;
+      case 'team': return c.label;
+      case 'coach': return 'Trener';
+      case 'retired': return 'Zakończył karierę';
+      case 'trophy': return TROPHY_LABELS[c.id] || c.id;
+      case 'nationality': return `${flag(c.id)} ${c.id.toUpperCase()}`;
+      case 'teammate': return `Grał z ${c.label}`;
+      default: return c.kind;
+    }
   }
 
-  $('btnLegacyExport').addEventListener('click', () => downloadJson(getLegacyPuzzles(), 'lolc_legacy.json'));
+  async function renderGrid() {
+    await loadGrid();
+    const today = todayKey();
+    const byDate = new Map(gridBoards.map(b => [b.date, b]));
+    // Recent history plus every day up to the last board, so a deleted day shows up as a gap to fill.
+    const from = addDays(today, -3);
+    const to = [gridBoards.at(-1)?.date, today].filter(Boolean).sort().at(-1);
+    const days = [];
+    for (let d = from; d <= to; d = addDays(d, 1)) days.push(d);
+    $('gridTable').innerHTML = days.map(date => {
+      const b = byDate.get(date);
+      const cls = !b ? 'is-missing' : date === today ? 'is-current' : date < today ? 'is-past' : '';
+      const day = `<td class="nowrap">${fmtDate(date)}<br><span class="muted">${inDays(daysBetween(today, date))}</span></td>`;
+      if (!b || b.missing) {
+        return `<tr class="${cls}">${day}<td>—</td><td colspan="3" class="gap-bad">Brak planszy na ten dzień</td>
+          <td><div class="row-actions"><button class="btn btn-sm" data-grid-gen="${date}">🎲 Wylosuj</button></div></td></tr>`;
+      }
+      const min = Math.min(...b.counts.flat());
+      const cells = b.counts.map(r => r.join(' · ')).join('<br>');
+      return `<tr class="${cls}">${day}<td>#${b.boardId}</td>
+        <td>${b.rows.map(c => `<span class="cond">${esc(conditionLabel(c))}</span>`).join('')}</td>
+        <td>${b.cols.map(c => `<span class="cond">${esc(conditionLabel(c))}</span>`).join('')}</td>
+        <td class="nowrap"><span class="muted">${cells}</span><br><span class="${min < 2 ? 'gap-bad' : 'muted'}">min ${min}</span></td>
+        <td><div class="row-actions">
+          <button class="btn btn-sm btn-ghost" data-grid-gen="${date}" title="Wylosuj inną siatkę na ten dzień">🎲</button>
+          <button class="btn btn-sm btn-danger" data-grid-del="${date}" title="Usuń">🗑</button>
+        </div></td></tr>`;
+    }).join('') || '<tr><td colspan="6" class="empty-msg">Brak plansz Grida.</td></tr>';
+  }
 
-  function initApp() {
-    buildEditorForm();
-    $('editorDate').value = todayKey();
-    renderDashboard();
-    renderGeminiStatus();
+  const gridPlayedNote = date => date <= todayKey() ? ' Ta siatka jest już w grze — kto ją zaczął, straci postęp z tego dnia.' : '';
+
+  $('gridTable').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const date = btn.dataset.gridGen || btn.dataset.gridDel;
+    const exists = gridBoards.some(b => b.date === date);
+    if (btn.dataset.gridGen) {
+      const go = async () => {
+        btn.disabled = true;
+        btn.textContent = '⏳';
+        showToast('Losuję siatkę… (do minuty)');
+        try {
+          const r = await api(`/api/grid/${date}/generate`, { method: 'POST' });
+          showToast(r.message);
+        } catch (err) {
+          showToast(err.message);
+        }
+        await renderGrid();
+        refreshPublishBar();
+      };
+      if (!exists) return go();
+      showConfirm('Wylosuj nową siatkę', `Zastąpić siatkę z ${fmtDate(date)} nową, wylosowaną?` + gridPlayedNote(date), go);
+    }
+    if (btn.dataset.gridDel) {
+      showConfirm('Usuń siatkę', `Usunąć siatkę z ${fmtDate(date)}? Bot uzupełni ten dzień w najbliższy poniedziałek, chyba że wylosujesz go wcześniej.` + gridPlayedNote(date), async () => {
+        try {
+          await api('/api/grid/' + date, { method: 'DELETE' });
+          showToast('Usunięto siatkę');
+        } catch (err) {
+          showToast(err.message);
+        }
+        await renderGrid();
+        refreshPublishBar();
+      });
+    }
+  });
+
+  /* ---------- Start ---------- */
+
+  /** Pulls the live boards from GitHub (the Grid bot pushes on its own), then redraws the current page. */
+  async function syncWithGitHub() {
+    const bar = $('syncBar');
+    $('btnSync').disabled = true;
+    $('syncStatus').textContent = 'Pobieram aktualne plansze z GitHuba…';
+    bar.classList.remove('err');
+    try {
+      const r = await api('/api/sync', { method: 'POST' });
+      $('syncStatus').textContent = `${r.message} (${new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })})`;
+    } catch (e) {
+      $('syncStatus').textContent = e.message;
+      bar.classList.add('err');
+    } finally {
+      $('btnSync').disabled = false;
+    }
+    const page = document.querySelector('.page.active')?.id.replace('page-', '');
+    if (page && page !== 'editor') navigate(page);
     refreshPublishBar();
   }
 
-  ensureAdminHash();
+  $('btnSync').addEventListener('click', syncWithGitHub);
+
+  function initApp() {
+    // Older panel versions kept a password hash in the browser; the hash now lives only in DEFAULT_HASH.
+    localStorage.removeItem('lolc_admin_hash');
+    buildEditorForm();
+    renderDashboard();
+    renderGeminiStatus();
+    syncWithGitHub();
+  }
+
   if (sessionStorage.getItem('lolc_admin_session') === '1') {
     $('loginOverlay').classList.add('hidden');
     $('appLayout').classList.remove('hidden');

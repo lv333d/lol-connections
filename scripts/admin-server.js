@@ -1,16 +1,23 @@
-// Local-only admin server: serves the site and an API that writes puzzles/*.json and proxies Gemini.
+// Local-only admin server: serves the site and an API for both games — the weekly Connections boards
+// (puzzles/*.json: edit, move, delete, draw from data/connections-categories.json) and the daily LoL Grid boards
+// (grid/*.json, normally made by the GitHub bot: view, delete, draw a new one) — plus git sync/publish and Gemini.
 // Usage: npm run admin   →   http://127.0.0.1:4321/admin.html
 // Reads GEMINI_API_KEY / GEMINI_MODEL / ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
 import http from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile, unlink } from 'node:fs/promises';
+import { randomBytes } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
   ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard,
   moveBoard, renumberBoards
 } from './lib/puzzles.js';
+import { generateConnectionsBoard } from './lib/connections-generator.js';
+import { rebuildGridManifest } from './generate-grid.js';
+
+const GRID_DIR = path.join(ROOT, 'grid');
 
 try { process.loadEnvFile(path.join(ROOT, '.env.local')); } catch { /* optional */ }
 
@@ -70,11 +77,9 @@ const LANG_NAMES = { en: 'English', es: 'Spanish', fr: 'French' };
 
 function buildTranslatePrompt(source, targets) {
   return [
-    'You translate content for "LoL Connect", a daily League of Legends puzzle game.',
+    'You translate content for "LoL Connect", a weekly League of Legends esports puzzle game.',
     `Translate the Polish texts below into: ${targets.map(l => LANG_NAMES[l]).join(', ')}.`,
     'Rules:',
-    '- Use the official localized League of Legends terminology for each language, exactly as it appears in the',
-    '  Riot game client for that locale (item, champion, ability, rune, summoner spell and map names).',
     '- Esports terms follow the convention used by the official broadcasts and Leaguepedia in English',
     '  (e.g. "Worlds", "MSI", "First Stand", "split", "Finals MVP", "role swap", "head coach").',
     '- Never translate player nicknames, team names, league acronyms or tournament names.',
@@ -95,8 +100,8 @@ function translateSchema(targets) {
         type: 'ARRAY',
         items: {
           type: 'OBJECT',
-          properties: { title: langObj, explain: langObj, items: { type: 'ARRAY', items: langObj } },
-          required: ['title', 'explain', 'items']
+          properties: { title: langObj, explain: langObj },
+          required: ['title', 'explain']
         }
       }
     },
@@ -126,39 +131,101 @@ async function translate({ source, targets, apiKey }) {
   catch { throw Object.assign(new Error('Gemini zwrócił niepoprawny JSON.'), { status: 502 }); }
 }
 
-/* ---------- Publishing (git) ---------- */
+/* ---------- LoL Grid ---------- */
+
+/** Grid boards as the admin shows them: conditions plus the number of valid players per cell. */
+async function gridBoards() {
+  let manifest;
+  try { manifest = JSON.parse(await readFile(path.join(GRID_DIR, 'index.json'), 'utf8')); }
+  catch { return []; }
+  return Promise.all(manifest.boards.map(async ({ date, boardId }) => {
+    try {
+      const b = JSON.parse(await readFile(path.join(GRID_DIR, `${date}.json`), 'utf8'));
+      return { date, boardId, rows: b.rows, cols: b.cols, counts: b.answers.map(r => r.map(c => c.length)) };
+    } catch {
+      return { date, boardId, missing: true };
+    }
+  }));
+}
 
 const run = promisify(execFile);
+const node = (script, args, timeout) => run(process.execPath, [path.join(ROOT, 'scripts', script), ...args], { cwd: ROOT, windowsHide: true, timeout });
+
+async function deleteGridBoard(date) {
+  try { await unlink(path.join(GRID_DIR, `${date}.json`)); }
+  catch { throw Object.assign(new Error('Brak planszy Grida'), { status: 404 }); }
+  await rebuildGridManifest();
+}
+
+/** Draws a different board for the day (random --variant), then fetches portraits of players it introduces. */
+async function regenerateGridBoard(date) {
+  try {
+    await node('generate-grid.js', [`--date=${date}`, '--days=1', '--force', `--variant=${randomBytes(4).toString('hex')}`], 180000);
+  } catch (e) {
+    throw Object.assign(new Error('Generator Grida nie znalazł planszy: ' + (e.stderr || e.message).trim().split('\n').at(-1)), { status: 500 });
+  }
+  let assets = 'zdjęcia graczy pobrane';
+  // Needs Leaguepedia credentials in .env.local; without photos the game shows initials, so this is best effort.
+  try { await node('fetch-assets.js', [], 180000); } catch { assets = 'nie udało się pobrać zdjęć nowych graczy (gra pokaże inicjały)'; }
+  const board = (await gridBoards()).find(b => b.date === date);
+  return { board, message: `Nowa plansza Grida na ${date} (#${board?.boardId}); ${assets}.` };
+}
+
+/* ---------- Git: sync and publishing ---------- */
+
 // A desktop shortcut inherits Explorer's PATH, which may predate the Git install — fall back to the default location.
 const GIT = process.env.GIT_PATH
   || [path.join(process.env.ProgramFiles || 'C:\\Program Files', 'Git', 'cmd', 'git.exe')].find(p => existsSync(p))
   || 'git';
 const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
 
-/** Board files changed since the last commit: { date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
+// Board folders per game; portraits and logos go along with Grid boards that introduce new players.
+const GAME_DIRS = { 'puzzles/': 'Connections', 'grid/': 'Grid' };
+const PUBLISH_PATHS = ['puzzles/', 'grid/', 'players/', 'assets/logos/'];
+
+/** Board files changed since the last commit: { game, date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
 async function pendingBoards() {
-  const out = await git('status', '--porcelain', '--', 'puzzles/');
+  const out = await git('status', '--porcelain', '--', ...Object.keys(GAME_DIRS));
   return out.split('\n').filter(Boolean).map(line => {
     const code = line.slice(0, 2);
-    const date = line.slice(3).trim().match(/(\d{4}-\d{2}-\d{2})\.json/)?.[1];
-    return date && { date, change: code.includes('D') ? 'usunięta' : code.includes('?') || code.includes('A') ? 'nowa' : 'zmieniona' };
+    const file = line.slice(3).trim();
+    const date = file.match(/(\d{4}-\d{2}-\d{2})\.json/)?.[1];
+    const game = Object.entries(GAME_DIRS).find(([dir]) => file.startsWith(dir))?.[1];
+    return date && game && { game, date, change: code.includes('D') ? 'usunięta' : code.includes('?') || code.includes('A') ? 'nowa' : 'zmieniona' };
   }).filter(Boolean);
 }
 
-/** Commits puzzles/ and pushes; the hosting (Vercel) deploys the push automatically. */
+/** Pulls what the Grid bot (or another computer) pushed, so the panel starts from the live boards. */
+async function sync() {
+  try {
+    const before = await git('rev-parse', 'HEAD');
+    await git('pull', '--rebase', '--autostash');
+    const after = await git('rev-parse', 'HEAD');
+    if (before === after) return { updated: false, message: 'Plansze aktualne — zgodne z GitHubem.' };
+    const changed = (await git('diff', '--name-only', before, after, '--', ...Object.keys(GAME_DIRS))).split('\n').filter(Boolean).length;
+    return { updated: true, message: `Pobrano zmiany z GitHuba (${changed} plików plansz).` };
+  } catch (e) {
+    throw Object.assign(new Error('Nie udało się pobrać zmian z GitHuba: ' + (e.stderr || e.message).trim()), { status: 502 });
+  }
+}
+
+/** Commits board changes of both games and pushes; the hosting deploys the push automatically. */
 async function publish() {
   const boards = await pendingBoards();
   if (!boards.length) return { published: [], message: 'Brak zmian do opublikowania.' };
-  await git('add', '--all', '--', 'puzzles/');
-  const dates = boards.map(b => b.date).sort();
-  await git('commit', '-m', `Connections: ${dates.length === 1 ? dates[0] : `${dates[0]} … ${dates.at(-1)}`} (${dates.length})`);
+  await git('add', '--all', '--', ...PUBLISH_PATHS);
+  const summary = Object.values(GAME_DIRS).map(game => {
+    const dates = boards.filter(b => b.game === game).map(b => b.date).sort();
+    return dates.length && `${game} ${dates.length === 1 ? dates[0] : `${dates[0]} … ${dates.at(-1)}`} (${dates.length})`;
+  }).filter(Boolean).join(', ');
+  await git('commit', '-m', `Plansze: ${summary}`);
   try {
     await git('pull', '--rebase', '--autostash'); // the weekly Grid bot may have pushed in the meantime
     await git('push');
   } catch (e) {
     throw Object.assign(new Error('Commit zrobiony, ale wysyłka na GitHuba nie powiodła się: ' + (e.stderr || e.message).trim()), { status: 502 });
   }
-  return { published: boards, message: `Opublikowano ${boards.length} plansz(e). Strona zaktualizuje się za ok. minutę.` };
+  return { published: boards, message: `Opublikowano: ${summary}. Strona zaktualizuje się za ok. minutę.` };
 }
 
 /* ---------- API ---------- */
@@ -173,8 +240,26 @@ async function handleApi(req, res, pathname) {
   if (pathname === '/api/publish' && req.method === 'POST') {
     return send(res, 200, await publish());
   }
+  if (pathname === '/api/sync' && req.method === 'POST') {
+    return send(res, 200, await sync());
+  }
   if (pathname === '/api/translate' && req.method === 'POST') {
     return send(res, 200, await translate(await readBody(req)));
+  }
+  if (pathname === '/api/grid' && req.method === 'GET') {
+    return send(res, 200, { boards: await gridBoards() });
+  }
+  const gm = pathname.match(/^\/api\/grid\/([^/]+)(\/generate)?$/);
+  if (gm) {
+    if (!DATE_RE.test(gm[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
+    if (gm[2] && req.method === 'POST') return send(res, 200, await regenerateGridBoard(gm[1]));
+    if (!gm[2] && req.method === 'DELETE') { await deleteGridBoard(gm[1]); return send(res, 200, { ok: true }); }
+  }
+  const gen = pathname.match(/^\/api\/puzzles\/([^/]+)\/generate$/);
+  if (gen && req.method === 'POST') {
+    if (!DATE_RE.test(gen[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
+    // Returns a draft for the editor; nothing is written until it is saved.
+    return send(res, 200, await generateConnectionsBoard(gen[1]));
   }
   if (pathname === '/api/puzzles' && req.method === 'GET') {
     return send(res, 200, { boards: await rebuildManifest() });
@@ -200,7 +285,9 @@ async function handleApi(req, res, pathname) {
       catch { return send(res, 404, { error: 'Brak planszy' }); }
     }
     if (req.method === 'PUT') {
-      const board = { ...(await readBody(req)), date };
+      const { mode, ...body } = await readBody(req); // older exports carry the removed in-game `mode` and item `type`
+      const board = { ...body, date };
+      board.categories?.forEach(c => c.items?.forEach(it => { delete it.type; }));
       if (!board.boardId) {
         board.boardId = await readBoard(date).then(b => b.boardId, () => nextBoardId());
       }

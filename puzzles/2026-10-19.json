@@ -1,7 +1,6 @@
 {
   "date": "2026-10-19",
   "boardId": 1,
-  "mode": "esport",
   "categories": [
     {
       "title": {
@@ -14,23 +13,19 @@
       "items": [
         {
           "id": "jankos",
-          "name": "Jankos",
-          "type": "player"
+          "name": "Jankos"
         },
         {
           "id": "vizicsacsi",
-          "name": "Vizicsacsi",
-          "type": "player"
+          "name": "Vizicsacsi"
         },
         {
           "id": "kobbe",
-          "name": "Kobbe",
-          "type": "player"
+          "name": "Kobbe"
         },
         {
           "id": "alphari",
-          "name": "Alphari",
-          "type": "player"
+          "name": "Alphari"
         }
       ],
       "explain": {
@@ -41,6 +36,7 @@
       }
     },
     {
+      "key": "worlds-and-msi",
       "title": {
         "pl": "Wygrali zarówno Worlds jak i MSI w karierze",
         "en": "Won both Worlds and MSI in their career",
@@ -51,23 +47,19 @@
       "items": [
         {
           "id": "deft",
-          "name": "Deft",
-          "type": "player"
+          "name": "Deft"
         },
         {
           "id": "ruler",
-          "name": "Ruler",
-          "type": "player"
+          "name": "Ruler"
         },
         {
           "id": "bang",
-          "name": "Bang",
-          "type": "player"
+          "name": "Bang"
         },
         {
           "id": "gumayusi",
-          "name": "Gumayusi",
-          "type": "player"
+          "name": "Gumayusi"
         }
       ],
       "explain": {
@@ -88,23 +80,19 @@
       "items": [
         {
           "id": "elyoya",
-          "name": "Elyoya",
-          "type": "player"
+          "name": "Elyoya"
         },
         {
           "id": "biofrost",
-          "name": "Biofrost",
-          "type": "player"
+          "name": "Biofrost"
         },
         {
           "id": "cuzz",
-          "name": "Cuzz",
-          "type": "player"
+          "name": "Cuzz"
         },
         {
           "id": "bwipo",
-          "name": "Bwipo",
-          "type": "player"
+          "name": "Bwipo"
         }
       ],
       "explain": {
@@ -115,6 +103,7 @@
       }
     },
     {
+      "key": "nick-change",
       "title": {
         "pl": "Zmienili swój nick w trakcie kariery zawodowej",
         "en": "Changed their competitive nickname during their pro career",
@@ -125,23 +114,19 @@
       "items": [
         {
           "id": "crownie",
-          "name": "Crownie",
-          "type": "player"
+          "name": "Crownie"
         },
         {
           "id": "patrik",
-          "name": "Patrik",
-          "type": "player"
+          "name": "Patrik"
         },
         {
           "id": "nuc",
-          "name": "nuc",
-          "type": "player"
+          "name": "nuc"
         },
         {
           "id": "execute",
-          "name": "Execute",
-          "type": "player"
+          "name": "Execute"
         }
       ],
       "explain": {

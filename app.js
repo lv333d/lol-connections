@@ -8,7 +8,6 @@ const CONFIG = {
 };
 
 const LANGS = ['pl', 'en', 'es', 'fr'];
-const LOCALE_MAP = { pl: 'pl-PL', en: 'en-US', es: 'es-ES', fr: 'fr-FR' };
 
 const GROUP_STYLES = [
   { bg: 'rgba(20, 43, 30, 0.85)', border: '#285c3e', text: '#4ae088', emoji: '🟢' },
@@ -25,9 +24,10 @@ const styleFor = difficulty => GROUP_STYLES[DIFFICULTIES.indexOf(difficulty)] ||
 
 const I18N = {
   pl: {
-    subtitle: 'codzienna zagadka League of Legends',
-    noPuzzleTitle: '📅 Brak planszy na dziś',
-    noPuzzleText: 'Wróć jutro po nową zagadkę e-sportową!',
+    subtitle: 'cotygodniowa zagadka League of Legends',
+    noPuzzleTitle: '📅 Brak planszy',
+    noPuzzleText: 'Wróć po nową zagadkę e-sportową!',
+    weekLabel: 'Tydzień {n}', nextBoardIn: 'Nowa plansza za', nextBoardSoon: 'Nowa plansza już wkrótce',
     noPuzzleLang: 'Brak tłumaczenia planszy na wybrany język.',
     livesLabel: 'Pozostałe próby:',
     deselect: 'Odznacz', submit: 'Zatwierdź', results: 'Wyniki',
@@ -37,7 +37,7 @@ const I18N = {
     mistakes: 'błędów', guideTitle: '📖 Poradnik',
     puzzleCredit: 'Zagadka zaproponowana przez: {name}',
     guideWhatTitle: 'Co to jest gra?',
-    guideWhat: 'LoL Connect to codzienna zagadka inspirowana grą Connections z NYT. Twoim celem jest pogrupowanie 16 elementów w 4 grupy po 4 — każda grupa łączy elementy wspólnym kryterium ze świata League of Legends.',
+    guideWhat: 'LoL Connect to cotygodniowa zagadka inspirowana grą Connections z NYT. Twoim celem jest pogrupowanie 16 elementów w 4 grupy po 4 — każda grupa łączy elementy wspólnym kryterium ze świata League of Legends.',
     guideHowTitle: 'Jak grać?',
     guideHow: ['Kliknij kafelki, aby je zaznaczyć (maks. 4 naraz).', 'Ponowne kliknięcie odznacza kafelek.', 'Naciśnij <strong>Zatwierdź</strong>, gdy masz 4 zaznaczone elementy.', 'Masz 5 prób — każdy błąd kosztuje jedną.'],
     guideColorsTitle: 'Kolory grup',
@@ -46,19 +46,19 @@ const I18N = {
     guideUnique: 'Każdy element należy do dokładnie jednej kategorii. Nie ma nakładających się odpowiedzi — jeśli coś pasuje do grupy, nie pasuje do żadnej innej.',
     guideShareTitle: 'Udostępnianie',
     guideShare: 'Po zakończeniu gry możesz udostępnić swój wynik na 𝕏 lub skopiować go do schowka — bez spoilerów nazw kategorii!',
-    suggestTitle: '✉ Propozycja planszy', suggestNick: 'Nick (opcjonalnie)', suggestNotes: 'Dodatkowe uwagi',
+    suggestTitle: '✉ Propozycja kategorii', suggestNick: 'Nick (opcjonalnie)', suggestNotes: 'Dodatkowe uwagi',
     suggestNickPh: 'Twój nick', suggestNotesPh: 'Opcjonalne uwagi…', suggestSubmit: 'Wyślij propozycję',
     suggestSuccessTitle: 'Dziękujemy!', suggestSuccessText: 'Twoja propozycja została zapisana.', suggestClose: 'Zamknij',
-    suggestCriterion: 'Kryterium', suggestElement: 'Element', suggestGroupLabel: ['Zielona', 'Żółta', 'Niebieska', 'Różowa'],
-    errCriterion: 'Kryterium grupy {n} musi mieć min. 2 znaki.',
-    errItems: 'Grupa {n}: wszystkie 4 elementy muszą być wypełnione.',
-    errDup: 'Element „{item}" występuje w więcej niż jednej grupie.',
+    suggestCategory: 'Kategoria', suggestCategoryPh: 'np. Grali w T1 i w Gen.G',
+    suggestExamples: 'Przykładowi gracze (opcjonalnie)', suggestExamplesPh: 'np. Peanut, Ruler, Doran',
+    errCategory: 'Opisz kategorię (min. 3 znaki).',
     btnGuideLabel: 'Poradnik', btnSuggestLabel: 'Propozycja'
   },
   en: {
-    subtitle: 'daily League of Legends puzzle',
-    noPuzzleTitle: '📅 No puzzle for today',
-    noPuzzleText: 'Come back tomorrow for a new e-sports challenge!',
+    subtitle: 'weekly League of Legends puzzle',
+    noPuzzleTitle: '📅 No puzzle yet',
+    noPuzzleText: 'Come back soon for a new e-sports challenge!',
+    weekLabel: 'Week {n}', nextBoardIn: 'New puzzle in', nextBoardSoon: 'New puzzle coming soon',
     noPuzzleLang: 'No translation available for the selected language.',
     livesLabel: 'Mistakes remaining:',
     deselect: 'Deselect', submit: 'Submit', results: 'Results',
@@ -68,7 +68,7 @@ const I18N = {
     mistakes: 'mistakes', guideTitle: '📖 How to play',
     puzzleCredit: 'Puzzle suggested by: {name}',
     guideWhatTitle: 'What is this game?',
-    guideWhat: 'LoL Connect is a daily puzzle inspired by NYT Connections. Group 16 items into 4 sets of 4 — each set shares a League of Legends theme.',
+    guideWhat: 'LoL Connect is a weekly puzzle inspired by NYT Connections. Group 16 items into 4 sets of 4 — each set shares a League of Legends theme.',
     guideHowTitle: 'How to play',
     guideHow: ['Click tiles to select them (max 4).', 'Click again to deselect.', 'Press <strong>Submit</strong> when 4 tiles are selected.', 'You have 5 lives — each mistake costs one.'],
     guideColorsTitle: 'Group colors',
@@ -77,19 +77,19 @@ const I18N = {
     guideUnique: 'Each item belongs to exactly one category. There are no overlapping answers — if something fits a group, it does not fit any other.',
     guideShareTitle: 'Sharing',
     guideShare: 'After finishing, share your result on 𝕏 or copy to clipboard — no category spoilers!',
-    suggestTitle: '✉ Suggest a puzzle', suggestNick: 'Nickname (optional)', suggestNotes: 'Additional notes',
+    suggestTitle: '✉ Suggest a category', suggestNick: 'Nickname (optional)', suggestNotes: 'Additional notes',
     suggestNickPh: 'Your nickname', suggestNotesPh: 'Optional notes…', suggestSubmit: 'Send suggestion',
     suggestSuccessTitle: 'Thank you!', suggestSuccessText: 'Your suggestion has been saved.', suggestClose: 'Close',
-    suggestCriterion: 'Criterion', suggestElement: 'Item', suggestGroupLabel: ['Green', 'Yellow', 'Blue', 'Purple'],
-    errCriterion: 'Group {n} criterion must be at least 2 characters.',
-    errItems: 'Group {n}: all 4 items must be filled in.',
-    errDup: 'Item "{item}" appears in more than one group.',
+    suggestCategory: 'Category', suggestCategoryPh: 'e.g. Played for both T1 and Gen.G',
+    suggestExamples: 'Example players (optional)', suggestExamplesPh: 'e.g. Peanut, Ruler, Doran',
+    errCategory: 'Describe the category (at least 3 characters).',
     btnGuideLabel: 'Guide', btnSuggestLabel: 'Suggest'
   },
   es: {
-    subtitle: 'acertijo diario de League of Legends',
-    noPuzzleTitle: '📅 No hay puzzle hoy',
-    noPuzzleText: '¡Vuelve mañana por un nuevo desafío e-sportivo!',
+    subtitle: 'acertijo semanal de League of Legends',
+    noPuzzleTitle: '📅 Aún no hay puzzle',
+    noPuzzleText: '¡Vuelve pronto por un nuevo desafío e-sportivo!',
+    weekLabel: 'Semana {n}', nextBoardIn: 'Nuevo puzzle en', nextBoardSoon: 'Nuevo puzzle muy pronto',
     noPuzzleLang: 'No hay traducción del puzzle para el idioma seleccionado.',
     livesLabel: 'Intentos restantes:',
     deselect: 'Desmarcar', submit: 'Enviar', results: 'Resultados',
@@ -99,7 +99,7 @@ const I18N = {
     mistakes: 'errores', guideTitle: '📖 Guía',
     puzzleCredit: 'Acertijo propuesto por: {name}',
     guideWhatTitle: '¿Qué es este juego?',
-    guideWhat: 'LoL Connect es un acertijo diario inspirado en Connections del NYT. Agrupa 16 elementos en 4 grupos de 4 — cada grupo comparte un criterio del mundo de League of Legends.',
+    guideWhat: 'LoL Connect es un acertijo semanal inspirado en Connections del NYT. Agrupa 16 elementos en 4 grupos de 4 — cada grupo comparte un criterio del mundo de League of Legends.',
     guideHowTitle: 'Cómo jugar',
     guideHow: ['Haz clic en las casillas para seleccionarlas (máx. 4).', 'Haz clic de nuevo para desmarcar.', 'Pulsa <strong>Enviar</strong> con 4 seleccionados.', 'Tienes 5 intentos — cada error cuesta uno.'],
     guideColorsTitle: 'Colores de grupos',
@@ -108,19 +108,19 @@ const I18N = {
     guideUnique: 'Cada elemento pertenece a exactamente una categoría. No hay respuestas superpuestas — si encaja en un grupo, no encaja en ningún otro.',
     guideShareTitle: 'Compartir',
     guideShare: 'Al terminar, comparte tu resultado en 𝕏 o cópialo — ¡sin spoilers de categorías!',
-    suggestTitle: '✉ Proponer puzzle', suggestNick: 'Nick (opcional)', suggestNotes: 'Notas adicionales',
+    suggestTitle: '✉ Proponer categoría', suggestNick: 'Nick (opcional)', suggestNotes: 'Notas adicionales',
     suggestNickPh: 'Tu nick', suggestNotesPh: 'Notas opcionales…', suggestSubmit: 'Enviar propuesta',
     suggestSuccessTitle: '¡Gracias!', suggestSuccessText: 'Tu propuesta ha sido guardada.', suggestClose: 'Cerrar',
-    suggestCriterion: 'Criterio', suggestElement: 'Elemento', suggestGroupLabel: ['Verde', 'Amarillo', 'Azul', 'Rosa'],
-    errCriterion: 'El criterio del grupo {n} debe tener al menos 2 caracteres.',
-    errItems: 'Grupo {n}: los 4 elementos deben estar completos.',
-    errDup: 'El elemento "{item}" aparece en más de un grupo.',
+    suggestCategory: 'Categoría', suggestCategoryPh: 'p. ej. Jugaron en T1 y en Gen.G',
+    suggestExamples: 'Jugadores de ejemplo (opcional)', suggestExamplesPh: 'p. ej. Peanut, Ruler, Doran',
+    errCategory: 'Describe la categoría (mín. 3 caracteres).',
     btnGuideLabel: 'Guía', btnSuggestLabel: 'Proponer'
   },
   fr: {
-    subtitle: 'énigme quotidienne de League of Legends',
-    noPuzzleTitle: '📅 Pas de puzzle aujourd\'hui',
-    noPuzzleText: 'Revenez demain pour un nouveau défi e-sport !',
+    subtitle: 'énigme hebdomadaire de League of Legends',
+    noPuzzleTitle: '📅 Pas encore de puzzle',
+    noPuzzleText: 'Revenez bientôt pour un nouveau défi e-sport !',
+    weekLabel: 'Semaine {n}', nextBoardIn: 'Nouveau puzzle dans', nextBoardSoon: 'Nouveau puzzle très bientôt',
     noPuzzleLang: 'Pas de traduction du puzzle pour la langue sélectionnée.',
     livesLabel: 'Essais restants :',
     deselect: 'Désélectionner', submit: 'Valider', results: 'Résultats',
@@ -130,7 +130,7 @@ const I18N = {
     mistakes: 'erreurs', guideTitle: '📖 Guide',
     puzzleCredit: 'Énigme proposée par : {name}',
     guideWhatTitle: 'Qu\'est-ce que ce jeu ?',
-    guideWhat: 'LoL Connect est une énigme quotidienne inspirée de Connections du NYT. Regroupez 16 éléments en 4 groupes de 4 — chaque groupe partage un critère de l\'univers League of Legends.',
+    guideWhat: 'LoL Connect est une énigme hebdomadaire inspirée de Connections du NYT. Regroupez 16 éléments en 4 groupes de 4 — chaque groupe partage un critère de l\'univers League of Legends.',
     guideHowTitle: 'Comment jouer',
     guideHow: ['Cliquez sur les cases pour les sélectionner (max 4).', 'Recliquez pour désélectionner.', 'Appuyez sur <strong>Valider</strong> avec 4 sélectionnés.', 'Vous avez 5 essais — chaque erreur en coûte un.'],
     guideColorsTitle: 'Couleurs des groupes',
@@ -139,13 +139,12 @@ const I18N = {
     guideUnique: 'Chaque élément appartient à exactement une catégorie. Pas de chevauchement — si un élément correspond à un groupe, il n\'en correspond à aucun autre.',
     guideShareTitle: 'Partage',
     guideShare: 'À la fin, partagez votre résultat sur 𝕏 ou copiez-le — sans spoiler les catégories !',
-    suggestTitle: '✉ Proposer un puzzle', suggestNick: 'Pseudo (optionnel)', suggestNotes: 'Notes supplémentaires',
+    suggestTitle: '✉ Proposer une catégorie', suggestNick: 'Pseudo (optionnel)', suggestNotes: 'Notes supplémentaires',
     suggestNickPh: 'Votre pseudo', suggestNotesPh: 'Notes optionnelles…', suggestSubmit: 'Envoyer la proposition',
     suggestSuccessTitle: 'Merci !', suggestSuccessText: 'Votre proposition a été enregistrée.', suggestClose: 'Fermer',
-    suggestCriterion: 'Critère', suggestElement: 'Élément', suggestGroupLabel: ['Vert', 'Jaune', 'Bleu', 'Rose'],
-    errCriterion: 'Le critère du groupe {n} doit contenir au moins 2 caractères.',
-    errItems: 'Groupe {n} : les 4 éléments doivent être remplis.',
-    errDup: 'L\'élément « {item} » apparaît dans plus d\'un groupe.',
+    suggestCategory: 'Catégorie', suggestCategoryPh: 'ex. Ont joué chez T1 et chez Gen.G',
+    suggestExamples: 'Joueurs d\'exemple (optionnel)', suggestExamplesPh: 'ex. Peanut, Ruler, Doran',
+    errCategory: 'Décrivez la catégorie (au moins 3 caractères).',
     btnGuideLabel: 'Guide', btnSuggestLabel: 'Proposer'
   }
 };
@@ -180,6 +179,9 @@ const esc = str => { const d = document.createElement('div'); d.textContent = st
 
 // State & Navigation
 let availableDates = [], selectedDate = '', selectedDateIndex = -1;
+// Boards come out weekly. The countdown targets the next board in the manifest, else the last one + 7 days.
+let nextBoardDate = '', countdownTimer = null;
+const BOARD_INTERVAL_DAYS = 7;
 /** @type {ConnectionsBoard | null} */
 let puzzle = null;
 let state = null, selected = new Set();
@@ -201,14 +203,28 @@ function shuffle(arr) {
   return a;
 }
 
-function parseDateObj(dateStr) {
-  if (!dateStr) return new Date();
-  const p = dateStr.split('-');
-  return p.length === 3 ? new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10)) : new Date(dateStr);
+/** Boards are numbered by their place in the archive: the first board is week 1. */
+const weekLabel = dateStr => t('weekLabel', { n: availableDates.indexOf(dateStr) + 1 });
+const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
+
+/** Dates are UTC (see todayKey), so the next board unlocks at 00:00 UTC of its date. */
+function renderCountdown() {
+  const el = $('nextBoard');
+  if (!el) return;
+  el.classList.toggle('hidden', !nextBoardDate);
+  if (!nextBoardDate) return;
+  const ms = Date.parse(nextBoardDate + 'T00:00:00Z') - Date.now();
+  if (ms <= 0) { el.textContent = t('nextBoardSoon'); return; }
+  const s = Math.floor(ms / 1000), d = Math.floor(s / 86400);
+  const hms = [Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60].map(n => String(n).padStart(2, '0')).join(':');
+  el.textContent = `${t('nextBoardIn')} ${d > 0 ? d + 'd ' : ''}${hms}`;
 }
 
-const formatDateLocalized = dateStr => parseDateObj(dateStr).toLocaleDateString(LOCALE_MAP[currentLang] || 'pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-const formatDateShare = dateStr => parseDateObj(dateStr).toLocaleDateString(LOCALE_MAP[currentLang] || 'pl-PL');
+function startCountdown() {
+  clearInterval(countdownTimer);
+  renderCountdown();
+  if (nextBoardDate) countdownTimer = setInterval(renderCountdown, 1000);
+}
 
 async function fetchJson(url) {
   try {
@@ -238,13 +254,17 @@ function applyI18n() {
     btnShowResults: 'results', btnShare: 'share', btnCopy: 'copy',
     guideTitle: 'guideTitle', btnGuideLabel: 'btnGuideLabel', btnSuggestLabel: 'btnSuggestLabel',
     suggestTitle: 'suggestTitle', suggestNickLabel: 'suggestNick', suggestNotesLabel: 'suggestNotes',
+    suggestCategoryLabel: 'suggestCategory', suggestExamplesLabel: 'suggestExamples',
     btnSuggestSubmit: 'suggestSubmit', suggestSuccessTitle: 'suggestSuccessTitle',
     suggestSuccessText: 'suggestSuccessText', btnSuggestClose: 'suggestClose'
   };
   Object.entries(mappings).forEach(([id, k]) => { const el = $(id); if (el) el.textContent = t(k); });
   if ($('suggestNick')) $('suggestNick').placeholder = t('suggestNickPh');
   if ($('suggestNotes')) $('suggestNotes').placeholder = t('suggestNotesPh');
-  if ($('dateDisplay')) $('dateDisplay').textContent = formatDateLocalized(selectedDate);
+  if ($('suggestCategory')) $('suggestCategory').placeholder = t('suggestCategoryPh');
+  if ($('suggestExamples')) $('suggestExamples').placeholder = t('suggestExamplesPh');
+  if ($('dateDisplay')) $('dateDisplay').textContent = selectedDate ? weekLabel(selectedDate) : '';
+  renderCountdown();
   if ($('langSelect')) $('langSelect').value = currentLang;
 
   const swatches = ['#3B6E35', '#7A5A10', '#1A4A7A', '#7A1A4A'];
@@ -287,6 +307,9 @@ async function loadPuzzlesAndInit() {
   // The manifest may lag behind a freshly uploaded file, so today's board is always probed directly.
   if (!pastAndToday.includes(today) && await fetchBoard(today)) pastAndToday.push(today);
   availableDates = pastAndToday.length > 0 ? pastAndToday : rawDates;
+  const lastDate = availableDates[availableDates.length - 1];
+  nextBoardDate = rawDates.find(d => d > today) || (lastDate ? addDays(lastDate, BOARD_INTERVAL_DAYS) : '');
+  startCountdown();
 
   if (availableDates.length === 0) {
     $('noPuzzleScreen').classList.remove('hidden');
@@ -305,7 +328,7 @@ async function loadPuzzleForDate(dateStr) {
   selected.clear();
   updateNavButtons();
 
-  $('dateDisplay').textContent = formatDateLocalized(selectedDate);
+  $('dateDisplay').textContent = weekLabel(selectedDate);
   ['noPuzzleScreen', 'gameArea', 'resultOverlay'].forEach(id => $(id).classList.add('hidden'));
   $('hintMsg').textContent = '';
 
@@ -525,7 +548,7 @@ function buildEmojiGrid() {
 
 function buildShareText() {
   const mistakes = state.guessHistory.filter(g => !g.correct).length;
-  return `⚔ LoL Connect #${puzzle.boardId} — ${formatDateShare(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\nhttps://connect4.lol/connections.html`;
+  return `⚔ LoL Connect — ${weekLabel(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\nhttps://connect4.lol/connections.html`;
 }
 
 function showResult() {
@@ -566,56 +589,23 @@ function showToast(msg) {
 const openOverlay = id => $(id)?.classList.remove('hidden');
 const closeOverlay = id => $(id)?.classList.add('hidden');
 
-function buildSuggestForm() {
-  const container = $('suggestGroups');
-  container.innerHTML = '';
-  GROUP_STYLES.forEach((style, i) => {
-    const block = document.createElement('div');
-    block.className = 'group-block';
-    block.innerHTML = `
-      <div class="group-block-header"><span class="group-dot" style="background:${style.border}"></span>${esc(t('suggestGroupLabel')[i])}</div>
-      <div class="form-group"><label>${t('suggestCriterion')}</label><input type="text" class="suggest-criterion" data-idx="${i}" maxlength="120"></div>
-      <div class="items-grid">
-        ${[0,1,2,3].map(j => `<div class="form-group"><label>${t('suggestElement')} ${j+1}</label><input type="text" class="suggest-item" data-group="${i}" maxlength="60"></div>`).join('')}
-      </div>`;
-    container.appendChild(block);
-  });
-}
-
 async function validateAndSaveSuggestion() {
   const errEl = $('suggestError');
   errEl.classList.add('hidden');
 
   const nick = sanitise($('suggestNick').value).slice(0, 40);
   const notes = sanitise($('suggestNotes').value).slice(0, 500);
-  const groups = [], allItems = [];
-
-  for (let i = 0; i < 4; i++) {
-    const criterion = sanitise(document.querySelector(`.suggest-criterion[data-idx="${i}"]`)?.value).slice(0, 120);
-    if (criterion.length < 2) {
-      errEl.textContent = t('errCriterion', { n: i + 1 });
-      errEl.classList.remove('hidden');
-      return;
-    }
-    const items = [];
-    document.querySelectorAll(`.suggest-item[data-group="${i}"]`).forEach(inp => items.push(sanitise(inp.value).slice(0, 60)));
-    if (items.some(it => !it)) {
-      errEl.textContent = t('errItems', { n: i + 1 });
-      errEl.classList.remove('hidden');
-      return;
-    }
-    for (const it of items) {
-      if (allItems.includes(it)) {
-        errEl.textContent = t('errDup', { item: it });
-        errEl.classList.remove('hidden');
-        return;
-      }
-      allItems.push(it);
-    }
-    groups.push({ color: i, category: criterion, items });
+  const category = sanitise($('suggestCategory').value).slice(0, 160);
+  const examples = sanitise($('suggestExamples').value).split(/[,;\n]+/).map(s => s.trim().slice(0, 60)).filter(Boolean).slice(0, 12);
+  if (category.length < 3) {
+    errEl.textContent = t('errCategory');
+    errEl.classList.remove('hidden');
+    return;
   }
 
-  const suggestion = { id: Date.now(), submittedAt: new Date().toISOString(), nick: nick || 'Anonymous', notes: notes || 'Brak', groups };
+  // Players suggest a category idea, not a whole board. `kind` stays the last key: the admin panel finds the
+  // pasted code in an e-mail by its closing `"kind":"category"}`.
+  const suggestion = { id: Date.now(), submittedAt: new Date().toISOString(), nick: nick || 'Anonymous', category, examples, notes, kind: 'category' };
   const submitBtn = $('btnSuggestSubmit');
   const originalText = submitBtn.textContent;
   submitBtn.disabled = true;
@@ -627,13 +617,14 @@ async function validateAndSaveSuggestion() {
   if (CONFIG.discordWebhookUrl) {
     try {
       const payload = {
-        content: "⚔️ **Nowa propozycja planszy od gracza!**",
+        content: "⚔️ **Nowa propozycja kategorii od gracza!**",
         embeds: [{
-          title: "Propozycja planszy LoL Connect", color: 13150830,
+          title: "Propozycja kategorii LoL Connect", color: 13150830,
           fields: [
             { name: "Nick", value: suggestion.nick, inline: true },
-            { name: "Dodatkowe uwagi", value: suggestion.notes, inline: false },
-            ...groups.map((g, i) => ({ name: `${GROUP_STYLES[i].emoji} Grupa ${i+1}`, value: `**Kategoria:** ${g.category}\n**Elementy:** ${g.items.join(', ')}` }))
+            { name: "Kategoria", value: category, inline: false },
+            { name: "Przykładowi gracze", value: examples.join(', ') || '—', inline: false },
+            { name: "Dodatkowe uwagi", value: notes || '—', inline: false }
           ]
         }]
       };
@@ -644,14 +635,10 @@ async function validateAndSaveSuggestion() {
   } else if (CONFIG.suggestionEmail) {
     try {
       const payload = {
-        Nick: suggestion.nick, Notes: suggestion.notes,
-        Group_1_Category: groups[0].category, Group_1_Items: groups[0].items.join(', '),
-        Group_2_Category: groups[1].category, Group_2_Items: groups[1].items.join(', '),
-        Group_3_Category: groups[2].category, Group_3_Items: groups[2].items.join(', '),
-        Group_4_Category: groups[3].category, Group_4_Items: groups[3].items.join(', '),
+        Nick: suggestion.nick, Kategoria: category, Przykladowi_gracze: examples.join(', ') || '—', Notes: notes || '—',
         // Pasted into the admin panel (Propozycje → Wklej z e-maila) to add the suggestion to the queue.
         Kod_dla_panelu: JSON.stringify(suggestion),
-        _subject: `Nowa propozycja planszy LoL Connect od ${suggestion.nick}`
+        _subject: `Nowa propozycja kategorii LoL Connect od ${suggestion.nick}`
       };
       const res = await fetch('https://formsubmit.co/ajax/' + CONFIG.suggestionEmail, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
       // FormSubmit answers 200 with { success: "false" } e.g. while the form is not activated yet.
@@ -665,7 +652,7 @@ async function validateAndSaveSuggestion() {
   submitBtn.textContent = originalText;
 
   $('suggestSuccessIcon').textContent = sent ? '✅' : '❌';
-  $('suggestSuccessText').textContent = sent ? 'Twoja propozycja planszy została pomyślnie wysłana do administratora! Dziękujemy za wkład.' : `Wystąpił błąd podczas wysyłania propozycji (${fallbackReason}). Spróbuj ponownie później.`;
+  $('suggestSuccessText').textContent = sent ? t('suggestSuccessText') : `Wystąpił błąd podczas wysyłania propozycji (${fallbackReason}). Spróbuj ponownie później.`;
   $('suggestCopyContainer').classList.add('hidden');
 
   $('suggestFormView').classList.add('hidden');
@@ -678,12 +665,13 @@ $('btnDeselect')?.addEventListener('click', () => { selected.clear(); renderGrid
 $('btnShowResults')?.addEventListener('click', showResult);
 $('btnGuide')?.addEventListener('click', () => openOverlay('guideOverlay'));
 $('btnSuggest')?.addEventListener('click', () => {
-  buildSuggestForm();
   $('suggestFormView').classList.remove('hidden');
   $('suggestSuccessView').classList.add('hidden');
   $('suggestError').classList.add('hidden');
   $('suggestNick').value = '';
   $('suggestNotes').value = '';
+  $('suggestCategory').value = '';
+  $('suggestExamples').value = '';
   openOverlay('suggestOverlay');
 });
 $('btnSuggestSubmit')?.addEventListener('click', validateAndSaveSuggestion);

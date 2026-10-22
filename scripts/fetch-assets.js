@@ -3,7 +3,7 @@
 // for nationality conditions from the flag-icons package (MIT).
 //
 // Usage: npm run fetch-assets [-- --all] [-- --teams] [-- --limit=50]
-//   default   players used in puzzles/*.json (type "player") and in grid/*.json (answers + teammate conditions),
+//   default   players used in puzzles/*.json (every Connections item is a player) and in grid/*.json (answers + teammate conditions),
 //             plus logos of teams and flags of countries used by grid conditions
 //   --all     every player in data/players.json (the search list shows a portrait for each)
 //   --teams   logos of every team in data/teams.json
@@ -69,7 +69,7 @@ async function collectTargets(db) {
   for (const file of await jsonFiles(PUZZLES_DIR)) {
     const board = await readJson(file, null);
     board?.categories?.forEach(c => c.items.forEach(it => {
-      if (it.type === 'player') targets.set(it.id, typeof it.name === 'string' ? it.name : it.name.pl || it.name.en);
+      targets.set(it.id, typeof it.name === 'string' ? it.name : it.name.pl || it.name.en);
     }));
   }
   const gridTeams = new Set();
