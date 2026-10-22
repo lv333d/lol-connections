@@ -66,9 +66,30 @@ button.cell:hover .cell-plus { opacity: 1; transform: scale(1.1); }
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--gold-light);
 }
 .cell-count {
-  position: absolute; top: 4px; right: 5px; font-size: 0.62rem; color: var(--text-muted);
-  background: rgba(5, 8, 17, 0.75); border-radius: 3px; padding: 0 4px;
+  position: absolute; top: 4px; right: 5px; font: inherit; font-size: 0.62rem; color: var(--text-muted);
+  background: rgba(5, 8, 17, 0.75); border: 1px solid transparent; border-radius: 3px; padding: 0 4px;
+  cursor: pointer; transition: color .15s, background .15s, border-color .15s;
 }
+.cell-count:hover, .cell-count:focus-visible, .cell-count.active {
+  color: var(--gold-light); background: rgba(200, 170, 110, 0.25); border-color: rgba(200, 170, 110, 0.5);
+  outline: none;
+}
+.cell.revealed:has(.cell-count.active) { opacity: 1; }
+
+.answers-popover {
+  position: fixed; z-index: 60; width: 190px; max-height: min(300px, 60vh); overflow-y: auto;
+  background: #0d1527; border: 1px solid rgba(200, 170, 110, 0.4); border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55); padding: 4px;
+  animation: answers-in .14s ease-out;
+}
+.answers-popover ul { list-style: none; margin: 0; padding: 0; }
+.answers-popover li {
+  display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 4px;
+  font-size: 0.8rem; color: var(--text);
+}
+.answers-popover li.current { background: rgba(74, 224, 136, 0.14); color: var(--gold-light); font-weight: 700; }
+.answers-popover .avatar { width: 24px; height: 24px; font-size: 0.6rem; }
+@keyframes answers-in { from { opacity: 0; transform: translateY(-4px); } }
 
 /* ---------- Avatars ---------- */
 .avatar {

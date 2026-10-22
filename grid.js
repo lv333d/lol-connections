@@ -302,7 +302,7 @@ async function loadDate(date) {
   board = b;
   state = loadState(date) || newState();
   $('gameArea').classList.remove('hidden');
-  // A finished board shows the revealed grid and the "Results" button; the popup only appears when the game ends.
+  // A finished board shows the revealed grid and the "Results" button; the popup opens only right after the game ends.
   render();
 }
 
@@ -330,6 +330,7 @@ function revealSolution() {
 }
 
 function render() {
+  hideAnswers();
   $('guessesLeft').textContent = state.guessesLeft;
   const grid = $('lolGrid');
   grid.innerHTML = '';
@@ -357,7 +358,15 @@ function render() {
         nick.textContent = nickOf(shown);
         inner.appendChild(nick);
         cell.appendChild(inner);
-        if (state.gameOver) cell.appendChild(el('span', 'cell-count', esc(t('answers', { n: cellAnswers(i).length }))));
+        if (state.gameOver) {
+          const count = el('button', 'cell-count', esc(t('answers', { n: cellAnswers(i).length })));
+          count.type = 'button';
+          count.addEventListener('mouseenter', () => showAnswers(count, i, shown));
+          count.addEventListener('mouseleave', scheduleHideAnswers);
+          // Touch screens have no hover: a tap toggles the list.
+          count.addEventListener('click', () => (answersFor === count ? hideAnswers() : showAnswers(count, i, shown)));
+          cell.appendChild(count);
+        }
         grid.appendChild(cell);
       } else {
         const cell = el('button', 'cell');
@@ -470,8 +479,8 @@ function guess(id) {
 
   if (ok || state.gameOver) {
     closeSearch();
-    // The results popup opens only from the "Results" button; the end of the game is announced with a toast.
-    showToast(state.gameOver ? t('finished') : t('correct'));
+    if (state.gameOver) showResult();
+    else showToast(t('correct'));
     return;
   }
   const modal = document.querySelector('.search-modal');
@@ -481,6 +490,44 @@ function guess(id) {
   renderResults($('searchInput').value);
   setSearchMsg(t('wrong', { nick: nickOf(id) }), true);
 }
+
+/* ---------- Answer list (hover on a cell's answer count) ---------- */
+
+let answersFor = null, answersHideTimer = 0;
+
+function showAnswers(anchor, cell, shownId) {
+  clearTimeout(answersHideTimer);
+  const pop = $('answersPopover');
+  const list = pop.querySelector('ul');
+  list.innerHTML = '';
+  [...cellAnswers(cell)].sort((a, b) => nickOf(a).localeCompare(nickOf(b))).forEach(id => {
+    const li = el('li', id === shownId ? 'current' : '');
+    li.appendChild(avatar(id, nickOf(id)));
+    li.appendChild(el('span', '', esc(nickOf(id))));
+    list.appendChild(li);
+  });
+  if (answersFor) answersFor.classList.remove('active');
+  answersFor = anchor;
+  anchor.classList.add('active');
+  pop.classList.remove('hidden');
+  // Below the count, kept inside the viewport (flipped above when there is no room below).
+  const r = anchor.getBoundingClientRect();
+  const w = pop.offsetWidth, h = pop.offsetHeight;
+  const left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8));
+  const top = r.bottom + 4 + h > window.innerHeight - 8 ? Math.max(8, r.top - 4 - h) : r.bottom + 4;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+}
+
+function hideAnswers() {
+  clearTimeout(answersHideTimer);
+  $('answersPopover').classList.add('hidden');
+  if (answersFor) answersFor.classList.remove('active');
+  answersFor = null;
+}
+
+// Short delay so the pointer can move from the count onto the list (e.g. to scroll it).
+const scheduleHideAnswers = () => { clearTimeout(answersHideTimer); answersHideTimer = setTimeout(hideAnswers, 150); };
 
 /* ---------- Results ---------- */
 
@@ -520,6 +567,7 @@ $('searchInput').addEventListener('keydown', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
+  hideAnswers();
   document.querySelectorAll('.overlay:not(.hidden)').forEach(o => o.classList.add('hidden'));
   activeCell = -1;
 });
@@ -527,8 +575,15 @@ $('btnGiveUp').addEventListener('click', () => {
   state.gameOver = true;
   saveState();
   render();
-  showToast(t('finished'));
+  showResult();
 });
+$('answersPopover').addEventListener('mouseenter', () => clearTimeout(answersHideTimer));
+$('answersPopover').addEventListener('mouseleave', scheduleHideAnswers);
+document.addEventListener('click', e => {
+  if (answersFor && !e.target.closest('.cell-count, #answersPopover')) hideAnswers();
+});
+window.addEventListener('scroll', hideAnswers, { passive: true });
+window.addEventListener('resize', hideAnswers);
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
 $('btnShare').addEventListener('click', () => window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(buildShareText()), '_blank'));
