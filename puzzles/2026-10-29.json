@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-29",
+  "categories": [
+    {
+      "key": "worlds-winner",
+      "title": {
+        "pl": "Mistrzowie świata",
+        "en": "World Champions",
+        "es": "Campeones del mundo",
+        "fr": "Champions du monde"
+      },
+      "difficulty": "green",
+      "items": [
+        {
+          "id": "looper",
+          "name": "Looper"
+        },
+        {
+          "id": "kingen",
+          "name": "Kingen"
+        },
+        {
+          "id": "nuguri",
+          "name": "Nuguri"
+        },
+        {
+          "id": "shushei",
+          "name": "Shushei"
+        }
+      ],
+      "explain": "Looper: Worlds 2014 (Samsung White). Kingen: Worlds 2022 (DRX). Nuguri: Worlds 2020 (DAMWON Gaming). Shushei: Worlds Season 1 (Fnatic)."
+    },
+    {
+      "key": "msi-multi",
+      "title": {
+        "pl": "Wygrali MSI więcej niż raz",
+        "en": "Won MSI more than once",
+        "es": "Ganaron el MSI más de una vez",
+        "fr": "Ont remporté le MSI plus d'une fois"
+      },
+      "difficulty": "yellow",
+      "items": [
+        {
+          "id": "kanavi",
+          "name": "Kanavi"
+        },
+        {
+          "id": "gala",
+          "name": "GALA"
+        },
+        {
+          "id": "wei",
+          "name": "Wei"
+        },
+        {
+          "id": "ming",
+          "name": "Ming"
+        }
+      ],
+      "explain": "Kanavi: MSI 2023 (JD Gaming), MSI 2026 (Hanwha Life Esports). GALA: MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up). Wei: MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up). Ming: MSI 2018 (Royal Never Give Up), MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)."
+    },
+    {
+      "key": "role-swap",
+      "title": {
+        "pl": "Zmienili rolę w karierze",
+        "en": "Swapped roles during their career",
+        "es": "Cambiaron de rol en su carrera",
+        "fr": "Ont changé de rôle pendant leur carrière"
+      },
+      "difficulty": "blue",
+      "items": [
+        {
+          "id": "huhi",
+          "name": "huhi"
+        },
+        {
+          "id": "yellowstar",
+          "name": "YellOwStaR"
+        },
+        {
+          "id": "fudge",
+          "name": "Fudge"
+        },
+        {
+          "id": "perkz",
+          "name": "Perkz"
+        }
+      ],
+      "explain": "huhi: Mid (2014–2019 · Bigfile Miracle, Team Fusion, Counter Logic Gaming · 18 turn.), Support (2019–2026 · Golden Guardians, 100 Thieves, NRG · 36 turn.). YellOwStaR: Bot (2011–2013 · against All authority, SK Gaming, Fnatic · 5 turn.), Support (2013–2016 · Fnatic, TSM · 18 turn.). Fudge: Top (2019–2026 · MAMMOTH, Cloud9, Shopify Rebellion · 30 turn.), Mid (2022 · Cloud9 · 3 turn.). Perkz: Mid (2015–2024 · Gamers2, G2 Esports, Cloud9 · 41 turn.), Bot (2019–2020 · G2 Esports · 9 turn.)."
+    },
+    {
+      "key": "nick-change",
+      "title": {
+        "pl": "Zmienili nick w trakcie kariery",
+        "en": "Changed their nickname during their career",
+        "es": "Cambiaron de nick durante su carrera",
+        "fr": "Ont changé de pseudo pendant leur carrière"
+      },
+      "difficulty": "purple",
+      "items": [
+        {
+          "id": "tore",
+          "name": "Tore"
+        },
+        {
+          "id": "elk",
+          "name": "Elk"
+        },
+        {
+          "id": "wunder",
+          "name": "Wunder"
+        },
+        {
+          "id": "breathe",
+          "name": "Breathe"
+        }
+      ],
+      "explain": "Tore: Norskeren (2017–2019) → Tore (2020–2021). Elk: Jiumeng (2019–2021) → Elk (2021–2026). Wunder: Wunderwear (2016) → Wunder (2016–2026). Breathe: Curse (2019–2020) → Breathe (2021–2026)."
+    }
+  ],
+  "boardId": 4
+}
