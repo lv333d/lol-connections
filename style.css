@@ -160,6 +160,8 @@ header::after {
   border-color: transparent;
 }
 .date-display {
+  /* Fixed width, so the arrows don't move with the length of the date. */
+  flex: 0 1 16rem;
   font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 500;

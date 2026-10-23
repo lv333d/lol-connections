@@ -29,6 +29,17 @@ const LAST_RESORT_CELLS = new Set(['nationality:us|league:LCS']);
 // A nationality becomes a condition only when this many players share it.
 const MIN_NATIONALITY_PLAYERS = 12;
 const TEAM_POOL_SIZE = 40;
+// LPL has many big but little-known organizations (LGD, OMG, Rare Atom…): only these LPL teams get the normal
+// weight, the rest are drawn rarely and at most one per board. Listed teams also join the pool when they fall
+// outside the TEAM_POOL_SIZE biggest organizations.
+const WELL_KNOWN_LPL = new Set(['edward-gaming', 'royal-never-give-up', 'invictus-gaming', 'jd-gaming', 'bilibili-gaming',
+  'top-esports', 'funplus-phoenix', 'weibo-gaming', 'lng-esports', 'team-we']);
+const OBSCURE_LPL_WEIGHT = 0.3;
+const MAX_OBSCURE_PER_BOARD = 1;
+// At most this many teams from one home league, so a board doesn't turn into "LCK teams only".
+const MAX_TEAMS_PER_LEAGUE = 2;
+// "Team × league" is trivial when most of the team's people played in that league (T1 × LCK is every T1 player).
+const MAX_TEAM_LEAGUE_OVERLAP = 0.5;
 const ANCHOR_POOL_SIZE = 60;
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -64,11 +75,15 @@ const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
 export function buildPool(players, teams) {
   const pool = [];
   for (const id of ['LCK', 'LPL', 'LEC', 'LCS', 'LTA']) pool.push({ cond: { kind: 'league', id }, weight: 2 });
-  teams.slice(0, TEAM_POOL_SIZE).forEach(t => pool.push({
-    cond: { kind: 'team', id: t.id, label: t.name, short: t.short, aliases: (t.aliases || []).slice(0, 6) },
-    homeLeague: t.league,
-    weight: 1.5
-  }));
+  teams.filter((t, i) => i < TEAM_POOL_SIZE || WELL_KNOWN_LPL.has(t.id)).forEach(t => {
+    const obscure = t.league === 'LPL' && !WELL_KNOWN_LPL.has(t.id);
+    pool.push({
+      cond: { kind: 'team', id: t.id, label: t.name, short: t.short, aliases: (t.aliases || []).slice(0, 6) },
+      homeLeague: t.league,
+      obscure,
+      weight: obscure ? OBSCURE_LPL_WEIGHT : 1.5
+    });
+  });
   pool.push({ cond: { kind: 'coach' }, weight: 2 });
   pool.push({ cond: { kind: 'retired' }, weight: 2 });
   for (const id of ['worlds', 'msi', 'first-stand']) pool.push({ cond: { kind: 'trophy', id }, weight: 1.5 });
@@ -103,6 +118,8 @@ function drawAxes(rng, pool) {
     const e = weightedPick(rng, pool);
     const k = conditionKey(e.cond);
     if (keys.has(k) || (perKind[e.cond.kind] || 0) >= KIND_LIMITS[e.cond.kind]) continue;
+    if (e.obscure && chosen.filter(c => c.obscure).length >= MAX_OBSCURE_PER_BOARD) continue;
+    if (e.homeLeague && chosen.filter(c => c.homeLeague === e.homeLeague).length >= MAX_TEAMS_PER_LEAGUE) continue;
     keys.add(k);
     perKind[e.cond.kind] = (perKind[e.cond.kind] || 0) + 1;
     chosen.push(e);
@@ -113,13 +130,21 @@ function drawAxes(rng, pool) {
   return { rows: chosen.slice(0, 3), cols: chosen.slice(3) };
 }
 
+function isTeamInOwnLeague(team, league) {
+  if (team.cond.kind !== 'team' || league.cond.kind !== 'league') return false;
+  if (team.homeLeague === league.cond.id) return true;
+  const inLeague = [...team.ids].filter(id => league.ids.has(id)).length;
+  return inLeague / team.ids.size > MAX_TEAM_LEAGUE_OVERLAP;
+}
+
 /**
  * Solvability check: every cell has between MIN_PER_CELL and MAX_PER_CELL players, no cell pairs
- * redundant conditions, and the 9 cells can be filled with 9 different players.
+ * redundant conditions or a team with its own league, and the 9 cells can be filled with 9 different players.
  */
 function evaluate(axes, byId, allowLastResort) {
   const pairs = axes.rows.flatMap(r => axes.cols.map(c => [r, c]));
   if (pairs.some(([r, c]) => REDUNDANT_PAIRS.has(`${r.cond.kind}|${c.cond.kind}`))) return null;
+  if (pairs.some(([r, c]) => isTeamInOwnLeague(r, c) || isTeamInOwnLeague(c, r))) return null;
   // A team also stands for its home league in the nationality rules.
   const keysOf = e => [conditionKey(e.cond), ...(e.homeLeague ? [`league:${e.homeLeague}`] : [])];
   const cellKeys = pairs.flatMap(([r, c]) => keysOf(r).flatMap(a => keysOf(c).flatMap(b => [`${a}|${b}`, `${b}|${a}`])));

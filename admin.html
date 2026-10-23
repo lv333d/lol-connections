@@ -1227,7 +1227,7 @@
       case 'retired': return 'Zakończył karierę';
       case 'trophy': return TROPHY_LABELS[c.id] || c.id;
       case 'nationality': return `${flag(c.id)} ${c.id.toUpperCase()}`;
-      case 'teammate': return `Grał z ${c.label}`;
+      case 'teammate': return `Był w drużynie z ${c.label}`;
       default: return c.kind;
     }
   }
