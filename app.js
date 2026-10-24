@@ -151,7 +151,11 @@ const I18N = {
 
 // Helpers
 const $ = id => document.getElementById(id);
-let currentLang = LANGS.includes(localStorage.getItem('lolc_lang')) ? localStorage.getItem('lolc_lang') : 'en';
+/** First supported language from the browser's preferences (e.g. 'pl-PL' → 'pl'), else English. */
+const browserLang = () => (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
+  .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
+let currentLang = browserLang();
+try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) currentLang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
 
 function t(key, vars) {
   let s = (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || I18N.pl[key] || key;

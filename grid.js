@@ -105,7 +105,10 @@ const I18N = {
 
 // Helpers
 const $ = id => document.getElementById(id);
-let currentLang = 'en';
+/** First supported language from the browser's preferences (e.g. 'pl-PL' → 'pl'), else English. */
+const browserLang = () => (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
+  .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
+let currentLang = browserLang();
 try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) currentLang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
 
 const fill = (s, vars) => Object.keys(vars || {}).reduce((acc, k) => acc.replace(`{${k}}`, vars[k]), s);

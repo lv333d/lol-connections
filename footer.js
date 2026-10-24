@@ -24,8 +24,9 @@
     footer.replaceChildren(document.createTextNode(before), link, document.createTextNode(after));
   }
 
-  let lang = 'en';
-  try { lang = localStorage.getItem('lolc_lang') || 'en'; } catch { /* storage blocked */ }
+  let lang = (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
+    .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
+  try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) lang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
   render(lang);
   document.getElementById('langSelect')?.addEventListener('change', e => render(e.target.value));
 })();
