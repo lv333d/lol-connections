@@ -32,7 +32,7 @@ const I18N = {
       coach: 'Trener', coachLong: 'Był trenerem',
       retired: 'Emeryt', retiredLong: 'Zakończył karierę',
       worlds: 'Mistrz Worlds', msi: 'Mistrz MSI', 'first-stand': 'Mistrz First Stand',
-      league: 'Grał lub trenował w {id}', team: 'Grał lub trenował w {label}', alsoAs: 'też jako', teammate: 'Był w drużynie z {label}', nationality: 'Narodowość: {name}'
+      league: 'Grał lub trenował w {id}', team: 'Grał lub trenował w {label}', aka: 'Znana również jako', teammate: 'Był w drużynie z {label}', nationality: 'Narodowość: {name}'
     }
   },
   en: {
@@ -54,7 +54,7 @@ const I18N = {
       coach: 'Coach', coachLong: 'Worked as a coach',
       retired: 'Retired', retiredLong: 'Retired from pro play',
       worlds: 'Worlds winner', msi: 'MSI winner', 'first-stand': 'First Stand winner',
-      league: 'Played or coached in {id}', team: 'Played for or coached {label}', alsoAs: 'incl.', teammate: 'Was on a team with {label}', nationality: 'Nationality: {name}'
+      league: 'Played or coached in {id}', team: 'Played for or coached {label}', aka: 'Also known as', teammate: 'Was on a team with {label}', nationality: 'Nationality: {name}'
     }
   },
   es: {
@@ -76,7 +76,7 @@ const I18N = {
       coach: 'Entrenador', coachLong: 'Fue entrenador',
       retired: 'Retirado', retiredLong: 'Se retiró',
       worlds: 'Campeón de Worlds', msi: 'Campeón del MSI', 'first-stand': 'Campeón de First Stand',
-      league: 'Jugó o entrenó en {id}', team: 'Jugó o entrenó en {label}', alsoAs: 'incl.', teammate: 'Estuvo en un equipo con {label}', nationality: 'Nacionalidad: {name}'
+      league: 'Jugó o entrenó en {id}', team: 'Jugó o entrenó en {label}', aka: 'También conocido como', teammate: 'Estuvo en un equipo con {label}', nationality: 'Nacionalidad: {name}'
     }
   },
   fr: {
@@ -98,7 +98,7 @@ const I18N = {
       coach: 'Coach', coachLong: 'A été coach',
       retired: 'Retraité', retiredLong: 'A pris sa retraite',
       worlds: 'Champion des Worlds', msi: 'Champion du MSI', 'first-stand': 'Champion de First Stand',
-      league: 'A joué ou coaché en {id}', team: 'A joué pour ou coaché {label}', alsoAs: 'y compris', teammate: 'A été dans une équipe avec {label}', nationality: 'Nationalité : {name}'
+      league: 'A joué ou coaché en {id}', team: 'A joué pour ou coaché {label}', aka: 'Aussi connue sous le nom de', teammate: 'A été dans une équipe avec {label}', nationality: 'Nationalité : {name}'
     }
   }
 };
@@ -199,7 +199,7 @@ function conditionText(c) {
     case 'league': return { short: c.id, long: tc('league', { id: c.id }) };
     case 'team': return {
       short: c.short || c.label,
-      long: tc('team', { label: c.label }) + (c.aliases?.length ? ` (${tc('alsoAs')} ${c.aliases.join(', ')})` : '')
+      long: tc('team', { label: c.label })
     };
     case 'coach': return { short: tc('coach'), long: tc('coachLong') };
     case 'retired': return { short: tc('retired'), long: tc('retiredLong') };
@@ -223,13 +223,19 @@ function conditionBadge(c, small = false) {
       break;
     case 'team':
       icon.appendChild(logo(`assets/logos/teams/${encodeURIComponent(c.id)}.webp`, 'emblem-team', c.short || c.label));
+      // Former names also count — listed behind an "i" corner mark instead of in the main tooltip.
+      if (c.aliases?.length) {
+        const aka = icon.appendChild(el('span', 'aka'));
+        aka.title = `${tc('aka')}: ${c.aliases.join(', ')}`;
+        aka.setAttribute('aria-label', aka.title);
+      }
       break;
     case 'coach':
     case 'retired':
       icon.appendChild(logo(`assets/badges/${c.kind}.svg`, 'emblem-team', short));
       break;
     case 'trophy':
-      icon.appendChild(logo(`assets/badges/${c.id}.svg`, 'emblem-team', short));
+      icon.appendChild(logo(`assets/badges/${c.id}.webp`, 'emblem-team', short));
       break;
     case 'nationality':
       icon.appendChild(logo(`assets/flags/${encodeURIComponent(c.id)}.svg`, 'emblem-team', c.id.toUpperCase()));
