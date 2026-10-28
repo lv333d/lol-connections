@@ -16,6 +16,7 @@ const I18N = {
     // Same site subtitle as Connections (app.js) — it names the site, not the game.
     subtitle: 'codzienna zagadka League of Legends',
     noPuzzleTitle: '📅 Brak siatki na dziś', noPuzzleText: 'Wróć jutro po nową siatkę!',
+    nextBoardIn: 'Nowa siatka za', nextBoardSoon: 'Nowa siatka już wkrótce',
     guessesLabel: 'Pozostałe próby:', giveUp: 'Poddaj się', results: 'Wyniki',
     searchPh: 'Wpisz nick lub imię gracza…', searchTitle: 'Wybierz gracza',
     noResults: 'Brak graczy o takim nicku.', typeMore: 'Zacznij pisać, aby wyszukać gracza.',
@@ -38,6 +39,7 @@ const I18N = {
   en: {
     subtitle: 'daily League of Legends puzzle',
     noPuzzleTitle: '📅 No grid today', noPuzzleText: 'Come back tomorrow for a new grid!',
+    nextBoardIn: 'New grid in', nextBoardSoon: 'New grid coming soon',
     guessesLabel: 'Guesses left:', giveUp: 'Give up', results: 'Results',
     searchPh: 'Type a nickname or real name…', searchTitle: 'Pick a player',
     noResults: 'No player matches.', typeMore: 'Start typing to search for a player.',
@@ -60,6 +62,7 @@ const I18N = {
   es: {
     subtitle: 'acertijo diario de League of Legends',
     noPuzzleTitle: '📅 No hay cuadrícula hoy', noPuzzleText: '¡Vuelve mañana por una nueva!',
+    nextBoardIn: 'Nueva cuadrícula en', nextBoardSoon: 'Nueva cuadrícula muy pronto',
     guessesLabel: 'Intentos restantes:', giveUp: 'Rendirse', results: 'Resultados',
     searchPh: 'Escribe un nick o nombre…', searchTitle: 'Elige un jugador',
     noResults: 'Ningún jugador coincide.', typeMore: 'Empieza a escribir para buscar.',
@@ -82,6 +85,7 @@ const I18N = {
   fr: {
     subtitle: 'énigme quotidienne de League of Legends',
     noPuzzleTitle: '📅 Pas de grille aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle grille !',
+    nextBoardIn: 'Nouvelle grille dans', nextBoardSoon: 'Nouvelle grille très bientôt',
     guessesLabel: 'Essais restants :', giveUp: 'Abandonner', results: 'Résultats',
     searchPh: 'Tapez un pseudo ou un nom…', searchTitle: 'Choisissez un joueur',
     noResults: 'Aucun joueur trouvé.', typeMore: 'Commencez à taper pour chercher.',
@@ -121,6 +125,8 @@ const todayKey = () => new Date().toISOString().slice(0, 10);
 
 // State
 let availableDates = [], selectedDate = '', selectedDateIndex = -1;
+// Grids come out daily. The countdown targets the next grid in the manifest, else the last one + 1 day.
+let nextBoardDate = '', countdownTimer = null;
 /** @type {GridBoard | null} */
 let board = null;
 let state = null;
@@ -265,7 +271,30 @@ function applyI18n() {
   $('searchInput').placeholder = t('searchPh');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
+  renderCountdown();
   $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
+}
+
+const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
+
+/** Dates are UTC (see todayKey), so the next grid unlocks at 00:00 UTC of its date. */
+function renderCountdown() {
+  const box = $('nextBoard');
+  if (!box) return;
+  box.classList.toggle('hidden', !nextBoardDate);
+  if (!nextBoardDate) return;
+  const ms = Date.parse(nextBoardDate + 'T00:00:00Z') - Date.now();
+  if (ms <= 0) { $('nextBoardLabel').textContent = t('nextBoardSoon'); $('nextBoardTime').textContent = ''; return; }
+  const s = Math.floor(ms / 1000), d = Math.floor(s / 86400);
+  const hms = [Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60].map(n => String(n).padStart(2, '0')).join(':');
+  $('nextBoardLabel').textContent = t('nextBoardIn');
+  $('nextBoardTime').textContent = `${d > 0 ? d + 'd ' : ''}${hms}`;
+}
+
+function startCountdown() {
+  clearInterval(countdownTimer);
+  renderCountdown();
+  if (nextBoardDate) countdownTimer = setInterval(renderCountdown, 1000);
 }
 
 const formatDate = d => new Date(d + 'T00:00:00').toLocaleDateString(LOCALE_MAP[currentLang], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -282,9 +311,13 @@ async function init() {
   playerById = new Map(players.map(p => [p.id, p]));
 
   const today = todayKey();
-  const dates = (manifest?.boards || []).map(b => b.date).sort().filter(d => d <= today);
+  const rawDates = (manifest?.boards || []).map(b => b.date).sort();
+  const dates = rawDates.filter(d => d <= today);
   if (!dates.includes(today) && await fetchBoard(today)) dates.push(today);
   availableDates = dates;
+  const lastDate = dates[dates.length - 1];
+  nextBoardDate = rawDates.find(d => d > today) || (lastDate ? addDays(lastDate, 1) : '');
+  startCountdown();
   if (!dates.length) {
     $('noPuzzleScreen').classList.remove('hidden');
     updateNavButtons();
