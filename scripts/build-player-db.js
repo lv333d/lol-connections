@@ -52,7 +52,7 @@ const COUNTRY_CODES = {
   'Netherlands': 'nl', 'Belgium': 'be', 'Luxembourg': 'lu', 'Switzerland': 'ch', 'Austria': 'at', 'Lithuania': 'lt',
   'Latvia': 'lv', 'Estonia': 'ee', 'Ukraine': 'ua', 'Belarus': 'by', 'Russia': 'ru', 'Armenia': 'am', 'Georgia': 'ge',
   'Israel': 'il', 'Egypt': 'eg', 'Morocco': 'ma', 'Tunisia': 'tn', 'Algeria': 'dz', 'South Africa': 'za', 'Iran': 'ir',
-  'India': 'in', 'Pakistan': 'pk', 'Kazakhstan': 'kz', 'Mongolia': 'mn', 'Saudi Arabia': 'sa', 'Lebanon': 'lb', 'Jordan': 'jo', 'Afghanistan': 'af', 'Guatemala': 'gt', 'El Salvador': 'sv', 'Republic of Ireland': 'ie'
+  'India': 'in', 'Pakistan': 'pk', 'Kazakhstan': 'kz', 'Mongolia': 'mn', 'Saudi Arabia': 'sa', 'Lebanon': 'lb', 'Albania': 'al', 'Jordan': 'jo', 'Afghanistan': 'af', 'Guatemala': 'gt', 'El Salvador': 'sv', 'Republic of Ireland': 'ie'
 };
 const isCoachRole = role => /coach/i.test(role || '');
 // "Retired" in the grid means retired as a player: fully retired on Leaguepedia, or now in a non-playing
@@ -154,7 +154,7 @@ async function main() {
   const findProfile = page => byPage.get(page) || byPageLower.get(page?.toLowerCase());
   const profileQuery = (where, i, n) => {
     process.stdout.write(`  partia ${i + 1}/${n}\r`);
-    return cargoQuery({ tables: 'Players', fields: 'ID,OverviewPage,Name,IsRetired,Role,Country,NationalityPrimary', where, fresh });
+    return cargoQuery({ tables: 'Players', fields: 'ID,OverviewPage,Name,IsRetired,Role,Country,NationalityPrimary,Nationality', where, fresh });
   };
   const keys = [...new Set(links.map(pageKey))];
   for (const [i, batch] of chunk(keys, 150).entries()) {
@@ -211,6 +211,12 @@ async function main() {
     if (country && !COUNTRY_CODES[country]) unknownCountries.set(country, (unknownCountries.get(country) || 0) + 1);
     return COUNTRY_CODES[country] || '';
   };
+  // Every nationality, the primary one first — only kept when there is more than one (Bwipo: Belgium, Brazil).
+  const nationalitiesOf = (prof, primary) => {
+    const all = decodeEntities(prof?.Nationality).split(',').map(s => COUNTRY_CODES[s.trim()]).filter(Boolean);
+    const list = [...new Set([primary, ...all].filter(Boolean))];
+    return list.length > 1 ? list : undefined;
+  };
   const players = new Map(); // wikiPage → Player
   const teamUsage = new Map(); // franchise → number of player/coach tournaments
   const rosters = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for trophies)
@@ -234,6 +240,7 @@ async function main() {
       p = {
         id: slugify(r.Link), nick: decodeEntities(prof?.ID) || nickFromPage(r.Link), name: decodeEntities(prof?.Name), wikiPage: r.Link,
         prof, coach: isCoachRole(prof?.Role), nationality: nationalityOf(prof),
+        nationalities: nationalitiesOf(prof, nationalityOf(prof)),
         teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: new Set()
       };
       players.set(r.Link, p);
@@ -302,6 +309,7 @@ async function main() {
     .map(p => ({
       id: idOf.get(p.wikiPage), nick: p.nick, name: p.name, wikiPage: p.wikiPage,
       retired: p.retired, coach: p.coach, ...(p.coachOnly ? { coachOnly: true } : {}), nationality: p.nationality,
+      ...(p.nationalities ? { nationalities: p.nationalities } : {}),
       teams: [...p.teams].map(teamId).sort(),
       leagues: [...p.leagues].sort(),
       trophies: [...p.trophies].sort(),

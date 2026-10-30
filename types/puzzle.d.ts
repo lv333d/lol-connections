@@ -88,6 +88,8 @@ export interface Player {
   coachOnly?: boolean;
   /** ISO 3166-1 alpha-2 code (lower-case), '' when Leaguepedia has none. */
   nationality: string;
+  /** All nationalities, `nationality` first — only present when there is more than one (e.g. ["be", "br"]). */
+  nationalities?: string[];
   /** Team (franchise) ids played for or coached. */
   teams: string[];
   /** League ids played or coached in: LCK, LPL, LEC, LCS, LTA. */

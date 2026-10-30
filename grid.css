@@ -224,6 +224,20 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
   text-shadow: 0 0 10px rgba(200, 170, 110, 0.35);
 }
 
+/* Landscape screens: the board is about as tall as it is wide, so its width follows the window height and the
+   whole panel (header, board, button) fits without scrolling. */
+@media (min-width: 521px) {
+  .lolgrid { max-width: clamp(240px, calc(100vh - 400px), 560px); }
+}
+@media (min-width: 521px) and (max-height: 900px) {
+  .grid-status { margin: 8px 0 6px; }
+  .axis { min-height: 0; }
+  .lolgrid { max-width: clamp(240px, calc(100vh - 365px), 560px); }
+  .cond-icon { width: 42px; height: 42px; }
+  .cond-caption { font-size: 0.6rem; }
+  .lolgrid-corner img { width: 38%; }
+}
+
 @media (max-width: 520px) {
   .lolgrid { gap: 5px; grid-template-columns: minmax(54px, 0.75fr) repeat(3, 1fr); }
   .axis { min-height: 76px; }

@@ -13,282 +13,450 @@
     {
      "id": "ambition",
      "nick": "Ambition",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "bang",
      "nick": "Bang",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "baolan",
      "nick": "Baolan",
-     "facts": "Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "bengi",
      "nick": "Bengi",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "beryl",
      "nick": "BeryL",
-     "facts": "Worlds 2020 (DAMWON Gaming), Worlds 2022 (DRX)"
+     "facts": "Worlds 2020 (DAMWON Gaming), Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "blank-kang-sun-gu",
      "nick": "Blank",
-     "facts": "Worlds 2016 (SK Telecom T1)"
+     "facts": "Worlds 2016 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "Worlds 2020 (DAMWON Gaming)"
+     "facts": "Worlds 2020 (DAMWON Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "corejj",
      "nick": "CoreJJ",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "crisp",
      "nick": "Crisp",
-     "facts": "Worlds 2019 (FunPlus Phoenix)"
+     "facts": "Worlds 2019 (FunPlus Phoenix)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "crown",
      "nick": "Crown",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "cuvee",
      "nick": "CuVee",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "cyanide",
      "nick": "Cyanide",
-     "facts": "Worlds Season 1 (Fnatic)"
+     "facts": "Worlds Season 1 (Fnatic)",
+     "nationality": [
+      "fi"
+     ]
     },
     {
      "id": "dandy",
      "nick": "DanDy",
-     "facts": "Worlds 2014 (Samsung White)"
+     "facts": "Worlds 2014 (Samsung White)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "deft",
      "nick": "Deft",
-     "facts": "Worlds 2022 (DRX)"
+     "facts": "Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "doinb",
      "nick": "Doinb",
-     "facts": "Worlds 2019 (FunPlus Phoenix)"
+     "facts": "Worlds 2019 (FunPlus Phoenix)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "doran-choi-hyeon-jun",
      "nick": "Doran",
-     "facts": "Worlds 2025 (T1)"
+     "facts": "Worlds 2025 (T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "duke-lee-ho-seong",
      "nick": "Duke",
-     "facts": "Worlds 2016 (SK Telecom T1), Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2016 (SK Telecom T1), Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "easyhoon",
      "nick": "Easyhoon",
-     "facts": "Worlds 2015 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "flandre",
      "nick": "Flandre",
-     "facts": "Worlds 2021 (EDward Gaming)"
+     "facts": "Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "ghost-jang-yong-jun",
      "nick": "Ghost",
-     "facts": "Worlds 2020 (DAMWON Gaming)"
+     "facts": "Worlds 2020 (DAMWON Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gimgoon",
      "nick": "GimGoon",
-     "facts": "Worlds 2019 (FunPlus Phoenix)"
+     "facts": "Worlds 2019 (FunPlus Phoenix)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gumayusi",
      "nick": "Gumayusi",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "haru",
      "nick": "Haru",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "imp",
      "nick": "imp",
-     "facts": "Worlds 2014 (Samsung White)"
+     "facts": "Worlds 2014 (Samsung White)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "impact",
      "nick": "Impact",
-     "facts": "Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "jackeylove",
      "nick": "JackeyLove",
-     "facts": "Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "jiejie",
      "nick": "Jiejie",
-     "facts": "Worlds 2021 (EDward Gaming)"
+     "facts": "Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "juhan",
      "nick": "Juhan",
-     "facts": "Worlds 2022 (DRX)"
+     "facts": "Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "keria",
      "nick": "Keria",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kingen",
      "nick": "Kingen",
-     "facts": "Worlds 2022 (DRX)"
+     "facts": "Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "lamiazealot",
      "nick": "LaMiaZeaLoT",
-     "facts": "Worlds Season 1 (Fnatic)"
+     "facts": "Worlds Season 1 (Fnatic)",
+     "nationality": [
+      "de"
+     ]
     },
     {
      "id": "looper",
      "nick": "Looper",
-     "facts": "Worlds 2014 (Samsung White)"
+     "facts": "Worlds 2014 (Samsung White)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "lwx",
      "nick": "Lwx",
-     "facts": "Worlds 2019 (FunPlus Phoenix)"
+     "facts": "Worlds 2019 (FunPlus Phoenix)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "marin",
      "nick": "MaRin",
-     "facts": "Worlds 2015 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "mata",
      "nick": "Mata",
-     "facts": "Worlds 2014 (Samsung White)"
+     "facts": "Worlds 2014 (Samsung White)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "meiko",
      "nick": "Meiko",
-     "facts": "Worlds 2021 (EDward Gaming)"
+     "facts": "Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "ning",
      "nick": "Ning",
-     "facts": "Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "nuguri",
      "nick": "Nuguri",
-     "facts": "Worlds 2020 (DAMWON Gaming)"
+     "facts": "Worlds 2020 (DAMWON Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "oner",
      "nick": "Oner",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "pawn",
      "nick": "PawN",
-     "facts": "Worlds 2014 (Samsung White)"
+     "facts": "Worlds 2014 (Samsung White)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "piglet",
      "nick": "Piglet",
-     "facts": "Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "poohmandu",
      "nick": "PoohManDu",
-     "facts": "Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "pyosik",
      "nick": "Pyosik",
-     "facts": "Worlds 2022 (DRX)"
+     "facts": "Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "rookie",
      "nick": "Rookie",
-     "facts": "Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ruler",
      "nick": "Ruler",
-     "facts": "Worlds 2017 (Samsung Galaxy)"
+     "facts": "Worlds 2017 (Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "scout",
      "nick": "Scout",
-     "facts": "Worlds 2021 (EDward Gaming)"
+     "facts": "Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "showmaker",
      "nick": "ShowMaker",
-     "facts": "Worlds 2020 (DAMWON Gaming)"
+     "facts": "Worlds 2020 (DAMWON Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "shushei",
      "nick": "Shushei",
-     "facts": "Worlds Season 1 (Fnatic)"
+     "facts": "Worlds Season 1 (Fnatic)",
+     "nationality": [
+      "pl"
+     ]
     },
     {
      "id": "theshy",
      "nick": "TheShy",
-     "facts": "Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "tian",
      "nick": "Tian",
-     "facts": "Worlds 2019 (FunPlus Phoenix)"
+     "facts": "Worlds 2019 (FunPlus Phoenix)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "viper-park-do-hyeon",
      "nick": "Viper",
-     "facts": "Worlds 2021 (EDward Gaming)"
+     "facts": "Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "wolf-lee-jae-wan",
      "nick": "Wolf",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "xpeke",
      "nick": "xPeke",
-     "facts": "Worlds Season 1 (Fnatic)"
+     "facts": "Worlds Season 1 (Fnatic)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "zeka-kim-geon-woo",
      "nick": "Zeka",
-     "facts": "Worlds 2022 (DRX)"
+     "facts": "Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "zeus",
      "nick": "Zeus",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -365,122 +533,194 @@
     {
      "id": "ambition",
      "nick": "Ambition",
-     "facts": "KSV eSports / Gen.G (2018 · 6 turn.)"
+     "facts": "KSV eSports / Gen.G (2018 · 6 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "bdd",
      "nick": "Bdd",
-     "facts": "Gen.G (2020–2021 · 11 turn.)"
+     "facts": "Gen.G (2020–2021 · 11 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "burdol",
      "nick": "Burdol",
-     "facts": "Gen.G (2021 · 2 turn.)"
+     "facts": "Gen.G (2021 · 2 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "Gen.G (2024–2026 · 20 turn.)"
+     "facts": "Gen.G (2024–2026 · 20 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "chovy",
      "nick": "Chovy",
-     "facts": "Gen.G (2022–2026 · 31 turn.)"
+     "facts": "Gen.G (2022–2026 · 31 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "clid",
      "nick": "Clid",
-     "facts": "Gen.G (2020–2021 · 11 turn.)"
+     "facts": "Gen.G (2020–2021 · 11 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "corejj",
      "nick": "CoreJJ",
-     "facts": "KSV eSports / Gen.G (2018 · 6 turn.)"
+     "facts": "KSV eSports / Gen.G (2018 · 6 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "crown",
      "nick": "Crown",
-     "facts": "KSV eSports / Gen.G (2018 · 5 turn.)"
+     "facts": "KSV eSports / Gen.G (2018 · 5 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "cuvee",
      "nick": "CuVee",
-     "facts": "KSV eSports / Gen.G (2018–2019 · 8 turn.)"
+     "facts": "KSV eSports / Gen.G (2018–2019 · 8 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "delight",
      "nick": "Delight",
-     "facts": "Gen.G (2023 · 6 turn.)"
+     "facts": "Gen.G (2023 · 6 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "doran-choi-hyeon-jun",
      "nick": "Doran",
-     "facts": "Gen.G (2022–2023 · 11 turn.)"
+     "facts": "Gen.G (2022–2023 · 11 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "duro",
      "nick": "Duro",
-     "facts": "Gen.G (2025–2026 · 14 turn.)"
+     "facts": "Gen.G (2025–2026 · 14 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "fly-song-yong-jun",
      "nick": "Fly",
-     "facts": "Gen.G (2018–2019 · 5 turn.)"
+     "facts": "Gen.G (2018–2019 · 5 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "haru",
      "nick": "Haru",
-     "facts": "KSV eSports / Gen.G (2018 · 4 turn.)"
+     "facts": "KSV eSports / Gen.G (2018 · 4 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kellin",
      "nick": "Kellin",
-     "facts": "Gen.G (2020 · 2 turn.)"
+     "facts": "Gen.G (2020 · 2 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kiin",
      "nick": "Kiin",
-     "facts": "Gen.G (2024–2026 · 20 turn.)"
+     "facts": "Gen.G (2024–2026 · 20 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "lehends",
      "nick": "Lehends",
-     "facts": "Gen.G (2022–2024 · 11 turn.)"
+     "facts": "Gen.G (2022–2024 · 11 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "life",
      "nick": "Life",
-     "facts": "Gen.G (2019–2021 · 13 turn.)"
+     "facts": "Gen.G (2019–2021 · 13 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "peanut",
      "nick": "Peanut",
-     "facts": "Gen.G (2019–2023 · 13 turn.)"
+     "facts": "Gen.G (2019–2023 · 13 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "peyz",
      "nick": "Peyz",
-     "facts": "Gen.G (2023–2024 · 12 turn.)"
+     "facts": "Gen.G (2023–2024 · 12 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "quid",
      "nick": "Quid",
-     "facts": "Gen.G (2022 · 1 turn.)"
+     "facts": "Gen.G (2022 · 1 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "rascal",
      "nick": "Rascal",
-     "facts": "Gen.G (2020–2021 · 11 turn.)"
+     "facts": "Gen.G (2020–2021 · 11 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "rich-lee-jae-won",
      "nick": "Rich",
-     "facts": "Gen.G (2019 · 1 turn.)"
+     "facts": "Gen.G (2019 · 1 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ruler",
      "nick": "Ruler",
-     "facts": "KSV eSports / Gen.G (2018–2026 · 38 turn.)"
+     "facts": "KSV eSports / Gen.G (2018–2026 · 38 turn.)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -523,62 +763,98 @@
     {
      "id": "bang",
      "nick": "Bang",
-     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)"
+     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)"
+     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "chovy",
      "nick": "Chovy",
-     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)"
+     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)"
+     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gala",
      "nick": "GALA",
-     "facts": "MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)"
+     "facts": "MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "kanavi",
      "nick": "Kanavi",
-     "facts": "MSI 2023 (JD Gaming), MSI 2026 (Hanwha Life Esports)"
+     "facts": "MSI 2023 (JD Gaming), MSI 2026 (Hanwha Life Esports)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kiin",
      "nick": "Kiin",
-     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)"
+     "facts": "MSI 2024 (Gen.G), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ming-shi-sen-ming",
      "nick": "Ming",
-     "facts": "MSI 2018 (Royal Never Give Up), MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)"
+     "facts": "MSI 2018 (Royal Never Give Up), MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "ruler",
      "nick": "Ruler",
-     "facts": "MSI 2023 (JD Gaming), MSI 2025 (Gen.G)"
+     "facts": "MSI 2023 (JD Gaming), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "wei-yan-yang-wei",
      "nick": "Wei",
-     "facts": "MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)"
+     "facts": "MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "wolf-lee-jae-wan",
      "nick": "Wolf",
-     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)"
+     "facts": "MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "xiaohu",
      "nick": "Xiaohu",
-     "facts": "MSI 2018 (Royal Never Give Up), MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)"
+     "facts": "MSI 2018 (Royal Never Give Up), MSI 2021 (Royal Never Give Up), MSI 2022 (Royal Never Give Up)",
+     "nationality": [
+      "cn"
+     ]
     }
    ],
    "members": [
@@ -609,67 +885,106 @@
     {
      "id": "bang",
      "nick": "Bang",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "blank-kang-sun-gu",
      "nick": "Blank",
-     "facts": "Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1)"
+     "facts": "Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "Worlds 2020 (DAMWON Gaming), MSI 2024 (Gen.G), MSI 2025 (Gen.G)"
+     "facts": "Worlds 2020 (DAMWON Gaming), MSI 2024 (Gen.G), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "deft",
      "nick": "Deft",
-     "facts": "MSI 2015 (EDward Gaming), Worlds 2022 (DRX)"
+     "facts": "MSI 2015 (EDward Gaming), Worlds 2022 (DRX)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "duke-lee-ho-seong",
      "nick": "Duke",
-     "facts": "Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), Worlds 2018 (Invictus Gaming)"
+     "facts": "Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), Worlds 2018 (Invictus Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1), Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), Worlds Season 3 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1), Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), Worlds Season 3 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gumayusi",
      "nick": "Gumayusi",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), MSI 2026 (Hanwha Life Esports)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), Worlds 2025 (T1), MSI 2026 (Hanwha Life Esports)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "meiko",
      "nick": "Meiko",
-     "facts": "MSI 2015 (EDward Gaming), Worlds 2021 (EDward Gaming)"
+     "facts": "MSI 2015 (EDward Gaming), Worlds 2021 (EDward Gaming)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "pawn",
      "nick": "PawN",
-     "facts": "Worlds 2014 (Samsung White), MSI 2015 (EDward Gaming)"
+     "facts": "Worlds 2014 (Samsung White), MSI 2015 (EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ruler",
      "nick": "Ruler",
-     "facts": "Worlds 2017 (Samsung Galaxy), MSI 2023 (JD Gaming), MSI 2025 (Gen.G)"
+     "facts": "Worlds 2017 (Samsung Galaxy), MSI 2023 (JD Gaming), MSI 2025 (Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "wolf-lee-jae-wan",
      "nick": "Wolf",
-     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)"
+     "facts": "Worlds 2015 (SK Telecom T1), Worlds 2016 (SK Telecom T1), MSI 2016 (SK Telecom T1), MSI 2017 (SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "zeka-kim-geon-woo",
      "nick": "Zeka",
-     "facts": "Worlds 2022 (DRX), MSI 2026 (Hanwha Life Esports)"
+     "facts": "Worlds 2022 (DRX), MSI 2026 (Hanwha Life Esports)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "zeus",
      "nick": "Zeus",
-     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), MSI 2026 (Hanwha Life Esports)"
+     "facts": "Worlds 2023 (T1), Worlds 2024 (T1), MSI 2026 (Hanwha Life Esports)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -701,37 +1016,58 @@
     {
      "id": "ambition",
      "nick": "Ambition",
-     "facts": "Finals MVP 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Finals MVP 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "Finals MVP 2020 (DAMWON Gaming vs Suning)"
+     "facts": "Finals MVP 2020 (DAMWON Gaming vs Suning)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "Finals MVP 2016 (SK Telecom T1 vs Samsung Galaxy), Finals MVP 2024 (T1 vs Bilibili Gaming)"
+     "facts": "Finals MVP 2016 (SK Telecom T1 vs Samsung Galaxy), Finals MVP 2024 (T1 vs Bilibili Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gumayusi",
      "nick": "Gumayusi",
-     "facts": "Finals MVP 2025 (T1 vs KT Rolster)"
+     "facts": "Finals MVP 2025 (T1 vs KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "marin",
      "nick": "MaRin",
-     "facts": "Finals MVP 2015 (SK Telecom T1 vs KOO Tigers)"
+     "facts": "Finals MVP 2015 (SK Telecom T1 vs KOO Tigers)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "tian",
      "nick": "Tian",
-     "facts": "Finals MVP 2019 (FunPlus Phoenix vs G2 Esports)"
+     "facts": "Finals MVP 2019 (FunPlus Phoenix vs G2 Esports)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "zeus",
      "nick": "Zeus",
-     "facts": "Finals MVP 2023 (T1 vs Weibo Gaming)"
+     "facts": "Finals MVP 2023 (T1 vs Weibo Gaming)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -757,72 +1093,116 @@
     {
      "id": "ambition",
      "nick": "Ambition",
-     "facts": "Mid (2012–2014 · MiG Blaze, Azubu Blaze, CJ Entus Blaze · 10 turn.), Jungle (2015–2018 · CJ Entus, Samsung Galaxy, KSV eSports · 22 turn.)"
+     "facts": "Mid (2012–2014 · MiG Blaze, Azubu Blaze, CJ Entus Blaze · 10 turn.), Jungle (2015–2018 · CJ Entus, Samsung Galaxy, KSV eSports · 22 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "bwipo",
      "nick": "Bwipo",
-     "facts": "Top (2018–2025 · Fnatic, Team Liquid, FlyQuest · 37 turn.), Jungle (2021 · Fnatic · 3 turn.)"
+     "facts": "Top (2018–2025 · Fnatic, Team Liquid, FlyQuest · 37 turn.), Jungle (2021 · Fnatic · 3 turn.)",
+     "nationality": [
+      "be",
+      "br"
+     ]
     },
     {
      "id": "caps",
      "nick": "Caps",
-     "facts": "Mid (2017–2026 · Fnatic, G2 Esports · 70 turn.), Bot (2020 · G2 Esports · 2 turn.)"
+     "facts": "Mid (2017–2026 · Fnatic, G2 Esports · 70 turn.), Bot (2020 · G2 Esports · 2 turn.)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "corejj",
      "nick": "CoreJJ",
-     "facts": "Bot (2013–2016 · Beggars, Bigfile Miracle, Dignitas · 8 turn.), Support (2016–2026 · Samsung Galaxy, KSV eSports, Gen.G · 61 turn.)"
+     "facts": "Bot (2013–2016 · Beggars, Bigfile Miracle, Dignitas · 8 turn.), Support (2016–2026 · Samsung Galaxy, KSV eSports, Gen.G · 61 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "fudge",
      "nick": "Fudge",
-     "facts": "Top (2019–2026 · MAMMOTH, Cloud9, Shopify Rebellion · 30 turn.), Mid (2022 · Cloud9 · 3 turn.)"
+     "facts": "Top (2019–2026 · MAMMOTH, Cloud9, Shopify Rebellion · 30 turn.), Mid (2022 · Cloud9 · 3 turn.)",
+     "nationality": [
+      "au"
+     ]
     },
     {
      "id": "huhi",
      "nick": "huhi",
-     "facts": "Mid (2014–2019 · Bigfile Miracle, Team Fusion, Counter Logic Gaming · 18 turn.), Support (2019–2026 · Golden Guardians, 100 Thieves, NRG · 36 turn.)"
+     "facts": "Mid (2014–2019 · Bigfile Miracle, Team Fusion, Counter Logic Gaming · 18 turn.), Support (2019–2026 · Golden Guardians, 100 Thieves, NRG · 36 turn.)",
+     "nationality": [
+      "us",
+      "kr"
+     ]
     },
     {
      "id": "kikis",
      "nick": "Kikis",
-     "facts": "Top (2012–2017 · EloHell, mousesports, G2 Esports · 11 turn.), Jungle (2013–2019 · Heroes Team, Denial eSports EU, SK Gaming Prime · 12 turn.)"
+     "facts": "Top (2012–2017 · EloHell, mousesports, G2 Esports · 11 turn.), Jungle (2013–2019 · Heroes Team, Denial eSports EU, SK Gaming Prime · 12 turn.)",
+     "nationality": [
+      "pl"
+     ]
     },
     {
      "id": "perkz",
      "nick": "Perkz",
-     "facts": "Mid (2015–2024 · Gamers2, G2 Esports, Cloud9 · 41 turn.), Bot (2019–2020 · G2 Esports · 9 turn.)"
+     "facts": "Mid (2015–2024 · Gamers2, G2 Esports, Cloud9 · 41 turn.), Bot (2019–2020 · G2 Esports · 9 turn.)",
+     "nationality": [
+      "hr"
+     ]
     },
     {
      "id": "ryu",
      "nick": "Ryu",
-     "facts": "Jungle (2012–2014 · StarTale, KT Rolster Bullets · 2 turn.), Mid (2012–2019 · StarTale, KT Rolster B, KT Rolster Bullets · 29 turn.)"
+     "facts": "Jungle (2012–2014 · StarTale, KT Rolster Bullets · 2 turn.), Mid (2012–2019 · StarTale, KT Rolster B, KT Rolster Bullets · 29 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "score",
      "nick": "Score",
-     "facts": "Bot (2012–2014 · StarTale, KT Rolster B, KT Rolster Bullets · 10 turn.), Jungle (2015–2019 · KT Rolster · 23 turn.)"
+     "facts": "Bot (2012–2014 · StarTale, KT Rolster B, KT Rolster Bullets · 10 turn.), Jungle (2015–2019 · KT Rolster · 23 turn.)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "xiaohu",
      "nick": "Xiaohu",
-     "facts": "Mid (2015–2026 · Gamtee, Royal Never Give Up, Weibo Gaming · 63 turn.), Top (2021 · Royal Never Give Up · 6 turn.)"
+     "facts": "Mid (2015–2026 · Gamtee, Royal Never Give Up, Weibo Gaming · 63 turn.), Top (2021 · Royal Never Give Up · 6 turn.)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "xpeke",
      "nick": "xPeke",
-     "facts": "Top (2011 · Fnatic · 2 turn.), Mid (2012–2016 · Fnatic, Origen · 17 turn.), Support (2017 · Origen · 2 turn.)"
+     "facts": "Top (2011 · Fnatic · 2 turn.), Mid (2012–2016 · Fnatic, Origen · 17 turn.), Support (2017 · Origen · 2 turn.)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "yellowstar",
      "nick": "YellOwStaR",
-     "facts": "Bot (2011–2013 · against All authority, SK Gaming, Fnatic · 5 turn.), Support (2013–2016 · Fnatic, TSM · 18 turn.)"
+     "facts": "Bot (2011–2013 · against All authority, SK Gaming, Fnatic · 5 turn.), Support (2013–2016 · Fnatic, TSM · 18 turn.)",
+     "nationality": [
+      "fr"
+     ]
     },
     {
      "id": "zven",
      "nick": "Zven",
-     "facts": "Bot (2015–2026 · Origen, G2 Esports, TSM · 48 turn.), Support (2022–2023 · Cloud9 · 9 turn.)"
+     "facts": "Bot (2015–2026 · Origen, G2 Esports, TSM · 48 turn.), Support (2022–2023 · Cloud9 · 9 turn.)",
+     "nationality": [
+      "dk"
+     ]
     }
    ],
    "members": [
@@ -872,112 +1252,179 @@
     {
      "id": "bengi",
      "nick": "Bengi",
-     "facts": "Gracz (2012–2017 · SK Telecom T1, SK Telecom T1 K, Vici Gaming), Trener (2018–2025 · SK Telecom T1, T1, Dplus Kia)"
+     "facts": "Gracz (2012–2017 · SK Telecom T1, SK Telecom T1 K, Vici Gaming), Trener (2018–2025 · SK Telecom T1, T1, Dplus Kia)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "dandy",
      "nick": "DanDy",
-     "facts": "Gracz (2012–2017 · Samsung White, Vici Gaming, eUnited), Trener (2020–2026 · eStar (Chinese Team), Hanwha Life Esports, Nongshim RedForce)"
+     "facts": "Gracz (2012–2017 · Samsung White, Vici Gaming, eUnited), Trener (2020–2026 · eStar (Chinese Team), Hanwha Life Esports, Nongshim RedForce)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "duke-lee-ho-seong",
      "nick": "Duke",
-     "facts": "Gracz (2013–2019 · NaJin e-mFire, SK Telecom T1, Invictus Gaming), Trener (2023–2026 · OKSavingsBank BRION, BRION, HANJIN BRION)"
+     "facts": "Gracz (2013–2019 · NaJin e-mFire, SK Telecom T1, Invictus Gaming), Trener (2023–2026 · OKSavingsBank BRION, BRION, HANJIN BRION)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "easyhoon",
      "nick": "Easyhoon",
-     "facts": "Gracz (2012–2018 · SK Telecom T1 S, SK Telecom T1, Vici Gaming), Trener (2022–2026 · Weibo Gaming, Bilibili Gaming, T1)"
+     "facts": "Gracz (2012–2018 · SK Telecom T1 S, SK Telecom T1, Vici Gaming), Trener (2022–2026 · Weibo Gaming, Bilibili Gaming, T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "fredy122",
      "nick": "fredy122",
-     "facts": "Gracz (2011–2016 · SUPA HOT CREW, SK Gaming, Team ROCCAT), Trener (2018–2025 · Rogue (European Team), KOI (Spanish Team), Natus Vincere)"
+     "facts": "Gracz (2011–2016 · SUPA HOT CREW, SK Gaming, Team ROCCAT), Trener (2018–2025 · Rogue (European Team), KOI (Spanish Team), Natus Vincere)",
+     "nationality": [
+      "gb"
+     ]
     },
     {
      "id": "iwdominate",
      "nick": "IWDominate",
-     "facts": "Gracz (2012–2016 · Dignitas, Team Curse, Team Liquid), Trener (2026 · Cloud9)"
+     "facts": "Gracz (2012–2016 · Dignitas, Team Curse, Team Liquid), Trener (2026 · Cloud9)",
+     "nationality": [
+      "us"
+     ]
     },
     {
      "id": "jesiz",
      "nick": "Jesiz",
-     "facts": "Gracz (2013–2018 · Gamers2, Fnatic, Misfits Gaming), Trener (2019–2021 · Misfits Gaming, SK Gaming)"
+     "facts": "Gracz (2013–2018 · Gamers2, Fnatic, Misfits Gaming), Trener (2019–2021 · Misfits Gaming, SK Gaming)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "kold",
      "nick": "Kold",
-     "facts": "Gracz (2014–2019 · Splyce, Unicorns of Love, Origen), Trener (2021–2022 · Team Liquid)"
+     "facts": "Gracz (2014–2019 · Splyce, Unicorns of Love, Origen), Trener (2021–2022 · Team Liquid)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "lvmao",
      "nick": "LvMao",
-     "facts": "Gracz (2017–2023 · JD Gaming, LNG Esports, Royal Never Give Up), Trener (2025–2026 · Bilibili Gaming, LNG Esports)"
+     "facts": "Gracz (2017–2023 · JD Gaming, LNG Esports, Royal Never Give Up), Trener (2025–2026 · Bilibili Gaming, LNG Esports)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "marin",
      "nick": "MaRin",
-     "facts": "Gracz (2013–2018 · LGD Gaming, Afreeca Freecs, Topsports Gaming), Trener (2023 · Team Liquid)"
+     "facts": "Gracz (2013–2018 · LGD Gaming, Afreeca Freecs, Topsports Gaming), Trener (2023 · Team Liquid)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "mata",
      "nick": "Mata",
-     "facts": "Gracz (2012–2019 · Royal Never Give Up, KT Rolster, SK Telecom T1), Trener (2020–2026 · Royal Never Give Up, Gen.G, T1)"
+     "facts": "Gracz (2012–2019 · Royal Never Give Up, KT Rolster, SK Telecom T1), Trener (2020–2026 · Royal Never Give Up, Gen.G, T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "mithy",
      "nick": "Mithy",
-     "facts": "Gracz (2013–2019 · Origen, G2 Esports, TSM), Trener (2020–2026 · Cloud9, FlyQuest, Team Heretics)"
+     "facts": "Gracz (2013–2019 · Origen, G2 Esports, TSM), Trener (2020–2026 · Cloud9, FlyQuest, Team Heretics)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "mowgli",
      "nick": "Mowgli",
-     "facts": "Gracz (2017–2019 · Afreeca Freecs, Team Vitality), Trener (2022–2026 · DRX, Hanwha Life Esports)"
+     "facts": "Gracz (2017–2019 · Afreeca Freecs, Team Vitality), Trener (2022–2026 · DRX, Hanwha Life Esports)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "nukeduck",
      "nick": "Nukeduck",
-     "facts": "Gracz (2013–2022 · Origen, Astralis, Excel Esports), Trener (2023–2026 · 100 Thieves, FlyQuest, Team Heretics)"
+     "facts": "Gracz (2013–2022 · Origen, Astralis, Excel Esports), Trener (2023–2026 · 100 Thieves, FlyQuest, Team Heretics)",
+     "nationality": [
+      "no"
+     ]
     },
     {
      "id": "perkz",
      "nick": "Perkz",
-     "facts": "Gracz (2015–2024 · Cloud9, Team Vitality, Team Heretics), Trener (2026 · G2 Esports)"
+     "facts": "Gracz (2015–2024 · Cloud9, Team Vitality, Team Heretics), Trener (2026 · G2 Esports)",
+     "nationality": [
+      "hr"
+     ]
     },
     {
      "id": "poohmandu",
      "nick": "PoohManDu",
-     "facts": "Gracz (2012–2014 · SK Telecom T1 2, SK Telecom T1, SK Telecom T1 K), Trener (2015–2026 · Vici Gaming, DWG KIA, Dplus Kia)"
+     "facts": "Gracz (2012–2014 · SK Telecom T1 2, SK Telecom T1, SK Telecom T1 K), Trener (2015–2026 · Vici Gaming, DWG KIA, Dplus Kia)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "reignover",
      "nick": "Reignover",
-     "facts": "Gracz (2013–2018 · Immortals, Team Liquid, Counter Logic Gaming), Trener (2019–2026 · Cloud9, Team Liquid, LYON (2024 American Team))"
+     "facts": "Gracz (2013–2018 · Immortals, Team Liquid, Counter Logic Gaming), Trener (2019–2026 · Cloud9, Team Liquid, LYON (2024 American Team))",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ryu",
      "nick": "Ryu",
-     "facts": "Gracz (2012–2019 · H2k-Gaming, Phoenix1, 100 Thieves), Trener (2023–2026 · FearX, BNK FEARX, Gen.G)"
+     "facts": "Gracz (2012–2019 · H2k-Gaming, Phoenix1, 100 Thieves), Trener (2023–2026 · FearX, BNK FEARX, Gen.G)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "score",
      "nick": "Score",
-     "facts": "Gracz (2012–2019 · KT Rolster B, KT Rolster Bullets, KT Rolster), Trener (2022–2026 · Gen.G, KT Rolster)"
+     "facts": "Gracz (2012–2019 · KT Rolster B, KT Rolster Bullets, KT Rolster), Trener (2022–2026 · Gen.G, KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "svenskeren",
      "nick": "Svenskeren",
-     "facts": "Gracz (2013–2021 · TSM, Cloud9, Evil Geniuses.NA), Trener (2023 · Dignitas)"
+     "facts": "Gracz (2013–2021 · TSM, Cloud9, Evil Geniuses.NA), Trener (2023 · Dignitas)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "tabe",
      "nick": "Tabe",
-     "facts": "Gracz (2012–2016 · Noah's Ark, Royal Club, Invictus Gaming), Trener (2020–2026 · Bilibili Gaming, Anyone's Legend, JD Gaming)"
+     "facts": "Gracz (2012–2016 · Noah's Ark, Royal Club, Invictus Gaming), Trener (2020–2026 · Bilibili Gaming, Anyone's Legend, JD Gaming)",
+     "nationality": [
+      "hk"
+     ]
     },
     {
      "id": "xmithie",
      "nick": "Xmithie",
-     "facts": "Gracz (2013–2020 · Counter Logic Gaming, Immortals, Team Liquid), Trener (2023 · Immortals)"
+     "facts": "Gracz (2013–2020 · Counter Logic Gaming, Immortals, Team Liquid), Trener (2023 · Immortals)",
+     "nationality": [
+      "ph",
+      "us"
+     ]
     }
    ],
    "members": [
@@ -1070,92 +1517,147 @@
     {
      "id": "dove",
      "nick": "Dove",
-     "facts": "LCK (2018–2022 · Team BattleComics, SANDBOX Gaming, KT Rolster, Liiv SANDBOX), LPL (2023 · Invictus Gaming), LCS (2024 · Dignitas)"
+     "facts": "LCK (2018–2022 · Team BattleComics, SANDBOX Gaming, KT Rolster, Liiv SANDBOX), LPL (2023 · Invictus Gaming), LCS (2024 · Dignitas)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "flame",
      "nick": "Flame",
-     "facts": "LCK (2012–2019 · Azubu Blaze, CJ Entus Blaze, Longzhu Gaming, DAMWON Gaming), LPL (2015 · LGD Gaming), LCS (2017–2018 · Immortals, FlyQuest)"
+     "facts": "LCK (2012–2019 · Azubu Blaze, CJ Entus Blaze, Longzhu Gaming, DAMWON Gaming), LPL (2015 · LGD Gaming), LCS (2017–2018 · Immortals, FlyQuest)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "fly-song-yong-jun",
      "nick": "Fly",
-     "facts": "LCK (2013–2021 · CTU Revolt, Chunnam Techno University, Jin Air Green Wings Stealths, KT Rolster, Longzhu Gaming, Gen.G, Afreeca Freecs), LPL (2015 · Young Glory), LCS (2017–2018 · Gold Coin United, FlyQuest)"
+     "facts": "LCK (2013–2021 · CTU Revolt, Chunnam Techno University, Jin Air Green Wings Stealths, KT Rolster, Longzhu Gaming, Gen.G, Afreeca Freecs), LPL (2015 · Young Glory), LCS (2017–2018 · Gold Coin United, FlyQuest)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "froggen",
      "nick": "Froggen",
-     "facts": "LCK (2012 · Counter Logic Gaming Europe), LEC (2013–2015 · Evil Geniuses.EU, Alliance, Elements), LCS (2016–2020 · Echo Fox, Golden Guardians, Dignitas)"
+     "facts": "LCK (2012 · Counter Logic Gaming Europe), LEC (2013–2015 · Evil Geniuses.EU, Alliance, Elements), LCS (2016–2020 · Echo Fox, Golden Guardians, Dignitas)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "gori",
      "nick": "Gori",
-     "facts": "LCK (2019–2021 · SK Telecom T1, Nongshim RedForce), LPL (2022 · FunPlus Phoenix), LCS (2023 · Golden Guardians)"
+     "facts": "LCK (2019–2021 · SK Telecom T1, Nongshim RedForce), LPL (2022 · FunPlus Phoenix), LCS (2023 · Golden Guardians)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "huni",
      "nick": "Huni",
-     "facts": "LEC (2015 · Fnatic), LCS (2016–2022 · Immortals, Echo Fox, Clutch Gaming, Dignitas, Evil Geniuses.NA, TSM), LCK (2017 · SK Telecom T1)"
+     "facts": "LEC (2015 · Fnatic), LCS (2016–2022 · Immortals, Echo Fox, Clutch Gaming, Dignitas, Evil Geniuses.NA, TSM), LCK (2017 · SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ignar",
      "nick": "Ignar",
-     "facts": "LCK (2015–2018 · Incredible Miracle, KT Rolster, bbq Olivers), LEC (2016–2024 · Misfits Gaming, FC Schalke 04 Esports, GIANTX), LCS (2020–2026 · FlyQuest, Evil Geniuses.NA, Immortals, Dignitas, NRG)"
+     "facts": "LCK (2015–2018 · Incredible Miracle, KT Rolster, bbq Olivers), LEC (2016–2024 · Misfits Gaming, FC Schalke 04 Esports, GIANTX), LCS (2020–2026 · FlyQuest, Evil Geniuses.NA, Immortals, Dignitas, NRG)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "juhan",
      "nick": "Juhan",
-     "facts": "LCK (2022–2023 · DRX), LEC (2024 · GIANTX), LPL (2026 · Oh My God)"
+     "facts": "LCK (2022–2023 · DRX), LEC (2024 · GIANTX), LPL (2026 · Oh My God)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kakao",
      "nick": "KaKAO",
-     "facts": "LCK (2012–2020 · KT Rolster B, KT Rolster A, KT Rolster Bullets, KT Rolster Arrows, Jin Air Green Wings, APK Prince, Seorabeol Gaming), LPL (2015 · Invictus Gaming), LEC (2017 · Misfits Gaming)"
+     "facts": "LCK (2012–2020 · KT Rolster B, KT Rolster A, KT Rolster Bullets, KT Rolster Arrows, Jin Air Green Wings, APK Prince, Seorabeol Gaming), LPL (2015 · Invictus Gaming), LEC (2017 · Misfits Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "morgan",
      "nick": "Morgan",
-     "facts": "LPL (2019–2020 · JD Gaming, Team WE), LCK (2021–2025 · Hanwha Life Esports, Fredit BRION, BRION, OKSavingsBank BRION), LCS (2026 · Team Liquid)"
+     "facts": "LPL (2019–2020 · JD Gaming, Team WE), LCK (2021–2025 · Hanwha Life Esports, Fredit BRION, BRION, OKSavingsBank BRION), LCS (2026 · Team Liquid)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "prince-lee-chae-hwan",
      "nick": "Prince",
-     "facts": "LCK (2018–2022 · bbq Olivers, DAMWON Gaming, Liiv SANDBOX), LCS (2023 · FlyQuest), LPL (2024 · Team WE)"
+     "facts": "LCK (2018–2022 · bbq Olivers, DAMWON Gaming, Liiv SANDBOX), LCS (2023 · FlyQuest), LPL (2024 · Team WE)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "reignover",
      "nick": "Reignover",
-     "facts": "LCK (2013–2014 · Incredible Miracle 2, Incredible Miracle 1), LEC (2015 · Fnatic), LCS (2016–2018 · Immortals, Team Liquid, Counter Logic Gaming)"
+     "facts": "LCK (2013–2014 · Incredible Miracle 2, Incredible Miracle 1), LEC (2015 · Fnatic), LCS (2016–2018 · Immortals, Team Liquid, Counter Logic Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "rich-lee-jae-won",
      "nick": "Rich",
-     "facts": "LCK (2019–2026 · Gen.G, Team Dynamics, Nongshim RedForce, DRX, Kiwoom DRX), LPL (2022–2023 · Victory Five, Ninjas in Pyjamas.CN), LCS (2023–2024 · Dignitas)"
+     "facts": "LCK (2019–2026 · Gen.G, Team Dynamics, Nongshim RedForce, DRX, Kiwoom DRX), LPL (2022–2023 · Victory Five, Ninjas in Pyjamas.CN), LCS (2023–2024 · Dignitas)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ryu",
      "nick": "Ryu",
-     "facts": "LCK (2012–2014 · StarTale, KT Rolster B, KT Rolster Bullets), LEC (2014–2016 · Millenium, H2k-Gaming), LCS (2017–2019 · Phoenix1, 100 Thieves)"
+     "facts": "LCK (2012–2014 · StarTale, KT Rolster B, KT Rolster Bullets), LEC (2014–2016 · Millenium, H2k-Gaming), LCS (2017–2019 · Phoenix1, 100 Thieves)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "spirit",
      "nick": "Spirit",
-     "facts": "LCK (2013–2020 · MVP Blue, Samsung Blue, Afreeca Freecs), LPL (2015 · Team WE), LEC (2016 · Fnatic)"
+     "facts": "LCK (2013–2020 · MVP Blue, Samsung Blue, Afreeca Freecs), LPL (2015 · Team WE), LEC (2016 · Fnatic)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "summit",
      "nick": "Summit",
-     "facts": "LCK (2019–2021 · SANDBOX Gaming, Liiv SANDBOX), LPL (2022 · FunPlus Phoenix), LCS (2022–2025 · Cloud9, Team Liquid, Estral Esports)"
+     "facts": "LCK (2019–2021 · SANDBOX Gaming, Liiv SANDBOX), LPL (2022 · FunPlus Phoenix), LCS (2022–2025 · Cloud9, Team Liquid, Estral Esports)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "vicla",
      "nick": "VicLa",
-     "facts": "LCK (2022–2026 · KT Rolster, BNK FEARX), LCS (2023 · FlyQuest), LPL (2024 · Rare Atom)"
+     "facts": "LCK (2022–2026 · KT Rolster, BNK FEARX), LCS (2023 · FlyQuest), LPL (2024 · Rare Atom)",
+     "nationality": [
+      "kr",
+      "jp"
+     ]
     },
     {
      "id": "wadid",
      "nick": "Wadid",
-     "facts": "LEC (2017–2019 · Team ROCCAT, G2 Esports, Rogue (European Team)), LCS (2019 · FlyQuest), LCK (2020 · Griffin (Korean Team))"
+     "facts": "LEC (2017–2019 · Team ROCCAT, G2 Esports, Rogue (European Team)), LCS (2019 · FlyQuest), LCK (2020 · Griffin (Korean Team))",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -1197,97 +1699,154 @@
     {
      "id": "ambition",
      "nick": "Ambition",
-     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "bang",
      "nick": "Bang",
-     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)"
+     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "beryl",
      "nick": "BeryL",
-     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming), Wygrał 2022 (DRX vs T1)"
+     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming), Wygrał 2022 (DRX vs T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "blank-kang-sun-gu",
      "nick": "Blank",
-     "facts": "Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)"
+     "facts": "Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "canyon",
      "nick": "Canyon",
-     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)"
+     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "corejj",
      "nick": "CoreJJ",
-     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "crisp",
      "nick": "Crisp",
-     "facts": "Wygrał 2019 (FunPlus Phoenix vs G2 Esports), Przegrał 2023 (Weibo Gaming vs T1)"
+     "facts": "Wygrał 2019 (FunPlus Phoenix vs G2 Esports), Przegrał 2023 (Weibo Gaming vs T1)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "crown",
      "nick": "Crown",
-     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "cuvee",
      "nick": "CuVee",
-     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster), Wygrał Season 3 (SK Telecom T1 vs Royal Club)"
+     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster), Wygrał Season 3 (SK Telecom T1 vs Royal Club)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ghost-jang-yong-jun",
      "nick": "Ghost",
-     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)"
+     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "gumayusi",
      "nick": "Gumayusi",
-     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)"
+     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "keria",
      "nick": "Keria",
-     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)"
+     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "oner",
      "nick": "Oner",
-     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)"
+     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming), Wygrał 2025 (T1 vs KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "ruler",
      "nick": "Ruler",
-     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)"
+     "facts": "Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "showmaker",
      "nick": "ShowMaker",
-     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)"
+     "facts": "Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "theshy",
      "nick": "TheShy",
-     "facts": "Wygrał 2018 (Invictus Gaming vs Fnatic), Przegrał 2023 (Weibo Gaming vs T1)"
+     "facts": "Wygrał 2018 (Invictus Gaming vs Fnatic), Przegrał 2023 (Weibo Gaming vs T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "wolf-lee-jae-wan",
      "nick": "Wolf",
-     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)"
+     "facts": "Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "zeus",
      "nick": "Zeus",
-     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming)"
+     "facts": "Przegrał 2022 (T1 vs DRX), Wygrał 2023 (T1 vs Weibo Gaming), Wygrał 2024 (T1 vs Bilibili Gaming)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -1325,82 +1884,131 @@
     {
      "id": "alvaro-alvaro-fernandez",
      "nick": "Alvaro",
-     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)"
+     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "blaber",
      "nick": "Blaber",
-     "facts": "Cloud9 (2018–2026 · 47 turn. · Cloud9)"
+     "facts": "Cloud9 (2018–2026 · 47 turn. · Cloud9)",
+     "nationality": [
+      "us"
+     ]
     },
     {
      "id": "caliste",
      "nick": "Caliste",
-     "facts": "Karmine Corp (2025–2026 · 16 turn. · Karmine Corp)"
+     "facts": "Karmine Corp (2025–2026 · 16 turn. · Karmine Corp)",
+     "nationality": [
+      "fr"
+     ]
     },
     {
      "id": "cyanide",
      "nick": "Cyanide",
-     "facts": "Fnatic (2011–2014 · 14 turn. · Fnatic)"
+     "facts": "Fnatic (2011–2014 · 14 turn. · Fnatic)",
+     "nationality": [
+      "fi"
+     ]
     },
     {
      "id": "elyoya",
      "nick": "Elyoya",
-     "facts": "Movistar KOI (2021–2026 · 45 turn. · MAD Lions / MAD Lions KOI / Movistar KOI)"
+     "facts": "Movistar KOI (2021–2026 · 45 turn. · MAD Lions / MAD Lions KOI / Movistar KOI)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "faker",
      "nick": "Faker",
-     "facts": "T1 (2013–2026 · 82 turn. · SK Telecom T1 2 / SK Telecom T1 / SK Telecom T1 K / T1)"
+     "facts": "T1 (2013–2026 · 82 turn. · SK Telecom T1 2 / SK Telecom T1 / SK Telecom T1 K / T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "lucid-choi-yong-hyeok",
      "nick": "Lucid",
-     "facts": "Dplus Kia (2024–2026 · 18 turn. · Dplus Kia)"
+     "facts": "Dplus Kia (2024–2026 · 18 turn. · Dplus Kia)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "massu",
      "nick": "Massu",
-     "facts": "FlyQuest (2024–2026 · 19 turn. · FlyQuest)"
+     "facts": "FlyQuest (2024–2026 · 19 turn. · FlyQuest)",
+     "nationality": [
+      "ca"
+     ]
     },
     {
      "id": "myrwn",
      "nick": "Myrwn",
-     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)"
+     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "oner",
      "nick": "Oner",
-     "facts": "T1 (2021–2026 · 39 turn. · T1)"
+     "facts": "T1 (2021–2026 · 39 turn. · T1)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "perfect-lee-seung-min",
      "nick": "PerfecT",
-     "facts": "KT Rolster (2023–2026 · 18 turn. · KT Rolster)"
+     "facts": "KT Rolster (2023–2026 · 18 turn. · KT Rolster)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "saint-kang-sung-in",
      "nick": "Saint",
-     "facts": "LYON (2024 American Team) (2025–2026 · 11 turn. · LYON (2024 American Team))"
+     "facts": "LYON (2024 American Team) (2025–2026 · 11 turn. · LYON (2024 American Team))",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "showmaker",
      "nick": "ShowMaker",
-     "facts": "Dplus Kia (2018–2026 · 49 turn. · DAMWON Gaming / DWG KIA / Dplus Kia)"
+     "facts": "Dplus Kia (2018–2026 · 49 turn. · DAMWON Gaming / DWG KIA / Dplus Kia)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "skewmond",
      "nick": "SkewMond",
-     "facts": "G2 Esports (2025–2026 · 17 turn. · G2 Esports)"
+     "facts": "G2 Esports (2025–2026 · 17 turn. · G2 Esports)",
+     "nationality": [
+      "fr",
+      "lb"
+     ]
     },
     {
      "id": "supa",
      "nick": "Supa",
-     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)"
+     "facts": "Movistar KOI (2024–2026 · 24 turn. · MAD Lions KOI / Movistar KOI)",
+     "nationality": [
+      "es"
+     ]
     },
     {
      "id": "yeon-sean-sung",
      "nick": "Yeon",
-     "facts": "Team Liquid (2022–2026 · 24 turn. · Team Liquid)"
+     "facts": "Team Liquid (2022–2026 · 24 turn. · Team Liquid)",
+     "nationality": [
+      "us"
+     ]
     }
    ],
    "members": [
@@ -1462,97 +2070,156 @@
     {
      "id": "breathe",
      "nick": "Breathe",
-     "facts": "Curse (2019–2020) → Breathe (2021–2026)"
+     "facts": "Curse (2019–2020) → Breathe (2021–2026)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "corejj",
      "nick": "CoreJJ",
-     "facts": "Core (2013–2014) → CoreJJ (2015–2026)"
+     "facts": "Core (2013–2014) → CoreJJ (2015–2026)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "crownie",
      "nick": "Crownie",
-     "facts": "Crownshot (2019–2021) → Crownie (2023–2026)"
+     "facts": "Crownshot (2019–2021) → Crownie (2023–2026)",
+     "nationality": [
+      "si"
+     ]
     },
     {
      "id": "diamondprox",
      "nick": "Diamondprox",
-     "facts": "Diamondprox (2012–2018) → Diamond (2012–2015)"
+     "facts": "Diamondprox (2012–2018) → Diamond (2012–2015)",
+     "nationality": [
+      "ru"
+     ]
     },
     {
      "id": "duke-lee-ho-seong",
      "nick": "Duke",
-     "facts": "leopard / Leopard (2013–2014) → Duke (2014–2026)"
+     "facts": "leopard / Leopard (2013–2014) → Duke (2014–2026)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "elk",
      "nick": "Elk",
-     "facts": "Jiumeng (2019–2021) → Elk (2021–2026)"
+     "facts": "Jiumeng (2019–2021) → Elk (2021–2026)",
+     "nationality": [
+      "cn"
+     ]
     },
     {
      "id": "execute",
      "nick": "Execute",
-     "facts": "JeongHoon (2022–2023) → Execute (2024–2025)"
+     "facts": "JeongHoon (2022–2023) → Execute (2024–2025)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "jensen",
      "nick": "Jensen",
-     "facts": "Incarnati0n (2015) → Jensen (2016–2024)"
+     "facts": "Incarnati0n (2015) → Jensen (2016–2024)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "jnx",
      "nick": "JNX",
-     "facts": "Jenax (2019–2022) → JNX (2022–2025)"
+     "facts": "Jenax (2019–2022) → JNX (2022–2025)",
+     "nationality": [
+      "de"
+     ]
     },
     {
      "id": "khan",
      "nick": "Khan",
-     "facts": "Hanlabong (2013–2014) → Khan (2014–2021)"
+     "facts": "Hanlabong (2013–2014) → Khan (2014–2021)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "kold",
      "nick": "Kold",
-     "facts": "Trashy (2014–2017) → Kold (2018–2022)"
+     "facts": "Trashy (2014–2017) → Kold (2018–2022)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "nuc",
      "nick": "nuc",
-     "facts": "NUCLEARINT (2021–2022) → nuc (2023–2026)"
+     "facts": "NUCLEARINT (2021–2022) → nuc (2023–2026)",
+     "nationality": [
+      "fr",
+      "ma"
+     ]
     },
     {
      "id": "patrik",
      "nick": "Patrik",
-     "facts": "Sheriff (2018) → Patrik (2019–2025)"
+     "facts": "Sheriff (2018) → Patrik (2019–2025)",
+     "nationality": [
+      "cz"
+     ]
     },
     {
      "id": "prince-lee-chae-hwan",
      "nick": "Prince",
-     "facts": "Aries (2018–2019) → Prince (2021–2024)"
+     "facts": "Aries (2018–2019) → Prince (2021–2024)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "promisq",
      "nick": "promisq",
-     "facts": "PromisQ / promisq (2015–2022) → sprattel (2016–2017)"
+     "facts": "PromisQ / promisq (2015–2022) → sprattel (2016–2017)",
+     "nationality": [
+      "se"
+     ]
     },
     {
      "id": "quad",
      "nick": "Quad",
-     "facts": "Quad (2020–2026) → SOLKA (2021)"
+     "facts": "Quad (2020–2026) → SOLKA (2021)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "tore",
      "nick": "Tore",
-     "facts": "Norskeren (2017–2019) → Tore (2020–2021)"
+     "facts": "Norskeren (2017–2019) → Tore (2020–2021)",
+     "nationality": [
+      "no",
+      "al"
+     ]
     },
     {
      "id": "wunder",
      "nick": "Wunder",
-     "facts": "Wunderwear (2016) → Wunder (2016–2026)"
+     "facts": "Wunderwear (2016) → Wunder (2016–2026)",
+     "nationality": [
+      "dk"
+     ]
     },
     {
      "id": "zven",
      "nick": "Zven",
-     "facts": "Niels (2015) → Zven (2016–2026)"
+     "facts": "Niels (2015) → Zven (2016–2026)",
+     "nationality": [
+      "dk"
+     ]
     }
    ],
    "members": [
@@ -1622,22 +2289,34 @@
     {
      "id": "duke-lee-ho-seong",
      "nick": "Duke",
-     "facts": "Worlds 2018 (Invictus Gaming: w składzie, bez gry w finale)"
+     "facts": "Worlds 2018 (Invictus Gaming: w składzie, bez gry w finale)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "easyhoon",
      "nick": "Easyhoon",
-     "facts": "Worlds 2015 (SK Telecom T1: w składzie, bez gry w finale)"
+     "facts": "Worlds 2015 (SK Telecom T1: w składzie, bez gry w finale)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "haru",
      "nick": "Haru",
-     "facts": "Worlds 2017 (Samsung Galaxy: w składzie, bez gry w finale)"
+     "facts": "Worlds 2017 (Samsung Galaxy: w składzie, bez gry w finale)",
+     "nationality": [
+      "kr"
+     ]
     },
     {
      "id": "juhan",
      "nick": "Juhan",
-     "facts": "Worlds 2022 (DRX: w składzie, bez gry w finale)"
+     "facts": "Worlds 2022 (DRX: w składzie, bez gry w finale)",
+     "nationality": [
+      "kr"
+     ]
     }
    ],
    "members": [
@@ -1645,6 +2324,66 @@
     "easyhoon",
     "haru",
     "juhan"
+   ]
+  },
+  {
+   "key": "named-play",
+   "ease": 3,
+   "weight": 0.3,
+   "title": {
+    "pl": "Zagranie nazwane ich nickiem",
+    "en": "Have a play named after them",
+    "es": "Tienen una jugada con su nombre",
+    "fr": "Ont une action qui porte leur nom"
+   },
+   "players": [
+    {
+     "id": "insec",
+     "nick": "inSec",
+     "facts": "„insec” – Lee Sin wkopujący rywala w swoją drużynę",
+     "nationality": [
+      "kr"
+     ]
+    },
+    {
+     "id": "xpeke",
+     "nick": "xPeke",
+     "facts": "„xPeke” – samotny backdoor na Nexusa (Kassadin, IEM Katowice 2013)",
+     "nationality": [
+      "es"
+     ]
+    },
+    {
+     "id": "madlife",
+     "nick": "MadLife",
+     "facts": "„Madlife” – hak trafiony z przewidywaniem ruchu rywala",
+     "nationality": [
+      "kr"
+     ]
+    },
+    {
+     "id": "flame",
+     "nick": "Flame",
+     "facts": "„Flame Horizon” – 100 CS przewagi nad rywalem z linii",
+     "nationality": [
+      "kr"
+     ]
+    },
+    {
+     "id": "cpt-jack",
+     "nick": "Cpt Jack",
+     "facts": "zagranie nazwane jego nickiem",
+     "nationality": [
+      "kr"
+     ]
+    }
+   ],
+   "members": [
+    "cpt-jack",
+    "flame",
+    "insec",
+    "madlife",
+    "xpeke"
    ]
   }
  ]

@@ -19,6 +19,12 @@
 //   player-to-coach    played, later coached in a major league. Leaguepedia rosters say "Coach" for head and
 //                      assistant coaches alike, so head coaches are picked by hand.
 //   msi-multi          won MSI at least twice as a player (on the winning roster).
+//   msi-winner         won MSI as a player (on the winning roster).
+//   first-stand-winner won First Stand as a player (on the winning roster).
+//   lck-champion, lpl-champion, lec-champion, lcs-champion
+//                      won the league as a player (on the winning roster): split playoffs and season finals; before
+//                      2015 the OGN Champions events as a whole. LTA North counts as LCS. Regular seasons, Road to
+//                      MSI, Play-Ins, LCS Lock In and LCK Cup are not titles.
 //   worlds-winner      won Worlds as a player (on the winning roster, final played or not).
 //   worlds-and-msi     won both Worlds and MSI as a player.
 //   worlds-final-both  played a Worlds final on the winning side and, in another year, on the losing side.
@@ -129,6 +135,51 @@ async function winningRosters() {
   }
   return winnersCache;
 }
+
+// Title-deciding league events: playoffs pages minus qualifiers and preseason cups.
+const NOT_A_TITLE = /Road to MSI|Play-In|Lock.?In|Promotion|Qualifier/i;
+let titlesCache = null;
+/** League titles as rosters: [{ league, title, year, team, members: Set<player id> }] (players only, no coaches). */
+async function leagueTitles() {
+  if (titlesCache) return titlesCache;
+  const { rowsOf } = await loadBase();
+  const rows = await cargoQuery({ tables: 'Tournaments=T,TournamentResults=TR', joinOn: 'T.OverviewPage=TR.OverviewPage',
+    fields: 'T.OverviewPage=Page,T.League=League,T.IsPlayoffs=IsPlayoffs,T.DateStart=Start,TR.Team=Team',
+    where: `T.League IN (${Object.keys(SHORT).filter(l => REGIONS.includes(SHORT[l])).map(cargoStr).join(',')})`
+      + " AND T.TournamentLevel='Primary' AND TR.Place_Number=1 AND TR.Team IS NOT NULL AND TR.Team != ''",
+    orderBy: 'T.DateStart', fresh });
+  titlesCache = rows
+    // OGN Champions had no separate playoffs page before 2015: the whole event decided the title.
+    .filter(r => !NOT_A_TITLE.test(r.Page) && (r.IsPlayoffs === '1' || (r.League === 'LoL The Champions' && r.Start < '2015')))
+    .map(r => {
+      const members = new Set();
+      for (const [id, rs] of rowsOf) {
+        if (rs.some(x => !x.coach && (x.Page === r.Page || x.Page.startsWith(r.Page + '/')) && sameTeam(x.Team, r.Team))) members.add(id);
+      }
+      if (!members.size) console.warn(`  ⚠ ${r.Page} (${r.Team}): brak składu w Leaguepedii`);
+      // "LCK/2016 Season/Summer Playoffs" → "LCK 2016 Summer", "LCK/2025 Season/Season Playoffs" → "LCK 2025"
+      const title = r.Page.replace(/^Champions\//, 'OGN Champions/').replace(/ Season\//, ' ').replace(/\//g, ' ')
+        .replace(/( Season)? Playoffs$| Season$/, '');
+      return { league: SHORT[r.League], title, year: yearOf(r), team: r.Team, members };
+    });
+  return titlesCache;
+}
+
+/** Candidates for one trophy: everyone on a winning roster, their wins oldest first. */
+function winnersCard(wins, byId) {
+  return [...new Set(wins.flatMap(w => [...w.members]))].map(id => card(byId.get(id),
+    wins.filter(w => w.members.has(id)).sort((a, b) => a.year.localeCompare(b.year)).map(w => ({ title: w.title, sub: w.team }))));
+}
+
+const leagueChampion = league => ({ title: `Mistrz ${league}`, async build() {
+  const { byId } = await loadBase();
+  return winnersCard((await leagueTitles()).filter(t => t.league === league), byId);
+} });
+
+const trophyWinner = trophy => ({ title: `Wygrał ${trophy}`, async build() {
+  const { byId } = await loadBase();
+  return winnersCard((await winningRosters()).filter(w => w.trophy === trophy).map(w => ({ ...w, title: `${trophy} ${w.year}` })), byId);
+} });
 
 let finalsCache = null;
 /** Worlds finals: [{ year, winner, loser, mvp, win, lose, hasLineup }] from MatchSchedule + ScoreboardPlayers. */
@@ -247,6 +298,13 @@ const CATEGORIES = {
       return mine.length >= 2 ? card(byId.get(id), mine.map(w => ({ title: `MSI ${w.year}`, sub: w.team }))) : null;
     }).filter(Boolean);
   } },
+
+  'msi-winner': trophyWinner('MSI'),
+  'first-stand-winner': trophyWinner('First Stand'),
+  'lck-champion': leagueChampion('LCK'),
+  'lpl-champion': leagueChampion('LPL'),
+  'lec-champion': leagueChampion('LEC'),
+  'lcs-champion': leagueChampion('LCS'),
 
   'worlds-winner': { title: 'Mistrz świata', async build() {
     const { byId } = await loadBase();
