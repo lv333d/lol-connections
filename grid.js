@@ -25,8 +25,9 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
-      ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
-      ['Jak grać', 'Kliknij <strong>+</strong>, wyszukaj gracza po nicku lub imieniu i wybierz go z listy. Masz 9 prób — błędna odpowiedź też zużywa próbę. Każdego gracza możesz użyć tylko raz.'],
+      ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza lub trenera, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
+      ['Jak grać', 'Kliknij <strong>+</strong>, wyszukaj gracza lub trenera po nicku lub imieniu i wybierz go z listy. Masz 9 prób — błędna odpowiedź też zużywa próbę. Każdej osoby możesz użyć tylko raz.'],
+      ['Trenerzy', 'Trenerzy też się liczą: warunek drużyny lub ligi spełnia każdy, kto w niej grał <strong>albo</strong> był w niej trenerem.'],
       ['Nowa siatka', 'Codziennie o 00:00 UTC. Każda siatka ma co najmniej jedno poprawne rozwiązanie.']
     ],
     cond: {
@@ -48,8 +49,9 @@ const I18N = {
     share: '𝕏 Share result', copy: '📋 Copy result', copied: 'Copied!',
     answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
-      ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player who meets the row condition <strong>and</strong> the column condition.'],
-      ['How to play', 'Click <strong>+</strong>, search by nickname or real name and pick from the list. You have 9 guesses — wrong answers use one too. Each player can be used once.'],
+      ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player or coach who meets the row condition <strong>and</strong> the column condition.'],
+      ['How to play', 'Click <strong>+</strong>, search for a player or coach by nickname or real name and pick from the list. You have 9 guesses — wrong answers use one too. Each person can be used once.'],
+      ['Coaches', 'Coaches count too: a team or league condition is met by anyone who played there <strong>or</strong> coached there.'],
       ['New grid', 'Every day at 00:00 UTC. Every grid has at least one valid solution.']
     ],
     cond: {
@@ -71,8 +73,9 @@ const I18N = {
     share: '𝕏 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
-      ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro que cumpla la condición de la fila <strong>y</strong> de la columna.'],
-      ['Cómo jugar', 'Pulsa <strong>+</strong>, busca por nick o nombre real y elige de la lista. Tienes 9 intentos — los fallos también cuentan. Cada jugador solo se puede usar una vez.'],
+      ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro o entrenador que cumpla la condición de la fila <strong>y</strong> de la columna.'],
+      ['Cómo jugar', 'Pulsa <strong>+</strong>, busca a un jugador o entrenador por nick o nombre real y elige de la lista. Tienes 9 intentos — los fallos también cuentan. Cada persona solo se puede usar una vez.'],
+      ['Entrenadores', 'Los entrenadores también cuentan: una condición de equipo o liga la cumple quien jugó <strong>o</strong> entrenó allí.'],
       ['Nueva cuadrícula', 'Cada día a las 00:00 UTC. Cada cuadrícula tiene al menos una solución.']
     ],
     cond: {
@@ -94,8 +97,9 @@ const I18N = {
     share: '𝕏 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
-      ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
-      ['Comment jouer', 'Cliquez sur <strong>+</strong>, cherchez par pseudo ou nom et choisissez dans la liste. Vous avez 9 essais — les erreurs comptent aussi. Chaque joueur ne peut être utilisé qu\'une fois.'],
+      ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro ou un coach qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
+      ['Comment jouer', 'Cliquez sur <strong>+</strong>, cherchez un joueur ou un coach par pseudo ou nom et choisissez dans la liste. Vous avez 9 essais — les erreurs comptent aussi. Chaque personne ne peut être utilisée qu\'une fois.'],
+      ['Coachs', 'Les coachs comptent aussi : une condition d\'équipe ou de ligue est remplie par quiconque y a joué <strong>ou</strong> l\'a coachée.'],
       ['Nouvelle grille', 'Chaque jour à 00:00 UTC. Chaque grille a au moins une solution.']
     ],
     cond: {
@@ -221,6 +225,8 @@ function conditionBadge(c, small = false) {
   const { short, long } = conditionText(c);
   const wrap = el('div', `cond cond-${c.kind}` + (small ? ' small' : ''));
   wrap.title = long;
+  // Touch screens don't show titles: a tap shows the same text as a toast.
+  wrap.addEventListener('click', () => showToast(long));
   const icon = el('div', 'cond-icon');
   switch (c.kind) {
     case 'league':
@@ -234,6 +240,7 @@ function conditionBadge(c, small = false) {
         const aka = icon.appendChild(el('span', 'aka'));
         aka.title = `${tc('aka')}: ${c.aliases.join(', ')}`;
         aka.setAttribute('aria-label', aka.title);
+        aka.addEventListener('click', e => { e.stopPropagation(); showToast(aka.title); });
       }
       break;
     case 'coach':
@@ -297,7 +304,12 @@ function startCountdown() {
   if (nextBoardDate) countdownTimer = setInterval(renderCountdown, 1000);
 }
 
-const formatDate = d => new Date(d + 'T00:00:00').toLocaleDateString(LOCALE_MAP[currentLang], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+// Phones share one header row with the language and buttons, so the date there is short ("30 paź 2026").
+const narrowScreen = window.matchMedia('(max-width: 520px)');
+const formatDate = d => new Date(d + 'T00:00:00').toLocaleDateString(LOCALE_MAP[currentLang], narrowScreen.matches
+  ? { year: 'numeric', month: 'short', day: 'numeric' }
+  : { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+narrowScreen.addEventListener('change', () => { if (selectedDate) $('dateDisplay').textContent = formatDate(selectedDate); });
 
 function updateNavButtons() {
   $('btnPrevDate').disabled = selectedDateIndex <= 0;
@@ -583,11 +595,14 @@ function showResult() {
   $('resultOverlay').classList.remove('hidden');
 }
 
+let toastTimer = 0;
 function showToast(msg) {
   const e = $('toast');
   e.textContent = msg;
   e.classList.add('show');
-  setTimeout(() => e.classList.remove('show'), 2200);
+  // A new toast restarts the timer, so quick taps on several conditions don't cut the last one short.
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => e.classList.remove('show'), 2200);
 }
 
 /* ---------- Events ---------- */

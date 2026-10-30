@@ -54,7 +54,7 @@
   transition: border-color .2s, background .2s, transform .2s, box-shadow .2s;
 }
 button.cell { cursor: pointer; font: inherit; color: inherit; }
-button.cell:hover, button.cell:focus-visible {
+button.cell:focus-visible {
   border-color: var(--gold);
   background: rgba(200, 170, 110, 0.08);
   transform: translateY(-2px);
@@ -65,7 +65,17 @@ button.cell:hover, button.cell:focus-visible {
   font-size: 2.2rem; font-weight: 300; color: var(--gold);
   line-height: 1; opacity: 0.7; transition: opacity .2s, transform .2s;
 }
-button.cell:hover .cell-plus { opacity: 1; transform: scale(1.1); }
+/* Hover only with a real pointer — on touch it would stick after closing the search. */
+@media (hover: hover) {
+  button.cell:hover {
+    border-color: var(--gold);
+    background: rgba(200, 170, 110, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(200, 170, 110, 0.15);
+  }
+  button.cell:hover .cell-plus { opacity: 1; transform: scale(1.1); }
+}
+button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--gold); }
 
 .cell.filled { border-color: rgba(74, 224, 136, 0.55); background: rgba(20, 43, 30, 0.55); }
 .cell.revealed { opacity: 0.6; border-style: dashed; }
@@ -159,7 +169,8 @@ button.cell:hover .cell-plus { opacity: 1; transform: scale(1.1); }
   border-radius: 50%; border: 1px solid var(--gold);
   background: #0d1527 url('assets/badges/info.svg') center / 80% no-repeat;
 }
-/* Trophy cut-outs sit on the same light plate as team and league logos. */
+/* Bigger hit area for a finger than the 22px badge. */
+.cond-team .aka::after { content: ''; position: absolute; inset: -8px; }/* Trophy cut-outs sit on the same light plate as team and league logos. */
 .cond-trophy .cond-icon > img {
   background: #ece6d6; border-radius: 10px; padding: 3px;
   width: 100%; height: 100%; object-fit: contain;
@@ -219,4 +230,17 @@ button.cell:hover .cell-plus { opacity: 1; transform: scale(1.1); }
   .cond-icon { width: 40px; height: 40px; }
   .cond-caption { font-size: 0.58rem; }
   .cell-player-nick { font-size: 0.64rem; }
+  .grid-status { margin: 10px 0 8px; }
+  .cell-count { font-size: 0.6rem; padding: 2px 5px; }
+  /* Search sits at the top, so the on-screen keyboard doesn't cover the results. */
+  #searchOverlay { align-items: flex-start; }
+  .search-modal { padding: 16px 14px 12px; gap: 10px; }
+  .search-results { max-height: 46vh; max-height: 46dvh; }
+  .result-item { padding: 10px 12px; }
+  .grid-countdown-time { font-size: 1.4rem; }
+}
+@media (max-width: 360px) {
+  .lolgrid { grid-template-columns: minmax(48px, 0.7fr) repeat(3, 1fr); gap: 4px; }
+  .cond-icon { width: 34px; height: 34px; }
+  .cond-caption { font-size: 0.54rem; }
 }

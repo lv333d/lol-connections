@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #050811; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* No double-tap zoom delay on controls; no grey flash on tap. */
+button, a, select, .tile { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 :root {
   --bg: radial-gradient(circle at 50% 30%, #0d1527 0%, #050811 100%);
   --gold: #c8aa6e;
@@ -171,19 +174,11 @@ header::after {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Phones: one row — language, date between its arrows, icon-only buttons (the date is shortened in JS). */
 @media (max-width: 520px) {
-  .header-controls {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .date-nav-wrap {
-    width: 100%;
-    flex: none;
-    order: -1;
-  }
-  .date-display {
-    flex: 1;
-  }
+  .header-controls { gap: 6px; }
+  .date-nav-wrap { gap: 4px; }
+  .date-display { flex: 1; }
 }
 .lang-wrap {
   display: inline-flex; align-items: center; gap: 6px;
@@ -257,6 +252,7 @@ header::after {
   box-shadow: 0 0 6px rgba(200, 170, 110, 0.4);
 }
 .solved-banners { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.solved-banners:empty { display: none; }
 .group-banner {
   padding: 12px 16px; border-radius: 6px; border: 1px solid; text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -298,13 +294,17 @@ header::after {
   transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   white-space: nowrap; overflow: hidden; line-height: 1.2;
 }
-.tile:hover {
-  border-color: var(--gold);
-  background: rgba(200, 170, 110, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
-              inset 0 0 8px rgba(200, 170, 110, 0.15);
+/* Hover lift only with a real pointer — on touch screens it would stick after a tap. */
+@media (hover: hover) {
+  .tile:hover {
+    border-color: var(--gold);
+    background: rgba(200, 170, 110, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+                inset 0 0 8px rgba(200, 170, 110, 0.15);
+  }
 }
+.tile:active:not(.selected) { transform: scale(0.97); }
 .tile.selected {
   border-color: #f0e6d2;
   background: linear-gradient(135deg, rgba(200, 170, 110, 0.3) 0%, rgba(120, 90, 40, 0.4) 100%);
@@ -419,7 +419,8 @@ header::after {
 .modal {
   background: #090e18; border: 1px solid rgba(200, 170, 110, 0.22);
   border-top: 3px solid var(--gold); border-radius: 8px;
-  max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto;
+  max-width: 520px; width: 100%; max-height: 90vh; max-height: 90dvh; overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 28px; position: relative;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85),
               0 0 30px rgba(200, 170, 110, 0.1);
@@ -473,7 +474,8 @@ header::after {
 .success-screen { text-align: center; padding: 24px; }
 .success-screen .check { font-size: 3.5rem; margin-bottom: 16px; text-shadow: 0 0 15px rgba(74, 224, 136, 0.3); }
 .toast {
-  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+  position: fixed; bottom: calc(24px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%) translateY(60px);
+  width: max-content; max-width: calc(100vw - 32px); text-align: center;
   background: #0d1527; border: 1px solid var(--gold); color: var(--gold-light);
   padding: 10px 28px; border-radius: 4px; font-size: 0.88rem; font-weight: 600; z-index: 1100;
   opacity: 0; transition: transform .3s ease, opacity .3s ease; pointer-events: none;
@@ -486,19 +488,86 @@ header::after {
 @media (max-width: 768px) {
   .app { margin: 16px auto; padding: 16px; }
 }
+/* Phones: the panel goes edge to edge, controls get finger-sized, inputs stay at 16px so iOS doesn't zoom. */
+@media (max-width: 520px) {
+  body { background-attachment: scroll; }
+  .app {
+    margin: 0 0 10px;
+    padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 16px max(12px, env(safe-area-inset-left));
+    border-left: none; border-right: none; border-radius: 0 0 12px 12px;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  header { gap: 10px; padding: 2px 0 10px; }
+  .logo h1 { font-size: 1.35rem; letter-spacing: 1.5px; gap: 8px; }
+  .header-logo-icon { width: 26px; height: 26px; }
+  .logo p { display: none; }
+  .game-tab { padding: 8px 6px; font-size: 0.8rem; letter-spacing: 0.5px; gap: 6px; }
+  .header-buttons { gap: 6px; }
+  .date-nav-btn { width: 38px; height: 38px; font-size: 0.85rem; }
+  .text-btn { width: 38px; height: 38px; padding: 0; justify-content: center; }
+  .text-btn-icon { font-size: 1rem; }
+  /* Label stays for screen readers, only the icon shows. */
+  .text-btn > span:not(.text-btn-icon) {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .lang-wrap { min-height: 38px; padding: 4px 6px; }
+  .lang-icon { display: none; }
+  .lang-select { font-size: 16px; }
+  .next-board { margin-top: 8px; }
+  .lives-row { margin: 10px 0 8px; }
+  .progress-bar { margin-bottom: 10px; }
+  .grid-wrap { margin-bottom: 4px; }
+  .hint-msg { min-height: 20px; margin: 4px 0; font-size: 0.8rem; }
+  .actions { margin-top: 6px; }
+  .actions { gap: 8px; }
+  .actions .btn { flex: 1; max-width: 220px; padding: 13px 10px; }
+  .result-actions .btn { flex: 1 1 140px; padding: 12px 10px; }
+  .overlay { padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .modal { padding: 22px 16px 18px; }
+  .modal-close {
+    top: 4px; right: 4px; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+  }
+  .form-group input, .form-group textarea { font-size: 16px; }
+  .no-puzzle { padding: 32px 16px; }
+}
+/* Tall phones have room to spare: the header gets its breathing space and subtitle back. */
+@media (max-width: 520px) and (min-height: 760px) {
+  .app { padding-top: max(18px, env(safe-area-inset-top)); }
+  header { gap: 16px; padding: 6px 0 18px; }
+  .logo h1 { font-size: 1.5rem; }
+  .header-logo-icon { width: 30px; height: 30px; }
+  .logo p { display: block; font-size: 0.68rem; margin-top: 4px; }
+  .game-tab { padding: 12px 6px; }
+  .next-board { margin-top: 14px; }
+}
 
 /* Legal notice: deliberately small and low-contrast, below the game panel. */
 .site-footer {
   max-width: 680px;
   margin: 0 auto 28px;
   padding: 0 24px;
-  font-size: 0.64rem;
+  font-size: 0.56rem;
   line-height: 1.5;
   color: var(--text-muted);
   opacity: 0.45;
   text-align: center;
 }
 .site-footer a { color: inherit; }
+@media (max-width: 520px) {
+  /* On tall phones the panel stretches down to the footer and the game sits in the middle of the
+     space under the header, instead of a gap between the panel and the footer. */
+  body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+  .app { flex: 1; display: flex; flex-direction: column; width: 100%; }
+  .app > .no-puzzle { margin-top: auto; margin-bottom: auto; }
+  /* Spare height: one share above the board, two below it with the buttons in their middle —
+     so the buttons sit halfway between the board and the bottom of the panel. */
+  .app > .game-area { flex: 1; display: flex; flex-direction: column; }
+  .app > .game-area::before { content: ''; flex: 1; }
+  /* padding-top mirrors the panel's 16px bottom padding, so the gaps above and below the buttons match. */
+  .app > .game-area > .actions { flex: 2; align-items: center; margin-top: 0; padding-top: 16px; }
+  .site-footer { margin-bottom: 0; padding: 0 16px max(8px, env(safe-area-inset-bottom)); font-size: 0.5rem; line-height: 1.4; }
+}
 
 .group-banner.missed {
   border-style: dashed;
