@@ -207,6 +207,14 @@
     }
     .modal .modal-hint { font-size: 0.8rem; color: var(--text-muted); min-height: 1.2em; margin-bottom: 14px; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+    /* Grid preview: the real game page (index.html?preview=…) in a phone- or desktop-sized frame. */
+    .preview-modal { max-width: min(1240px, 96vw); max-height: 96vh; display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; }
+    .preview-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .preview-bar h2 { margin: 0 auto 0 0; }
+    .preview-bar label { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
+    .preview-stage { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: flex-start; overflow: auto; }
+    .preview-frame { position: relative; flex-shrink: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #050811; }
+    .preview-frame iframe { border: 0; display: block; transform-origin: 0 0; }
     .toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
       background: var(--panel2); border: 1px solid var(--gold); color: var(--gold-light);
@@ -375,6 +383,21 @@
         </div>
       </div>
     </main>
+  </div>
+
+  <div class="overlay hidden" id="previewOverlay">
+    <div class="modal preview-modal">
+      <div class="preview-bar">
+        <h2 id="previewTitle">Podgląd</h2>
+        <button class="btn btn-sm btn-ghost" id="previewPrev" title="Poprzedni dzień">‹</button>
+        <button class="btn btn-sm btn-ghost" id="previewNext" title="Następny dzień">›</button>
+        <button class="btn btn-sm" id="previewPhone">📱 Telefon</button>
+        <button class="btn btn-sm btn-ghost" id="previewDesktop">🖥 Komputer</button>
+        <label><input type="checkbox" id="previewSolved"> Rozwiązanie</label>
+        <button class="btn btn-sm btn-ghost" id="previewClose" title="Zamknij">✕</button>
+      </div>
+      <div class="preview-stage"><div class="preview-frame" id="previewFrame"><iframe id="previewIframe" title="Podgląd planszy"></iframe></div></div>
+    </div>
   </div>
 
   <div class="overlay hidden" id="confirmOverlay">
@@ -1256,6 +1279,7 @@
         <td>${b.cols.map(c => `<span class="cond">${esc(conditionLabel(c))}</span>`).join('')}</td>
         <td class="nowrap"><span class="muted">${cells}</span><br><span class="${min < 2 ? 'gap-bad' : 'muted'}">min ${min}</span></td>
         <td><div class="row-actions">
+          <button class="btn btn-sm btn-ghost" data-grid-preview="${date}" title="Podgląd w grze">👁</button>
           <button class="btn btn-sm btn-ghost" data-grid-gen="${date}" title="Wylosuj inną siatkę na ten dzień">🎲</button>
           <button class="btn btn-sm btn-danger" data-grid-del="${date}" title="Usuń">🗑</button>
         </div></td></tr>`;
@@ -1267,6 +1291,7 @@
   $('gridTable').addEventListener('click', e => {
     const btn = e.target.closest('button');
     if (!btn) return;
+    if (btn.dataset.gridPreview) return openPreview(btn.dataset.gridPreview);
     const date = btn.dataset.gridGen || btn.dataset.gridDel;
     const exists = gridBoards.some(b => b.date === date);
     if (btn.dataset.gridGen) {
@@ -1298,6 +1323,59 @@
         refreshPublishBar();
       });
     }
+  });
+
+  /* ---------- Grid preview ---------- */
+
+  // The game itself in preview mode: any date (future too), nothing saved to the player's progress.
+  const PREVIEW_SIZES = { phone: [390, 844], desktop: [1366, 768] };
+  const preview = { date: '', device: 'phone' };
+
+  function openPreview(date) {
+    preview.date = date;
+    $('previewOverlay').classList.remove('hidden');
+    showPreview();
+  }
+
+  function showPreview() {
+    const dates = gridBoards.filter(b => !b.missing).map(b => b.date);
+    const i = dates.indexOf(preview.date);
+    const b = gridBoards.find(x => x.date === preview.date);
+    $('previewTitle').textContent = `▦ ${fmtDate(preview.date)}${b ? ` · #${b.boardId}` : ''}`;
+    $('previewPrev').disabled = i <= 0;
+    $('previewNext').disabled = i < 0 || i >= dates.length - 1;
+    $('previewPhone').classList.toggle('btn-ghost', preview.device !== 'phone');
+    $('previewDesktop').classList.toggle('btn-ghost', preview.device !== 'desktop');
+    // The frame keeps the device's real size (so the page's own breakpoints apply) and is scaled down to fit.
+    const [w, h] = PREVIEW_SIZES[preview.device];
+    const stage = document.querySelector('.preview-stage');
+    const scale = Math.min(1, (window.innerWidth * 0.92 - 40) / w, (window.innerHeight * 0.96 - 110) / h);
+    const iframe = $('previewIframe');
+    iframe.style.width = w + 'px';
+    iframe.style.height = h + 'px';
+    iframe.style.transform = `scale(${scale})`;
+    $('previewFrame').style.width = Math.round(w * scale) + 'px';
+    $('previewFrame').style.height = Math.round(h * scale) + 'px';
+    stage.scrollTop = 0;
+    iframe.src = `index.html?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}`;
+  }
+
+  const stepPreview = delta => {
+    const dates = gridBoards.filter(b => !b.missing).map(b => b.date);
+    const next = dates[dates.indexOf(preview.date) + delta];
+    if (next) { preview.date = next; showPreview(); }
+  };
+  $('previewPrev').addEventListener('click', () => stepPreview(-1));
+  $('previewNext').addEventListener('click', () => stepPreview(1));
+  $('previewPhone').addEventListener('click', () => { preview.device = 'phone'; showPreview(); });
+  $('previewDesktop').addEventListener('click', () => { preview.device = 'desktop'; showPreview(); });
+  $('previewSolved').addEventListener('change', showPreview);
+  $('previewClose').addEventListener('click', () => { $('previewOverlay').classList.add('hidden'); $('previewIframe').src = 'about:blank'; });
+  document.addEventListener('keydown', e => {
+    if ($('previewOverlay').classList.contains('hidden')) return;
+    if (e.key === 'Escape') $('previewClose').click();
+    else if (e.key === 'ArrowLeft') stepPreview(-1);
+    else if (e.key === 'ArrowRight') stepPreview(1);
   });
 
   /* ---------- Start ---------- */

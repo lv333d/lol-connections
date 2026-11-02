@@ -142,9 +142,16 @@ const boardCache = new Map();
 let loadSeq = 0;
 let activeCell = -1, activeResult = -1, resultItems = [];
 
+// Admin preview (admin.html): ?preview=YYYY-MM-DD opens that board — future ones too — as a fresh game that is
+// never saved; &solved=1 shows it finished, answers revealed. Local admin server only, so the live site
+// doesn't hand out tomorrow's boards.
+const previewParams = new URLSearchParams(location.search);
+const PREVIEW = /^(127\.0\.0\.1|localhost|\[::1\])$/.test(location.hostname)
+  && /^\d{4}-\d{2}-\d{2}$/.test(previewParams.get('preview') || '') ? previewParams.get('preview') : '';
+
 const stateKey = date => `lolg_state_${date}`;
-const loadState = date => { try { return JSON.parse(localStorage.getItem(stateKey(date))); } catch { return null; } };
-const saveState = () => { try { localStorage.setItem(stateKey(selectedDate), JSON.stringify(state)); } catch { /* storage blocked */ } };
+const loadState = date => { if (PREVIEW) return null; try { return JSON.parse(localStorage.getItem(stateKey(date))); } catch { return null; } };
+const saveState = () => { if (PREVIEW) return; try { localStorage.setItem(stateKey(selectedDate), JSON.stringify(state)); } catch { /* storage blocked */ } };
 const newState = () => ({ cells: Array(9).fill(null), guessesLeft: MAX_GUESSES, wrong: [], gameOver: false });
 
 async function fetchJson(url) {
@@ -322,6 +329,11 @@ async function init() {
   players = (index || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
   playerById = new Map(players.map(p => [p.id, p]));
 
+  if (PREVIEW) {
+    availableDates = [PREVIEW];
+    loadDate(PREVIEW);
+    return;
+  }
   const today = todayKey();
   const rawDates = (manifest?.boards || []).map(b => b.date).sort();
   const dates = rawDates.filter(d => d <= today);
@@ -351,6 +363,7 @@ async function loadDate(date) {
   if (!b) { board = null; $('noPuzzleScreen').classList.remove('hidden'); return; }
   board = b;
   state = loadState(date) || newState();
+  if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
   $('gameArea').classList.remove('hidden');
   // A finished board shows the revealed grid and the "Results" button; the popup opens only right after the game ends.
   render();
