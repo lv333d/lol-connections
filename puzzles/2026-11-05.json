@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-05",
+  "categories": [
+    {
+      "key": "worlds-final-both",
+      "title": {
+        "pl": "Grali w finale Worlds po obu stronach",
+        "en": "Played a Worlds final on both sides",
+        "es": "Jugaron una final de Worlds en ambos lados",
+        "fr": "Ont joué une finale des Worlds des deux côtés"
+      },
+      "difficulty": "green",
+      "items": [
+        {
+          "id": "wolf",
+          "name": "Wolf"
+        },
+        {
+          "id": "theshy",
+          "name": "TheShy"
+        },
+        {
+          "id": "ghost",
+          "name": "Ghost"
+        },
+        {
+          "id": "cuvee",
+          "name": "CuVee"
+        }
+      ],
+      "explain": "Wolf: Wygrał 2015 (SK Telecom T1 vs KOO Tigers), Wygrał 2016 (SK Telecom T1 vs Samsung Galaxy), Przegrał 2017 (SK Telecom T1 vs Samsung Galaxy). TheShy: Wygrał 2018 (Invictus Gaming vs Fnatic), Przegrał 2023 (Weibo Gaming vs T1). Ghost: Wygrał 2020 (DAMWON Gaming vs Suning), Przegrał 2021 (DWG KIA vs EDward Gaming). CuVee: Przegrał 2016 (Samsung Galaxy vs SK Telecom T1), Wygrał 2017 (Samsung Galaxy vs SK Telecom T1)."
+    },
+    {
+      "key": "role-swap",
+      "title": {
+        "pl": "Zmienili rolę w karierze",
+        "en": "Swapped roles during their career",
+        "es": "Cambiaron de rol en su carrera",
+        "fr": "Ont changé de rôle pendant leur carrière"
+      },
+      "difficulty": "yellow",
+      "items": [
+        {
+          "id": "kikis",
+          "name": "Kikis"
+        },
+        {
+          "id": "huhi",
+          "name": "huhi"
+        },
+        {
+          "id": "caps",
+          "name": "Caps"
+        },
+        {
+          "id": "xiaohu",
+          "name": "Xiaohu"
+        }
+      ],
+      "explain": "Kikis: Top (2012–2017 · EloHell, mousesports, G2 Esports · 11 turn.), Jungle (2013–2019 · Heroes Team, Denial eSports EU, SK Gaming Prime · 12 turn.). huhi: Mid (2014–2019 · Bigfile Miracle, Team Fusion, Counter Logic Gaming · 18 turn.), Support (2019–2026 · Golden Guardians, 100 Thieves, NRG · 36 turn.). Caps: Mid (2017–2026 · Fnatic, G2 Esports · 70 turn.), Bot (2020 · G2 Esports · 2 turn.). Xiaohu: Mid (2015–2026 · Gamtee, Royal Never Give Up, Weibo Gaming · 63 turn.), Top (2021 · Royal Never"
+    },
+    {
+      "key": "player-to-coach",
+      "title": {
+        "pl": "Z gracza trenerem",
+        "en": "Went from player to coach",
+        "es": "Pasaron de jugador a entrenador",
+        "fr": "Sont passés de joueur à coach"
+      },
+      "difficulty": "blue",
+      "items": [
+        {
+          "id": "tabe",
+          "name": "Tabe"
+        },
+        {
+          "id": "iwdominate",
+          "name": "IWDominate"
+        },
+        {
+          "id": "svenskeren",
+          "name": "Svenskeren"
+        },
+        {
+          "id": "mowgli",
+          "name": "Mowgli"
+        }
+      ],
+      "explain": "Tabe: Gracz (2012–2016 · Noah's Ark, Royal Club, Invictus Gaming), Trener (2020–2026 · Bilibili Gaming, Anyone's Legend, JD Gaming). IWDominate: Gracz (2012–2016 · Dignitas, Team Curse, Team Liquid), Trener (2026 · Cloud9). Svenskeren: Gracz (2013–2021 · TSM, Cloud9, Evil Geniuses.NA), Trener (2023 · Dignitas). Mowgli: Gracz (2017–2019 · Afreeca Freecs, Team Vitality), Trener (2022–2026 · DRX, Hanwha Life Esports)."
+    },
+    {
+      "key": "nick-change",
+      "title": {
+        "pl": "Zmienili nick w trakcie kariery",
+        "en": "Changed their nickname during their career",
+        "es": "Cambiaron de nick durante su carrera",
+        "fr": "Ont changé de pseudo pendant leur carrière"
+      },
+      "difficulty": "purple",
+      "items": [
+        {
+          "id": "diamondprox",
+          "name": "Diamondprox"
+        },
+        {
+          "id": "jnx",
+          "name": "JNX"
+        },
+        {
+          "id": "promisq",
+          "name": "promisq"
+        },
+        {
+          "id": "khan",
+          "name": "Khan"
+        }
+      ],
+      "explain": "Diamondprox: Diamondprox (2012–2018) → Diamond (2012–2015). JNX: Jenax (2019–2022) → JNX (2022–2025). promisq: PromisQ / promisq (2015–2022) → sprattel (2016–2017). Khan: Hanlabong (2013–2014) → Khan (2014–2021)."
+    }
+  ],
+  "boardId": 5
+}
