@@ -22,7 +22,9 @@ const I18N = {
     noResults: 'Brak graczy o takim nicku.', typeMore: 'Zacznij pisać, aby wyszukać gracza.',
     used: 'już użyty', wrong: '{nick} nie spełnia obu warunków.', correct: 'Trafione!', finished: 'Koniec gry — kliknij „Wyniki”.',
     winTitle: '🏆 Perfekcyjna siatka!', doneTitle: '⚔ Koniec gry', score: '{n}/9',
-    share: '𝕏 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
+    share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
+    giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy, a pozostałe pola zostaną odkryte. Tego nie da się cofnąć.',
+    giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
     answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza lub trenera, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
@@ -46,7 +48,9 @@ const I18N = {
     noResults: 'No player matches.', typeMore: 'Start typing to search for a player.',
     used: 'already used', wrong: '{nick} does not meet both conditions.', correct: 'Correct!', finished: 'Game over — press “Results”.',
     winTitle: '🏆 Immaculate grid!', doneTitle: '⚔ Game over', score: '{n}/9',
-    share: '𝕏 Share result', copy: '📋 Copy result', copied: 'Copied!',
+    share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
+    giveUpTitle: 'Give up?', giveUpText: 'The game ends and the remaining cells are revealed. This cannot be undone.',
+    giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
     answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player or coach who meets the row condition <strong>and</strong> the column condition.'],
@@ -70,7 +74,9 @@ const I18N = {
     noResults: 'Ningún jugador coincide.', typeMore: 'Empieza a escribir para buscar.',
     used: 'ya usado', wrong: '{nick} no cumple ambas condiciones.', correct: '¡Correcto!', finished: 'Fin del juego — pulsa «Resultados».',
     winTitle: '🏆 ¡Cuadrícula perfecta!', doneTitle: '⚔ Fin del juego', score: '{n}/9',
-    share: '𝕏 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
+    share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
+    giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revelan las casillas restantes. No se puede deshacer.',
+    giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
     answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro o entrenador que cumpla la condición de la fila <strong>y</strong> de la columna.'],
@@ -94,7 +100,9 @@ const I18N = {
     noResults: 'Aucun joueur trouvé.', typeMore: 'Commencez à taper pour chercher.',
     used: 'déjà utilisé', wrong: '{nick} ne remplit pas les deux conditions.', correct: 'Correct !', finished: 'Partie terminée — cliquez sur « Résultats ».',
     winTitle: '🏆 Grille parfaite !', doneTitle: '⚔ Partie terminée', score: '{n}/9',
-    share: '𝕏 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
+    share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
+    giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et les cases restantes sont révélées. Impossible de revenir en arrière.',
+    giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
     answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro ou un coach qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
@@ -279,9 +287,11 @@ function applyI18n() {
   const map = {
     subtitle: 'subtitle', noPuzzleTitle: 'noPuzzleTitle', noPuzzleText: 'noPuzzleText',
     guessesLabel: 'guessesLabel', btnGiveUp: 'giveUp', btnShowResults: 'results',
-    btnShare: 'share', btnCopy: 'copy', guideTitle: 'guideTitle', btnGuideLabel: 'btnGuideLabel', searchTitle: 'searchTitle'
+    btnShare: 'share', btnCopy: 'copy', guideTitle: 'guideTitle', btnGuideLabel: 'btnGuideLabel', searchTitle: 'searchTitle',
+    giveUpTitle: 'giveUpTitle', giveUpText: 'giveUpText', btnGiveUpConfirm: 'giveUpConfirm', btnGiveUpCancel: 'giveUpCancel'
   };
   Object.entries(map).forEach(([id, k]) => { if ($(id)) $(id).textContent = t(k); });
+  if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('searchInput').placeholder = t('searchPh');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
@@ -608,6 +618,14 @@ function showResult() {
   $('resultOverlay').classList.remove('hidden');
 }
 
+// Phones get the system share sheet (WhatsApp, Messenger, Discord…); desktops keep the X intent.
+function canNativeShare() { return typeof navigator.share === 'function' && window.matchMedia('(pointer: coarse)').matches; }
+const shareOnX = text => window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
+function shareResult(text) {
+  if (!canNativeShare()) return shareOnX(text);
+  navigator.share({ text }).catch(err => { if (err.name !== 'AbortError') shareOnX(text); });
+}
+
 let toastTimer = 0;
 function showToast(msg) {
   const e = $('toast');
@@ -637,7 +655,11 @@ document.addEventListener('keydown', e => {
   document.querySelectorAll('.overlay:not(.hidden)').forEach(o => o.classList.add('hidden'));
   activeCell = -1;
 });
-$('btnGiveUp').addEventListener('click', () => {
+// One tap ends the game for good, so ask first (easy to hit by accident while scrolling on a phone).
+$('btnGiveUp').addEventListener('click', () => $('giveUpOverlay').classList.remove('hidden'));
+$('btnGiveUpCancel').addEventListener('click', () => $('giveUpOverlay').classList.add('hidden'));
+$('btnGiveUpConfirm').addEventListener('click', () => {
+  $('giveUpOverlay').classList.add('hidden');
   state.gameOver = true;
   saveState();
   render();
@@ -652,7 +674,7 @@ window.addEventListener('scroll', hideAnswers, { passive: true });
 window.addEventListener('resize', hideAnswers);
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
-$('btnShare').addEventListener('click', () => window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(buildShareText()), '_blank'));
+$('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });
 $('btnNextDate').addEventListener('click', () => { if (selectedDateIndex < availableDates.length - 1) loadDate(availableDates[selectedDateIndex + 1]); });

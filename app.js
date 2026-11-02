@@ -33,7 +33,7 @@ const I18N = {
     deselect: 'Odznacz', submit: 'Zatwierdź', results: 'Wyniki',
     almost: 'Prawie! Brakowało tylko jednego',
     winTitle: '🏆 Brawo, udało się!', loseTitle: '💀 Gra skończona',
-    share: '𝕏 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
+    share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     mistakes: 'błędów', guideTitle: '📖 Poradnik',
     puzzleCredit: 'Zagadka zaproponowana przez: {name}',
     guideWhatTitle: 'Co to jest gra?',
@@ -64,7 +64,7 @@ const I18N = {
     deselect: 'Deselect', submit: 'Submit', results: 'Results',
     almost: 'One away!',
     winTitle: '🏆 Well done!', loseTitle: '💀 Game over',
-    share: '𝕏 Share result', copy: '📋 Copy result', copied: 'Copied!',
+    share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     mistakes: 'mistakes', guideTitle: '📖 How to play',
     puzzleCredit: 'Puzzle suggested by: {name}',
     guideWhatTitle: 'What is this game?',
@@ -95,7 +95,7 @@ const I18N = {
     deselect: 'Desmarcar', submit: 'Enviar', results: 'Resultados',
     almost: '¡Casi! Solo faltaba uno',
     winTitle: '🏆 ¡Bien hecho!', loseTitle: '💀 Fin del juego',
-    share: '𝕏 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
+    share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     mistakes: 'errores', guideTitle: '📖 Guía',
     puzzleCredit: 'Acertijo propuesto por: {name}',
     guideWhatTitle: '¿Qué es este juego?',
@@ -126,7 +126,7 @@ const I18N = {
     deselect: 'Désélectionner', submit: 'Valider', results: 'Résultats',
     almost: 'Presque ! Il n\'en manquait qu\'un',
     winTitle: '🏆 Bravo !', loseTitle: '💀 Partie terminée',
-    share: '𝕏 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
+    share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     mistakes: 'erreurs', guideTitle: '📖 Guide',
     puzzleCredit: 'Énigme proposée par : {name}',
     guideWhatTitle: 'Qu\'est-ce que ce jeu ?',
@@ -263,6 +263,7 @@ function applyI18n() {
     suggestSuccessText: 'suggestSuccessText', btnSuggestClose: 'suggestClose'
   };
   Object.entries(mappings).forEach(([id, k]) => { const el = $(id); if (el) el.textContent = t(k); });
+  if ($('btnShare') && canNativeShare()) $('btnShare').textContent = t('shareNative');
   if ($('suggestNick')) $('suggestNick').placeholder = t('suggestNickPh');
   if ($('suggestNotes')) $('suggestNotes').placeholder = t('suggestNotesPh');
   if ($('suggestCategory')) $('suggestCategory').placeholder = t('suggestCategoryPh');
@@ -681,7 +682,14 @@ $('btnSuggest')?.addEventListener('click', () => {
 $('btnSuggestSubmit')?.addEventListener('click', validateAndSaveSuggestion);
 $('btnSuggestClose')?.addEventListener('click', () => closeOverlay('suggestOverlay'));
 $('btnSuggestCopyCode')?.addEventListener('click', () => { navigator.clipboard.writeText($('suggestCopyArea').value).then(() => showToast(t('copied'))); });
-$('btnShare')?.addEventListener('click', () => { window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(buildShareText()), '_blank'); });
+// Phones get the system share sheet (WhatsApp, Messenger, Discord…); desktops keep the X intent.
+function canNativeShare() { return typeof navigator.share === 'function' && window.matchMedia('(pointer: coarse)').matches; }
+const shareOnX = text => window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank');
+$('btnShare')?.addEventListener('click', () => {
+  const text = buildShareText();
+  if (!canNativeShare()) return shareOnX(text);
+  navigator.share({ text }).catch(err => { if (err.name !== 'AbortError') shareOnX(text); });
+});
 $('btnCopy')?.addEventListener('click', () => { navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))); });
 $('btnPrevDate')?.addEventListener('click', () => { if (selectedDateIndex > 0) loadPuzzleForDate(availableDates[selectedDateIndex - 1]); });
 $('btnNextDate')?.addEventListener('click', () => { if (selectedDateIndex >= 0 && selectedDateIndex < availableDates.length - 1) loadPuzzleForDate(availableDates[selectedDateIndex + 1]); });

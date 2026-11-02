@@ -14,6 +14,11 @@
   text-shadow: 0 0 8px rgba(200, 170, 110, 0.35);
 }
 
+/* Give-up confirmation */
+.confirm-modal { max-width: 400px; text-align: center; }
+.confirm-modal h2 { margin-bottom: 10px; }
+.confirm-modal p { color: var(--text-muted); font-size: 0.9rem; }
+
 /* Countdown to the next grid, in the result modal below the share buttons. */
 .grid-countdown {
   margin-top: 22px; padding-top: 16px;
