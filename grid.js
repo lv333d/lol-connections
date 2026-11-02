@@ -32,7 +32,7 @@ const I18N = {
     ],
     cond: {
       coach: 'Trener', coachLong: 'Był trenerem',
-      retired: 'Emeryt', retiredLong: 'Zakończył karierę',
+      retired: 'Emerytowany gracz', retiredLong: 'Zakończył karierę zawodniczą',
       worlds: 'Mistrz Worlds', msi: 'Mistrz MSI', 'first-stand': 'Mistrz First Stand',
       league: 'Grał lub trenował w {id}', team: 'Grał lub trenował w {label}', aka: 'Znana również jako', teammate: 'Był w drużynie z {label}', nationality: 'Narodowość: {name}'
     }
@@ -56,7 +56,7 @@ const I18N = {
     ],
     cond: {
       coach: 'Coach', coachLong: 'Worked as a coach',
-      retired: 'Retired', retiredLong: 'Retired from pro play',
+      retired: 'Retired player', retiredLong: 'Retired from playing',
       worlds: 'Worlds winner', msi: 'MSI winner', 'first-stand': 'First Stand winner',
       league: 'Played or coached in {id}', team: 'Played for or coached {label}', aka: 'Also known as', teammate: 'Was on a team with {label}', nationality: 'Nationality: {name}'
     }
@@ -80,7 +80,7 @@ const I18N = {
     ],
     cond: {
       coach: 'Entrenador', coachLong: 'Fue entrenador',
-      retired: 'Retirado', retiredLong: 'Se retiró',
+      retired: 'Jugador retirado', retiredLong: 'Se retiró como jugador',
       worlds: 'Campeón de Worlds', msi: 'Campeón del MSI', 'first-stand': 'Campeón de First Stand',
       league: 'Jugó o entrenó en {id}', team: 'Jugó o entrenó en {label}', aka: 'También conocido como', teammate: 'Estuvo en un equipo con {label}', nationality: 'Nacionalidad: {name}'
     }
@@ -104,7 +104,7 @@ const I18N = {
     ],
     cond: {
       coach: 'Coach', coachLong: 'A été coach',
-      retired: 'Retraité', retiredLong: 'A pris sa retraite',
+      retired: 'Joueur retraité', retiredLong: 'A pris sa retraite de joueur',
       worlds: 'Champion des Worlds', msi: 'Champion du MSI', 'first-stand': 'Champion de First Stand',
       league: 'A joué ou coaché en {id}', team: 'A joué pour ou coaché {label}', aka: 'Aussi connue sous le nom de', teammate: 'A été dans une équipe avec {label}', nationality: 'Nationalité : {name}'
     }
