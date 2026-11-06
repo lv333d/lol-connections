@@ -27,6 +27,20 @@ const LTA_COMBINED = 'League of Legends Championship of The Americas';
 const LTA_NORTH = 'League of Legends Championship of The Americas North';
 const INTERNATIONAL = ['World Championship', 'Mid-Season Invitational', 'First Stand'];
 const LEAGUE_OF = new Map(Object.entries(LEAGUES).flatMap(([id, names]) => names.map(n => [n, id])));
+// The top tier-2 league of each region (Leaguepedia marks every tier-2 league "Secondary", so they're listed by hand):
+// rosters there count for the organization's team condition as answers (`academyTeams`: KC in LFL, T1 Esports
+// Academy in LCK CL), but never when the generator picks conditions. Lower divisions (LFL Division 2, LCK Academy
+// Series, Prime League 1st Division…) and showmatches don't count.
+const ACADEMY_LEAGUES = [
+  'LCK Challengers League', 'Challengers Korea', 'LoL Development League', 'LoL Secondary Pro League',
+  'NA Academy League', 'North American Challengers League', 'North America Challenger Series',
+  'European Masters', 'EMEA Masters', 'European Challenger Series',
+  'La Ligue Française', 'Prime League Pro Division', 'LVP SuperLiga', 'LVP SuperLiga Orange', 'Ultraliga', 'Rift Legends',
+  'Northern League of Legends Championship', 'Elite Series: League of Legends', 'Hitpoint Masters', 'Liga Portuguesa',
+  'Hellenic Legends League', 'Arabian League', 'Turkish Championship League'
+];
+// An academy team named after its organization plus a short suffix ("T1 Esports Academy", "Fnatic TQ", "Karmine Corp Blue").
+const ACADEMY_SUFFIX = /^[\s.\-]+\S+(\s\S+){0,2}$/;
 
 // Winners are read from TournamentResults of the top-level event page.
 const TROPHY_EVENTS = [
@@ -92,6 +106,18 @@ async function main() {
     fresh
   });
   console.log(`  ${rosterRows.length} wierszy`);
+
+  step('Składy akademii (najwyższa liga zaplecza w regionie)');
+  const academyRows = await cargoQuery({
+    tables: 'TournamentPlayers=TP,Tournaments=T',
+    joinOn: 'TP.OverviewPage=T.OverviewPage',
+    fields: 'TP.Team=Team,TP.Link=Link,TP.Role=Role',
+    where: `T.League IN (${ACADEMY_LEAGUES.map(cargoStr).join(',')}) AND (T.TournamentLevel IS NULL OR T.TournamentLevel NOT IN ('Showmatch','Qualifier'))`
+      + ' AND TP.Link IS NOT NULL AND TP.Team IS NOT NULL',
+    groupBy: 'TP.Team,TP.Link,TP.Role',
+    fresh
+  });
+  console.log(`  ${academyRows.length} wierszy`);
 
   step('Zwycięzcy Worlds / MSI / First Stand');
   const winners = []; // { trophy, page, team }
@@ -221,6 +247,7 @@ async function main() {
   const teamUsage = new Map(); // franchise → number of player/coach tournaments
   const rosters = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for trophies)
   const squads = new Map(); // "page|team" → Set<wikiPage> (players and coaches — used for teammates)
+  const rosterPlayers = new Map(); // "page|team" → Set<wikiPage> who were on it as players (not coaches)
   const teamLeagues = new Map(); // franchise → Map<league, tournaments> (its home league is the top one)
   const played = new Set(); // wikiPages with at least one tournament as a player
   const addTo = (map, key, link) => { if (!map.has(key)) map.set(key, new Set()); map.get(key).add(link); };
@@ -241,7 +268,9 @@ async function main() {
         id: slugify(r.Link), nick: decodeEntities(prof?.ID) || nickFromPage(r.Link), name: decodeEntities(prof?.Name), wikiPage: r.Link,
         prof, coach: isCoachRole(prof?.Role), nationality: nationalityOf(prof),
         nationalities: nationalitiesOf(prof, nationalityOf(prof)),
-        teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: new Set()
+        teams: new Set(), leagues: new Set(), trophies: new Set(), teammates: new Set(), pages: new Set(),
+        // The same, but only what was reached as a player: the generator counts a cell's minimum from these.
+        playedTeams: new Set(), playedLeagues: new Set(), playedTrophies: new Set(), playedWith: new Set()
       };
       players.set(r.Link, p);
     }
@@ -250,6 +279,11 @@ async function main() {
     const franchise = franchiseOf(r.Team);
     p.teams.add(franchise);
     if (leagueOf(r)) p.leagues.add(leagueOf(r));
+    if (!asCoach) {
+      p.playedTeams.add(franchise);
+      if (leagueOf(r)) p.playedLeagues.add(leagueOf(r));
+      addTo(rosterPlayers, key, r.Link);
+    }
     p.pages.add(r.Page);
     teamUsage.set(franchise, (teamUsage.get(franchise) || 0) + 1);
     if (leagueOf(r)) {
@@ -259,6 +293,29 @@ async function main() {
     addTo(rosters, key, r.Link);
     addTo(squads, key, r.Link);
   }
+  // Academy rosters → the organization's team (answers only). The organization is the team itself when it plays
+  // under the same name (Karmine Corp in LFL), otherwise the longest known team name it starts with plus a short
+  // suffix ("T1 Esports Academy" → T1, "Karmine Corp Blue" → Karmine Corp). Only people already in the database.
+  const orgNames = [...new Set([...teamInfo.keys(), ...teamNames])].filter(n => teamUsage.has(franchiseOf(n)))
+    .sort((a, b) => b.length - a.length);
+  const academyOrg = team => {
+    const parent = orgNames.find(n => team.startsWith(n) && ACADEMY_SUFFIX.test(team.slice(n.length)));
+    if (parent) return franchiseOf(parent);
+    return teamUsage.has(franchiseOf(team)) ? franchiseOf(team) : null;
+  };
+  const playerByLower = new Map([...players.values()].map(p => [p.wikiPage.toLowerCase(), p]));
+  let academyLinks = 0;
+  for (const r of academyRows) {
+    if (!isCoachRole(r.Role) && (!r.Role || /analyst|manager|owner|staff/i.test(r.Role))) continue;
+    const p = players.get(canonical(r.Link)) || playerByLower.get(pageKey(r.Link).toLowerCase())
+      || playerByLower.get((redirectTo.get(pageKey(r.Link).toLowerCase()) || '').toLowerCase());
+    const org = p && academyOrg(r.Team);
+    if (!org || p.teams.has(org)) continue;
+    (p.academyTeams ||= new Set()).add(org);
+    academyLinks++;
+  }
+  console.log(`  dodatkowych przypisań gracz → organizacja: ${academyLinks}`);
+
   // "Retired" means retired as a player, so it never applies to people who only coached (e.g. BigWei).
   let inactiveRetired = 0;
   for (const p of players.values()) {
@@ -272,10 +329,15 @@ async function main() {
   console.log(`  emeryci z powodu nieaktywności (bez statusu na Leaguepedii): ${inactiveRetired}`);
 
   // Everyone in the database (players and coaches) who shared a roster is "on a team with" each other.
-  for (const members of squads.values()) {
+  for (const [key, members] of squads) {
+    const asPlayers = rosterPlayers.get(key) || new Set();
     for (const a of members) {
       if (!players.has(a)) continue;
-      for (const b of members) if (a !== b && players.has(b)) players.get(a).teammates.add(b);
+      for (const b of members) {
+        if (a === b || !players.has(b)) continue;
+        players.get(a).teammates.add(b);
+        if (asPlayers.has(a) && asPlayers.has(b)) players.get(a).playedWith.add(b);
+      }
     }
   }
 
@@ -286,6 +348,7 @@ async function main() {
       // Compare organizations: results may name "SK Telecom T1" while the roster says "SK Telecom T1 K".
       if (franchiseOf(team) === franchiseOf(w.team) && (page === w.page || page.startsWith(w.page + '/'))) {
         members.forEach(link => players.get(link).trophies.add(w.trophy));
+        (rosterPlayers.get(key) || []).forEach(link => players.get(link).playedTrophies.add(w.trophy));
       }
     }
   }
@@ -304,6 +367,18 @@ async function main() {
     idOf.set(p.wikiPage, id);
   }
   const teamId = name => slugify(name);
+  /** What `p` reached only as a coach (accepted as an answer, but not counted when the generator picks cells). */
+  const coachingOnly = p => {
+    const only = (all, asPlayer) => [...all].filter(x => !asPlayer.has(x));
+    const via = {
+      teams: only(p.teams, p.playedTeams).map(teamId).sort(),
+      leagues: only(p.leagues, p.playedLeagues).sort(),
+      trophies: only(p.trophies, p.playedTrophies).sort(),
+      teammates: only(p.teammates, p.playedWith).filter(t => keptPages.has(t)).map(t => idOf.get(t)).sort()
+    };
+    const kept = Object.fromEntries(Object.entries(via).filter(([, v]) => v.length));
+    return Object.keys(kept).length ? { viaCoaching: kept } : {};
+  };
 
   const out = kept
     .map(p => ({
@@ -311,6 +386,8 @@ async function main() {
       retired: p.retired, coach: p.coach, ...(p.coachOnly ? { coachOnly: true } : {}), nationality: p.nationality,
       ...(p.nationalities ? { nationalities: p.nationalities } : {}),
       teams: [...p.teams].map(teamId).sort(),
+      ...(p.academyTeams ? { academyTeams: [...p.academyTeams].map(teamId).sort() } : {}),
+      ...coachingOnly(p),
       leagues: [...p.leagues].sort(),
       trophies: [...p.trophies].sort(),
       teammates: [...p.teammates].filter(t => keptPages.has(t)).map(t => idOf.get(t)).sort(),

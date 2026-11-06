@@ -14,7 +14,7 @@ import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ROOT, DATE_RE } from './lib/puzzles.js';
-import { matches, conditionKey, hasDistinctAssignment } from './lib/grid-conditions.js';
+import { matches, conditionKey, hasDistinctAssignment, boardAnswers } from './lib/grid-conditions.js';
 
 const GRID_DIR = path.join(ROOT, 'grid');
 const MAX_ATTEMPTS = 20000;
@@ -212,9 +212,7 @@ async function main() {
     if (existing.has(date) && RECOMPUTE) {
       const file = path.join(GRID_DIR, `${date}.json`);
       const board = JSON.parse(await readFile(file, 'utf8'));
-      const answers = board.rows.map(r => board.cols.map(c => players
-        .filter(p => matches(p, r) && matches(p, c)).map(p => p.id)
-        .sort((a, b) => byId.get(b).tournaments - byId.get(a).tournaments || a.localeCompare(b))));
+      const answers = boardAnswers(board.rows, board.cols, players);
       // Conditions stay; the board must still be solvable with the current data.
       if (answers.flat().some(cell => cell.length < 1) || !hasDistinctAssignment(answers)) {
         failed++;
@@ -235,9 +233,10 @@ async function main() {
     const result = generateBoard(date, pool, byId, VARIANT);
     if (!result) { failed++; console.error(`✗ ${date}: nie znaleziono rozwiązywalnej planszy w ${MAX_ATTEMPTS} próbach`); continue; }
     const boardId = existing.get(date) ?? nextId++;
-    const board = { date, boardId, rows: result.rows, cols: result.cols, answers: result.answers };
+    // The board was picked on main teams only; the stored answers also accept academy players.
+    const board = { date, boardId, rows: result.rows, cols: result.cols, answers: boardAnswers(result.rows, result.cols, players) };
     await writeFile(path.join(GRID_DIR, `${date}.json`), JSON.stringify(board) + '\n');
-    const counts = result.answers.map(r => r.map(c => c.length).join('/')).join(' | ');
+    const counts = board.answers.map(r => r.map(c => c.length).join('/')).join(' | ');
     console.log(`✓ ${date} #${boardId} (próba ${result.attempt})\n    wiersze: ${result.rows.map(describe).join(', ')}\n    kolumny: ${result.cols.map(describe).join(', ')}\n    graczy na pole: ${counts}`);
   }
   await rebuildGridManifest();

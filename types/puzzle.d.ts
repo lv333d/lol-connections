@@ -92,6 +92,12 @@ export interface Player {
   nationalities?: string[];
   /** Team (franchise) ids played for or coached. */
   teams: string[];
+  /** Team ids reached only through its academy in a region's top tier-2 league (KC in LFL, T1 Esports Academy).
+   *  They count as answers for a team condition, never when the generator picks conditions. */
+  academyTeams?: string[];
+  /** The part of teams/leagues/trophies/teammates reached only as a coach: accepted as answers, but not counted
+   *  when the generator checks a cell's minimum (outside the "coach" condition itself). */
+  viaCoaching?: { teams?: string[]; leagues?: string[]; trophies?: string[]; teammates?: string[] };
   /** League ids played or coached in: LCK, LPL, LEC, LCS, LTA. */
   leagues: string[];
   /** Won as a player or as the coach of the winning roster. */

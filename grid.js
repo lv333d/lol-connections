@@ -181,6 +181,36 @@ function fetchBoard(date) {
   return boardCache.get(date);
 }
 
+/** Image shown for a condition (team/league logo, badge, flag or the teammate's portrait). */
+function conditionImage(c) {
+  switch (c.kind) {
+    case 'league': return `assets/logos/leagues/${c.id}.webp`;
+    case 'team': return `assets/logos/teams/${encodeURIComponent(c.id)}.webp`;
+    case 'coach': case 'retired': return `assets/badges/${c.kind}.svg`;
+    case 'trophy': return `assets/badges/${c.id}.webp`;
+    case 'nationality': return `assets/flags/${encodeURIComponent(c.id)}.svg`;
+    case 'teammate': return `players/${encodeURIComponent(c.playerId)}.webp`;
+    default: return '';
+  }
+}
+
+/** Loads images into the browser cache; settles once all are done (missing files included) or after `ms`. */
+function preloadImages(urls, ms) {
+  const all = Promise.all(urls.map(url => { const img = new Image(); img.src = url; return img.decode().catch(() => {}); }));
+  return Promise.race([all, new Promise(r => setTimeout(r, ms))]);
+}
+
+/** A board's condition images plus the portraits already placed in it, so switching to it doesn't flicker. */
+function boardImages(b, date) {
+  const placed = (loadState(date)?.cells || []).filter(Boolean).map(id => `players/${encodeURIComponent(id)}.webp`);
+  return [...b.rows, ...b.cols].map(conditionImage).filter(Boolean).concat(placed);
+}
+
+/** Fetches a neighbouring day's board and its images in the background. */
+function prefetchBoard(date) {
+  if (date) fetchBoard(date).then(b => b && preloadImages(boardImages(b, date), 10000));
+}
+
 /* ---------- Rendering helpers ---------- */
 
 /** Portrait from players/{id}.webp, falling back to initials when the file is missing. */
@@ -246,10 +276,10 @@ function conditionBadge(c, small = false) {
   switch (c.kind) {
     case 'league':
       // Drop an official logo at assets/logos/leagues/{ID}.webp to replace the emblem.
-      icon.appendChild(logo(`assets/logos/leagues/${c.id}.webp`, 'emblem-league', c.id, { 'data-league': c.id }));
+      icon.appendChild(logo(conditionImage(c), 'emblem-league', c.id, { 'data-league': c.id }));
       break;
     case 'team':
-      icon.appendChild(logo(`assets/logos/teams/${encodeURIComponent(c.id)}.webp`, 'emblem-team', c.short || c.label));
+      icon.appendChild(logo(conditionImage(c), 'emblem-team', c.short || c.label));
       // Former names also count — listed behind an "i" corner mark instead of in the main tooltip.
       if (c.aliases?.length) {
         const aka = icon.appendChild(el('span', 'aka'));
@@ -260,13 +290,13 @@ function conditionBadge(c, small = false) {
       break;
     case 'coach':
     case 'retired':
-      icon.appendChild(logo(`assets/badges/${c.kind}.svg`, 'emblem-team', short));
+      icon.appendChild(logo(conditionImage(c), 'emblem-team', short));
       break;
     case 'trophy':
-      icon.appendChild(logo(`assets/badges/${c.id}.webp`, 'emblem-team', short));
+      icon.appendChild(logo(conditionImage(c), 'emblem-team', short));
       break;
     case 'nationality':
-      icon.appendChild(logo(`assets/flags/${encodeURIComponent(c.id)}.svg`, 'emblem-team', c.id.toUpperCase()));
+      icon.appendChild(logo(conditionImage(c), 'emblem-team', c.id.toUpperCase()));
       break;
     case 'teammate':
       icon.appendChild(avatar(c.playerId, c.label));
@@ -366,11 +396,22 @@ async function loadDate(date) {
   selectedDateIndex = availableDates.indexOf(date);
   updateNavButtons();
   $('dateDisplay').textContent = formatDate(date);
-  ['noPuzzleScreen', 'gameArea', 'resultOverlay', 'searchOverlay'].forEach(id => $(id).classList.add('hidden'));
+  ['resultOverlay', 'searchOverlay'].forEach(id => $(id).classList.add('hidden'));
 
+  // The previous board stays on screen until this one and its images are in, then they swap in one go
+  // (hiding it first made the page jump and the logos pop in one by one). Slow images wait 1.5 s at most.
   const b = await fetchBoard(date);
+  if (b) await preloadImages(boardImages(b, date), 1500);
   if (seq !== loadSeq) return;
-  if (!b) { board = null; $('noPuzzleScreen').classList.remove('hidden'); return; }
+  prefetchBoard(availableDates[selectedDateIndex - 1]);
+  prefetchBoard(availableDates[selectedDateIndex + 1]);
+  if (!b) {
+    board = null;
+    $('gameArea').classList.add('hidden');
+    $('noPuzzleScreen').classList.remove('hidden');
+    return;
+  }
+  $('noPuzzleScreen').classList.add('hidden');
   board = b;
   state = loadState(date) || newState();
   if (PREVIEW && previewParams.has('solved')) state.gameOver = true;

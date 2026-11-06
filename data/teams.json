@@ -816,13 +816,14 @@
  },
  {
   "id": "lyon-2024-american-team",
-  "name": "LYON (2024 American Team)",
+  "name": "LYON",
   "page": "LYON (2024 American Team)",
-  "short": "LYON (2024 American Team)",
+  "short": "LYON",
   "logo": "",
   "league": "LCS",
   "aliases": [
-   "Movistar R7"
+   "Movistar R7",
+   "LYON (2024 American Team)"
   ],
   "players": 21
  },

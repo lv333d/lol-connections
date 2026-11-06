@@ -334,14 +334,18 @@ async function loadPuzzleForDate(dateStr) {
   updateNavButtons();
 
   $('dateDisplay').textContent = weekLabel(selectedDate);
-  ['noPuzzleScreen', 'gameArea', 'resultOverlay'].forEach(id => $(id).classList.add('hidden'));
-  $('hintMsg').textContent = '';
+  $('resultOverlay').classList.add('hidden');
 
+  // The previous board stays on screen until this one is in, then it swaps in one go (hiding it first made
+  // the page jump). Neighbouring weeks are fetched in the background so the arrows switch instantly.
   const board = await fetchBoard(dateStr);
   if (seq !== loadSeq) return; // user navigated elsewhere while this board was loading
+  [availableDates[selectedDateIndex - 1], availableDates[selectedDateIndex + 1]].forEach(d => d && fetchBoard(d));
+  $('hintMsg').textContent = '';
   if (!board) {
     puzzle = null;
     renderCredit();
+    $('gameArea').classList.add('hidden');
     $('noPuzzleScreen').classList.remove('hidden');
     return;
   }
@@ -351,10 +355,12 @@ async function loadPuzzleForDate(dateStr) {
   if (!puzzleHasLang(puzzle, currentLang)) {
     $('noPuzzleTitle').textContent = t('noPuzzleTitle');
     $('noPuzzleText').textContent = t('noPuzzleLang');
+    $('gameArea').classList.add('hidden');
     $('noPuzzleScreen').classList.remove('hidden');
     renderCredit();
     return;
   }
+  $('noPuzzleScreen').classList.add('hidden');
 
   renderCredit();
   state = loadState(selectedDate);
