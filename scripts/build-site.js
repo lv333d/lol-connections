@@ -1,20 +1,20 @@
-// Copies only the public game files into dist/ for the static host (Vercel; netlify.toml and _headers also work).
-// Publishing the project root would also expose scripts/, node_modules/ (the host installs them there),
-// the full player database and the admin panel, which only works with the local admin server.
-// Also writes robots.txt and sitemap.xml (the indexable pages only — never the board JSON files).
+// Builds dist/ for the static host (Vercel; netlify.toml and _headers also work):
+// - copies only the public files — publishing the project root would also expose scripts/, node_modules/
+//   (the host installs them there), the full player database and the admin panel (local admin server only);
+// - writes every page in every language from the English templates (scripts/lib/site-pages.js):
+//   / and /connections, and the same under /pl, /es, /fr;
+// - writes robots.txt and sitemap.xml (the pages only — never the board JSON files).
 import { cp, rm, mkdir, access, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT } from './lib/puzzles.js';
+import { SITE, buildPages, sitemap } from './lib/site-pages.js';
 
-const SITE = 'https://connect4.lol';
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
-  'index.html', 'connections.html', '404.html', 'app.js', 'grid.js', 'footer.js', 'style.css', 'grid.css', 'icon.svg',
+  '404.html', 'site.js', 'app.js', 'grid.js', 'footer.js', 'style.css', 'grid.css', 'icon.svg',
   'site.webmanifest', 'puzzles', 'grid', 'players', 'assets', 'data/players-index.json',
   '_headers' // Cloudflare Pages / Netlify response headers
 ];
-// Indexable pages (clean URLs: vercel.json cleanUrls serves connections.html at /connections).
-const PAGES = ['/', '/connections'];
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
@@ -26,11 +26,13 @@ for (const entry of PUBLIC) {
   copied++;
 }
 
+const pages = await buildPages(ROOT);
+for (const { file, html } of pages) {
+  await mkdir(path.dirname(path.join(DIST, file)), { recursive: true });
+  await writeFile(path.join(DIST, file), html);
+}
+
 const today = new Date().toISOString().slice(0, 10);
 await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
-await writeFile(path.join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${PAGES.map(p => `  <url><loc>${SITE}${p}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
-</urlset>
-`);
-console.log(`dist/: ${copied}/${PUBLIC.length} pozycji skopiowanych, robots.txt, sitemap.xml (${PAGES.length} stron)`);
+await writeFile(path.join(DIST, 'sitemap.xml'), sitemap(pages, today));
+console.log(`dist/: ${copied}/${PUBLIC.length} pozycji skopiowanych, ${pages.length} stron HTML, robots.txt, sitemap.xml`);

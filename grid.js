@@ -121,11 +121,7 @@ const I18N = {
 
 // Helpers
 const $ = id => document.getElementById(id);
-/** First supported language from the browser's preferences (e.g. 'pl-PL' → 'pl'), else English. */
-const browserLang = () => (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
-  .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
-let currentLang = browserLang();
-try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) currentLang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
+let currentLang = SITE.lang; // site.js: the URL's language on built pages
 
 const fill = (s, vars) => Object.keys(vars || {}).reduce((acc, k) => acc.replace(`{${k}}`, vars[k]), s);
 const t = (key, vars) => fill((I18N[currentLang] && I18N[currentLang][key]) ?? I18N.en[key] ?? key, vars);
@@ -316,15 +312,10 @@ function conditionBadge(c, small = false) {
 
 function applyI18n() {
   document.documentElement.lang = currentLang;
-  const map = {
-    subtitle: 'subtitle', noPuzzleTitle: 'noPuzzleTitle', noPuzzleText: 'noPuzzleText',
-    guessesLabel: 'guessesLabel', btnGiveUp: 'giveUp', btnShowResults: 'results',
-    btnShare: 'share', btnCopy: 'copy', guideTitle: 'guideTitle', btnGuideLabel: 'btnGuideLabel', searchTitle: 'searchTitle',
-    giveUpTitle: 'giveUpTitle', giveUpText: 'giveUpText', btnGiveUpConfirm: 'giveUpConfirm', btnGiveUpCancel: 'giveUpCancel'
-  };
-  Object.entries(map).forEach(([id, k]) => { if ($(id)) $(id).textContent = t(k); });
+  // The same keys are filled into the HTML at build time (scripts/build-site.js), so built pages don't change here.
+  document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
-  $('searchInput').placeholder = t('searchPh');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
@@ -651,7 +642,7 @@ const score = () => state.cells.filter(Boolean).length;
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 
 function buildShareText() {
-  return `⚔ LoL Connect #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\nhttps://connect4.lol/`;
+  return `⚔ LoL Connect #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\n${SITE.url(currentLang, '')}`;
 }
 
 function showResult() {
@@ -722,7 +713,7 @@ $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(build
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });
 $('btnNextDate').addEventListener('click', () => { if (selectedDateIndex < availableDates.length - 1) loadDate(availableDates[selectedDateIndex + 1]); });
 $('langSelect').addEventListener('change', e => {
-  if (!LANGS.includes(e.target.value)) return;
+  if (SITE.built || !LANGS.includes(e.target.value)) return; // built pages: footer.js opens the other language's URL
   currentLang = e.target.value;
   try { localStorage.setItem('lolc_lang', currentLang); } catch { /* storage blocked */ }
   applyI18n();

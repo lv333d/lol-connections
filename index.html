@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
   <meta charset="UTF-8">
+  <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/connections etc. -->
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#050811">
   <title>LoL Connect</title>
-  <meta name="description" content="Zagadki League of Legends: codzienna siatka 3x3 pro-graczy i cotygodniowe Connections.">
+  <meta name="description" content="Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a weekly Connections puzzle.">
   <link rel="canonical" href="https://connect4.lol/">
   <!-- Open Graph / Facebook / Discord -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="LoL Connect">
   <meta property="og:url" content="https://connect4.lol/">
-  <meta property="og:title" content="LoL Connect — Codzienne zagadki League of Legends">
-  <meta property="og:description" content="Znajdź pro-gracza, który spełnia warunek wiersza i kolumny, albo pogrupuj 16 haseł w 4 kategorie.">
+  <meta property="og:title" content="LoL Connect — Daily League of Legends esports puzzles">
+  <meta property="og:description" content="Find a pro player who meets both the row and the column condition, or sort 16 items into 4 groups.">
   <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="LoL Connect — daily League of Legends esports puzzles">
   <!-- X / Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LoL Connect — Codzienne zagadki League of Legends">
-  <meta name="twitter:description" content="Znajdź pro-gracza, który spełnia warunek wiersza i kolumny, albo pogrupuj 16 haseł w 4 kategorie.">
+  <meta name="twitter:title" content="LoL Connect — Daily League of Legends esports puzzles">
+  <meta name="twitter:description" content="Find a pro player who meets both the row and the column condition, or sort 16 items into 4 groups.">
   <meta name="twitter:image" content="https://connect4.lol/assets/og-image.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
@@ -31,7 +33,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="grid.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Grid 3x3","url":"https://connect4.lol/","description":"Zagadki League of Legends: codzienna siatka 3x3 pro-graczy i cotygodniowe Connections.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Grid 3x3","url":"https://connect4.lol/","description":"Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a weekly Connections puzzle.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}]}
   </script>
 </head>
 <body>
@@ -39,7 +41,7 @@
     <header>
       <div class="logo">
         <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
-        <p id="subtitle">codzienna zagadka League of Legends</p>
+        <p id="subtitle" data-i18n="subtitle">codzienna zagadka League of Legends</p>
       </div>
       <nav class="game-tabs" aria-label="Game mode">
         <a href="/" class="game-tab active" aria-current="page"><span class="game-tab-icon">▦</span>Grid 3x3</a>
@@ -61,25 +63,25 @@
           <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">&gt;</button>
         </div>
         <div class="header-buttons">
-          <button id="btnGuide" class="text-btn"><span class="text-btn-icon">📖</span><span id="btnGuideLabel"></span></button>
+          <button id="btnGuide" class="text-btn"><span class="text-btn-icon">📖</span><span id="btnGuideLabel" data-i18n="btnGuideLabel"></span></button>
         </div>
       </div>
     </header>
 
     <div id="noPuzzleScreen" class="no-puzzle hidden">
-      <h2 id="noPuzzleTitle"></h2>
-      <p id="noPuzzleText"></p>
+      <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
+      <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
     </div>
 
     <div id="gameArea" class="game-area hidden">
       <div class="grid-status">
-        <span id="guessesLabel"></span>
+        <span id="guessesLabel" data-i18n="guessesLabel"></span>
         <span id="guessesLeft" class="guesses-left"></span>
       </div>
       <div id="lolGrid" class="lolgrid"></div>
       <div class="actions">
-        <button id="btnGiveUp" class="btn btn-secondary"></button>
-        <button id="btnShowResults" class="btn hidden"></button>
+        <button id="btnGiveUp" data-i18n="giveUp" class="btn btn-secondary"></button>
+        <button id="btnShowResults" data-i18n="results" class="btn hidden"></button>
       </div>
     </div>
   </div>
@@ -88,9 +90,9 @@
   <div id="searchOverlay" class="overlay hidden">
     <div class="modal search-modal" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
       <button class="modal-close" data-close="searchOverlay" aria-label="Close">&times;</button>
-      <h2 id="searchTitle" class="visually-hidden"></h2>
+      <h2 id="searchTitle" data-i18n="searchTitle" class="visually-hidden"></h2>
       <div id="searchConds" class="search-conds"></div>
-      <input id="searchInput" class="search-input" type="search" autocomplete="off" spellcheck="false"
+      <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
              role="combobox" aria-expanded="true" aria-controls="searchResults" aria-autocomplete="list">
       <ul id="searchResults" class="search-results" role="listbox"></ul>
       <div id="searchMsg" class="search-msg" aria-live="polite"></div>
@@ -105,8 +107,8 @@
       <div id="resultScore" class="result-score"></div>
       <div id="emojiGrid" class="emoji-grid"></div>
       <div class="result-actions">
-        <button id="btnShare" class="btn"></button>
-        <button id="btnCopy" class="btn btn-secondary"></button>
+        <button id="btnShare" data-i18n="share" class="btn"></button>
+        <button id="btnCopy" data-i18n="copy" class="btn btn-secondary"></button>
       </div>
       <div id="nextBoard" class="grid-countdown hidden">
         <div id="nextBoardLabel"></div>
@@ -118,11 +120,11 @@
   <!-- Give-up confirmation -->
   <div id="giveUpOverlay" class="overlay hidden">
     <div class="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="giveUpTitle" aria-describedby="giveUpText">
-      <h2 id="giveUpTitle"></h2>
-      <p id="giveUpText"></p>
+      <h2 id="giveUpTitle" data-i18n="giveUpTitle"></h2>
+      <p id="giveUpText" data-i18n="giveUpText"></p>
       <div class="result-actions">
-        <button id="btnGiveUpCancel" class="btn btn-secondary"></button>
-        <button id="btnGiveUpConfirm" class="btn"></button>
+        <button id="btnGiveUpCancel" data-i18n="giveUpCancel" class="btn btn-secondary"></button>
+        <button id="btnGiveUpConfirm" data-i18n="giveUpConfirm" class="btn"></button>
       </div>
     </div>
   </div>
@@ -131,7 +133,7 @@
   <div id="guideOverlay" class="overlay hidden">
     <div class="modal">
       <button class="modal-close" data-close="guideOverlay" aria-label="Close">&times;</button>
-      <h2 id="guideTitle"></h2>
+      <h2 id="guideTitle" data-i18n="guideTitle"></h2>
       <div id="guideContent"></div>
     </div>
   </div>
@@ -139,6 +141,7 @@
   <div id="toast" class="toast"></div>
   <div id="answersPopover" class="answers-popover hidden"><ul></ul></div>
 
+  <script src="site.js"></script>
   <script src="grid.js"></script>
   <script src="footer.js"></script>
 </body>

@@ -1,5 +1,7 @@
 /* Legal footer shared by both games (index.html, connections.html).
-   The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects. */
+   The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects.
+   On built pages (site.js SITE.built) it also owns the language picker: choosing a language opens that
+   language's URL (/, /pl, /es, /fr). */
 (() => {
   const TEXT = {
     pl: 'LoL Connect to niekomercyjny projekt fanowski. LoL Connect nie jest wspierany przez Riot Games i nie odzwierciedla poglądów ani opinii Riot Games ani nikogo oficjalnie zaangażowanego w tworzenie lub zarządzanie własnościami Riot Games. Riot Games i wszystkie powiązane własności są znakami towarowymi lub zastrzeżonymi znakami towarowymi Riot Games, Inc. Projekt nie jest powiązany z żadną ligą ani drużyną e-sportową — ich nazwy i loga należą do właścicieli. Dane i zdjęcia graczy: {leaguepedia} (teksty na licencji CC BY-SA); prawa do zdjęć należą do ich autorów.',
@@ -24,9 +26,14 @@
     footer.replaceChildren(document.createTextNode(before), link, document.createTextNode(after));
   }
 
-  let lang = (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
-    .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
-  try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) lang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
-  render(lang);
-  document.getElementById('langSelect')?.addEventListener('change', e => render(e.target.value));
+  render(SITE.lang);
+  document.getElementById('langSelect')?.addEventListener('change', e => {
+    if (!LANGS.includes(e.target.value)) return;
+    if (SITE.built) {
+      SITE.save(e.target.value);
+      location.href = SITE.path(e.target.value) + location.search;
+    } else {
+      render(e.target.value);
+    }
+  });
 })();

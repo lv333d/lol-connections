@@ -151,11 +151,7 @@ const I18N = {
 
 // Helpers
 const $ = id => document.getElementById(id);
-/** First supported language from the browser's preferences (e.g. 'pl-PL' → 'pl'), else English. */
-const browserLang = () => (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
-  .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';
-let currentLang = browserLang();
-try { if (LANGS.includes(localStorage.getItem('lolc_lang'))) currentLang = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
+let currentLang = SITE.lang; // site.js: the URL's language on built pages
 
 function t(key, vars) {
   let s = (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || I18N.pl[key] || key;
@@ -252,22 +248,10 @@ function fetchBoard(date) {
 
 function applyI18n() {
   document.documentElement.lang = currentLang;
-  const mappings = {
-    subtitle: 'subtitle', noPuzzleTitle: 'noPuzzleTitle', noPuzzleText: 'noPuzzleText',
-    livesLabel: 'livesLabel', btnDeselect: 'deselect', btnSubmit: 'submit',
-    btnShowResults: 'results', btnShare: 'share', btnCopy: 'copy',
-    guideTitle: 'guideTitle', btnGuideLabel: 'btnGuideLabel', btnSuggestLabel: 'btnSuggestLabel',
-    suggestTitle: 'suggestTitle', suggestNickLabel: 'suggestNick', suggestNotesLabel: 'suggestNotes',
-    suggestCategoryLabel: 'suggestCategory', suggestExamplesLabel: 'suggestExamples',
-    btnSuggestSubmit: 'suggestSubmit', suggestSuccessTitle: 'suggestSuccessTitle',
-    suggestSuccessText: 'suggestSuccessText', btnSuggestClose: 'suggestClose'
-  };
-  Object.entries(mappings).forEach(([id, k]) => { const el = $(id); if (el) el.textContent = t(k); });
+  // The same keys are filled into the HTML at build time (scripts/build-site.js), so built pages don't change here.
+  document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
   if ($('btnShare') && canNativeShare()) $('btnShare').textContent = t('shareNative');
-  if ($('suggestNick')) $('suggestNick').placeholder = t('suggestNickPh');
-  if ($('suggestNotes')) $('suggestNotes').placeholder = t('suggestNotesPh');
-  if ($('suggestCategory')) $('suggestCategory').placeholder = t('suggestCategoryPh');
-  if ($('suggestExamples')) $('suggestExamples').placeholder = t('suggestExamplesPh');
   if ($('dateDisplay')) $('dateDisplay').textContent = selectedDate ? weekLabel(selectedDate) : '';
   renderCountdown();
   if ($('langSelect')) $('langSelect').value = currentLang;
@@ -375,7 +359,7 @@ async function loadPuzzleForDate(dateStr) {
 }
 
 function setLanguage(lang) {
-  if (!LANGS.includes(lang) || lang === currentLang) return;
+  if (SITE.built || !LANGS.includes(lang) || lang === currentLang) return; // built pages: footer.js opens the other language's URL
   currentLang = lang;
   localStorage.setItem('lolc_lang', lang);
   applyI18n();
@@ -559,7 +543,7 @@ function buildEmojiGrid() {
 
 function buildShareText() {
   const mistakes = state.guessHistory.filter(g => !g.correct).length;
-  return `⚔ LoL Connect — ${weekLabel(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\nhttps://connect4.lol/connections`;
+  return `⚔ LoL Connect — ${weekLabel(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\n${SITE.url(currentLang, 'connections')}`;
 }
 
 function showResult() {
