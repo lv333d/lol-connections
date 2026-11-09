@@ -1,11 +1,13 @@
 # Monthly refresh of the LoL Grid player database from Leaguepedia (new rosters, retirements, Worlds/MSI winners).
-# Only boards generated afterwards use the new data — published boards keep their answers.
+# Boards from tomorrow on get their answers recomputed (same conditions); today's and past boards keep theirs.
 # A full import takes ~30–60 min because Leaguepedia rate-limits Cargo queries.
 name: Refresh player database
 
 on:
   schedule:
     - cron: '0 3 1 * *'
+    # Day after the Worlds final (2026: Sun 15 Nov, 12:00 CET) — the new world champions count from the next board.
+    - cron: '0 11 15 11 *'
   workflow_dispatch:
 
 permissions:
@@ -31,10 +33,19 @@ jobs:
           LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
           LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
         run: node scripts/build-player-db.js --fresh
+      - name: Recompute answers of upcoming boards
+        continue-on-error: true
+        run: node scripts/generate-grid.js --date=$(date -u -d '+1 day' +%F) --days=14 --recompute
+      - name: Fetch missing portraits and logos
+        continue-on-error: true
+        env:
+          LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
+          LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
+        run: node scripts/fetch-assets.js
       - name: Commit database
         run: |
           git config user.name "lv333d"
           git config user.email "137284250+lv333d@users.noreply.github.com"
-          git add data/
+          git add data/ grid/ players/ assets/logos/
           git diff --cached --quiet || git commit -m "Player database refresh $(date -u +%F)"
           git push
