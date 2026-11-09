@@ -162,9 +162,11 @@ const loadState = date => { if (PREVIEW) return null; try { return JSON.parse(lo
 const saveState = () => { if (PREVIEW) return; try { localStorage.setItem(stateKey(selectedDate), JSON.stringify(state)); } catch { /* storage blocked */ } };
 const newState = () => ({ cells: Array(9).fill(null), guessesLeft: MAX_GUESSES, wrong: [], gameOver: false });
 
-async function fetchJson(url) {
+/** `revalidate`: keep the browser copy and only ask the server whether it changed (a 304 for the 150 KB player
+ *  index, which changes only on deploys) instead of downloading a fresh copy on every visit. */
+async function fetchJson(url, { revalidate = false } = {}) {
   try {
-    const res = await fetch(url + '?_=' + Date.now());
+    const res = await (revalidate ? fetch(url, { cache: 'no-cache' }) : fetch(url + '?_=' + Date.now()));
     return res.ok ? await res.json() : null;
   } catch (e) {
     console.warn('Nie udało się pobrać ' + url, e);
@@ -365,7 +367,7 @@ function updateNavButtons() {
 
 async function init() {
   applyI18n();
-  const [manifest, index] = await Promise.all([fetchJson('grid/index.json'), fetchJson('data/players-index.json')]);
+  const [manifest, index] = await Promise.all([fetchJson('grid/index.json'), fetchJson('data/players-index.json', { revalidate: true })]);
   players = (index || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
   playerById = new Map(players.map(p => [p.id, p]));
 
@@ -649,7 +651,7 @@ const score = () => state.cells.filter(Boolean).length;
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 
 function buildShareText() {
-  return `⚔ LoL Grid #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\nhttps://connect4.lol/`;
+  return `⚔ LoL Connect #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\nhttps://connect4.lol/`;
 }
 
 function showResult() {

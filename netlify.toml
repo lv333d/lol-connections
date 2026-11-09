@@ -1,4 +1,5 @@
-# Netlify deploys automatically on every push (including the daily LoL Grid bot commits).
+# Netlify config kept as a fallback host — production runs on Vercel (vercel.json). Netlify serves 404.html and
+# connections.html at /connections (pretty URLs) by default.
 [build]
   command = "node scripts/build-site.js"
   publish = "dist"
@@ -11,6 +12,7 @@
   for = "/*.json"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+    X-Robots-Tag = "noindex"
 
 # Portraits and logos never change under the same name.
 [[headers]]

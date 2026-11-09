@@ -559,7 +559,7 @@ function buildEmojiGrid() {
 
 function buildShareText() {
   const mistakes = state.guessHistory.filter(g => !g.correct).length;
-  return `⚔ LoL Connect — ${weekLabel(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\nhttps://connect4.lol/connections.html`;
+  return `⚔ LoL Connect — ${weekLabel(selectedDate)}\n${mistakes}/5 ${t('mistakes')}\n\n${buildEmojiGrid()}\n\nhttps://connect4.lol/connections`;
 }
 
 function showResult() {

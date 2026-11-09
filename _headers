@@ -1,6 +1,7 @@
-# Cloudflare Pages response headers (copied into dist/ by scripts/build-site.js).
+# Cloudflare Pages / Netlify response headers (copied into dist/ by scripts/build-site.js). Vercel uses vercel.json.
 /*.json
   Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: noindex
 
 /players/*
   Cache-Control: public, max-age=604800
