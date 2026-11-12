@@ -624,16 +624,17 @@ header::after {
   .game-tab-icon { font-size: 1.25rem; }
 }
 
-/* "NEW" ribbon across the top-right corner of a game tab. */
+/* "NEW" ribbon across the top-right corner of a game tab. Its centre sits as far from the top as from the right
+   edge (top + half its height = right + half its width), so the text is in the middle of the visible part. */
 .game-tab { position: relative; overflow: hidden; }
 .tab-ribbon {
-  position: absolute; top: 7px; right: -24px; width: 84px; transform: rotate(45deg);
+  position: absolute; top: 7px; right: -28px; width: 84px; height: 14px; transform: rotate(45deg);
   background: linear-gradient(to bottom, #e8c56f, #b8872e); color: #1a1205;
   font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 800; letter-spacing: 1px;
-  text-align: center; line-height: 1; padding: 3px 0; text-shadow: none;
+  display: flex; align-items: center; justify-content: center; line-height: 1; text-shadow: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); pointer-events: none;
 }
-@media (max-width: 520px) { .tab-ribbon { top: 5px; right: -27px; font-size: 0.45rem; } }
+@media (max-width: 520px) { .tab-ribbon { top: 4px; right: -32px; height: 12px; font-size: 0.45rem; } }
 
 /* Link to the next game at the bottom of a result popup. */
 .next-game {
