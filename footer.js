@@ -13,7 +13,7 @@
   const LANGS = Object.keys(TEXT);
 
   // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Connections → Grid.
-  const GAMES = [{ slug: '', icon: '▦', name: 'Grid' }, { slug: 'guess', icon: '?', name: 'Guess the Pro' }, { slug: 'connections', icon: '▤', name: 'Connections' }];
+  const GAMES = [{ slug: '', icon: '', name: 'Grid' }, { slug: 'guess', icon: '?', name: 'Guess the Pro' }, { slug: 'connections', icon: '▤', name: 'Connections' }];
   const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
   function renderNextGame(lang) {
     const a = document.getElementById('nextGame');
@@ -27,7 +27,9 @@
     label.textContent = NEXT[lang] || NEXT.en;
     const name = document.createElement('span');
     name.className = 'next-game-name';
-    name.textContent = `${next.icon} ${next.name} →`;
+    // Grid's icon is a drawn 3x3 grid (.icon-grid3 in style.css), the others are characters.
+    if (next.slug === '') name.append(Object.assign(document.createElement('span'), { className: 'icon-grid3' }), ' ');
+    name.append(`${next.icon ? next.icon + ' ' : ''}${next.name} →`);
     a.append(label, name);
   }
 

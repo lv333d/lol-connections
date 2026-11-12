@@ -645,3 +645,12 @@ header::after {
 .next-game:hover, .next-game:focus-visible { background: rgba(200, 170, 110, 0.14); border-color: var(--gold); outline: none; }
 .next-game-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
 .next-game-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
+
+/* Grid's icon: a 3x3 grid of squares in the text colour (the ▦ character draws 4x4 in most fonts). */
+.icon-grid3 {
+  display: inline-block; width: 0.85em; height: 0.85em; vertical-align: -0.08em; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.game-tab-icon .icon-grid3 { width: 0.8em; height: 0.8em; vertical-align: middle; }
+.next-game-name .icon-grid3 { color: var(--gold); }
