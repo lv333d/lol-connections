@@ -413,7 +413,12 @@ header::after {
   text-align: center;
   padding-left: 4px;
 }
-.result-actions { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 20px; width: 100%; }
+.result-actions { display: flex; gap: 12px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 20px; width: 100%; }
+/* Popup buttons side by side: same width and height whatever their label (share vs copy, cancel vs confirm). */
+.result-actions .btn {
+  flex: 1 1 0; min-width: 0; max-width: 220px; padding-left: 12px; padding-right: 12px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
 .hidden { display: none !important; }
 .overlay {
   position: fixed; inset: 0; background: rgba(1, 5, 10, 0.65); z-index: 900;
