@@ -215,6 +215,16 @@
     .preview-stage { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: flex-start; overflow: auto; }
     .preview-frame { position: relative; flex-shrink: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #050811; }
     .preview-frame iframe { border: 0; display: block; transform-origin: 0 0; }
+    /* Player database refresh */
+    .db-box { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .db-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .db-head .muted { margin-right: auto; }
+    .db-steps { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; }
+    .db-steps .st { display: inline-block; min-width: 86px; font-weight: 700; }
+    .db-steps .trwa { color: var(--gold-light); } .db-steps .gotowe { color: #6ad38a; } .db-steps .błąd { color: #ff7a7a; }
+    .db-steps .czeka, .db-steps .pominięte, .db-steps .przerwane { color: var(--text-muted); }
+    .db-log { margin-top: 10px; max-height: 220px; overflow: auto; background: #050811; border: 1px solid var(--border); border-radius: 6px;
+      padding: 8px 10px; font: 0.74rem/1.45 Consolas, monospace; color: var(--text-muted); white-space: pre-wrap; }
     /* Guess the Pro list */
     .gp-who { display: flex; align-items: center; gap: 10px; min-width: 150px; }
     .gp-who img, .gp-who .gp-ini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: top; background: var(--panel2); flex-shrink: 0; }
@@ -309,6 +319,18 @@
         <div class="section-title"><h2>? Guess the Pro</h2><span class="sub">nowy gracz codziennie o 00:00 UTC</span></div>
         <div class="stats-grid" id="guessStats"></div>
         <div id="guessNotice"></div>
+
+        <div class="section-title"><h2>🗄 Baza graczy</h2><span class="sub">drużyny, ligi, trofea i pula Guess the Pro z Leaguepedii</span></div>
+        <div class="db-box">
+          <div class="db-head">
+            <span class="muted" id="dbUpdated"></span>
+            <button class="btn btn-sm" id="btnDbRefresh">⟳ Aktualizuj bazę</button>
+            <button class="btn btn-sm btn-danger hidden" id="btnDbStop">■ Przerwij</button>
+          </div>
+          <p class="muted" style="font-size:0.82rem;margin-top:8px">Te same kroki co comiesięczny bot na GitHubie: pobiera składy z Leaguepedii (30–60 min, wymaga danych logowania w <code>.env.local</code>), przelicza pulę i graczy dnia Guess the Pro, odpowiedzi przyszłych plansz Grida oraz pobiera brakujące zdjęcia. Dzisiejsze i wcześniejsze plansze się nie zmieniają. Panel może być w tym czasie zamknięty — serwer pracuje dalej. Na stronę trafia po „Opublikuj na stronę”.</p>
+          <ul class="db-steps" id="dbSteps"></ul>
+          <div class="db-log hidden" id="dbLog"></div>
+        </div>
       </div>
 
       <!-- ---------- Connections: list ---------- -->
@@ -664,7 +686,7 @@
     const navPage = page === 'editor' ? 'connections' : page;
     document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === navPage));
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
-    if (page === 'dashboard') renderDashboard();
+    if (page === 'dashboard') { renderDashboard(); renderDbRefresh(); }
     if (page === 'connections') renderConnections();
     if (page === 'suggestions') renderSuggestions();
     if (page === 'grid') renderGrid();
@@ -785,6 +807,7 @@
   }
 
   $('btnDashNew').addEventListener('click', () => openEditor(nextSlot()));
+  // The refresh status lives on the overview; it keeps polling only while a refresh runs.
 
   /* ---------- Connections list ---------- */
 
@@ -1375,6 +1398,33 @@
     }
   });
 
+  /* ---------- Player database refresh ---------- */
+
+  let dbTimer = 0;
+  async function renderDbRefresh() {
+    clearTimeout(dbTimer);
+    let r;
+    try { r = await api('/api/refresh'); } catch { return; }
+    const fmtTime = iso => new Date(iso).toLocaleString('pl-PL', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    $('dbUpdated').textContent = r.running ? `Aktualizacja trwa od ${fmtTime(r.startedAt)}…`
+      : `Ostatnia aktualizacja bazy: ${r.dbUpdated ? fmtTime(r.dbUpdated) : 'nieznana'}`;
+    $('btnDbRefresh').disabled = r.running;
+    $('btnDbStop').classList.toggle('hidden', !r.running);
+    $('dbSteps').innerHTML = r.steps.map(st => `<li><span class="st ${st.status}">${st.status}</span>${esc(st.label)}</li>`).join('');
+    const log = $('dbLog');
+    log.classList.toggle('hidden', !r.log.length);
+    const atEnd = log.scrollTop + log.clientHeight >= log.scrollHeight - 4;
+    log.textContent = r.log.join('\n');
+    if (atEnd) log.scrollTop = log.scrollHeight;
+    if (r.running) dbTimer = setTimeout(renderDbRefresh, 3000);
+    else if (r.finishedAt) refreshPublishBar();
+  }
+  $('btnDbRefresh').addEventListener('click', () => showConfirm('Aktualizuj bazę graczy',
+    'Pobrać aktualne dane z Leaguepedii? Potrwa to 30–60 minut. Potem opublikuj zmiany przyciskiem „Opublikuj na stronę”.',
+    async () => { try { await api('/api/refresh', { method: 'POST' }); } catch (e) { showToast(e.message); } renderDbRefresh(); }));
+  $('btnDbStop').addEventListener('click', () => showConfirm('Przerwij aktualizację', 'Przerwać aktualizację bazy? Pliki zapisane przez skończone kroki zostaną.',
+    async () => { await api('/api/refresh/stop', { method: 'POST' }); renderDbRefresh(); }));
+
   /* ---------- Guess the Pro ---------- */
 
   function guessAvatar(p) {
@@ -1557,6 +1607,7 @@
     localStorage.removeItem('lolc_admin_hash');
     buildEditorForm();
     renderDashboard();
+    renderDbRefresh();
     renderGeminiStatus();
     syncWithGitHub();
   }

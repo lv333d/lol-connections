@@ -1,15 +1,16 @@
 // Local-only admin server: serves the site and an API for the games — the weekly Connections boards
 // (puzzles/*.json: edit, move, delete, draw from data/connections-categories.json), the daily LoL Grid boards
 // (grid/*.json, normally made by the GitHub bot: view, delete, draw a new one) and the daily Guess the Pro players
-// (guess/*.json: view, pick, draw, delete, fill the next days) — plus git sync/publish and Gemini.
+// (guess/*.json: view, pick, draw, delete, fill the next days) — plus the player database refresh, git
+// sync/publish and Gemini.
 // Usage: npm run admin   →   http://127.0.0.1:4321/admin.html
 // Reads GEMINI_API_KEY / GEMINI_MODEL / ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
 import http from 'node:http';
-import { execFile } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile, unlink } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
-import { existsSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import {
   ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard,
@@ -211,6 +212,71 @@ async function guessFill(count) {
   return { message: stdout.trim().split('\n')[0] };
 }
 
+/* ---------- Player database refresh ---------- */
+
+// The same steps as the monthly GitHub bot (.github/workflows/refresh-players.yml). The first one is required
+// (~30–60 min: Leaguepedia rate-limits Cargo queries); the others may fail without stopping the rest.
+const REFRESH_STEPS = [
+  { label: 'Baza graczy z Leaguepedii', script: 'build-player-db.js', args: () => ['--fresh'], required: true },
+  { label: 'Pula Guess the Pro', script: 'build-guess-pool.js', args: () => ['--fresh'] },
+  { label: 'Gracze dnia Guess the Pro (14 dni)', script: 'generate-guess.js', args: () => ['--days=14'] },
+  { label: 'Odpowiedzi przyszłych plansz Grida', script: 'generate-grid.js', args: () => [`--date=${guess.addDays(guess.todayKey(), 1)}`, '--days=14', '--recompute'] },
+  { label: 'Zdjęcia, loga i flagi', script: 'fetch-assets.js', args: () => [] }
+];
+const refresh = { running: false, stopped: false, step: -1, steps: [], log: [], startedAt: null, finishedAt: null, child: null };
+const dbUpdated = () => { try { return statSync(path.join(ROOT, 'data', 'players.json')).mtime.toISOString(); } catch { return null; } };
+const refreshState = () => ({ dbUpdated: dbUpdated(), running: refresh.running, step: refresh.step, steps: refresh.steps, log: refresh.log.slice(-60), startedAt: refresh.startedAt, finishedAt: refresh.finishedAt });
+
+function runStep(step) {
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, [path.join(ROOT, 'scripts', step.script), ...step.args()], { cwd: ROOT, windowsHide: true });
+    refresh.child = child;
+    const onData = buf => {
+      // Progress lines end with \r ("partia 3/12\r"): keep the latest one instead of piling them up.
+      for (const line of buf.toString('utf8').split(/\r?\n|\r/).map(l => l.trimEnd()).filter(Boolean)) refresh.log.push(line);
+      if (refresh.log.length > 400) refresh.log.splice(0, refresh.log.length - 400);
+    };
+    child.stdout.on('data', onData);
+    child.stderr.on('data', onData);
+    child.on('close', code => { refresh.child = null; resolve(code === 0); });
+    child.on('error', e => { refresh.log.push('✗ ' + e.message); refresh.child = null; resolve(false); });
+  });
+}
+
+async function startRefresh() {
+  if (refresh.running || refresh.child) return refreshState(); // a stopped step may still be shutting down
+  Object.assign(refresh, { running: true, stopped: false, step: 0, log: [], startedAt: new Date().toISOString(), finishedAt: null,
+    steps: REFRESH_STEPS.map(s => ({ label: s.label, status: 'czeka' })) });
+  (async () => {
+    for (const [i, step] of REFRESH_STEPS.entries()) {
+      refresh.step = i;
+      refresh.steps[i].status = 'trwa';
+      refresh.log.push(`▶ ${step.label}`);
+      const ok = await runStep(step);
+      if (refresh.stopped) break; // stopRefresh() already marked the steps
+      refresh.steps[i].status = ok ? 'gotowe' : 'błąd';
+      if (!ok && step.required) {
+        refresh.steps.slice(i + 1).forEach(s => { s.status = 'pominięte'; });
+        break;
+      }
+    }
+    refresh.running = false;
+    refresh.finishedAt = new Date().toISOString();
+  })();
+  return refreshState();
+}
+
+function stopRefresh() {
+  if (!refresh.running) return refreshState();
+  refresh.running = false;
+  refresh.stopped = true;
+  refresh.steps.forEach((st, i) => { if (i === refresh.step) st.status = 'przerwane'; else if (i > refresh.step) st.status = 'pominięte'; });
+  refresh.finishedAt = new Date().toISOString();
+  refresh.log.push('■ Przerwano');
+  refresh.child?.kill();
+  return refreshState();
+}
+
 /* ---------- Git: sync and publishing ---------- */
 
 // A desktop shortcut inherits Explorer's PATH, which may predate the Git install — fall back to the default location.
@@ -221,7 +287,9 @@ const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r
 
 // Board folders per game; portraits and logos go along with Grid boards that introduce new players.
 const GAME_DIRS = { 'puzzles/': 'Connections', 'grid/': 'Grid', 'guess/': 'Guess the Pro' };
-const PUBLISH_PATHS = ['puzzles/', 'grid/', 'guess/', 'players/', 'assets/logos/'];
+const PUBLISH_PATHS = ['puzzles/', 'grid/', 'guess/', 'players/', 'assets/logos/', 'assets/flags/', 'data/'];
+// Database files a refresh rewrites; published together with the boards.
+const DATA_FILES = ['data/players.json', 'data/players-index.json', 'data/teams.json', 'data/guess-players.json'];
 
 /** Board files changed since the last commit: { game, date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
 async function pendingBoards() {
@@ -232,7 +300,13 @@ async function pendingBoards() {
     const date = file.match(/(\d{4}-\d{2}-\d{2})\.json/)?.[1];
     const game = Object.entries(GAME_DIRS).find(([dir]) => file.startsWith(dir))?.[1];
     return date && game && { game, date, change: code.includes('D') ? 'usunięta' : code.includes('?') || code.includes('A') ? 'nowa' : 'zmieniona' };
-  }).filter(Boolean);
+  }).filter(Boolean).concat(await pendingData());
+}
+
+/** One entry when the player database differs from the last commit (after a refresh). */
+async function pendingData() {
+  const changed = (await git('status', '--porcelain', '--', ...DATA_FILES)).split('\n').filter(Boolean).length;
+  return changed ? [{ game: 'Baza graczy', date: '', change: `zaktualizowana (${changed} plików)` }] : [];
 }
 
 /** Pulls what the Grid bot (or another computer) pushed, so the panel starts from the live boards. */
@@ -257,7 +331,7 @@ async function publish() {
   const summary = Object.values(GAME_DIRS).map(game => {
     const dates = boards.filter(b => b.game === game).map(b => b.date).sort();
     return dates.length && `${game} ${dates.length === 1 ? dates[0] : `${dates[0]} … ${dates.at(-1)}`} (${dates.length})`;
-  }).filter(Boolean).join(', ');
+  }).concat(boards.some(b => b.game === 'Baza graczy') ? ['baza graczy'] : []).filter(Boolean).join(', ');
   await git('commit', '-m', `Plansze: ${summary}`);
   try {
     await git('pull', '--rebase', '--autostash'); // the weekly Grid bot may have pushed in the meantime
@@ -295,6 +369,9 @@ async function handleApi(req, res, pathname) {
     if (gm[2] && req.method === 'POST') return send(res, 200, await regenerateGridBoard(gm[1]));
     if (!gm[2] && req.method === 'DELETE') { await deleteGridBoard(gm[1]); return send(res, 200, { ok: true }); }
   }
+  if (pathname === '/api/refresh' && req.method === 'GET') return send(res, 200, refreshState());
+  if (pathname === '/api/refresh' && req.method === 'POST') return send(res, 200, await startRefresh());
+  if (pathname === '/api/refresh/stop' && req.method === 'POST') return send(res, 200, stopRefresh());
   if (pathname === '/api/guess' && req.method === 'GET') {
     return send(res, 200, await guessDays());
   }
