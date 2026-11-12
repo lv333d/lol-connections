@@ -1,45 +1,35 @@
 // Picks the daily "Guess the Pro" player: guess/YYYY-MM-DD.json { date, number, playerId } + guess/index.json.
-// Usage: npm run generate-guess [-- --days=30]   (adds days after the last existing one, or from today)
+// Usage: npm run generate-guess [-- --days=14]
+//   fills every missing day from today up to today + days - 1 (existing days are kept)
 //
 // The answer is drawn from data/guess-players.json (the same players the game lets you guess), weighted towards
-// more international events, and never repeats within REPEAT_DAYS.
-import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
-import path from 'node:path';
-import { ROOT } from './lib/puzzles.js';
+// more international events, and never repeats within REPEAT_DAYS (scripts/lib/guess.js).
+import { readPool, readDays, writeDay, rebuildManifest, drawPlayer, addDays, todayKey } from './lib/guess.js';
 
-const DIR = path.join(ROOT, 'guess');
-const REPEAT_DAYS = 180;
-const days = Number(process.argv.find(a => a.startsWith('--days='))?.split('=')[1]) || 30;
+const days = Number(process.argv.find(a => a.startsWith('--days='))?.split('=')[1]) || 14;
 
-const pool = JSON.parse(await readFile(path.join(ROOT, 'data', 'guess-players.json'), 'utf8'));
-const candidates = pool;
-await mkdir(DIR, { recursive: true });
-
-const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
-const existing = [];
-for (const f of (await readdir(DIR)).filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort()) {
-  existing.push(JSON.parse(await readFile(path.join(DIR, f), 'utf8')));
-}
-const today = new Date().toISOString().slice(0, 10);
-let date = existing.length ? addDays(existing.at(-1).date, 1) : today;
-let number = existing.length ? existing.at(-1).number + 1 : 1;
-
-const recent = existing.map(d => d.playerId);
+const pool = await readPool();
+if (!pool.length) throw new Error('Brak data/guess-players.json — uruchom najpierw npm run build-guess');
+const existing = await readDays();
+const have = new Set(existing.map(d => d.date));
 const added = [];
-for (let i = 0; i < days; i++, date = addDays(date, 1), number++) {
-  const blocked = new Set(recent.slice(-REPEAT_DAYS));
-  const open = candidates.filter(p => !blocked.has(p.id));
-  // Weight √events: stars come up more often, but not every other day.
-  const weights = open.map(p => Math.sqrt(p.intl));
-  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
-  const pick = open.find((p, k) => (r -= weights[k]) <= 0) || open.at(-1);
-  const day = { date, number, playerId: pick.id };
-  await writeFile(path.join(DIR, `${date}.json`), JSON.stringify(day, null, 1) + '\n');
-  recent.push(pick.id);
+// A pool refresh can drop a planned player (the pool keeps 2+ international events): redraw those future days.
+// Today and past days stay as they are.
+const inPool = new Set(pool.map(p => p.id));
+for (const d of existing.filter(d => d.date > todayKey() && !inPool.has(d.playerId))) {
+  const pick = drawPlayer(pool, existing, d.date, [d.playerId]);
+  console.log(`${d.date}: ${d.playerId} nie ma już w puli → ${pick.nick}`);
+  d.playerId = pick.id;
+  await writeDay(d);
+}
+for (let i = 0, date = todayKey(); i < days; i++, date = addDays(date, 1)) {
+  if (have.has(date)) continue;
+  const pick = drawPlayer(pool, [...existing, ...added], date);
+  const day = { date, number: 0, playerId: pick.id };
+  await writeDay(day);
   added.push(day);
 }
-
-const all = [...existing, ...added];
-await writeFile(path.join(DIR, 'index.json'), JSON.stringify({ days: all.map(d => ({ date: d.date, number: d.number })) }, null, 1) + '\n');
-console.log(`guess/: +${added.length} dni (${added[0]?.date} … ${added.at(-1)?.date}), razem ${all.length}`);
-console.log(added.map(d => `${d.date} ${pool.find(p => p.id === d.playerId).nick}`).join('\n'));
+const all = await rebuildManifest();
+console.log(`guess/: +${added.length} dni, razem ${all.length} (do ${all.at(-1)?.date ?? '—'})`);
+const nick = id => pool.find(p => p.id === id)?.nick || id;
+if (added.length) console.log(added.map(d => `${d.date} ${nick(d.playerId)}`).join('\n'));

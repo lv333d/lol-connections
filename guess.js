@@ -124,9 +124,15 @@ let playerById = new Map();
 let loadSeq = 0;
 let activeResult = -1, resultItems = [], justAdded = '';
 
+// Admin preview (admin.html): ?preview=YYYY-MM-DD opens that day — future ones too — as a fresh game that is never
+// saved; &solved=1 shows it finished with the answer revealed. Local admin server only.
+const previewParams = new URLSearchParams(location.search);
+const PREVIEW = /^(127\.0\.0\.1|localhost|\[::1\])$/.test(location.hostname)
+  && /^\d{4}-\d{2}-\d{2}$/.test(previewParams.get('preview') || '') ? previewParams.get('preview') : '';
+
 const stateKey = date => `lolgp_state_${date}`;
-const loadState = date => { try { return JSON.parse(localStorage.getItem(stateKey(date))); } catch { return null; } };
-const saveState = () => { try { localStorage.setItem(stateKey(selectedDate), JSON.stringify(state)); } catch { /* storage blocked */ } };
+const loadState = date => { if (PREVIEW) return null; try { return JSON.parse(localStorage.getItem(stateKey(date))); } catch { return null; } };
+const saveState = () => { if (PREVIEW) return; try { localStorage.setItem(stateKey(selectedDate), JSON.stringify(state)); } catch { /* storage blocked */ } };
 const newState = () => ({ guesses: [], gameOver: false, won: false });
 
 async function fetchJson(url, { revalidate = false } = {}) {
@@ -297,6 +303,11 @@ async function init() {
   players = (pool || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
   playerById = new Map(players.map(p => [p.id, p]));
 
+  if (PREVIEW) {
+    availableDates = [PREVIEW];
+    loadDate(PREVIEW);
+    return;
+  }
   const today = todayKey();
   const rawDates = (manifest?.days || []).map(d => d.date).sort();
   availableDates = rawDates.filter(d => d <= today);
@@ -331,6 +342,7 @@ async function loadDate(date) {
   answer = playerById.get(d.playerId);
   state = loadState(date) || newState();
   state.guesses = state.guesses.filter(id => playerById.has(id)); // players can leave the pool on a data refresh
+  if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
   justAdded = '';
   $('gameArea').classList.remove('hidden');
   clearSearch();

@@ -33,6 +33,13 @@ jobs:
           LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
           LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
         run: node scripts/build-player-db.js --fresh
+      - name: Rebuild Guess the Pro pool (current teams, titles)
+        continue-on-error: true
+        env:
+          LEAGUEPEDIA_BOT_USER: ${{ secrets.LEAGUEPEDIA_BOT_USER }}
+          LEAGUEPEDIA_BOT_PASSWORD: ${{ secrets.LEAGUEPEDIA_BOT_PASSWORD }}
+        # Then redraw upcoming days whose player left the pool, and top the days up.
+        run: node scripts/build-guess-pool.js --fresh && node scripts/generate-guess.js --days=14
       - name: Recompute answers of upcoming boards
         continue-on-error: true
         run: node scripts/generate-grid.js --date=$(date -u -d '+1 day' +%F) --days=14 --recompute
@@ -46,6 +53,6 @@ jobs:
         run: |
           git config user.name "lv333d"
           git config user.email "137284250+lv333d@users.noreply.github.com"
-          git add data/ grid/ players/ assets/logos/
+          git add data/ grid/ guess/ players/ assets/logos/ assets/flags/
           git diff --cached --quiet || git commit -m "Player database refresh $(date -u +%F)"
           git push

@@ -1,6 +1,7 @@
-// Local-only admin server: serves the site and an API for both games — the weekly Connections boards
-// (puzzles/*.json: edit, move, delete, draw from data/connections-categories.json) and the daily LoL Grid boards
-// (grid/*.json, normally made by the GitHub bot: view, delete, draw a new one) — plus git sync/publish and Gemini.
+// Local-only admin server: serves the site and an API for the games — the weekly Connections boards
+// (puzzles/*.json: edit, move, delete, draw from data/connections-categories.json), the daily LoL Grid boards
+// (grid/*.json, normally made by the GitHub bot: view, delete, draw a new one) and the daily Guess the Pro players
+// (guess/*.json: view, pick, draw, delete, fill the next days) — plus git sync/publish and Gemini.
 // Usage: npm run admin   →   http://127.0.0.1:4321/admin.html
 // Reads GEMINI_API_KEY / GEMINI_MODEL / ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
 import http from 'node:http';
@@ -16,6 +17,7 @@ import {
 } from './lib/puzzles.js';
 import { generateConnectionsBoard } from './lib/connections-generator.js';
 import { rebuildGridManifest } from './generate-grid.js';
+import * as guess from './lib/guess.js';
 
 const GRID_DIR = path.join(ROOT, 'grid');
 
@@ -173,6 +175,42 @@ async function regenerateGridBoard(date) {
   return { board, message: `Nowa plansza Grida na ${date} (#${board?.boardId}); ${assets}.` };
 }
 
+/* ---------- Guess the Pro ---------- */
+
+/** Days with their player's card, plus the pool for the "pick a player" search. */
+async function guessDays() {
+  const [days, pool] = await Promise.all([guess.readDays(), guess.readPool()]);
+  const byId = new Map(pool.map(p => [p.id, p]));
+  const card = p => p && { id: p.id, nick: p.nick, name: p.name, nat: p.nat, league: p.league, team: p.team?.short || null, titles: p.titles, debut: p.debut, intl: p.intl };
+  return {
+    days: days.map(d => ({ date: d.date, number: d.number, playerId: d.playerId, player: card(byId.get(d.playerId)) })),
+    pool: pool.map(p => ({ id: p.id, nick: p.nick, name: p.name, intl: p.intl }))
+  };
+}
+
+async function guessPick(date, playerId) {
+  const pool = await guess.readPool();
+  if (!pool.some(p => p.id === playerId)) throw Object.assign(new Error('Tego gracza nie ma w puli Guess the Pro'), { status: 400 });
+  await guess.setDay(date, playerId);
+  return { message: `${date}: ${pool.find(p => p.id === playerId).nick}` };
+}
+
+/** Another random player for the day (never the current one, none picked within REPEAT_DAYS). */
+async function guessDraw(date) {
+  const [pool, days] = await Promise.all([guess.readPool(), guess.readDays()]);
+  if (!pool.length) throw Object.assign(new Error('Brak data/guess-players.json — uruchom npm run build-guess'), { status: 500 });
+  const current = days.find(d => d.date === date)?.playerId;
+  const pick = guess.drawPlayer(pool, days, date, current ? [current] : []);
+  await guess.setDay(date, pick.id);
+  return { message: `Wylosowano na ${date}: ${pick.nick}` };
+}
+
+async function guessFill(count) {
+  const days = Math.min(60, Math.max(1, Number(count) || 14));
+  const { stdout } = await node('generate-guess.js', [`--days=${days}`], 60000);
+  return { message: stdout.trim().split('\n')[0] };
+}
+
 /* ---------- Git: sync and publishing ---------- */
 
 // A desktop shortcut inherits Explorer's PATH, which may predate the Git install — fall back to the default location.
@@ -182,8 +220,8 @@ const GIT = process.env.GIT_PATH
 const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
 
 // Board folders per game; portraits and logos go along with Grid boards that introduce new players.
-const GAME_DIRS = { 'puzzles/': 'Connections', 'grid/': 'Grid' };
-const PUBLISH_PATHS = ['puzzles/', 'grid/', 'players/', 'assets/logos/'];
+const GAME_DIRS = { 'puzzles/': 'Connections', 'grid/': 'Grid', 'guess/': 'Guess the Pro' };
+const PUBLISH_PATHS = ['puzzles/', 'grid/', 'guess/', 'players/', 'assets/logos/'];
 
 /** Board files changed since the last commit: { game, date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
 async function pendingBoards() {
@@ -256,6 +294,22 @@ async function handleApi(req, res, pathname) {
     if (!DATE_RE.test(gm[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
     if (gm[2] && req.method === 'POST') return send(res, 200, await regenerateGridBoard(gm[1]));
     if (!gm[2] && req.method === 'DELETE') { await deleteGridBoard(gm[1]); return send(res, 200, { ok: true }); }
+  }
+  if (pathname === '/api/guess' && req.method === 'GET') {
+    return send(res, 200, await guessDays());
+  }
+  if (pathname === '/api/guess/fill' && req.method === 'POST') {
+    return send(res, 200, await guessFill((await readBody(req)).days));
+  }
+  const gp = pathname.match(/^\/api\/guess\/([^/]+)(\/draw)?$/);
+  if (gp) {
+    if (!DATE_RE.test(gp[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
+    if (gp[2] && req.method === 'POST') return send(res, 200, await guessDraw(gp[1]));
+    if (!gp[2] && req.method === 'PUT') return send(res, 200, await guessPick(gp[1], (await readBody(req)).playerId));
+    if (!gp[2] && req.method === 'DELETE') {
+      try { await guess.deleteDay(gp[1]); } catch { return send(res, 404, { error: 'Brak dnia Guess the Pro' }); }
+      return send(res, 200, { ok: true });
+    }
   }
   const gen = pathname.match(/^\/api\/puzzles\/([^/]+)\/generate$/);
   if (gen && req.method === 'POST') {

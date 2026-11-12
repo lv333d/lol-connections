@@ -215,6 +215,13 @@
     .preview-stage { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: flex-start; overflow: auto; }
     .preview-frame { position: relative; flex-shrink: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #050811; }
     .preview-frame iframe { border: 0; display: block; transform-origin: 0 0; }
+    /* Guess the Pro list */
+    .gp-who { display: flex; align-items: center; gap: 10px; min-width: 150px; }
+    .gp-who img, .gp-who .gp-ini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: top; background: var(--panel2); flex-shrink: 0; }
+    .gp-who .gp-ini { display: inline-flex; align-items: center; justify-content: center; font-weight: 800; color: var(--gold); font-size: 0.8rem; }
+    .gp-who b { color: var(--gold-light); }
+    .gp-pick { display: flex; gap: 6px; align-items: center; }
+    .gp-pick input { width: 170px; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-family: inherit; }
     .toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
       background: var(--panel2); border: 1px solid var(--gold); color: var(--gold-light);
@@ -261,10 +268,13 @@
         <div class="nav-item" data-page="importexport"><span class="nav-icon">📦</span><span class="nav-label">Import / Export</span></div>
         <div class="nav-section">LoL Grid · codziennie</div>
         <div class="nav-item" data-page="grid"><span class="nav-icon">▦</span><span class="nav-label">Plansze Grida</span></div>
+        <div class="nav-section">Guess the Pro · codziennie</div>
+        <div class="nav-item" data-page="guess"><span class="nav-icon">?</span><span class="nav-label">Gracze dnia</span></div>
       </nav>
       <div class="sidebar-footer">
         <a href="connections.html"><span>← </span><span class="nav-label">Connections</span></a>
         <a href="index.html"><span>← </span><span class="nav-label">LoL Grid</span></a>
+        <a href="guess.html"><span>← </span><span class="nav-label">Guess the Pro</span></a>
       </div>
     </aside>
 
@@ -295,6 +305,10 @@
         <div class="section-title"><h2>▦ LoL Grid</h2><span class="sub">nowa plansza codziennie o 00:00 UTC</span></div>
         <div class="stats-grid" id="gridStats"></div>
         <div id="gridNotice"></div>
+
+        <div class="section-title"><h2>? Guess the Pro</h2><span class="sub">nowy gracz codziennie o 00:00 UTC</span></div>
+        <div class="stats-grid" id="guessStats"></div>
+        <div id="guessNotice"></div>
       </div>
 
       <!-- ---------- Connections: list ---------- -->
@@ -381,6 +395,20 @@
             <tbody id="gridTable"></tbody>
           </table>
         </div>
+      </div>
+      <!-- ---------- Guess the Pro ---------- -->
+      <div class="page" id="page-guess">
+        <h1>? Guess the Pro — gracze dnia</h1>
+        <p class="page-lead">Codziennie jeden gracz do odgadnięcia, z puli <code>data/guess-players.json</code> (gracze z co najmniej 2 turniejami międzynarodowymi w drużynie z LCK/LPL/LEC/LCS/LTA). Bot na GitHubie w każdy poniedziałek o 22:00 UTC losuje brakujące dni na 14 dni do przodu. Tutaj możesz wybrać gracza ręcznie (✏), wylosować innego (🎲), usunąć dzień (🗑) albo od razu dolosować brakujące dni. Gracz nie powtarza się przez 180 dni. Zmiany trafiają na stronę po „Opublikuj na stronę”.</p>
+        <div class="section-title" style="margin-top:0"><h2 id="guessCount"></h2>
+          <button class="btn btn-sm" id="btnGuessFill">🎲 Dolosuj brakujące dni (14 naprzód)</button></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dzień</th><th>#</th><th>Gracz</th><th>Narodowość · liga · drużyna</th><th>Trofea · debiut</th><th></th></tr></thead>
+            <tbody id="guessTable"></tbody>
+          </table>
+        </div>
+        <datalist id="guessPoolList"></datalist>
       </div>
     </main>
   </div>
@@ -640,6 +668,7 @@
     if (page === 'connections') renderConnections();
     if (page === 'suggestions') renderSuggestions();
     if (page === 'grid') renderGrid();
+    if (page === 'guess') renderGuess();
     window.scrollTo(0, 0);
   }
 
@@ -665,6 +694,13 @@
       boards = (await Promise.all(manifest.map(b => api('/api/puzzles/' + b.date)))).sort((a, b) => a.date.localeCompare(b.date));
     } catch { boards = []; /* banner already shown */ }
     return boards;
+  }
+
+  let guessDays = [], guessPool = [];
+  async function loadGuess() {
+    try { ({ days: guessDays, pool: guessPool } = await api('/api/guess')); }
+    catch { guessDays = []; guessPool = []; }
+    return guessDays;
   }
 
   async function loadGrid() {
@@ -701,7 +737,7 @@
   async function renderDashboard() {
     const suggestions = getIdeas();
     renderSuggestBadge(suggestions.length);
-    await Promise.all([loadBoards(), loadGrid()]);
+    await Promise.all([loadBoards(), loadGrid(), loadGuess()]);
     const today = todayKey();
 
     // Connections
@@ -731,6 +767,20 @@
     ].join('');
     $('gridNotice').innerHTML = ahead < GRID_MIN_DAYS_AHEAD
       ? `<div class="notice warn">Zapas plansz Grida jest mały. Bot dogeneruje je w poniedziałek o 22:00 UTC; jeśli nie zadziałał, uruchom go ręcznie na GitHubie (Actions → LoL Grid boards → Run workflow) albo lokalnie <code>npm run generate-grid -- --days=14</code>.</div>`
+      : '';
+
+    // Guess the Pro
+    const guessToday = guessDays.find(d => d.date === today);
+    const lastGuess = guessDays.at(-1);
+    const guessAhead = lastGuess ? daysBetween(today, lastGuess.date) : -1;
+    $('guessStats').innerHTML = [
+      guessToday?.player ? statCard('Dzisiejszy gracz', esc(guessToday.player.nick), `#${guessToday.number}`, 'ok') : statCard('Dzisiejszy gracz', 'brak', 'gracze nie mają zagadki!', 'warn'),
+      statCard('Gracze wybrani do', lastGuess ? fmtDate(lastGuess.date, { day: 'numeric', month: 'short' }) : '—',
+        guessAhead >= 0 ? `zapas: ${guessAhead} dni` : '', guessAhead < GRID_MIN_DAYS_AHEAD ? 'warn' : ''),
+      statCard('Graczy w puli', guessPool.length)
+    ].join('');
+    $('guessNotice').innerHTML = guessAhead < GRID_MIN_DAYS_AHEAD
+      ? `<div class="notice warn">Zapas dni Guess the Pro jest mały. Bot dolosuje je w poniedziałek o 22:00 UTC; możesz to zrobić od razu w zakładce „Gracze dnia” albo lokalnie <code>npm run generate-guess</code>.</div>`
       : '';
   }
 
@@ -1325,23 +1375,123 @@
     }
   });
 
+  /* ---------- Guess the Pro ---------- */
+
+  function guessAvatar(p) {
+    const ini = esc((p.nick || '?').replace(/[^\p{L}\p{N}]/gu, '').slice(0, 2).toUpperCase());
+    return `<img src="players/${encodeURIComponent(p.id)}.webp" alt="" onerror="this.outerHTML='<span class=&quot;gp-ini&quot;>${ini}</span>'">`;
+  }
+
+  async function renderGuess() {
+    await loadGuess();
+    const today = todayKey();
+    const byDate = new Map(guessDays.map(d => [d.date, d]));
+    $('guessCount').textContent = `${guessDays.length} dni · ${guessPool.length} graczy w puli`;
+    $('guessPoolList').innerHTML = [...guessPool].sort((a, b) => a.nick.localeCompare(b.nick))
+      .map(p => `<option value="${esc(p.nick)}">${esc(p.name || '')}</option>`).join('');
+    // Recent history (never before the first day) plus every day up to the last one, so a deleted day shows up
+    // as a gap to fill.
+    const from = [addDays(today, -3), guessDays[0]?.date || today].sort().at(-1);
+    const to = [guessDays.at(-1)?.date, today].filter(Boolean).sort().at(-1);
+    const days = [];
+    for (let d = from; d <= to; d = addDays(d, 1)) days.push(d);
+    $('guessTable').innerHTML = days.map(date => {
+      const g = byDate.get(date);
+      const cls = !g ? 'is-missing' : date === today ? 'is-current' : date < today ? 'is-past' : '';
+      const day = `<td class="nowrap">${fmtDate(date)}<br><span class="muted">${inDays(daysBetween(today, date))}</span></td>`;
+      const pick = `<button class="btn btn-sm btn-ghost" data-guess-pick="${date}" title="Wybierz gracza">✏</button>`;
+      if (!g) {
+        return `<tr class="${cls}">${day}<td>—</td><td colspan="3" class="gap-bad">Brak gracza na ten dzień</td>
+          <td><div class="row-actions">${pick}<button class="btn btn-sm" data-guess-draw="${date}">🎲 Wylosuj</button></div></td></tr>`;
+      }
+      const p = g.player;
+      const who = p ? `<div class="gp-who">${guessAvatar(p)}<div><b>${esc(p.nick)}</b><br><span class="muted">${esc(p.name || '')}</span></div></div>`
+        : `<span class="gap-bad">${esc(g.playerId)} — nie ma go już w puli</span>`;
+      const info = p ? `${flag(p.nat || '')} ${esc((p.nat || '?').toUpperCase())} · ${esc(p.league || 'brak ligi')} · ${esc(p.team || 'brak drużyny')}` : '';
+      const stats = p ? `${p.titles} 🏆 · ${p.debut}<br><span class="muted">${p.intl} turniejów międzynar.</span>` : '';
+      return `<tr class="${cls}">${day}<td>#${g.number}</td><td>${who}</td><td>${info}</td><td class="nowrap">${stats}</td>
+        <td><div class="row-actions">
+          <button class="btn btn-sm btn-ghost" data-guess-preview="${date}" title="Podgląd w grze">👁</button>
+          ${pick}
+          <button class="btn btn-sm btn-ghost" data-guess-draw="${date}" title="Wylosuj innego gracza">🎲</button>
+          <button class="btn btn-sm btn-danger" data-guess-del="${date}" title="Usuń">🗑</button>
+        </div></td></tr>`;
+    }).join('') || '<tr><td colspan="6" class="empty-msg">Brak dni Guess the Pro.</td></tr>';
+  }
+
+  const guessPlayedNote = date => date <= todayKey() ? ' Ten dzień jest już w grze — kto go zaczął, straci postęp.' : '';
+
+  async function guessAction(fn, okMsg) {
+    try { const r = await fn(); showToast(r?.message || okMsg); }
+    catch (err) { showToast(err.message); }
+    await renderGuess();
+    refreshPublishBar();
+  }
+
+  $('guessTable').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const date = btn.dataset.guessPreview || btn.dataset.guessPick || btn.dataset.guessDraw || btn.dataset.guessDel || btn.dataset.guessSave;
+    if (btn.dataset.guessPreview) return openPreview(date, 'guess');
+    if (btn.dataset.guessPick) {
+      // Inline search: type a nickname (the list suggests pool players), then ✓.
+      const cell = btn.closest('.row-actions');
+      cell.innerHTML = `<div class="gp-pick"><input list="guessPoolList" placeholder="Nick gracza…" data-guess-input="${date}">
+        <button class="btn btn-sm" data-guess-save="${date}">✓</button></div>`;
+      cell.querySelector('input').focus();
+      return;
+    }
+    if (btn.dataset.guessSave) {
+      const nick = cell => cell.closest('tr').querySelector('[data-guess-input]').value.trim().toLowerCase();
+      const wanted = nick(btn);
+      const p = [...guessPool].sort((a, b) => b.intl - a.intl).find(x => x.nick.toLowerCase() === wanted);
+      if (!p) return showToast('Nie ma takiego gracza w puli — wybierz z listy podpowiedzi.');
+      const go = () => guessAction(() => api('/api/guess/' + date, { method: 'PUT', body: { playerId: p.id } }));
+      return guessDays.some(d => d.date === date) && date <= todayKey()
+        ? showConfirm('Zmień gracza', `Ustawić ${p.nick} na ${fmtDate(date)}?` + guessPlayedNote(date), go) : go();
+    }
+    const exists = guessDays.some(d => d.date === date);
+    if (btn.dataset.guessDraw) {
+      const go = () => guessAction(() => api(`/api/guess/${date}/draw`, { method: 'POST' }));
+      return exists ? showConfirm('Wylosuj innego gracza', `Zastąpić gracza z ${fmtDate(date)} innym, wylosowanym?` + guessPlayedNote(date), go) : go();
+    }
+    if (btn.dataset.guessDel) {
+      showConfirm('Usuń dzień', `Usunąć gracza z ${fmtDate(date)}? Bot uzupełni ten dzień w najbliższy poniedziałek, chyba że wylosujesz go wcześniej.` + guessPlayedNote(date),
+        () => guessAction(() => api('/api/guess/' + date, { method: 'DELETE' }), 'Usunięto dzień'));
+    }
+  });
+  $('guessTable').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.dataset.guessInput) e.target.closest('tr').querySelector('[data-guess-save]').click();
+  });
+  $('btnGuessFill').addEventListener('click', () => guessAction(() => api('/api/guess/fill', { method: 'POST', body: { days: 14 } })));
+
   /* ---------- Grid preview ---------- */
 
   // The game itself in preview mode: any date (future too), nothing saved to the player's progress.
   const PREVIEW_SIZES = { phone: [390, 844], desktop: [1366, 768] };
-  const preview = { date: '', device: 'phone' };
+  const preview = { date: '', device: 'phone', game: 'grid' };
+  // Days the preview can step through, per game.
+  const previewDates = () => preview.game === 'guess'
+    ? guessDays.filter(d => d.player).map(d => d.date)
+    : gridBoards.filter(b => !b.missing).map(b => b.date);
 
-  function openPreview(date) {
+  function openPreview(date, game = 'grid') {
     preview.date = date;
+    preview.game = game;
     $('previewOverlay').classList.remove('hidden');
     showPreview();
   }
 
   function showPreview() {
-    const dates = gridBoards.filter(b => !b.missing).map(b => b.date);
+    const dates = previewDates();
     const i = dates.indexOf(preview.date);
-    const b = gridBoards.find(x => x.date === preview.date);
-    $('previewTitle').textContent = `▦ ${fmtDate(preview.date)}${b ? ` · #${b.boardId}` : ''}`;
+    if (preview.game === 'guess') {
+      const g = guessDays.find(x => x.date === preview.date);
+      $('previewTitle').textContent = `? ${fmtDate(preview.date)}${g ? ` · #${g.number} · ${g.player?.nick || ''}` : ''}`;
+    } else {
+      const b = gridBoards.find(x => x.date === preview.date);
+      $('previewTitle').textContent = `▦ ${fmtDate(preview.date)}${b ? ` · #${b.boardId}` : ''}`;
+    }
     $('previewPrev').disabled = i <= 0;
     $('previewNext').disabled = i < 0 || i >= dates.length - 1;
     $('previewPhone').classList.toggle('btn-ghost', preview.device !== 'phone');
@@ -1357,11 +1507,11 @@
     $('previewFrame').style.width = Math.round(w * scale) + 'px';
     $('previewFrame').style.height = Math.round(h * scale) + 'px';
     stage.scrollTop = 0;
-    iframe.src = `index.html?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}`;
+    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}`;
   }
 
   const stepPreview = delta => {
-    const dates = gridBoards.filter(b => !b.missing).map(b => b.date);
+    const dates = previewDates();
     const next = dates[dates.indexOf(preview.date) + delta];
     if (next) { preview.date = next; showPreview(); }
   };
