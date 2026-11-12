@@ -17,5 +17,8 @@ const SITE = (() => {
     .replace(/^\/+|\/+$/g, '').replace(/^index$/, '');
   const path = (l, p = page) => ((l === 'en' ? '' : '/' + l) + (p ? '/' + p : '')) || '/';
   const save = l => { try { localStorage.setItem('lolc_lang', l); } catch { /* storage blocked */ } };
+  // Time-limited badges (the "NEW" ribbon on a game tab): gone from data-until (YYYY-MM-DD, UTC) on.
+  const today = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('[data-until]').forEach(e => { if (today >= e.dataset.until) e.remove(); });
   return { LANGS, built, lang, page, path, url: (l, p) => ORIGIN + path(l, p), save };
 })();
