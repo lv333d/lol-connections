@@ -1,4 +1,5 @@
-/* Legal footer shared by both games (index.html, connections.html).
+/* Legal footer shared by all games (index.html, guess.html, connections.html), plus the "next game" link in
+   their result popups.
    The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects.
    On built pages (site.js SITE.built) it also owns the language picker: choosing a language opens that
    language's URL (/, /pl, /es, /fr). */
@@ -10,6 +11,25 @@
     fr: 'LoL Connect est un projet de fans non commercial. LoL Connect n\'est pas approuvé par Riot Games et ne reflète pas les opinions de Riot Games ni de quiconque officiellement impliqué dans la production ou la gestion des propriétés de Riot Games. Riot Games et toutes les propriétés associées sont des marques commerciales ou des marques déposées de Riot Games, Inc. Ce projet n\'est affilié à aucune ligue ni équipe d\'esport ; leurs noms et logos appartiennent à leurs propriétaires. Données et photos des joueurs : {leaguepedia} (textes sous licence CC BY-SA) ; les photos restent la propriété de leurs auteurs.'
   };
   const LANGS = Object.keys(TEXT);
+
+  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Connections → Grid.
+  const GAMES = [{ slug: '', icon: '▦', name: 'Grid' }, { slug: 'guess', icon: '?', name: 'Guess the Pro' }, { slug: 'connections', icon: '▤', name: 'Connections' }];
+  const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
+  function renderNextGame(lang) {
+    const a = document.getElementById('nextGame');
+    if (!a) return;
+    const next = GAMES[(GAMES.findIndex(g => g.slug === SITE.page) + 1) % GAMES.length];
+    // Built pages keep the language in the URL; the local admin server serves the plain templates.
+    a.href = SITE.built ? SITE.path(lang, next.slug) : '/' + next.slug;
+    a.innerHTML = '';
+    const label = document.createElement('span');
+    label.className = 'next-game-label';
+    label.textContent = NEXT[lang] || NEXT.en;
+    const name = document.createElement('span');
+    name.className = 'next-game-name';
+    name.textContent = `${next.icon} ${next.name} →`;
+    a.append(label, name);
+  }
 
   const footer = document.createElement('footer');
   footer.className = 'site-footer';
@@ -24,6 +44,7 @@
     link.rel = 'noopener';
     link.textContent = 'Leaguepedia';
     footer.replaceChildren(document.createTextNode(before), link, document.createTextNode(after));
+    renderNextGame(LANGS.includes(lang) ? lang : 'en');
   }
 
   render(SITE.lang);

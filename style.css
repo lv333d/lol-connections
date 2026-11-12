@@ -623,3 +623,25 @@ header::after {
   .game-tab { flex-direction: column; gap: 3px; padding-left: 2px; padding-right: 2px; font-size: 0.72rem; letter-spacing: 0.2px; }
   .game-tab-icon { font-size: 1.25rem; }
 }
+
+/* "NEW" ribbon across the top-right corner of a game tab. */
+.game-tab { position: relative; overflow: hidden; }
+.tab-ribbon {
+  position: absolute; top: 7px; right: -24px; width: 84px; transform: rotate(45deg);
+  background: linear-gradient(to bottom, #e8c56f, #b8872e); color: #1a1205;
+  font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 800; letter-spacing: 1px;
+  text-align: center; line-height: 1; padding: 3px 0; text-shadow: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); pointer-events: none;
+}
+@media (max-width: 520px) { .tab-ribbon { top: 5px; right: -27px; font-size: 0.45rem; } }
+
+/* Link to the next game at the bottom of a result popup. */
+.next-game {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  margin-top: 20px; padding: 12px 14px; border-radius: 6px; text-decoration: none;
+  border: 1px solid rgba(200, 170, 110, 0.4); background: rgba(200, 170, 110, 0.06);
+  transition: background .2s, border-color .2s;
+}
+.next-game:hover, .next-game:focus-visible { background: rgba(200, 170, 110, 0.14); border-color: var(--gold); outline: none; }
+.next-game-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
+.next-game-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
