@@ -10,6 +10,9 @@
 //            a free agent
 //   league   where that team played last in the past CURRENT_MONTHS ("LCK", "LFL"…; official domestic leagues),
 //            null as above or when the team hasn't played an official league in that time
+//   role     position: the most frequent one on their rosters (top, jungle, mid, bot, support)
+//   orgs     organizations they played for (names from data/teams.json, never coaching) — a guess who shares one
+//            with the answer gets a yellow team cell
 //   titles   international titles won as a player (each Worlds / MSI / First Stand counted)
 //   debut    first year on a major-league roster as a player
 //   with     pool players they shared a roster with as players (players.json teammates minus via-coaching)
@@ -166,15 +169,29 @@ const active = pool.filter(p => !p.retired && currentTeam.has(p.id));
 console.log(`  z obecną drużyną: ${active.length}; bez ligi: ${active.filter(p => !lastLeague.has(orgKey(currentTeam.get(p.id)))).map(p => `${p.nick} (${currentTeam.get(p.id)})`).join(', ') || '—'}`);
 console.log(`  ligi: ${Object.entries(Object.groupBy(active, p => lastLeague.get(orgKey(currentTeam.get(p.id)))?.league || '?')).map(([l, v]) => `${l} ${v.length}`).sort().join(', ')}`);
 
+const ROLES = { top: 'top', jungle: 'jungle', mid: 'mid', bot: 'bot', 'ad carry': 'bot', adc: 'bot', support: 'support' };
+/** Most frequent position on the player's rosters; a multi-role entry ("Mid,Bot") counts its first role. */
+function roleOf(rosters) {
+  const count = {};
+  for (const r of rosters) {
+    const role = ROLES[(r.Role || '').split(',')[0].trim().toLowerCase()];
+    if (role) count[role] = (count[role] || 0) + 1;
+  }
+  return Object.entries(count).sort((a, b) => b[1] - a[1])[0]?.[0] || null;
+}
+const teamName = new Map(teams.map(t => [t.id, t.name]));
+
 const out = pool.map(p => {
   const i = info.get(p.id);
-  const teamName = !p.retired && currentTeam.get(p.id);
-  const org = teamName && orgOf(teamName);
+  const current = !p.retired && currentTeam.get(p.id);
+  const org = current && orgOf(current);
   const coached = new Set(p.viaCoaching?.teammates || []);
   return {
     id: p.id, nick: p.nick, name: p.name, nat: p.nationality,
-    team: teamName ? { id: org?.id || slugify(teamName), name: org?.name || teamName, short: org?.short || teamName } : null,
-    league: teamName ? lastLeague.get(orgKey(teamName))?.league || null : null,
+    team: current ? { id: org?.id || slugify(current), name: org?.name || current, short: org?.short || current } : null,
+    league: current ? lastLeague.get(orgKey(current))?.league || null : null,
+    role: roleOf(i.rosters),
+    orgs: [...new Set(p.teams.filter(t => !p.viaCoaching?.teams?.includes(t)).map(t => teamName.get(t)).filter(Boolean))].sort(),
     titles: titles.get(p.id), debut: i.debut, intl: i.intl.size,
     with: p.teammates.filter(t => !coached.has(t) && inPool.has(t))
   };
@@ -183,4 +200,5 @@ const out = pool.map(p => {
 await writeFile(path.join(DATA_DIR, 'guess-players.json'), JSON.stringify(out) + '\n');
 step('Podsumowanie');
 console.log(`  data/guess-players.json: ${out.length} graczy`);
-console.log(`  przykłady: ${out.slice(0, 6).map(p => `${p.nick} (${p.nat}, ${p.league || '—'} ${p.team?.short || '—'}, ${p.titles}🏆, ${p.debut})`).join('; ')}`);
+console.log(`  pozycje: ${Object.entries(Object.groupBy(out, p => p.role || '?')).map(([r, v]) => `${r} ${v.length}`).join(', ')}`);
+console.log(`  przykłady: ${out.slice(0, 6).map(p => `${p.nick} (${p.nat}, ${p.role}, ${p.league || '—'} ${p.team?.short || '—'}, ${p.titles}🏆, ${p.debut}; ${p.orgs.join('/')})`).join('; ')}`);

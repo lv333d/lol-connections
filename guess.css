@@ -8,10 +8,10 @@
 }
 .gp-noresults { cursor: default; color: var(--text-muted); font-size: 0.85rem; }
 
-/* Rows: player and 5 categories; "played together" as a line of text under the tiles. */
+/* Rows: player and 6 categories; "played together" as a line of text under the tiles. */
 .gp-table { max-width: 640px; margin: 0 auto; }
 .gp-row {
-  display: grid; grid-template-columns: minmax(92px, 1.5fr) repeat(5, minmax(0, 1fr));
+  display: grid; grid-template-columns: minmax(92px, 1.5fr) repeat(6, minmax(0, 1fr));
   gap: 6px; align-items: stretch; margin-bottom: 6px;
 }
 .gp-head > div {
@@ -35,6 +35,8 @@
 }
 .gp-cell.ok { background: rgba(28, 84, 50, 0.75); border-color: rgba(74, 224, 136, 0.65); }
 .gp-cell.no { background: rgba(92, 26, 30, 0.7); border-color: rgba(255, 110, 110, 0.45); }
+.gp-cell.part { background: rgba(110, 84, 16, 0.75); border-color: rgba(240, 196, 80, 0.7); cursor: help; }
+.gp-role-text { font-size: 0.8rem; letter-spacing: 0.5px; }
 .gp-cell > img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .gp-team > img, .gp-league > img { background: #ece6d6; border-radius: 6px; padding: 3px; width: 100%; height: 100%; }
 .gp-nat > img { width: 100%; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4); }
@@ -61,6 +63,7 @@
 .gp-new > :nth-child(5) { animation-delay: .32s; }
 .gp-new > :nth-child(6) { animation-delay: .40s; }
 .gp-new > :nth-child(7) { animation-delay: .48s; }
+.gp-new > :nth-child(8) { animation-delay: .56s; }
 @keyframes gp-flip { from { opacity: 0; transform: rotateX(80deg); } }
 @media (prefers-reduced-motion: reduce) { .gp-new > * { animation: none; } }
 
@@ -75,7 +78,7 @@
 .gp-answer-text { text-align: left; }
 
 @media (max-width: 520px) {
-  .gp-row { grid-template-columns: minmax(64px, 1.2fr) repeat(5, minmax(0, 1fr)); gap: 4px; margin-bottom: 4px; }
+  .gp-row { grid-template-columns: minmax(58px, 1.1fr) repeat(6, minmax(0, 1fr)); gap: 4px; margin-bottom: 4px; }
   .gp-head > div { font-size: 0.5rem; letter-spacing: 0; }
   .gp-player { flex-direction: column; gap: 2px; }
   .gp-player .avatar { width: 30px; height: 30px; }
