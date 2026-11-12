@@ -1,6 +1,6 @@
 // Static, per-language HTML for the public site (used by scripts/build-site.js).
-// Each template (index.html, connections.html — English in the repo, which the local admin server serves as is)
-// becomes /, /pl, /es, /fr (+ /connections) with the language's text already in the HTML: <html lang>, translated
+// Each template (index.html, guess.html, connections.html — English in the repo, which the local admin server serves as is)
+// becomes /, /pl, /es, /fr (+ /guess, /connections) with the language's text already in the HTML: <html lang>, translated
 // description and Open Graph tags, canonical + hreflang (x-default = English at /), the game's UI strings
 // (data-i18n keys from grid.js / app.js I18N) and the Guide window's content — the same markup the game's
 // applyI18n() renders, so nothing changes for players and search engines get the rules without running JS.
@@ -12,6 +12,7 @@ import { LANGS, OG_LOCALE, META } from './site-i18n.js';
 export const SITE = 'https://connect4.lol';
 export const PAGES = [
   { id: 'grid', template: 'index.html', slug: '', i18nFrom: 'grid.js' },
+  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' },
   { id: 'connections', template: 'connections.html', slug: 'connections', i18nFrom: 'app.js' }
 ];
 
@@ -41,6 +42,7 @@ function replaceOnce(html, re, value, what) {
 // markup (<strong>), as in the game.
 const GUIDE = {
   grid: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join(''),
+  guess: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join(''),
   connections: d => {
     const swatches = ['#3B6E35', '#7A5A10', '#1A4A7A', '#7A1A4A'];
     return `
@@ -55,7 +57,7 @@ const GUIDE = {
 
 /** All language versions of all pages: [{ file, html, url, lang, page }]. */
 export async function buildPages(root) {
-  const dicts = { 'grid.js': await readI18n(root, 'grid.js'), 'app.js': await readI18n(root, 'app.js') };
+  const dicts = Object.fromEntries(await Promise.all(PAGES.map(async p => [p.i18nFrom, await readI18n(root, p.i18nFrom)])));
   const out = [];
 
   for (const page of PAGES) {
@@ -100,6 +102,7 @@ export async function buildPages(root) {
       // Links between pages and the language picker stay in this language.
       html = html.replace(/href="\/" class="game-tab/g, `href="${pagePath(lang, '')}" class="game-tab`)
         .replace(/href="\/connections" class="game-tab/g, `href="${pagePath(lang, 'connections')}" class="game-tab`)
+        .replace(/href="\/guess" class="game-tab/g, `href="${pagePath(lang, 'guess')}" class="game-tab`)
         .replace(`<option value="${lang}">`, `<option value="${lang}" selected>`);
 
       out.push({ file: pageFile(lang, page.slug), html, url, lang, page: page.slug });

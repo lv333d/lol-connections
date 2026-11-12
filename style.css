@@ -615,3 +615,10 @@ header::after {
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 ::-webkit-scrollbar-corner { background: transparent; }
+
+/* Three game tabs on a phone: one line each — smaller letters, no icons. */
+.game-tab { white-space: nowrap; }
+@media (max-width: 520px) {
+  .game-tab { padding-left: 2px; padding-right: 2px; font-size: 0.72rem; letter-spacing: 0.2px; }
+  .game-tab-icon { display: none; }
+}

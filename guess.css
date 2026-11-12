@@ -1,0 +1,89 @@
+/* Guess the Pro — builds on style.css tokens and grid.css (avatars, search list, emblems, modals). */
+
+.gp-search { position: relative; max-width: 460px; margin: 0 auto 16px; }
+.gp-results {
+  position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 50;
+  max-height: min(46vh, 360px); background: #0d1527;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+}
+.gp-noresults { cursor: default; color: var(--text-muted); font-size: 0.85rem; }
+
+/* Rows: player, 5 categories, 🤝 beside them. */
+.gp-table { max-width: 640px; margin: 0 auto; }
+.gp-row {
+  display: grid; grid-template-columns: minmax(92px, 1.5fr) repeat(5, minmax(0, 1fr)) 28px;
+  gap: 6px; align-items: stretch; margin-bottom: 6px;
+}
+.gp-head > div {
+  font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; line-height: 1.2;
+  color: var(--text-muted); text-align: center; align-self: end; padding-bottom: 2px;
+  border-bottom: 1px solid rgba(200, 170, 110, 0.25);
+}
+.gp-head > div:first-child { text-align: left; }
+.gp-head .gp-with-head { border-bottom: none; font-size: 0.9rem; }
+
+.gp-player { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.gp-player .avatar { width: 38px; height: 38px; font-size: 0.8rem; }
+.gp-nick {
+  font-weight: 800; font-size: 0.9rem; color: var(--gold-light);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.gp-cell {
+  position: relative; aspect-ratio: 1; max-height: 64px; justify-self: stretch;
+  display: flex; align-items: center; justify-content: center; gap: 2px;
+  border-radius: 6px; border: 1px solid; padding: 6px; cursor: default; overflow: hidden;
+}
+.gp-cell.ok { background: rgba(28, 84, 50, 0.75); border-color: rgba(74, 224, 136, 0.65); }
+.gp-cell.no { background: rgba(92, 26, 30, 0.7); border-color: rgba(255, 110, 110, 0.45); }
+.gp-cell > img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.gp-team > img, .gp-league > img { background: #ece6d6; border-radius: 6px; padding: 3px; width: 100%; height: 100%; }
+.gp-nat > img { width: 100%; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4); }
+.gp-cell .emblem { font-size: 0.6rem; border-width: 1px; }
+.gp-text { font-size: 0.68rem; font-weight: 800; text-align: center; line-height: 1.1; color: #fff; word-break: break-word; }
+.gp-none { font-weight: 600; color: rgba(255, 255, 255, 0.7); text-transform: lowercase; }
+.gp-num { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.gp-debut .gp-num { font-size: 0.92rem; }
+.gp-arrow { font-size: 0.95rem; font-weight: 800; color: #ffd27a; }
+
+.gp-with { display: flex; align-items: center; justify-content: center; }
+.gp-handshake { font-size: 1.25rem; cursor: help; filter: drop-shadow(0 0 4px rgba(200, 170, 110, 0.6)); }
+
+.gp-correct .gp-player .avatar { box-shadow: 0 0 0 2px rgba(74, 224, 136, 0.8); }
+
+/* A new guess flips in tile by tile. */
+.gp-new > * { animation: gp-flip .45s ease-out both; }
+.gp-new > :nth-child(2) { animation-delay: .08s; }
+.gp-new > :nth-child(3) { animation-delay: .16s; }
+.gp-new > :nth-child(4) { animation-delay: .24s; }
+.gp-new > :nth-child(5) { animation-delay: .32s; }
+.gp-new > :nth-child(6) { animation-delay: .40s; }
+.gp-new > :nth-child(7) { animation-delay: .48s; }
+@keyframes gp-flip { from { opacity: 0; transform: rotateX(80deg); } }
+@media (prefers-reduced-motion: reduce) { .gp-new > * { animation: none; } }
+
+/* The answer, after the game. */
+.gp-answer, .gp-result-player { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.gp-answer { margin: 0 auto 16px; }
+.gp-answer .avatar, .gp-result-player .avatar { width: 64px; height: 64px; border: 2px solid var(--gold); }
+.gp-result-player { margin: 6px 0 10px; }
+.gp-answer-label { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
+.gp-answer-nick { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold-light); line-height: 1.1; }
+.gp-answer-name { font-size: 0.78rem; color: var(--text-muted); }
+.gp-answer-text { text-align: left; }
+
+@media (max-width: 520px) {
+  .gp-row { grid-template-columns: minmax(64px, 1.2fr) repeat(5, minmax(0, 1fr)) 20px; gap: 4px; margin-bottom: 4px; }
+  .gp-head > div { font-size: 0.5rem; letter-spacing: 0; }
+  .gp-player { flex-direction: column; gap: 2px; }
+  .gp-player .avatar { width: 30px; height: 30px; }
+  .gp-nick { font-size: 0.66rem; max-width: 100%; }
+  .gp-cell { padding: 3px; border-radius: 5px; }
+  .gp-num { font-size: 0.85rem; }
+  .gp-debut .gp-num { font-size: 0.7rem; }
+  .gp-arrow { font-size: 0.75rem; }
+  .gp-text { font-size: 0.54rem; }
+  .gp-handshake { font-size: 1rem; }
+  .gp-search { margin-bottom: 12px; }
+}
+@media (max-width: 520px) { .gp-titles, .gp-debut { flex-direction: column; gap: 0; line-height: 1; } }

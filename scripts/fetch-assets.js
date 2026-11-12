@@ -4,7 +4,8 @@
 //
 // Usage: npm run fetch-assets [-- --all] [-- --teams] [-- --limit=50]
 //   default   players used in puzzles/*.json (every Connections item is a player) and in grid/*.json (answers + teammate conditions),
-//             plus logos of teams and flags of countries used by grid conditions
+//             plus logos of teams and flags of countries used by grid conditions; and for Guess the Pro
+//             (data/guess-players.json) every pool player, their current team's logo and their flag
 //   --all     every player in data/players.json (the search list shows a portrait for each)
 //   --teams   logos of every team in data/teams.json
 //   --limit   stop after N portraits (handy for a first test)
@@ -82,6 +83,12 @@ async function collectTargets(db) {
       if (c.kind === 'team') gridTeams.add(c.id);
       if (c.kind === 'nationality') gridFlags.add(c.id);
     });
+  }
+  // Guess the Pro: every pool player can be guessed, so all portraits, current team logos and flags.
+  for (const p of await readJson(path.join(ROOT, 'data', 'guess-players.json'), [])) {
+    targets.set(p.id, p.nick);
+    if (p.team) gridTeams.add(p.team.id);
+    if (p.nat) gridFlags.add(p.nat);
   }
   if (ALL) db.players.forEach(p => targets.set(p.id, p.nick));
   return { targets, gridTeams, gridFlags };

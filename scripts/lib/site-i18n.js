@@ -28,6 +28,28 @@ export const META = {
       ogDesc: 'Trouvez un joueur pro qui remplit la condition de la ligne et celle de la colonne, ou classez 16 éléments en 4 catégories.'
     }
   },
+  guess: {
+    en: {
+      desc: 'Guess the daily League of Legends pro player. Each guess shows what they share with the answer: nationality, league, team, international titles, debut year and whether they played together.',
+      ogTitle: 'Guess the Pro — LoL Connect',
+      ogDesc: 'Guess the daily League of Legends pro player.'
+    },
+    pl: {
+      desc: 'Zgadnij codziennego pro-gracza League of Legends. Każdy typ pokazuje, co ma wspólnego z szukanym: narodowość, ligę, drużynę, trofea międzynarodowe, rok debiutu i to, czy grali razem.',
+      ogTitle: 'Guess the Pro — LoL Connect',
+      ogDesc: 'Zgadnij codziennego pro-gracza League of Legends.'
+    },
+    es: {
+      desc: 'Adivina el jugador pro diario de League of Legends. Cada intento muestra lo que comparte con la respuesta: nacionalidad, liga, equipo, títulos internacionales, año de debut y si jugaron juntos.',
+      ogTitle: 'Guess the Pro — LoL Connect',
+      ogDesc: 'Adivina el jugador pro diario de League of Legends.'
+    },
+    fr: {
+      desc: 'Devinez le joueur pro League of Legends du jour. Chaque essai montre ce qu\'il partage avec la réponse : nationalité, ligue, équipe, titres internationaux, année de débuts et s\'ils ont joué ensemble.',
+      ogTitle: 'Guess the Pro — LoL Connect',
+      ogDesc: 'Devinez le joueur pro League of Legends du jour.'
+    }
+  },
   connections: {
     en: {
       desc: 'A weekly League of Legends word puzzle inspired by Connections. Sort 16 related items into 4 groups!',

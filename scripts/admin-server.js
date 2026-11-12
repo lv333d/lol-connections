@@ -55,7 +55,9 @@ function readBody(req) {
 }
 
 async function serveStatic(req, res, pathname) {
-  const rel = decodeURIComponent(pathname === '/' ? '/index.html' : pathname).replace(/^\/+/, '');
+  let rel = decodeURIComponent(pathname === '/' ? '/index.html' : pathname).replace(/^\/+/, '');
+  // Clean URLs like on the live site (vercel.json cleanUrls): /guess → guess.html.
+  if (!path.extname(rel) && /^[\w-]+$/.test(rel)) rel += '.html';
   const file = path.resolve(ROOT, rel);
   const top = rel.split(/[\\/]/)[0];
   if (!file.startsWith(ROOT + path.sep) || top.startsWith('.') || BLOCKED_DIRS.has(top)) {

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
+  <meta charset="UTF-8">
+  <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/guess etc. -->
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#050811">
+  <title>Guess the Pro — LoL Connect</title>
+  <meta name="description" content="Guess the daily League of Legends pro player. Each guess shows what they share with the answer: nationality, league, team, international titles, debut year and whether they played together.">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://connect4.lol/guess">
+  <!-- Open Graph / Facebook / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LoL Connect">
+  <meta property="og:url" content="https://connect4.lol/guess">
+  <meta property="og:title" content="Guess the Pro — LoL Connect">
+  <meta property="og:description" content="Guess the daily League of Legends pro player.">
+  <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="LoL Connect — daily League of Legends esports puzzles">
+  <!-- X / Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guess the Pro — LoL Connect">
+  <meta name="twitter:description" content="Guess the daily League of Legends pro player.">
+  <meta name="twitter:image" content="https://connect4.lol/assets/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="grid.css">
+  <link rel="stylesheet" href="guess.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Guess the Pro","url":"https://connect4.lol/guess","description":"Guess the daily League of Legends pro player.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og-image.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og-image.png"}]}
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
+        <p id="subtitle" data-i18n="subtitle">daily League of Legends puzzle</p>
+      </div>
+      <nav class="game-tabs" aria-label="Game mode">
+        <a href="/" class="game-tab"><span class="game-tab-icon">▦</span>Grid</a>
+        <a href="/guess" class="game-tab active" aria-current="page"><span class="game-tab-icon">?</span>Guess the Pro</a>
+        <a href="/connections" class="game-tab"><span class="game-tab-icon">▤</span>Connections</a>
+      </nav>
+      <div class="header-controls">
+        <div class="lang-wrap">
+          <span class="lang-icon">🌐</span>
+          <select id="langSelect" class="lang-select" aria-label="Language">
+            <option value="pl">PL</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
+        <div class="date-nav-wrap">
+          <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">&lt;</button>
+          <div id="dateDisplay" class="date-display"></div>
+          <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">&gt;</button>
+        </div>
+        <div class="header-buttons">
+          <button id="btnGuide" class="text-btn"><span class="text-btn-icon">📖</span><span id="btnGuideLabel" data-i18n="btnGuideLabel"></span></button>
+        </div>
+      </div>
+    </header>
+
+    <div id="noPuzzleScreen" class="no-puzzle hidden">
+      <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
+      <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
+    </div>
+
+    <div id="gameArea" class="game-area hidden">
+      <div class="grid-status">
+        <span id="guessesLabel" data-i18n="guessesLabel"></span>
+        <span id="guessesLeft" class="guesses-left"></span>
+      </div>
+
+      <div id="answerCard" class="gp-answer hidden"></div>
+
+      <div id="guessSearch" class="gp-search">
+        <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
+               role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+        <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
+      </div>
+
+      <div class="gp-table" role="table">
+        <div class="gp-row gp-head" role="row">
+          <div role="columnheader" data-i18n="colPlayer">Player</div>
+          <div role="columnheader" data-i18n="colNat">Nationality</div>
+          <div role="columnheader" data-i18n="colLeague">League</div>
+          <div role="columnheader" data-i18n="colTeam">Team</div>
+          <div role="columnheader" data-i18n="colTitles">Int'l titles</div>
+          <div role="columnheader" data-i18n="colDebut">Tier 1 debut</div>
+          <div role="columnheader" class="gp-with-head" aria-label="Played together">🤝</div>
+        </div>
+        <div id="guessRows" role="rowgroup"></div>
+      </div>
+
+      <div class="actions">
+        <button id="btnGiveUp" data-i18n="giveUp" class="btn btn-secondary"></button>
+        <button id="btnShowResults" data-i18n="results" class="btn hidden"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="resultOverlay" aria-label="Close">&times;</button>
+      <h2 id="resultTitle"></h2>
+      <div id="resultPlayer" class="gp-result-player"></div>
+      <div id="resultScore" class="result-score"></div>
+      <div id="emojiGrid" class="emoji-grid"></div>
+      <div class="result-actions">
+        <button id="btnShare" data-i18n="share" class="btn"></button>
+        <button id="btnCopy" data-i18n="copy" class="btn btn-secondary"></button>
+      </div>
+      <div id="nextBoard" class="grid-countdown hidden">
+        <div id="nextBoardLabel"></div>
+        <div id="nextBoardTime" class="grid-countdown-time"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Give-up confirmation -->
+  <div id="giveUpOverlay" class="overlay hidden">
+    <div class="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="giveUpTitle" aria-describedby="giveUpText">
+      <h2 id="giveUpTitle" data-i18n="giveUpTitle"></h2>
+      <p id="giveUpText" data-i18n="giveUpText"></p>
+      <div class="result-actions">
+        <button id="btnGiveUpCancel" data-i18n="giveUpCancel" class="btn btn-secondary"></button>
+        <button id="btnGiveUpConfirm" data-i18n="giveUpConfirm" class="btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide -->
+  <div id="guideOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="guideOverlay" aria-label="Close">&times;</button>
+      <h2 id="guideTitle" data-i18n="guideTitle"></h2>
+      <div id="guideContent"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="site.js"></script>
+  <script src="guess.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>
