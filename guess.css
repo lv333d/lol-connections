@@ -35,7 +35,9 @@
 }
 .gp-cell.ok { background: rgba(28, 84, 50, 0.75); border-color: rgba(74, 224, 136, 0.65); }
 .gp-cell.no { background: rgba(92, 26, 30, 0.7); border-color: rgba(255, 110, 110, 0.45); }
-.gp-cell.part { background: rgba(110, 84, 16, 0.75); border-color: rgba(240, 196, 80, 0.7); cursor: help; }
+/* Partial match: bright amber, clearly lighter than the dark green and red. */
+.gp-cell.part { background: linear-gradient(160deg, #d9a521, #a87410); border-color: #ffd970; box-shadow: 0 0 8px rgba(255, 200, 70, 0.35); cursor: help; }
+.gp-cell.part .gp-none { color: #2a1c02; font-weight: 800; }
 .gp-role-text { font-size: 0.8rem; letter-spacing: 0.5px; }
 .gp-cell > img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .gp-team > img, .gp-league > img { background: #ece6d6; border-radius: 6px; padding: 3px; width: 100%; height: 100%; }
