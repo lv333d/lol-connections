@@ -19,7 +19,6 @@
   color: var(--text-muted); text-align: center; align-self: end; padding-bottom: 2px;
   border-bottom: 1px solid rgba(200, 170, 110, 0.25);
 }
-.gp-head > div:first-child { text-align: left; }
 
 .gp-player { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .gp-player .avatar { width: 38px; height: 38px; font-size: 0.8rem; }
@@ -56,6 +55,10 @@
 }
 
 .gp-correct .gp-player .avatar { box-shadow: 0 0 0 2px rgba(74, 224, 136, 0.8); }
+
+/* A thin line between guesses (under the "played together" note when there is one). */
+#guessRows > .gp-row { padding-bottom: 6px; border-bottom: 1px solid rgba(200, 170, 110, 0.18); }
+@media (max-width: 520px) { #guessRows > .gp-row { padding-bottom: 4px; } }
 
 /* A new guess flips in tile by tile. */
 .gp-new > * { animation: gp-flip .45s ease-out both; }
