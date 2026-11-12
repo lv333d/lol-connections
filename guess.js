@@ -19,6 +19,7 @@ const I18N = {
     searchPh: 'Wpisz nick lub imię gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
     colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea', colDebut: 'Debiut',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Szukany gracz grał kiedyś w {teams}',
+    natPart: 'zgadza się jedna z narodowości',
     none: 'brak', higher: 'Więcej', lower: 'Mniej', later: 'Później', earlier: 'Wcześniej',
     together: 'Grał w jednej drużynie z szukanym graczem', answerWas: 'Szukany gracz',
     winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry',
@@ -29,7 +30,7 @@ const I18N = {
     guide: [
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
       ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Liczba prób jest nieograniczona. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>żółte</strong> — częściowa zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
-      ['Kategorie', '<strong>Narodowość</strong>; <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; drużyna jest <strong>żółta</strong>, gdy szukany gracz grał kiedyś w obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
+      ['Kategorie', '<strong>Narodowość</strong> (przy podwójnej obie flagi; <strong>żółta</strong>, gdy zgadza się jedna z nich); <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; drużyna jest <strong>żółta</strong>, gdy szukany gracz grał kiedyś w obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
       ['Grali razem', 'Napis „Grał w jednej drużynie z szukanym graczem” pojawia się pod typem, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
       ['Nowy gracz', 'Codziennie o 00:00 UTC.']
     ]
@@ -42,6 +43,7 @@ const I18N = {
     searchPh: 'Type a nickname or real name…', noResults: 'No player matches.', used: 'guessed',
     colPlayer: 'Player', colNat: 'Country', colPos: 'Position', colLeague: 'League', colTeam: 'Team', colTitles: 'Titles', colDebut: 'Debut',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'The answer played for {teams} at some point',
+    natPart: 'one of the nationalities matches',
     none: 'none', higher: 'Higher', lower: 'Lower', later: 'Later', earlier: 'Earlier',
     together: 'Played on the same team as the answer', answerWas: 'The player was',
     winTitle: '🏆 Got it!', loseTitle: '⚔ Game over',
@@ -52,7 +54,7 @@ const I18N = {
     guide: [
       ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
       ['How to play', 'Type a nickname or real name and pick the player from the list. Guesses are unlimited. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>yellow</strong> a partial match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
-      ['Categories', '<strong>Nationality</strong>; <strong>position</strong> — the most frequent one on their rosters; <strong>current league</strong> and <strong>current team</strong> — from the Leaguepedia profile, “none” for retired and teamless players; the team is <strong>yellow</strong> when the answer played for your pick\'s current team at some point (not necessarily together); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
+      ['Categories', '<strong>Nationality</strong> (dual nationals show both flags; <strong>yellow</strong> when one of them matches); <strong>position</strong> — the most frequent one on their rosters; <strong>current league</strong> and <strong>current team</strong> — from the Leaguepedia profile, “none” for retired and teamless players; the team is <strong>yellow</strong> when the answer played for your pick\'s current team at some point (not necessarily together); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
       ['Played together', '“Played on the same team as the answer” appears under a guess who shared a roster with the answer in a major league or at an international event.'],
       ['New player', 'Every day at 00:00 UTC.']
     ]
@@ -65,6 +67,7 @@ const I18N = {
     searchPh: 'Escribe un nick o nombre…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
     colPlayer: 'Jugador', colNat: 'País', colPos: 'Posición', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos', colDebut: 'Debut',
     roles: { top: 'Top', jungle: 'Jungla', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'El jugador buscado jugó en {teams} en algún momento',
+    natPart: 'coincide una de las nacionalidades',
     none: 'ninguno', higher: 'Más', lower: 'Menos', later: 'Más tarde', earlier: 'Antes',
     together: 'Jugó en el mismo equipo que el jugador buscado', answerWas: 'El jugador era',
     winTitle: '🏆 ¡Acertaste!', loseTitle: '⚔ Fin del juego',
@@ -75,7 +78,7 @@ const I18N = {
     guide: [
       ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
       ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Los intentos son ilimitados. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>amarillo</strong> coincidencia parcial, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
-      ['Categorías', '<strong>Nacionalidad</strong>; <strong>posición</strong>: la más frecuente en sus rosters; <strong>liga actual</strong> y <strong>equipo actual</strong>: según su perfil en Leaguepedia, «ninguno» para retirados y jugadores sin equipo; el equipo sale en <strong>amarillo</strong> cuando el jugador buscado jugó alguna vez en el equipo actual de tu intento (no necesariamente juntos); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
+      ['Categorías', '<strong>Nacionalidad</strong> (con doble nacionalidad, ambas banderas; <strong>amarillo</strong> si coincide una); <strong>posición</strong>: la más frecuente en sus rosters; <strong>liga actual</strong> y <strong>equipo actual</strong>: según su perfil en Leaguepedia, «ninguno» para retirados y jugadores sin equipo; el equipo sale en <strong>amarillo</strong> cuando el jugador buscado jugó alguna vez en el equipo actual de tu intento (no necesariamente juntos); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
       ['Jugaron juntos', '«Jugó en el mismo equipo que el jugador buscado» aparece bajo un intento que compartió roster con la respuesta en una liga principal o en un torneo internacional.'],
       ['Nuevo jugador', 'Cada día a las 00:00 UTC.']
     ]
@@ -88,6 +91,7 @@ const I18N = {
     searchPh: 'Tapez un pseudo ou un nom…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
     colPlayer: 'Joueur', colNat: 'Pays', colPos: 'Poste', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres', colDebut: 'Débuts',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Le joueur recherché a joué pour {teams} à un moment',
+    natPart: 'une des nationalités correspond',
     none: 'aucune', higher: 'Plus', lower: 'Moins', later: 'Plus tard', earlier: 'Plus tôt',
     together: 'A joué dans la même équipe que le joueur recherché', answerWas: 'Le joueur était',
     winTitle: '🏆 Trouvé !', loseTitle: '⚔ Partie terminée',
@@ -98,7 +102,7 @@ const I18N = {
     guide: [
       ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
       ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Les essais sont illimités. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>jaune</strong> pour une correspondance partielle, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
-      ['Catégories', '<strong>Nationalité</strong> ; <strong>poste</strong> : le plus fréquent dans ses rosters ; <strong>ligue actuelle</strong> et <strong>équipe actuelle</strong> : selon son profil Leaguepedia, « aucune » pour les retraités et les joueurs sans équipe ; l\'équipe est en <strong>jaune</strong> quand le joueur recherché a joué pour l\'équipe actuelle de votre essai à un moment (pas forcément ensemble) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
+      ['Catégories', '<strong>Nationalité</strong> (double nationalité : les deux drapeaux ; <strong>jaune</strong> si l\'une correspond) ; <strong>poste</strong> : le plus fréquent dans ses rosters ; <strong>ligue actuelle</strong> et <strong>équipe actuelle</strong> : selon son profil Leaguepedia, « aucune » pour les retraités et les joueurs sans équipe ; l\'équipe est en <strong>jaune</strong> quand le joueur recherché a joué pour l\'équipe actuelle de votre essai à un moment (pas forcément ensemble) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
       ['Ont joué ensemble', '« A joué dans la même équipe que le joueur recherché » apparaît sous un essai qui a partagé un roster avec la réponse dans une ligue majeure ou lors d\'un tournoi international.'],
       ['Nouveau joueur', 'Chaque jour à 00:00 UTC.']
     ]
@@ -188,6 +192,10 @@ function countryName(code) {
 
 /* ---------- Comparison ---------- */
 
+// Every nationality of a player (dual nationals have `nats`, the primary one first).
+const natsOf = p => p.nats || (p.nat ? [p.nat] : []);
+const sameSet = (a, b) => a.length === b.length && a.every(x => b.includes(x));
+
 /** One guess against the answer: per category { ok: true | false | 'part', … } plus `together`. */
 function compare(g) {
   const num = (a, b) => (a === b ? { ok: true } : { ok: false, dir: b > a ? 'up' : 'down' });
@@ -196,7 +204,7 @@ function compare(g) {
   const sameTeam = (g.team?.id || '') === (answer.team?.id || '');
   const shared = g.team && (answer.orgs || []).includes(g.team.name) ? [g.team.name] : [];
   return {
-    nat: { ok: g.nat === answer.nat },
+    nat: { ok: sameSet(natsOf(g), natsOf(answer)) || (natsOf(g).some(n => natsOf(answer).includes(n)) ? 'part' : false) },
     role: { ok: g.role === answer.role },
     league: { ok: (g.league || '') === (answer.league || '') },
     team: { ok: sameTeam || (shared.length ? 'part' : false), shared },
@@ -215,9 +223,17 @@ function tile(cls, ok, title, ...children) {
   return c;
 }
 
+// Dual nationals show both flags; yellow when only some of the nationalities match.
 function natTile(p, ok) {
-  if (!p.nat) return tile('gp-nat', ok, '?', el('span', 'gp-text', '?'));
-  return tile('gp-nat', ok, countryName(p.nat), logo(`assets/flags/${encodeURIComponent(p.nat)}.svg`, 'emblem-team', p.nat.toUpperCase()));
+  const nats = natsOf(p);
+  if (!nats.length) return tile('gp-nat', ok, '?', el('span', 'gp-text', '?'));
+  const names = nats.map(countryName).join(', ');
+  const title = ok === 'part' ? `${names} — ${t('natPart')}` : names;
+  const flags = nats.map(n => logo(`assets/flags/${encodeURIComponent(n)}.svg`, 'emblem-team', n.toUpperCase()));
+  if (flags.length === 1) return tile('gp-nat', ok, title, flags[0]);
+  const stack = el('div', 'gp-flags');
+  flags.forEach(f => stack.appendChild(f));
+  return tile('gp-nat gp-multi', ok, title, stack);
 }
 
 const ROLE_SHORT = { top: 'TOP', jungle: 'JGL', mid: 'MID', bot: 'BOT', support: 'SUP' };

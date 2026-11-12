@@ -6,6 +6,7 @@
 // a major league that same year, so minor-region teams (PCS, VCS, CBLOL before 2025, LCP…) don't make the pool.
 // Per player:
 //   nat      nationality (ISO code, from players.json)
+//   nats     every nationality, the primary one first — only for players with more than one (Bwipo: be, br)
 //   team     current team { id, name, short } — the team on the player's Leaguepedia profile, null when retired or
 //            a free agent
 //   league   where that team played last in the past CURRENT_MONTHS ("LCK", "LFL"…; official domestic leagues),
@@ -187,7 +188,7 @@ const out = pool.map(p => {
   const org = current && orgOf(current);
   const coached = new Set(p.viaCoaching?.teammates || []);
   return {
-    id: p.id, nick: p.nick, name: p.name, nat: p.nationality,
+    id: p.id, nick: p.nick, name: p.name, nat: p.nationality, ...(p.nationalities?.length > 1 ? { nats: p.nationalities } : {}),
     team: current ? { id: org?.id || slugify(current), name: org?.name || current, short: org?.short || current } : null,
     league: current ? lastLeague.get(orgKey(current))?.league || null : null,
     role: roleOf(i.rosters),

@@ -82,7 +82,7 @@ async function collectTargets(db) {
   for (const p of await readJson(path.join(ROOT, 'data', 'guess-players.json'), [])) {
     targets.set(p.id, p.nick);
     if (p.team) gridTeams.add(p.team.id);
-    if (p.nat) gridFlags.add(p.nat);
+    (p.nats || [p.nat]).filter(Boolean).forEach(n => gridFlags.add(n));
   }
   if (ALL) db.players.forEach(p => targets.set(p.id, p.nick));
   return { targets, gridTeams, gridFlags };
