@@ -366,8 +366,10 @@ function render() {
   if (state.gameOver) answerCard($('answerCard'));
   const rows = $('guessRows');
   rows.innerHTML = '';
-  // Newest guess on top, so it stays next to the search box.
+  // Newest guess on top, next to the search box; phones list them oldest first instead (guess.css reverses the
+  // order) and scroll to the new one, under the search bar that stays at the top of the screen.
   [...state.guesses].reverse().forEach(id => rows.appendChild(guessRow(playerById.get(id), id === justAdded)));
+  if (justAdded && narrowScreen.matches) rows.firstElementChild?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   justAdded = '';
   $('btnGiveUp').classList.toggle('hidden', state.gameOver);
   $('btnShowResults').classList.toggle('hidden', !state.gameOver);

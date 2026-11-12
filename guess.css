@@ -86,6 +86,16 @@
   .gp-arrow { font-size: 0.75rem; }
   .gp-text { font-size: 0.54rem; }
   .gp-together { font-size: 0.66rem; padding: 3px 6px; }
-  .gp-search { margin-bottom: 12px; }
+  /* Phones: the game starts right under the header (no vertical centring as in the other games), the search bar
+     sticks to the top of the screen and guesses are added below it, oldest first. */
+  .app > .game-area::before { display: none; }
+  .app > .game-area > .actions { flex: none; padding-top: 0; margin-top: 12px; }
+  .grid-status { margin-top: 4px; }
+  .gp-search {
+    position: sticky; top: 0; z-index: 40; margin: 0 -2px 12px; padding: 8px 2px;
+    background: #0a101c; box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.8);
+  }
+  #guessRows { display: flex; flex-direction: column-reverse; }
+  #guessRows > .gp-row { scroll-margin-top: 70px; scroll-margin-bottom: 16px; }
 }
 @media (max-width: 520px) { .gp-titles, .gp-debut { flex-direction: column; gap: 0; line-height: 1; } }
