@@ -7,7 +7,6 @@
 
 const LANGS = ['pl', 'en', 'es', 'fr'];
 const LOCALE_MAP = { pl: 'pl-PL', en: 'en-US', es: 'es-ES', fr: 'fr-FR' };
-const MAX_GUESSES = 10;
 const MAX_RESULTS = 30;
 const MAJOR_LEAGUES = ['LCK', 'LPL', 'LEC', 'LCS', 'LTA'];
 
@@ -16,21 +15,21 @@ const I18N = {
     subtitle: 'codzienna zagadka League of Legends',
     noPuzzleTitle: '📅 Brak gracza na dziś', noPuzzleText: 'Wróć jutro po nową zagadkę!',
     nextBoardIn: 'Nowy gracz za', nextBoardSoon: 'Nowy gracz już wkrótce',
-    guessesLabel: 'Pozostałe próby:', giveUp: 'Poddaj się', results: 'Wyniki',
+    guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
     searchPh: 'Wpisz nick lub imię gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
     colPlayer: 'Gracz', colNat: 'Narodowość', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea międzynar.', colDebut: 'Debiut w tier 1',
     none: 'brak', higher: 'Więcej', lower: 'Mniej', later: 'Później', earlier: 'Wcześniej',
-    together: '{a} grał w jednym składzie z szukanym graczem', answerWas: 'Szukany gracz',
-    winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry', score: '{n}/{max}',
+    together: 'Grał w jednej drużynie z szukanym graczem', answerWas: 'Szukany gracz',
+    winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry',
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy i zobaczysz szukanego gracza. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
     guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
-      ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Masz 10 prób. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
+      ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Liczba prób jest nieograniczona. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
       ['Kategorie', '<strong>Narodowość</strong>; <strong>obecna liga</strong> i <strong>obecna drużyna</strong> (ostatni skład z ostatnich 12 miesięcy, „brak” dla emerytów i graczy bez drużyny); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
-      ['🤝', 'Pojawia się przy typie, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
+      ['Grali razem', 'Napis „Grał w jednej drużynie z szukanym graczem” pojawia się pod typem, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
       ['Nowy gracz', 'Codziennie o 00:00 UTC.']
     ]
   },
@@ -38,21 +37,21 @@ const I18N = {
     subtitle: 'daily League of Legends puzzle',
     noPuzzleTitle: '📅 No player today', noPuzzleText: 'Come back tomorrow for a new puzzle!',
     nextBoardIn: 'New player in', nextBoardSoon: 'New player coming soon',
-    guessesLabel: 'Guesses left:', giveUp: 'Give up', results: 'Results',
+    guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
     searchPh: 'Type a nickname or real name…', noResults: 'No player matches.', used: 'guessed',
     colPlayer: 'Player', colNat: 'Nationality', colLeague: 'League', colTeam: 'Team', colTitles: 'Int\'l titles', colDebut: 'Tier 1 debut',
     none: 'none', higher: 'Higher', lower: 'Lower', later: 'Later', earlier: 'Earlier',
-    together: '{a} shared a roster with the answer', answerWas: 'The player was',
-    winTitle: '🏆 Got it!', loseTitle: '⚔ Game over', score: '{n}/{max}',
+    together: 'Played on the same team as the answer', answerWas: 'The player was',
+    winTitle: '🏆 Got it!', loseTitle: '⚔ Game over',
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the player is revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
     guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
-      ['How to play', 'Type a nickname or real name and pick the player from the list. You have 10 guesses. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
+      ['How to play', 'Type a nickname or real name and pick the player from the list. Guesses are unlimited. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
       ['Categories', '<strong>Nationality</strong>; <strong>current league</strong> and <strong>current team</strong> (latest roster from the last 12 months, “none” for retired and teamless players); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
-      ['🤝', 'Shown next to a guess who shared a roster with the answer in a major league or at an international event.'],
+      ['Played together', '“Played on the same team as the answer” appears under a guess who shared a roster with the answer in a major league or at an international event.'],
       ['New player', 'Every day at 00:00 UTC.']
     ]
   },
@@ -60,21 +59,21 @@ const I18N = {
     subtitle: 'acertijo diario de League of Legends',
     noPuzzleTitle: '📅 No hay jugador hoy', noPuzzleText: '¡Vuelve mañana por un nuevo acertijo!',
     nextBoardIn: 'Nuevo jugador en', nextBoardSoon: 'Nuevo jugador muy pronto',
-    guessesLabel: 'Intentos restantes:', giveUp: 'Rendirse', results: 'Resultados',
+    guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
     searchPh: 'Escribe un nick o nombre…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
     colPlayer: 'Jugador', colNat: 'Nacionalidad', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos int.', colDebut: 'Debut en tier 1',
     none: 'ninguno', higher: 'Más', lower: 'Menos', later: 'Más tarde', earlier: 'Antes',
-    together: '{a} compartió roster con el jugador buscado', answerWas: 'El jugador era',
-    winTitle: '🏆 ¡Acertaste!', loseTitle: '⚔ Fin del juego', score: '{n}/{max}',
+    together: 'Jugó en el mismo equipo que el jugador buscado', answerWas: 'El jugador era',
+    winTitle: '🏆 ¡Acertaste!', loseTitle: '⚔ Fin del juego',
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revela el jugador. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
     guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
-      ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Tienes 10 intentos. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
+      ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Los intentos son ilimitados. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
       ['Categorías', '<strong>Nacionalidad</strong>; <strong>liga actual</strong> y <strong>equipo actual</strong> (último roster de los últimos 12 meses, «ninguno» para retirados y jugadores sin equipo); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
-      ['🤝', 'Aparece junto a un intento que compartió roster con la respuesta en una liga principal o en un torneo internacional.'],
+      ['Jugaron juntos', '«Jugó en el mismo equipo que el jugador buscado» aparece bajo un intento que compartió roster con la respuesta en una liga principal o en un torneo internacional.'],
       ['Nuevo jugador', 'Cada día a las 00:00 UTC.']
     ]
   },
@@ -82,21 +81,21 @@ const I18N = {
     subtitle: 'énigme quotidienne de League of Legends',
     noPuzzleTitle: '📅 Pas de joueur aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle énigme !',
     nextBoardIn: 'Nouveau joueur dans', nextBoardSoon: 'Nouveau joueur très bientôt',
-    guessesLabel: 'Essais restants :', giveUp: 'Abandonner', results: 'Résultats',
+    guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
     searchPh: 'Tapez un pseudo ou un nom…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
     colPlayer: 'Joueur', colNat: 'Nationalité', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres int.', colDebut: 'Débuts en tier 1',
     none: 'aucune', higher: 'Plus', lower: 'Moins', later: 'Plus tard', earlier: 'Plus tôt',
-    together: '{a} a partagé un roster avec le joueur recherché', answerWas: 'Le joueur était',
-    winTitle: '🏆 Trouvé !', loseTitle: '⚔ Partie terminée', score: '{n}/{max}',
+    together: 'A joué dans la même équipe que le joueur recherché', answerWas: 'Le joueur était',
+    winTitle: '🏆 Trouvé !', loseTitle: '⚔ Partie terminée',
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et le joueur est révélé. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
     guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
-      ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Vous avez 10 essais. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
+      ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Les essais sont illimités. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
       ['Catégories', '<strong>Nationalité</strong> ; <strong>ligue actuelle</strong> et <strong>équipe actuelle</strong> (dernier roster des 12 derniers mois, « aucune » pour les retraités et les joueurs sans équipe) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
-      ['🤝', 'Apparaît à côté d\'un essai qui a partagé un roster avec la réponse dans une ligue majeure ou lors d\'un tournoi international.'],
+      ['Ont joué ensemble', '« A joué dans la même équipe que le joueur recherché » apparaît sous un essai qui a partagé un roster avec la réponse dans une ligue majeure ou lors d\'un tournoi international.'],
       ['Nouveau joueur', 'Chaque jour à 00:00 UTC.']
     ]
   }
@@ -241,16 +240,11 @@ function guessRow(p, animate) {
   row.appendChild(teamTile(p, cmp.team.ok));
   row.appendChild(numTile('gp-titles', p.titles, cmp.titles, 'higher', 'lower'));
   row.appendChild(numTile('gp-debut', p.debut, cmp.debut, 'later', 'earlier'));
-  const w = el('div', 'gp-with');
-  w.setAttribute('role', 'cell');
   if (cmp.together) {
-    const s = el('span', 'gp-handshake', '🤝');
-    const text = t('together', { a: p.nick });
-    s.title = text;
-    s.addEventListener('click', () => showToast(text));
-    w.appendChild(s);
+    const note = el('div', 'gp-together', '🤝 ' + esc(t('together')));
+    note.setAttribute('role', 'cell');
+    row.appendChild(note);
   }
-  row.appendChild(w);
   return row;
 }
 
@@ -354,7 +348,7 @@ function answerCard(target) {
 }
 
 function render() {
-  $('guessesLeft').textContent = MAX_GUESSES - state.guesses.length;
+  $('guessesLeft').textContent = state.guesses.length;
   $('guessSearch').classList.toggle('hidden', state.gameOver);
   $('answerCard').classList.toggle('hidden', !state.gameOver);
   if (state.gameOver) answerCard($('answerCard'));
@@ -431,7 +425,7 @@ function guess(id) {
   state.guesses.push(id);
   justAdded = id;
   if (id === answer.id) state.won = true;
-  if (state.won || state.guesses.length >= MAX_GUESSES) state.gameOver = true;
+  if (state.won) state.gameOver = true;
   saveState();
   clearSearch();
   render();
@@ -441,7 +435,6 @@ function guess(id) {
 
 /* ---------- Results ---------- */
 
-const score = () => (state.won ? state.guesses.length : 'X');
 
 function emojiRows() {
   return state.guesses.map(id => {
@@ -451,13 +444,13 @@ function emojiRows() {
 }
 
 function buildShareText() {
-  return `⚔ LoL Connect · Guess the Pro #${day.number} — ${score()}/${MAX_GUESSES}\n\n${emojiRows()}\n\n${SITE.url(currentLang, 'guess')}`;
+  return `⚔ LoL Connect · Guess the Pro #${day.number} — ${state.won ? '🎯 ' + state.guesses.length : '🏳️'}\n\n${emojiRows()}\n\n${SITE.url(currentLang, 'guess')}`;
 }
 
 function showResult() {
   $('resultTitle').textContent = state.won ? t('winTitle') : t('loseTitle');
   answerCard($('resultPlayer'));
-  $('resultScore').textContent = t('score', { n: score(), max: MAX_GUESSES });
+  $('resultScore').textContent = `${t('guessesLabel')} ${state.guesses.length}`;
   $('emojiGrid').innerHTML = emojiRows().replace(/\n/g, '<br>');
   $('resultOverlay').classList.remove('hidden');
 }

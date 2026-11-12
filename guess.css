@@ -8,10 +8,10 @@
 }
 .gp-noresults { cursor: default; color: var(--text-muted); font-size: 0.85rem; }
 
-/* Rows: player, 5 categories, 🤝 beside them. */
+/* Rows: player and 5 categories; "played together" as a line of text under the tiles. */
 .gp-table { max-width: 640px; margin: 0 auto; }
 .gp-row {
-  display: grid; grid-template-columns: minmax(92px, 1.5fr) repeat(5, minmax(0, 1fr)) 28px;
+  display: grid; grid-template-columns: minmax(92px, 1.5fr) repeat(5, minmax(0, 1fr));
   gap: 6px; align-items: stretch; margin-bottom: 6px;
 }
 .gp-head > div {
@@ -20,7 +20,6 @@
   border-bottom: 1px solid rgba(200, 170, 110, 0.25);
 }
 .gp-head > div:first-child { text-align: left; }
-.gp-head .gp-with-head { border-bottom: none; font-size: 0.9rem; }
 
 .gp-player { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .gp-player .avatar { width: 38px; height: 38px; font-size: 0.8rem; }
@@ -46,8 +45,11 @@
 .gp-debut .gp-num { font-size: 0.92rem; }
 .gp-arrow { font-size: 0.95rem; font-weight: 800; color: #ffd27a; }
 
-.gp-with { display: flex; align-items: center; justify-content: center; }
-.gp-handshake { font-size: 1.25rem; cursor: help; filter: drop-shadow(0 0 4px rgba(200, 170, 110, 0.6)); }
+.gp-together {
+  grid-column: 1 / -1; margin-top: -2px; padding: 3px 8px;
+  font-size: 0.74rem; font-weight: 700; color: var(--gold-light);
+  background: rgba(200, 170, 110, 0.1); border: 1px solid rgba(200, 170, 110, 0.35); border-radius: 5px;
+}
 
 .gp-correct .gp-player .avatar { box-shadow: 0 0 0 2px rgba(74, 224, 136, 0.8); }
 
@@ -73,7 +75,7 @@
 .gp-answer-text { text-align: left; }
 
 @media (max-width: 520px) {
-  .gp-row { grid-template-columns: minmax(64px, 1.2fr) repeat(5, minmax(0, 1fr)) 20px; gap: 4px; margin-bottom: 4px; }
+  .gp-row { grid-template-columns: minmax(64px, 1.2fr) repeat(5, minmax(0, 1fr)); gap: 4px; margin-bottom: 4px; }
   .gp-head > div { font-size: 0.5rem; letter-spacing: 0; }
   .gp-player { flex-direction: column; gap: 2px; }
   .gp-player .avatar { width: 30px; height: 30px; }
@@ -83,7 +85,7 @@
   .gp-debut .gp-num { font-size: 0.7rem; }
   .gp-arrow { font-size: 0.75rem; }
   .gp-text { font-size: 0.54rem; }
-  .gp-handshake { font-size: 1rem; }
+  .gp-together { font-size: 0.66rem; padding: 3px 6px; }
   .gp-search { margin-bottom: 12px; }
 }
 @media (max-width: 520px) { .gp-titles, .gp-debut { flex-direction: column; gap: 0; line-height: 1; } }
