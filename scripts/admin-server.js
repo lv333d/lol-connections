@@ -115,7 +115,7 @@ async function regenerateGridBoard(date) {
 async function guessDays() {
   const [days, pool] = await Promise.all([guess.readDays(), guess.readPool()]);
   const byId = new Map(pool.map(p => [p.id, p]));
-  const card = p => p && { id: p.id, nick: p.nick, name: p.name, nat: p.nat, league: p.league === 'other' ? `inny (${p.leagueName || '?'})` : p.league, team: p.team?.short || null, titles: p.titles, debut: p.debut, intl: p.intl };
+  const card = p => p && { id: p.id, nick: p.nick, name: p.name, nat: p.nat, league: p.league === 'other' ? `inna (${p.leagueName || '?'})` : p.league, team: p.team?.short || null, titles: p.titles, debut: p.debut, intl: p.intl };
   return {
     days: days.map(d => ({ date: d.date, number: d.number, playerId: d.playerId, player: card(byId.get(d.playerId)) })),
     pool: pool.map(p => ({ id: p.id, nick: p.nick, name: p.name, intl: p.intl }))

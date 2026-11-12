@@ -20,7 +20,7 @@ const I18N = {
     colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea międzynar.', colDebut: 'Debiut tier 1',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Szukany gracz grał kiedyś w {teams}',
     natPart: 'zgadza się jedna z narodowości',
-    otherLeague: 'inny', otherLeagueLong: 'Inny region (poza LCK, LPL, LEC, LCS i LTA)', moreRows: '… +{n} …',
+    otherLeague: 'inna', otherLeagueLong: 'Inna liga (poza LCK, LPL, LEC, LCS i LTA)', moreRows: '… +{n} …',
     none: 'brak', higher: 'Więcej', lower: 'Mniej', later: 'Później', earlier: 'Wcześniej',
     together: 'Grał w jednej drużynie z szukanym graczem', answerWas: 'Szukany gracz',
     winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry',
@@ -31,7 +31,7 @@ const I18N = {
     guide: [
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
       ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Liczba prób jest nieograniczona. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>żółte</strong> — częściowa zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
-      ['Kategorie', '<strong>Narodowość</strong> (przy podwójnej obie flagi; <strong>żółta</strong>, gdy zgadza się jedna z nich); <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> (LCK, LPL, LEC, LCS, LTA albo „inny” dla drużyn z innych lig) i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; drużyna jest <strong>żółta</strong>, gdy szukany gracz grał kiedyś w obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
+      ['Kategorie', '<strong>Narodowość</strong> (przy podwójnej obie flagi; <strong>żółta</strong>, gdy zgadza się jedna z nich); <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> (LCK, LPL, LEC, LCS, LTA albo „inna” dla drużyn z innych lig) i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; drużyna jest <strong>żółta</strong>, gdy szukany gracz grał kiedyś w obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
       ['Grali razem', 'Napis „Grał w jednej drużynie z szukanym graczem” pojawia się pod typem, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
       ['Nowy gracz', 'Codziennie o 00:00 UTC.']
     ]
