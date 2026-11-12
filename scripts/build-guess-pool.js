@@ -6,10 +6,10 @@
 // a major league that same year, so minor-region teams (PCS, VCS, CBLOL before 2025, LCP…) don't make the pool.
 // Per player:
 //   nat      nationality (ISO code, from players.json)
-//   team     current team { name, short, logo } — the team of their latest roster in the last CURRENT_MONTHS
-//            (any league, ERLs included; international events, showmatches and qualifiers skipped), null when
-//            retired or without a roster
-//   league   that roster's league ("LCK", "LFL"…), null as above
+//   team     current team { id, name, short } — the team on the player's Leaguepedia profile, null when retired or
+//            a free agent
+//   league   where that team played last in the past CURRENT_MONTHS ("LCK", "LFL"…; official domestic leagues),
+//            null as above or when the team hasn't played an official league in that time
 //   titles   international titles won as a player (each Worlds / MSI / First Stand counted)
 //   debut    first year on a major-league roster as a player
 //   with     pool players they shared a roster with as players (players.json teammates minus via-coaching)
@@ -130,44 +130,51 @@ for (const p of pool) {
 }
 console.log(`  zwycięzców: ${winners.length}; graczy z tytułem: ${[...titles.values()].filter(Boolean).length}`);
 
-step(`Obecna drużyna (ostatni skład z ${CURRENT_MONTHS} mies.)`);
+step('Obecna drużyna (pole „Team” profilu na Leaguepedii) i jej liga');
+// The profile's current team is what Leaguepedia shows ("Team" in the infobox; empty for free agents). The latest
+// roster says too little: a free agent's last team (Rekkles, Witchcraft) would still count.
+const currentTeam = new Map(); // player id → Leaguepedia team name
+for (const batch of chunk(pool.map(p => p.wikiPage), 150)) {
+  (await cargoQuery({ tables: 'Players', fields: 'OverviewPage,Team', where: `OverviewPage IN (${batch.map(cargoStr).join(',')})`, fresh }))
+    .forEach(r => { const p = byPage.get(r.OverviewPage.toLowerCase()); if (p && r.Team) currentTeam.set(p.id, r.Team); });
+}
+// The team's league: where it played last in the past CURRENT_MONTHS (official domestic leagues only — no
+// showmatches, streamer cups, EWC, Demacia Cup or cross-league events), from the rosters of the team's name.
 const since = new Date();
 since.setUTCMonth(since.getUTCMonth() - CURRENT_MONTHS);
 const sinceStr = since.toISOString().slice(0, 10);
-const links = [...new Set(pool.flatMap(p => info.get(p.id).rosters.map(r => r.Link)))];
-const latest = new Map(); // player id → row
-for (const batch of chunk(links, 100)) {
+const teamNames = [...new Set([...currentTeam.values()])];
+const lastLeague = new Map(); // org key → { league, start }
+for (const batch of chunk(teamNames, 60)) {
+  const names = [...new Set(batch.flatMap(n => { const o = orgOf(n); return o ? [n, o.page, o.name, ...o.aliases] : [n]; }))];
   const recent = await cargoQuery({
     tables: 'TournamentPlayers=TP,Tournaments=T,Leagues=L',
     joinOn: 'TP.OverviewPage=T.OverviewPage,T.League=L.League',
-    fields: 'TP.Team=Team,TP.Link=Link,TP.Role=Role,T.League=League,L.League_Short=Short,T.DateStart=Start,T.TournamentLevel=Level',
-    where: `TP.Link IN (${batch.map(cargoStr).join(',')}) AND T.DateStart >= '${sinceStr}'`
-      // Official domestic leagues only: no showmatches, streamer cups, EWC, Demacia Cup or cross-league events.
-      + ` AND L.IsOfficial='Yes' AND L.Region != 'International' AND T.League NOT IN (${NOT_DOMESTIC.map(cargoStr).join(',')})`
-      + ' AND TP.Team IS NOT NULL',
+    fields: 'TP.Team=Team,T.League=League,L.League_Short=Short,T.DateStart=Start,T.TournamentLevel=Level',
+    where: `TP.Team IN (${names.map(cargoStr).join(',')}) AND T.DateStart >= '${sinceStr}'`
+      + ` AND L.IsOfficial='Yes' AND L.Region != 'International' AND T.League NOT IN (${NOT_DOMESTIC.map(cargoStr).join(',')})`,
+    groupBy: 'TP.Team,T.OverviewPage',
     fresh
   });
   for (const r of recent) {
-    if (!asPlayer(r) || /showmatch|qualifier/i.test(r.Level || '')) continue;
-    const p = playerOf(r.Link);
-    if (!p || !inPool.has(p.id)) continue;
-    const cur = latest.get(p.id);
-    if (!cur || r.Start > cur.Start || (r.Start === cur.Start && MAJOR_OF.has(r.League))) latest.set(p.id, r);
+    if (/showmatch|qualifier/i.test(r.Level || '')) continue;
+    const k = orgKey(r.Team), cur = lastLeague.get(k);
+    if (!cur || r.Start > cur.start || (r.Start === cur.start && MAJOR_OF.has(r.League))) lastLeague.set(k, { league: MAJOR_OF.get(r.League) || r.Short || r.League, start: r.Start });
   }
 }
-const leagueLabel = r => MAJOR_OF.get(r.League) || r.Short || r.League;
-console.log(`  z obecną drużyną: ${[...latest.keys()].filter(id => !db.find(p => p.id === id).retired).length}`);
-console.log(`  ligi: ${Object.entries(Object.groupBy([...latest.values()], leagueLabel)).map(([l, v]) => `${l} ${v.length}`).sort().join(', ')}`);
+const active = pool.filter(p => !p.retired && currentTeam.has(p.id));
+console.log(`  z obecną drużyną: ${active.length}; bez ligi: ${active.filter(p => !lastLeague.has(orgKey(currentTeam.get(p.id)))).map(p => `${p.nick} (${currentTeam.get(p.id)})`).join(', ') || '—'}`);
+console.log(`  ligi: ${Object.entries(Object.groupBy(active, p => lastLeague.get(orgKey(currentTeam.get(p.id)))?.league || '?')).map(([l, v]) => `${l} ${v.length}`).sort().join(', ')}`);
 
 const out = pool.map(p => {
   const i = info.get(p.id);
-  const r = !p.retired && latest.get(p.id);
-  const org = r && orgOf(r.Team);
+  const teamName = !p.retired && currentTeam.get(p.id);
+  const org = teamName && orgOf(teamName);
   const coached = new Set(p.viaCoaching?.teammates || []);
   return {
     id: p.id, nick: p.nick, name: p.name, nat: p.nationality,
-    team: r ? { id: org?.id || slugify(r.Team), name: org?.name || r.Team, short: org?.short || r.Team } : null,
-    league: r ? leagueLabel(r) : null,
+    team: teamName ? { id: org?.id || slugify(teamName), name: org?.name || teamName, short: org?.short || teamName } : null,
+    league: teamName ? lastLeague.get(orgKey(teamName))?.league || null : null,
     titles: titles.get(p.id), debut: i.debut, intl: i.intl.size,
     with: p.teammates.filter(t => !coached.has(t) && inPool.has(t))
   };
