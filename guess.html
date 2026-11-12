@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  /* Remembered language: the language menu stores the visitor's choice (lolc_lang, footer.js), and the English
+     pages (/ and /guess — where search results and links without a language land) open in that language. Links to
+     /pl, /es and /fr are left alone. Only an explicit choice counts, never the browser language, so crawlers and
+     new visitors always get the page they asked for. */
+  (function () {
+    try {
+      var d = document.documentElement, l = localStorage.getItem('lolc_lang');
+      if (!d.hasAttribute('data-built') || d.lang !== 'en' || !/^(pl|es|fr)$/.test(l || '')) return;
+      var p = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/+$/, '');
+      location.replace('/' + l + p + location.search + location.hash);
+    } catch (e) { /* storage blocked */ }
+  })();
+  </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
   <meta charset="UTF-8">
   <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/guess etc. -->
