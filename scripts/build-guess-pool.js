@@ -9,8 +9,9 @@
 //   nats     every nationality, the primary one first — only for players with more than one (Bwipo: be, br)
 //   team     current team { id, name, short } — the team on the player's Leaguepedia profile, null when retired or
 //            a free agent
-//   league   where that team played last in the past CURRENT_MONTHS ("LCK", "LFL"…; official domestic leagues),
-//            null as above or when the team hasn't played an official league in that time
+//   league   the team's league when it is one of the five majors ("LCK"…), "other" for any other team (ERL, minor
+//            region, academy, college…), null without a team; leagueName: the other league's name ("LFL"), shown
+//            in the tooltip — where the team played last in the past CURRENT_MONTHS (official domestic leagues)
 //   role     position: the most frequent one on their rosters (top, jungle, mid, bot, support)
 //   orgs     organizations they played for (names from data/teams.json, never coaching) — a guess who shares one
 //            with the answer gets a yellow team cell
@@ -181,6 +182,13 @@ function roleOf(rosters) {
   return Object.entries(count).sort((a, b) => b[1] - a[1])[0]?.[0] || null;
 }
 const teamName = new Map(teams.map(t => [t.id, t.name]));
+/** { league } for a major-league team, { league: 'other', leagueName } otherwise, { league: null } without a team. */
+function leagueFields(team) {
+  if (!team) return { league: null };
+  const league = lastLeague.get(orgKey(team))?.league;
+  if (Object.hasOwn(MAJOR, league)) return { league };
+  return { league: 'other', ...(league ? { leagueName: league } : {}) };
+}
 
 const out = pool.map(p => {
   const i = info.get(p.id);
@@ -190,7 +198,7 @@ const out = pool.map(p => {
   return {
     id: p.id, nick: p.nick, name: p.name, nat: p.nationality, ...(p.nationalities?.length > 1 ? { nats: p.nationalities } : {}),
     team: current ? { id: org?.id || slugify(current), name: org?.name || current, short: org?.short || current } : null,
-    league: current ? lastLeague.get(orgKey(current))?.league || null : null,
+    ...leagueFields(current),
     role: roleOf(i.rosters),
     orgs: [...new Set(p.teams.filter(t => !p.viaCoaching?.teams?.includes(t)).map(t => teamName.get(t)).filter(Boolean))].sort(),
     titles: titles.get(p.id), debut: i.debut, intl: i.intl.size,
