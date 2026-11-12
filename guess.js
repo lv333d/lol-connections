@@ -220,8 +220,6 @@ function compare(g) {
 
 function tile(cls, ok, title, ...children) {
   const c = el('div', `gp-cell ${cls} ${ok === 'part' ? 'part' : ok ? 'ok' : 'no'}`);
-  // Not by colour alone (red–green colour blindness): matches get a ✓, partial matches a ~ in the corner.
-  if (ok) c.appendChild(el('span', 'gp-mark', ok === 'part' ? '~' : '✓'));
   c.setAttribute('role', 'cell');
   c.title = title;
   c.addEventListener('click', () => showToast(title));
