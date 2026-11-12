@@ -1,20 +1,18 @@
 // Picks the daily "Guess the Pro" player: guess/YYYY-MM-DD.json { date, number, playerId } + guess/index.json.
 // Usage: npm run generate-guess [-- --days=30]   (adds days after the last existing one, or from today)
 //
-// The answer is drawn from data/guess-players.json players with at least MIN_INTL international events (the
-// well-known ones; every pool player can still be guessed), weighted towards more events, and never repeats
-// within REPEAT_DAYS.
+// The answer is drawn from data/guess-players.json (the same players the game lets you guess), weighted towards
+// more international events, and never repeats within REPEAT_DAYS.
 import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT } from './lib/puzzles.js';
 
 const DIR = path.join(ROOT, 'guess');
-const MIN_INTL = 3;
 const REPEAT_DAYS = 180;
 const days = Number(process.argv.find(a => a.startsWith('--days='))?.split('=')[1]) || 30;
 
 const pool = JSON.parse(await readFile(path.join(ROOT, 'data', 'guess-players.json'), 'utf8'));
-const candidates = pool.filter(p => p.intl >= MIN_INTL);
+const candidates = pool;
 await mkdir(DIR, { recursive: true });
 
 const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };

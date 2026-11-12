@@ -1,7 +1,7 @@
 // Builds data/guess-players.json for "Guess the Pro" from data/players.json plus a few Leaguepedia queries.
 // Usage: npm run build-guess [-- --fresh]     (run after build-players; --fresh ignores the response cache)
 //
-// Pool: players (never coaches) who played at an international event (Worlds, MSI, First Stand) for a team from
+// Pool: players (never coaches) who played at MIN_INTL+ international events (Worlds, MSI, First Stand) for a team from
 // one of the five major leagues (LCK, LPL, LEC, LCS, LTA) — a team counts as major for an event when it played in
 // a major league that same year, so minor-region teams (PCS, VCS, CBLOL before 2025, LCP…) don't make the pool.
 // Per player:
@@ -39,7 +39,11 @@ const TITLE_EVENTS = [
 ];
 // Official but not a team's own league: international events and the European cross-league tournaments.
 const NOT_DOMESTIC = [...INTERNATIONAL, 'European Masters', 'EMEA Masters'];
-const MAJOR_OF =new Map(Object.entries(MAJOR).flatMap(([id, names]) => names.map(n => [n, id])));
+const event = r => r.Page.split('/')[0];
+const INTL_EVENT = /(Season World Championship|Season \d World Championship|Mid-Season Invitational|First Stand)$/;
+// Guessable and drawn players alike: at least this many international events (known players only).
+const MIN_INTL = 2;
+const MAJOR_OF = new Map(Object.entries(MAJOR).flatMap(([id, names]) => names.map(n => [n, id])));
 const isCoachRole = role => /coach/i.test(role || '');
 const isStaff = role => !role || /analyst|manager|owner|staff/i.test(role);
 const asPlayer = r => !isCoachRole(r.Role) && !isStaff(r.Role);
@@ -101,9 +105,11 @@ for (const r of rows) {
   const i = get(p);
   i.rosters.push(r);
   if (MAJOR_OF.has(r.League)) i.debut = i.debut ? Math.min(i.debut, +r.Year) : +r.Year;
-  else if (majorYears.has(`${orgKey(r.Team)}|${r.Year}`)) i.intl.add(r.Page.split('/')[0]);
+  // Only the events themselves: Leaguepedia files regional qualifiers ("NA LCS/2015 Season/Regional Finals") under
+  // the World Championship league too.
+  else if (INTL_EVENT.test(event(r)) && majorYears.has(`${orgKey(r.Team)}|${r.Year}`)) i.intl.add(event(r));
 }
-const pool = db.filter(p => !p.coachOnly && info.get(p.id)?.intl.size && info.get(p.id).debut);
+const pool = db.filter(p => !p.coachOnly && info.get(p.id)?.intl.size >= MIN_INTL && info.get(p.id).debut);
 const inPool = new Set(pool.map(p => p.id));
 console.log(`  pula: ${pool.length} graczy`);
 

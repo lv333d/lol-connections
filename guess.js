@@ -27,7 +27,7 @@ const I18N = {
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
     guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
-      ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
+      ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
       ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Masz 10 prób. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
       ['Kategorie', '<strong>Narodowość</strong>; <strong>obecna liga</strong> i <strong>obecna drużyna</strong> (ostatni skład z ostatnich 12 miesięcy, „brak” dla emerytów i graczy bez drużyny); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
       ['🤝', 'Pojawia się przy typie, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
@@ -49,7 +49,7 @@ const I18N = {
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
     guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
-      ['Goal', 'Guess today\'s pro player. Every one of them played at Worlds, MSI or First Stand for an LCK, LPL, LEC, LCS or LTA team.'],
+      ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
       ['How to play', 'Type a nickname or real name and pick the player from the list. You have 10 guesses. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
       ['Categories', '<strong>Nationality</strong>; <strong>current league</strong> and <strong>current team</strong> (latest roster from the last 12 months, “none” for retired and teamless players); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
       ['🤝', 'Shown next to a guess who shared a roster with the answer in a major league or at an international event.'],
@@ -71,7 +71,7 @@ const I18N = {
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
     guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
-      ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
+      ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
       ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Tienes 10 intentos. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
       ['Categorías', '<strong>Nacionalidad</strong>; <strong>liga actual</strong> y <strong>equipo actual</strong> (último roster de los últimos 12 meses, «ninguno» para retirados y jugadores sin equipo); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
       ['🤝', 'Aparece junto a un intento que compartió roster con la respuesta en una liga principal o en un torneo internacional.'],
@@ -93,7 +93,7 @@ const I18N = {
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
     guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
-      ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
+      ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
       ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Vous avez 10 essais. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
       ['Catégories', '<strong>Nationalité</strong> ; <strong>ligue actuelle</strong> et <strong>équipe actuelle</strong> (dernier roster des 12 derniers mois, « aucune » pour les retraités et les joueurs sans équipe) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
       ['🤝', 'Apparaît à côté d\'un essai qui a partagé un roster avec la réponse dans une ligue majeure ou lors d\'un tournoi international.'],
