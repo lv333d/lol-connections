@@ -1,7 +1,7 @@
 {
   "name": "LoL Connect",
   "short_name": "LoL Connect",
-  "description": "Daily League of Legends esports puzzles: Grid 3x3 and Connections.",
+  "description": "Daily League of Legends esports puzzles: Grid and Guess the Pro.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

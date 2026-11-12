@@ -1,5 +1,16 @@
 # Netlify config kept as a fallback host — production runs on Vercel (vercel.json). Netlify serves 404.html and
-# connections.html at /connections (pretty URLs) by default.
+# guess.html at /guess (pretty URLs) by default.
+
+# Connections was removed: its old addresses go to the Grid in the same language.
+[[redirects]]
+  from = "/connections"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/:lang/connections"
+  to = "/:lang"
+  status = 301
 [build]
   command = "node scripts/build-site.js"
   publish = "dist"

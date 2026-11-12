@@ -12,7 +12,7 @@ const SITE = (() => {
   try { saved = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
   const htmlLang = document.documentElement.lang;
   const lang = built && LANGS.includes(htmlLang) ? htmlLang : (LANGS.includes(saved) ? saved : browserLang);
-  /** '' (Grid) or 'connections' — from /pl/connections, /connections.html, /index.html… */
+  /** '' (Grid) or 'guess' — from /pl/guess, /guess.html, /index.html… */
   const page = location.pathname.replace(/^\/(pl|es|fr)(?=\/|$)/, '').replace(/\.html$/, '')
     .replace(/^\/+|\/+$/g, '').replace(/^index$/, '');
   const path = (l, p = page) => ((l === 'en' ? '' : '/' + l) + (p ? '/' + p : '')) || '/';

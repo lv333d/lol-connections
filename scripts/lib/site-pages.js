@@ -1,8 +1,8 @@
 // Static, per-language HTML for the public site (used by scripts/build-site.js).
-// Each template (index.html, guess.html, connections.html — English in the repo, which the local admin server serves as is)
-// becomes /, /pl, /es, /fr (+ /guess, /connections) with the language's text already in the HTML: <html lang>, translated
+// Each template (index.html, guess.html — English in the repo, which the local admin server serves as is)
+// becomes /, /pl, /es, /fr (+ /guess) with the language's text already in the HTML: <html lang>, translated
 // description and Open Graph tags, canonical + hreflang (x-default = English at /), the game's UI strings
-// (data-i18n keys from grid.js / app.js I18N) and the Guide window's content — the same markup the game's
+// (data-i18n keys from grid.js / guess.js I18N) and the Guide window's content — the same markup the game's
 // applyI18n() renders, so nothing changes for players and search engines get the rules without running JS.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -12,13 +12,12 @@ import { LANGS, OG_LOCALE, META } from './site-i18n.js';
 export const SITE = 'https://connect4.lol';
 export const PAGES = [
   { id: 'grid', template: 'index.html', slug: '', i18nFrom: 'grid.js' },
-  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' },
-  { id: 'connections', template: 'connections.html', slug: 'connections', i18nFrom: 'app.js' }
+  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' }
 ];
 
-/** Site path of a page in a language: / , /connections, /pl, /pl/connections… (same rule as site.js SITE.path). */
+/** Site path of a page in a language: / , /guess, /pl, /pl/guess… (same rule as site.js SITE.path). */
 export const pagePath = (lang, slug) => ((lang === 'en' ? '' : '/' + lang) + (slug ? '/' + slug : '')) || '/';
-/** Output file in dist/ — cleanUrls serves pl/connections.html at /pl/connections and pl/index.html at /pl. */
+/** Output file in dist/ — cleanUrls serves pl/guess.html at /pl/guess and pl/index.html at /pl. */
 export const pageFile = (lang, slug) => path.join(lang === 'en' ? '' : lang, (slug || 'index') + '.html');
 
 const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -38,21 +37,11 @@ function replaceOnce(html, re, value, what) {
   return html.replace(re, value);
 }
 
-// Guide window content — keep in sync with applyI18n() in grid.js and app.js. The strings carry intended
+// Guide window content — keep in sync with applyI18n() in grid.js and guess.js. The strings carry intended
 // markup (<strong>), as in the game.
 const GUIDE = {
   grid: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join(''),
-  guess: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join(''),
-  connections: d => {
-    const swatches = ['#3B6E35', '#7A5A10', '#1A4A7A', '#7A1A4A'];
-    return `
-    <div class="guide-section"><h3>${d.guideWhatTitle}</h3><p>${d.guideWhat}</p></div>
-    <div class="guide-section"><h3>${d.guideHowTitle}</h3><ul>${d.guideHow.map(l => `<li>${l}</li>`).join('')}</ul></div>
-    <div class="guide-section"><h3>${d.guideColorsTitle}</h3>${d.colorLabels.map((l, i) => `<p><span class="color-swatch" style="background:${swatches[i]}"></span> ${l}</p>`).join('')}</div>
-    <div class="guide-section"><h3>${d.guideUniqueTitle}</h3><p>${d.guideUnique}</p></div>
-    <div class="guide-section"><h3>${d.guideShareTitle}</h3><p>${d.guideShare}</p></div>
-  `;
-  }
+  guess: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('')
 };
 
 /** All language versions of all pages: [{ file, html, url, lang, page }]. */
@@ -101,7 +90,6 @@ export async function buildPages(root) {
 
       // Links between pages and the language picker stay in this language.
       html = html.replace(/href="\/" class="game-tab/g, `href="${pagePath(lang, '')}" class="game-tab`)
-        .replace(/href="\/connections" class="game-tab/g, `href="${pagePath(lang, 'connections')}" class="game-tab`)
         .replace(/href="\/guess" class="game-tab/g, `href="${pagePath(lang, 'guess')}" class="game-tab`)
         .replace(`<option value="${lang}">`, `<option value="${lang}" selected>`);
 

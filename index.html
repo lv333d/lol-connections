@@ -3,12 +3,12 @@
 <head>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
   <meta charset="UTF-8">
-  <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/connections etc. -->
+  <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/guess etc. -->
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#050811">
   <title>LoL Connect</title>
-  <meta name="description" content="Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a weekly Connections puzzle.">
+  <meta name="description" content="Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a daily Guess the Pro.">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="https://connect4.lol/">
   <!-- Open Graph / Facebook / Discord -->
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="LoL Connect">
   <meta property="og:url" content="https://connect4.lol/">
   <meta property="og:title" content="LoL Connect — Daily League of Legends esports puzzles">
-  <meta property="og:description" content="Find a pro player who meets both the row and the column condition, or sort 16 items into 4 groups.">
+  <meta property="og:description" content="Find a pro player who meets both the row and the column condition, or guess the daily pro player from the clues.">
   <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
   <!-- X / Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LoL Connect — Daily League of Legends esports puzzles">
-  <meta name="twitter:description" content="Find a pro player who meets both the row and the column condition, or sort 16 items into 4 groups.">
+  <meta name="twitter:description" content="Find a pro player who meets both the row and the column condition, or guess the daily pro player from the clues.">
   <meta name="twitter:image" content="https://connect4.lol/assets/og-image.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="grid.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Grid","url":"https://connect4.lol/","description":"Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a weekly Connections puzzle.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og-image.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og-image.png"}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Grid","url":"https://connect4.lol/","description":"Daily League of Legends esports puzzles: name the pro players who fit each row and column of the 3x3 grid, plus a daily Guess the Pro.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og-image.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og-image.png"}]}
   </script>
 </head>
 <body>
@@ -47,7 +47,6 @@
       <nav class="game-tabs" aria-label="Game mode">
         <a href="/" class="game-tab active" aria-current="page"><span class="game-tab-icon"><span class="icon-grid3" aria-hidden="true"></span></span>Grid</a>
         <a href="/guess" class="game-tab"><span class="game-tab-icon">?</span>Guess the Pro<span class="tab-ribbon" aria-hidden="true" data-until="2026-11-26">NEW</span></a>
-        <a href="/connections" class="game-tab"><span class="game-tab-icon"><span class="icon-rows4" aria-hidden="true"></span></span>Connections</a>
       </nav>
       <div class="header-controls">
         <div class="lang-wrap">

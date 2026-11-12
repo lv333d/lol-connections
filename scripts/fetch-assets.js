@@ -3,7 +3,7 @@
 // for nationality conditions from the flag-icons package (MIT).
 //
 // Usage: npm run fetch-assets [-- --all] [-- --teams] [-- --limit=50]
-//   default   players used in puzzles/*.json (every Connections item is a player) and in grid/*.json (answers + teammate conditions),
+//   default   players used in grid/*.json (answers + teammate conditions),
 //             plus logos of teams and flags of countries used by grid conditions; and for Guess the Pro
 //             (data/guess-players.json) every pool player, their current team's logo and their flag
 //   --all     every player in data/players.json (the search list shows a portrait for each)
@@ -12,7 +12,7 @@
 import { readFile, readdir, mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { ROOT, PUZZLES_DIR, slugify } from './lib/puzzles.js';
+import { ROOT, slugify } from './lib/puzzles.js';
 import { cargoQuery, cargoStr, imageUrls, fetchBinary } from './lib/leaguepedia.js';
 
 const PLAYERS_DIR = path.join(ROOT, 'players');
@@ -67,12 +67,6 @@ async function runPool(items, worker) {
 async function collectTargets(db) {
   /** @type {Map<string, string>} id → display name (used for redirect lookup) */
   const targets = new Map();
-  for (const file of await jsonFiles(PUZZLES_DIR)) {
-    const board = await readJson(file, null);
-    board?.categories?.forEach(c => c.items.forEach(it => {
-      targets.set(it.id, typeof it.name === 'string' ? it.name : it.name.pl || it.name.en);
-    }));
-  }
   const gridTeams = new Set();
   const gridFlags = new Set();
   for (const file of await jsonFiles(GRID_DIR)) {

@@ -92,27 +92,12 @@
     tr:last-child td { border-bottom: none; }
     tr.is-current td { background: #1d1a0e; }
     tr.is-past td { opacity: 0.6; }
-    .week { font-weight: 700; color: var(--gold-light); white-space: nowrap; }
     .nowrap { white-space: nowrap; }
     .muted { color: var(--text-muted); font-size: 0.78rem; }
     .gap-bad { color: #f0a0a0; }
-    .pill { display: inline-block; font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
-    .pill.current { border-color: var(--gold); color: var(--gold-light); }
-    .pill.future { border-color: var(--green); color: var(--green-text); }
-    .chips { display: flex; flex-direction: column; gap: 3px; }
-    .chip { display: flex; align-items: baseline; gap: 6px; font-size: 0.8rem; }
-    .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transform: translateY(-1px); }
     .row-actions { display: flex; gap: 6px; justify-content: flex-end; }
     .row-actions .btn { white-space: nowrap; }
     .cond { display: block; font-size: 0.8rem; white-space: nowrap; }
-    .editor-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
-    .editor-toolbar input[type=date], .ed-select {
-      padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); font-family: inherit;
-    }
-    .ed-select { padding: 6px 8px; font-size: 0.82rem; }
-    .editor-week { font-size: 1rem; font-weight: 700; color: var(--gold-light); }
-    .editor-info { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 18px; min-height: 1.2em; }
     .btn {
       padding: 8px 18px; border-radius: 8px; border: 1px solid var(--gold);
       background: var(--panel); color: var(--gold-light); font-size: 0.88rem;
@@ -123,37 +108,6 @@
     .btn-danger { border-color: var(--red); color: #e88; }
     .btn-sm { padding: 5px 12px; font-size: 0.8rem; }
     .btn-ghost { border-color: var(--border); color: var(--text-muted); }
-    .group-editor {
-      border: 1px solid var(--border); border-left-width: 4px; border-radius: 10px; padding: 16px; margin-bottom: 14px;
-    }
-    .group-editor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-weight: 600; flex-wrap: wrap; }
-    .group-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .players-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
-    @media (max-width: 700px) { .players-row { grid-template-columns: 1fr 1fr; } }
-    .form-row { margin-bottom: 10px; }
-    .form-row label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
-    .form-row input, .form-row textarea {
-      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); font-family: inherit; font-size: 0.88rem;
-    }
-    .form-row textarea { min-height: 52px; resize: vertical; }
-    .players-row .form-row input { font-weight: 600; }
-    .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 900px) { .lang-grid { grid-template-columns: 1fr; } }
-    .lang-block { border: 1px dashed var(--border); border-radius: 8px; padding: 12px; }
-    .lang-block.required { border-style: solid; border-color: var(--green); }
-    .lang-block-header { font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-bottom: 10px; }
-    .lang-block.optional .lang-block-header { color: var(--text-muted); font-weight: 500; }
-    .gemini-box {
-      background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
-      padding: 14px 16px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-    }
-    .gemini-box input[type=password] {
-      flex: 1; min-width: 200px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); font-family: inherit;
-    }
-    .gemini-box label { font-size: 0.82rem; color: var(--text-muted); display: flex; gap: 6px; align-items: center; }
-    .gemini-status { font-size: 0.78rem; color: var(--text-muted); width: 100%; }
     .api-banner {
       background: #2a1414; border: 1px solid var(--red); color: #f0b0b0; border-radius: 8px;
       padding: 10px 14px; margin-bottom: 18px; font-size: 0.85rem;
@@ -168,28 +122,7 @@
     .sync-bar span { flex: 1; }
     .sync-bar.err span { color: #f0a0a0; }
     tr.is-missing td { background: #1f1214; }
-    .suggest-category { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .suggest-examples { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 8px; }
-    .editor-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-    .msg { font-size: 0.85rem; margin-top: 10px; min-height: 20px; white-space: pre-line; }
-    .msg.ok { color: var(--green-text); }
-    .msg.err { color: #e55; }
-    .suggest-list { display: flex; flex-direction: column; gap: 14px; }
-    .suggest-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-    .suggest-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-    .suggest-card-header .nick { font-weight: 600; color: var(--gold-light); }
-    .suggest-card-header .date { font-size: 0.78rem; color: var(--text-muted); }
-    .mini-groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
-    @media (max-width: 600px) { .mini-groups { grid-template-columns: 1fr 1fr; } }
-    .mini-group { border-radius: 6px; padding: 8px; font-size: 0.72rem; border: 1px solid; }
-    .mini-group .cat { font-weight: 600; margin-bottom: 4px; }
-    .suggest-notes { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; font-style: italic; }
-    .suggest-actions { display: flex; gap: 8px; }
     .empty-msg { text-align: center; color: var(--text-muted); padding: 40px; }
-    .io-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
-    .io-section h3 { font-size: 1rem; color: var(--gold); margin-bottom: 12px; }
-    .io-section p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-    .io-btns { display: flex; gap: 10px; flex-wrap: wrap; }
     .hidden { display: none !important; }
     .overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,.72); z-index: 900;
@@ -201,11 +134,6 @@
     }
     .modal h2 { color: var(--gold-light); margin-bottom: 12px; font-size: 1.1rem; }
     .modal p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px; }
-    .modal input[type=date] {
-      width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); margin-bottom: 8px; font-family: inherit;
-    }
-    .modal .modal-hint { font-size: 0.8rem; color: var(--text-muted); min-height: 1.2em; margin-bottom: 14px; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
     /* Grid preview: the real game page (index.html?preview=…) in a phone- or desktop-sized frame. */
     .preview-modal { max-width: min(1240px, 96vw); max-height: 96vh; display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; }
@@ -272,17 +200,12 @@
       </div>
       <nav class="nav">
         <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Przegląd</span></div>
-        <div class="nav-section">Connections · co tydzień</div>
-        <div class="nav-item" data-page="connections"><span class="nav-icon">▤</span><span class="nav-label">Plansze</span></div>
-        <div class="nav-item" data-page="suggestions"><span class="nav-icon">✉</span><span class="nav-label">Propozycje</span><span class="badge hidden" id="suggestBadge">0</span></div>
-        <div class="nav-item" data-page="importexport"><span class="nav-icon">📦</span><span class="nav-label">Import / Export</span></div>
         <div class="nav-section">LoL Grid · codziennie</div>
         <div class="nav-item" data-page="grid"><span class="nav-icon">▦</span><span class="nav-label">Plansze Grida</span></div>
         <div class="nav-section">Guess the Pro · codziennie</div>
         <div class="nav-item" data-page="guess"><span class="nav-icon">?</span><span class="nav-label">Gracze dnia</span></div>
       </nav>
       <div class="sidebar-footer">
-        <a href="connections.html"><span>← </span><span class="nav-label">Connections</span></a>
         <a href="index.html"><span>← </span><span class="nav-label">LoL Grid</span></a>
         <a href="guess.html"><span>← </span><span class="nav-label">Guess the Pro</span></a>
       </div>
@@ -305,12 +228,7 @@
       <!-- ---------- Overview ---------- -->
       <div class="page active" id="page-dashboard">
         <h1>📊 Przegląd</h1>
-        <p class="page-lead">Connections wychodzi raz w tygodniu: panel losuje planszę z zatwierdzonych kategorii, a Ty ją poprawiasz i zapisujesz. LoL Grid jest codziennie i plansze dogenerowuje bot na GitHubie; tutaj pilnujesz zapasu i możesz wylosować nową siatkę na wybrany dzień. Przy wejściu panel pobiera aktualny stan z GitHuba.</p>
-
-        <div class="section-title"><h2>▤ Connections</h2><span class="sub">jedna plansza na tydzień</span>
-          <button class="btn btn-sm" id="btnDashNew">➕ Przygotuj następną planszę</button></div>
-        <div class="stats-grid" id="connStats"></div>
-        <div id="connNotice"></div>
+        <p class="page-lead">LoL Grid i Guess the Pro są codziennie, a nowe dni dogenerowuje bot na GitHubie (w poniedziałki o 22:00 UTC). Tutaj pilnujesz zapasu, możesz wylosować inną siatkę lub innego gracza na wybrany dzień i zaktualizować bazę graczy. Przy wejściu panel pobiera aktualny stan z GitHuba.</p>
 
         <div class="section-title"><h2>▦ LoL Grid</h2><span class="sub">nowa plansza codziennie o 00:00 UTC</span></div>
         <div class="stats-grid" id="gridStats"></div>
@@ -330,80 +248,6 @@
           <p class="muted" style="font-size:0.82rem;margin-top:8px">Te same kroki co comiesięczny bot na GitHubie: pobiera składy z Leaguepedii (30–60 min, wymaga danych logowania w <code>.env.local</code>), przelicza pulę i graczy dnia Guess the Pro, odpowiedzi przyszłych plansz Grida oraz pobiera brakujące zdjęcia. Dzisiejsze i wcześniejsze plansze się nie zmieniają. Panel może być w tym czasie zamknięty — serwer pracuje dalej. Na stronę trafia po „Opublikuj na stronę”.</p>
           <ul class="db-steps" id="dbSteps"></ul>
           <div class="db-log hidden" id="dbLog"></div>
-        </div>
-      </div>
-
-      <!-- ---------- Connections: list ---------- -->
-      <div class="page" id="page-connections">
-        <h1>▤ Plansze Connections</h1>
-        <p class="page-lead">Każda plansza to jeden tydzień. Data to dzień, w którym plansza się odblokowuje (00:00 UTC), a numer tygodnia wynika z kolejności dat i przelicza się sam po przeniesieniu lub usunięciu planszy. Odstęp inny niż 7 dni jest zaznaczony na czerwono. 🎲 losuje nową planszę na ten tydzień z zatwierdzonych kategorii — otwiera się w edytorze i zastępuje starą dopiero po zapisie.</p>
-        <div class="section-title" style="margin-top:0"><h2 id="connCount"></h2>
-          <button class="btn btn-sm" id="btnListNew">➕ Nowa plansza</button></div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Tydzień</th><th>Odblokowanie</th><th>Status</th><th>Kategorie</th><th></th></tr></thead>
-            <tbody id="connTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ---------- Connections: editor ---------- -->
-      <div class="page" id="page-editor">
-        <h1>✏ Edytor planszy</h1>
-        <p class="page-lead">Tytuły i wyjaśnienia kategorii mają 4 języki: PL jest wymagany, a brakujące EN/ES/FR spadają na EN, potem na PL. Nicki graczy wpisujesz raz, bo się ich nie tłumaczy.</p>
-        <div class="editor-toolbar">
-          <button class="btn btn-sm btn-ghost" id="btnBackToList">← Lista</button>
-          <input type="date" id="editorDate">
-          <button class="btn btn-sm" id="btnNextSlot">Następny termin</button>
-          <button class="btn btn-sm" id="btnGenerate">🎲 Wylosuj planszę</button>
-          <span class="editor-week" id="editorWeek"></span>
-        </div>
-        <div class="editor-info" id="editorInfo"></div>
-        <div class="form-row" style="margin-bottom:18px;max-width:420px">
-          <label>Zaproponowane przez (nick, opcjonalnie)</label>
-          <input type="text" id="editorSuggestedBy" maxlength="40" placeholder="Wyświetlane w grze jako autor propozycji">
-        </div>
-        <div class="gemini-box">
-          <input type="password" id="geminiKey" placeholder="GEMINI_API_KEY (opcjonalnie — domyślnie z .env.local)" autocomplete="off">
-          <label><input type="checkbox" id="geminiOverwrite"> Nadpisz istniejące tłumaczenia</label>
-          <button class="btn btn-sm" id="btnTranslate">🌐 Przetłumacz tytuły (Gemini)</button>
-          <div class="gemini-status" id="geminiStatus"></div>
-        </div>
-        <div id="editorGroups"></div>
-        <div class="editor-actions">
-          <button class="btn" id="btnSavePuzzle">💾 Zapisz planszę</button>
-          <button class="btn btn-danger" id="btnDeletePuzzle">🗑 Usuń planszę</button>
-        </div>
-        <div class="msg" id="editorMsg"></div>
-      </div>
-
-      <!-- ---------- Suggestions ---------- -->
-      <div class="page" id="page-suggestions">
-        <h1>✉ Propozycje kategorii</h1>
-        <p class="page-lead">Gracze proponują pomysły na kategorie (opcjonalnie z przykładowymi graczami). Dobry pomysł skopiuj i przekaż Claude'owi — wygeneruje kandydatów na stronę do oceniania, a po zatwierdzeniu kategoria trafi do puli losowania.</p>
-        <div class="io-section">
-          <h3>Wklej z e-maila</h3>
-          <p>Propozycje przychodzą mailem (FormSubmit). Skopiuj z maila wartość pola <code>Kod_dla_panelu</code> i wklej poniżej — możesz wkleić kilka kodów naraz.</p>
-          <div class="form-row"><textarea id="suggestImport" placeholder='{"id":…,"groups":[…]}'></textarea></div>
-          <div class="io-btns"><button class="btn btn-sm" id="btnSuggestImport">➕ Dodaj do listy</button></div>
-          <div class="msg" id="suggestImportMsg"></div>
-        </div>
-        <div class="suggest-list" id="suggestList"></div>
-      </div>
-
-      <!-- ---------- Import / Export ---------- -->
-      <div class="page" id="page-importexport">
-        <h1>📦 Import / Export</h1>
-        <div class="io-section">
-          <h3>Eksport</h3>
-          <p>Pobierz wszystkie plansze Connections z <code>puzzles/</code> jako jeden plik JSON (kopia zapasowa).</p>
-          <div class="io-btns"><button class="btn" id="btnExport">⬇ Pobierz JSON</button></div>
-        </div>
-        <div class="io-section">
-          <h3>Import</h3>
-          <p>Wgraj pojedynczą planszę, tablicę plansz lub kopię zapasową z eksportu. Plansze z tą samą datą zostaną nadpisane.</p>
-          <input type="file" id="importFile" accept=".json">
-          <div class="msg" id="importMsg"></div>
         </div>
       </div>
 
@@ -461,76 +305,26 @@
     </div>
   </div>
 
-  <!-- Shared date picker: moving a board and approving a suggestion. -->
-  <div class="overlay hidden" id="dateOverlay">
-    <div class="modal">
-      <h2 id="dateTitle"></h2>
-      <p id="dateMsg"></p>
-      <input type="date" id="dateInput">
-      <div class="modal-hint" id="dateHint"></div>
-      <div class="modal-actions">
-        <button class="btn btn-sm" id="dateCancel">Anuluj</button>
-        <button class="btn btn-sm" id="dateOk"></button>
-      </div>
-    </div>
-  </div>
-
   <div class="toast" id="toast"></div>
 
   <script>
   /*
-    Panel działa z lokalnym serwerem (scripts/admin-server.js), który zapisuje puzzles/*.json
-    i trzyma klucz Gemini po stronie serwera. Logowanie poniżej to tylko zasłona — hash jest jawny w kodzie.
+    Panel działa z lokalnym serwerem (scripts/admin-server.js), który zapisuje plansze Grida, graczy dnia
+    Guess the Pro i bazę graczy. Logowanie poniżej to tylko zasłona — hash jest jawny w kodzie.
   */
 
-  /** @typedef {import('./types/puzzle').ConnectionsBoard} ConnectionsBoard */
   /** @typedef {import('./types/puzzle').Condition} Condition */
 
   const DEFAULT_HASH = '6fe154bdfd6074961d1521c927fd8f596f53db081882da28b5f4a607f5db071b';
-  const LANGS = ['pl', 'en', 'es', 'fr'];
-  const TRANSLATE_TARGETS = ['en', 'es', 'fr'];
-  const LANG_NAMES = { pl: '🇵🇱 Polski (wymagany)', en: '🇬🇧 Angielski', es: '🇪🇸 Hiszpański', fr: '🇫🇷 Francuski' };
-  const DIFFICULTY_STYLES = {
-    yellow: { border: '#7A5A10', bg: '#2A1F05', text: '#D4A835', label: 'Żółty' },
-    green:  { border: '#3B6E35', bg: '#1A2F18', text: '#6AB85E', label: 'Zielony' },
-    blue:   { border: '#1A4A7A', bg: '#0A1A2E', text: '#4A9EDB', label: 'Niebieski' },
-    purple: { border: '#7A1A4A', bg: '#2A0A1E', text: '#DB4A9E', label: 'Fioletowy' }
-  };
-  const DIFFICULTIES = Object.keys(DIFFICULTY_STYLES);
-  // Same as BOARD_INTERVAL_DAYS in scripts/lib/puzzles.js and app.js.
-  const BOARD_INTERVAL_DAYS = 7;
   // Below this many days of Grid boards ahead the overview warns (the bot tops up to 14 every Monday).
   const GRID_MIN_DAYS_AHEAD = 7;
 
   const $ = id => document.getElementById(id);
 
-  function sanitise(str) {
-    if (typeof str !== 'string') return '';
-    return str.replace(/[<>"\0]/g, '').trim().slice(0, 500);
-  }
-
   function esc(str) {
     const d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
-  }
-
-  // Must stay in sync with slugify() in scripts/lib/puzzles.js.
-  const slugify = s => String(s)
-    .normalize('NFKD').replace(/[̀-ͯ]/g, '')
-    .toLowerCase().replace(/['’.]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-
-  /** Localized field → value for one language; a plain string counts as Polish source text. */
-  function fieldFor(field, lang) {
-    if (field == null) return '';
-    if (typeof field === 'string') return lang === 'pl' ? field : '';
-    return field[lang] || '';
-  }
-
-  /** { pl: 'X', en: 'X' } → 'X' when every filled language is identical. */
-  function collapse(loc) {
-    const vals = Object.values(loc);
-    return vals.length && vals.every(v => v === vals[0]) ? vals[0] : loc;
   }
 
   /* ---------- Dates (UTC: boards of both games roll over at 00:00 UTC) ---------- */
@@ -566,15 +360,6 @@
     return data;
   }
 
-  function getSuggestions() {
-    try { return JSON.parse(localStorage.getItem('lolc_suggest_queue') || '[]'); }
-    catch { return []; }
-  }
-
-  function setSuggestions(arr) {
-    localStorage.setItem('lolc_suggest_queue', JSON.stringify(arr));
-  }
-
   async function hashPassword(pwd) {
     const enc = new TextEncoder().encode(pwd);
     const buf = await crypto.subtle.digest('SHA-256', enc);
@@ -586,20 +371,6 @@
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2200);
-  }
-
-  function setMsg(el, text, ok) {
-    el.textContent = text;
-    el.className = 'msg ' + (ok ? 'ok' : 'err');
-  }
-
-  function downloadJson(data, filename) {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
   }
 
   /* ---------- Modals ---------- */
@@ -626,44 +397,6 @@
   });
   $('confirmOverlay').addEventListener('click', e => { if (e.target.id === 'confirmOverlay') closeConfirm(); });
 
-  let dateCallback = null;
-
-  /** Asks for a date; the hint under the input says which week it becomes and whether that day is taken. */
-  function askDate({ title, msg, okLabel, initial, exclude }, cb) {
-    $('dateTitle').textContent = title;
-    $('dateMsg').textContent = msg;
-    $('dateOk').textContent = okLabel;
-    $('dateInput').value = initial;
-    $('dateInput').dataset.exclude = exclude || '';
-    renderDateHint();
-    dateCallback = cb;
-    $('dateOverlay').classList.remove('hidden');
-  }
-
-  function renderDateHint() {
-    const date = $('dateInput').value;
-    const taken = boards.find(b => b.date === date && b.date !== $('dateInput').dataset.exclude);
-    $('dateHint').textContent = !date ? '' : taken
-      ? `Ten dzień zajmuje Tydzień ${taken.boardId} — plansze zamienią się miejscami.`
-      : `Termin ${inDays(daysBetween(todayKey(), date))}.`;
-  }
-
-  function closeDate() {
-    $('dateOverlay').classList.add('hidden');
-    dateCallback = null;
-  }
-
-  $('dateInput').addEventListener('input', renderDateHint);
-  $('dateCancel').addEventListener('click', closeDate);
-  $('dateOk').addEventListener('click', () => {
-    const date = $('dateInput').value;
-    const cb = dateCallback;
-    if (!date) return;
-    closeDate();
-    if (cb) cb(date);
-  });
-  $('dateOverlay').addEventListener('click', e => { if (e.target.id === 'dateOverlay') closeDate(); });
-
   /* ---------- Login & navigation ---------- */
 
   async function doLogin() {
@@ -682,13 +415,9 @@
   $('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
   function navigate(page) {
-    // The editor belongs to the Connections list in the sidebar.
-    const navPage = page === 'editor' ? 'connections' : page;
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === navPage));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
     if (page === 'dashboard') { renderDashboard(); renderDbRefresh(); }
-    if (page === 'connections') renderConnections();
-    if (page === 'suggestions') renderSuggestions();
     if (page === 'grid') renderGrid();
     if (page === 'guess') renderGuess();
     window.scrollTo(0, 0);
@@ -698,25 +427,9 @@
     item.addEventListener('click', () => navigate(item.dataset.page));
   });
 
-  function renderSuggestBadge(count) {
-    const badge = $('suggestBadge');
-    badge.textContent = count;
-    badge.classList.toggle('hidden', count === 0);
-  }
-
   /* ---------- Data ---------- */
 
-  /** Connections boards, oldest first. @type {ConnectionsBoard[]} */
-  let boards = [];
   let gridBoards = [];
-
-  async function loadBoards() {
-    try {
-      const { boards: manifest } = await api('/api/puzzles');
-      boards = (await Promise.all(manifest.map(b => api('/api/puzzles/' + b.date)))).sort((a, b) => a.date.localeCompare(b.date));
-    } catch { boards = []; /* banner already shown */ }
-    return boards;
-  }
 
   let guessDays = [], guessPool = [];
   async function loadGuess() {
@@ -731,51 +444,14 @@
     return gridBoards;
   }
 
-  /** The board players see today: the latest one that has unlocked. */
-  const currentBoard = () => boards.filter(b => b.date <= todayKey()).at(-1) || null;
-
-  /** Suggested date for a new board: a week after the last one, but never in the past. */
-  function nextSlot() {
-    const last = boards.at(-1);
-    if (!last) return todayKey();
-    const slot = addDays(last.date, BOARD_INTERVAL_DAYS);
-    return slot < todayKey() ? todayKey() : slot;
-  }
-
-  /** Week number a board on `date` has (or will have once saved — numbers follow date order). */
-  const weekFor = date => boards.find(b => b.date === date)?.boardId ?? boards.filter(b => b.date < date).length + 1;
-
-  function boardStatus(b) {
-    const cur = currentBoard();
-    if (cur && b.date === cur.date) return { cls: 'current', label: 'Aktualna' };
-    return b.date > todayKey() ? { cls: 'future', label: 'Zaplanowana' } : { cls: '', label: 'Archiwum' };
-  }
-
   /* ---------- Overview ---------- */
 
   const statCard = (label, value, note = '', cls = '') =>
     `<div class="stat-card ${cls}"><div class="lbl">${label}</div><div class="val">${value}</div>${note ? `<div class="note">${note}</div>` : ''}</div>`;
 
   async function renderDashboard() {
-    const suggestions = getIdeas();
-    renderSuggestBadge(suggestions.length);
-    await Promise.all([loadBoards(), loadGrid(), loadGuess()]);
+    await Promise.all([loadGrid(), loadGuess()]);
     const today = todayKey();
-
-    // Connections
-    const cur = currentBoard();
-    const upcoming = boards.filter(b => b.date > today);
-    const next = upcoming[0];
-    $('connStats').innerHTML = [
-      statCard('Teraz w grze', cur ? `Tydzień ${cur.boardId}` : '—', cur ? `od ${fmtDate(cur.date)}` : 'brak opublikowanych plansz'),
-      next
-        ? statCard('Następna plansza', `Tydzień ${next.boardId}`, `${fmtDate(next.date)} · ${inDays(daysBetween(today, next.date))}`, 'ok')
-        : statCard('Następna plansza', 'brak', `sugerowany termin: ${fmtDate(nextSlot())}`, 'warn'),
-      statCard('Zaplanowane', upcoming.length, upcoming.length ? `do ${fmtDate(upcoming.at(-1).date)}` : 'nic w kolejce'),
-      statCard('Propozycje kategorii', suggestions.length, suggestions.length ? 'czekają na przejrzenie' : '')
-    ].join('');
-    $('connNotice').innerHTML = next ? '' :
-      `<div class="notice warn">Nie ma zaplanowanej następnej planszy. Bez niej w grze dalej będzie Tydzień ${cur?.boardId ?? '—'}, a licznik pokaże „Nowa plansza już wkrótce”.</div>`;
 
     // LoL Grid
     const gridToday = gridBoards.find(b => b.date === today);
@@ -806,293 +482,6 @@
       : '';
   }
 
-  $('btnDashNew').addEventListener('click', () => openEditor(nextSlot()));
-  // The refresh status lives on the overview; it keeps polling only while a refresh runs.
-
-  /* ---------- Connections list ---------- */
-
-  async function renderConnections() {
-    await loadBoards();
-    $('connCount').textContent = `${boards.length} ${boards.length === 1 ? 'plansza' : boards.length % 10 >= 2 && boards.length % 10 <= 4 && (boards.length % 100 < 10 || boards.length % 100 >= 20) ? 'plansze' : 'plansz'}`;
-    const rows = [...boards].reverse().map((b, i, arr) => {
-      const prev = arr[i + 1];
-      const gap = prev ? daysBetween(prev.date, b.date) : null;
-      const st = boardStatus(b);
-      const chips = b.categories.map(c =>
-        `<span class="chip"><span class="chip-dot" style="background:${DIFFICULTY_STYLES[c.difficulty].border}"></span>${esc(fieldFor(c.title, 'pl') || fieldFor(c.title, 'en'))}</span>`).join('');
-      return `<tr class="${st.cls === 'current' ? 'is-current' : st.cls === '' ? 'is-past' : ''}">
-        <td class="week">Tydzień ${b.boardId}</td>
-        <td class="nowrap">${fmtDate(b.date)}<br><span class="muted ${gap !== null && gap !== BOARD_INTERVAL_DAYS ? 'gap-bad' : ''}">${gap === null ? 'pierwsza' : `+${gap} dni`}</span></td>
-        <td><span class="pill ${st.cls}">${st.label}</span></td>
-        <td><div class="chips">${chips}</div></td>
-        <td><div class="row-actions">
-          <button class="btn btn-sm" data-edit="${b.date}">✏ Edytuj</button>
-          <button class="btn btn-sm btn-ghost" data-gen="${b.date}" title="Wylosuj nową planszę na ten tydzień">🎲</button>
-          <button class="btn btn-sm btn-ghost" data-move="${b.date}" title="Zmień datę">📅</button>
-          <button class="btn btn-sm btn-danger" data-del="${b.date}" title="Usuń">🗑</button>
-        </div></td></tr>`;
-    }).join('');
-    $('connTable').innerHTML = rows || '<tr><td colspan="5" class="empty-msg">Brak plansz — dodaj pierwszą.</td></tr>';
-  }
-
-  $('connTable').addEventListener('click', e => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    if (btn.dataset.edit) openEditor(btn.dataset.edit);
-    if (btn.dataset.gen) {
-      const b = boards.find(x => x.date === btn.dataset.gen);
-      showConfirm('Wylosuj nową planszę', `Wylosować nową planszę na Tydzień ${b.boardId} (${fmtDate(b.date)})? Otworzy się w edytorze — obecna zostanie zastąpiona dopiero po zapisie.` + playedNote(b.date),
-        async () => { await openEditor(b.date); await generateIntoEditor(); });
-    }
-    if (btn.dataset.move) moveBoard(btn.dataset.move);
-    if (btn.dataset.del) deleteBoard(btn.dataset.del, renderConnections);
-  });
-  $('btnListNew').addEventListener('click', () => openEditor(nextSlot()));
-
-  const playedNote = date => date <= todayKey() ? ' Ta plansza była już dostępna dla graczy — kto ją zaczął, straci postęp.' : '';
-
-  function moveBoard(from) {
-    const b = boards.find(x => x.date === from);
-    askDate({
-      title: `Przenieś Tydzień ${b.boardId}`,
-      msg: `Teraz: ${fmtDate(from)}. Wybierz nowy dzień odblokowania. Numery tygodni przeliczą się według dat.` + playedNote(from),
-      okLabel: 'Przenieś', initial: from, exclude: from
-    }, async to => {
-      if (to === from) return;
-      try {
-        const r = await api(`/api/puzzles/${from}/move`, { method: 'POST', body: { to } });
-        showToast(r.swapped ? 'Zamieniono plansze miejscami' : 'Przeniesiono planszę');
-      } catch (e) {
-        showToast(e.message);
-      }
-      await renderConnections();
-      refreshPublishBar();
-    });
-  }
-
-  function deleteBoard(date, after) {
-    const b = boards.find(x => x.date === date);
-    showConfirm('Usuń planszę', `Usunąć Tydzień ${b?.boardId ?? ''} (${fmtDate(date)})? Zniknie ze strony po kliknięciu „Opublikuj na stronę”, a kolejne tygodnie przesuną numery.` + playedNote(date), async () => {
-      try {
-        await api('/api/puzzles/' + date, { method: 'DELETE' });
-        showToast('Usunięto planszę');
-      } catch (e) {
-        showToast(e.message);
-      }
-      await after();
-      refreshPublishBar();
-    });
-  }
-
-  /* ---------- Editor ---------- */
-
-  /** @type {ConnectionsBoard | null} board as loaded from the server for the editor's date */
-  let loadedBoard = null;
-  /** Source category key per editor slot (set by the generator, kept on save so later draws avoid repeats). */
-  let categoryKeys = [];
-
-  const q = sel => document.querySelector(sel);
-  const titleInput = (c, lang) => q(`.ed-title[data-cat="${c}"][data-lang="${lang}"]`);
-  const explainInput = (c, lang) => q(`.ed-explain[data-cat="${c}"][data-lang="${lang}"]`);
-  const playerInput = (c, i) => q(`.ed-player[data-cat="${c}"][data-item="${i}"]`);
-  const difficultySelect = c => q(`.ed-difficulty[data-cat="${c}"]`);
-
-  function paintCategory(c) {
-    const style = DIFFICULTY_STYLES[difficultySelect(c).value];
-    const block = q(`.group-editor[data-cat="${c}"]`);
-    block.style.borderLeftColor = style.border;
-    block.querySelector('.group-dot').style.background = style.border;
-  }
-
-  function buildEditorForm() {
-    const container = $('editorGroups');
-    container.innerHTML = '';
-    const diffOptions = DIFFICULTIES.map(d => `<option value="${d}">${DIFFICULTY_STYLES[d].label}</option>`).join('');
-    for (let c = 0; c < 4; c++) {
-      const block = document.createElement('div');
-      block.className = 'group-editor';
-      block.dataset.cat = c;
-      const players = [0, 1, 2, 3].map(i =>
-        `<div class="form-row"><label>Gracz ${i + 1}</label>
-          <input type="text" class="ed-player" data-cat="${c}" data-item="${i}" maxlength="60" autocomplete="off"></div>`).join('');
-      const langs = LANGS.map(lang => `<div class="lang-block ${lang === 'pl' ? 'required' : 'optional'}">
-          <div class="lang-block-header">${LANG_NAMES[lang]}</div>
-          <div class="form-row"><label>Tytuł kategorii</label>
-            <input type="text" class="ed-title" data-cat="${c}" data-lang="${lang}" maxlength="160"></div>
-          <div class="form-row"><label>Wyjaśnienie (opcjonalne)</label>
-            <textarea class="ed-explain" data-cat="${c}" data-lang="${lang}"></textarea></div>
-        </div>`).join('');
-      block.innerHTML =
-        `<div class="group-editor-header"><span class="group-dot"></span>Kategoria ${c + 1}
-          <select class="ed-select ed-difficulty" data-cat="${c}" title="Poziom trudności">${diffOptions}</select></div>
-        <div class="players-row">${players}</div>
-        <div class="lang-grid">${langs}</div>`;
-      container.appendChild(block);
-    }
-    container.addEventListener('change', e => {
-      if (e.target.classList.contains('ed-difficulty')) paintCategory(e.target.dataset.cat);
-    });
-  }
-
-  /** @param {ConnectionsBoard | null} board */
-  function fillEditor(board) {
-    $('editorSuggestedBy').value = board?.suggestedBy || '';
-    categoryKeys = (board?.categories || []).map(c => c.key);
-    for (let c = 0; c < 4; c++) {
-      const cat = board?.categories[c];
-      difficultySelect(c).value = cat?.difficulty || DIFFICULTIES[c];
-      paintCategory(c);
-      LANGS.forEach(lang => {
-        titleInput(c, lang).value = fieldFor(cat?.title, lang);
-        explainInput(c, lang).value = fieldFor(cat?.explain, lang);
-      });
-      for (let i = 0; i < 4; i++) {
-        const name = cat?.items[i]?.name;
-        playerInput(c, i).value = typeof name === 'string' ? name : fieldFor(name, 'pl') || fieldFor(name, 'en');
-      }
-    }
-  }
-
-  /** Week number, unlock date and the gap to the neighbouring boards for the date in the editor. */
-  function renderEditorInfo() {
-    const date = $('editorDate').value;
-    if (!date) { $('editorWeek').textContent = ''; $('editorInfo').textContent = ''; return; }
-    $('editorWeek').textContent = `Tydzień ${weekFor(date)}` + (loadedBoard ? '' : ' · nowa plansza');
-    const others = boards.filter(b => b.date !== date);
-    const prev = others.filter(b => b.date < date).at(-1);
-    const next = others.find(b => b.date > date);
-    const parts = [`Odblokowanie: ${fmtDate(date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}, 00:00 UTC (${inDays(daysBetween(todayKey(), date))})`];
-    if (prev) parts.push(`${daysBetween(prev.date, date)} dni po poprzedniej planszy`);
-    if (next) parts.push(`${daysBetween(date, next.date)} dni przed następną`);
-    $('editorInfo').textContent = parts.join(' · ');
-    const odd = (prev && daysBetween(prev.date, date) !== BOARD_INTERVAL_DAYS) || (next && daysBetween(date, next.date) !== BOARD_INTERVAL_DAYS);
-    $('editorInfo').style.color = odd ? '#f0a0a0' : '';
-  }
-
-  async function loadEditor(dateKey) {
-    if (!$('editorGroups').children.length) buildEditorForm();
-    $('editorDate').value = dateKey;
-    $('editorMsg').textContent = '';
-    $('editorMsg').className = 'msg';
-
-    loadedBoard = null;
-    try {
-      loadedBoard = await api('/api/puzzles/' + dateKey);
-    } catch (e) {
-      if (e.status !== 404) setMsg($('editorMsg'), e.message, false);
-    }
-    if ($('editorDate').value !== dateKey) return; // date changed while loading
-    fillEditor(loadedBoard);
-    renderEditorInfo();
-  }
-
-  async function openEditor(dateKey) {
-    if (!boards.length) await loadBoards();
-    navigate('editor');
-    await loadEditor(dateKey);
-  }
-
-  /** @returns {ConnectionsBoard | string} board or a validation error message */
-  function collectBoard() {
-    const date = $('editorDate').value;
-    if (!date) return 'Wybierz datę.';
-    const usedDifficulties = new Set();
-    const usedIds = new Map();
-    const categories = [];
-
-    for (let c = 0; c < 4; c++) {
-      const difficulty = difficultySelect(c).value;
-      if (usedDifficulties.has(difficulty)) return `Kategoria ${c + 1}: poziom „${DIFFICULTY_STYLES[difficulty].label}” jest już użyty.`;
-      usedDifficulties.add(difficulty);
-
-      const title = {}, explain = {};
-      LANGS.forEach(lang => {
-        const tv = sanitise(titleInput(c, lang).value);
-        const ev = sanitise(explainInput(c, lang).value);
-        if (tv) title[lang] = tv;
-        if (ev) explain[lang] = ev;
-      });
-      if (!title.pl || title.pl.length < 2) return `Kategoria ${c + 1}: tytuł (PL) musi mieć min. 2 znaki.`;
-
-      const items = [];
-      for (let i = 0; i < 4; i++) {
-        const name = sanitise(playerInput(c, i).value).slice(0, 60);
-        if (!name) return `Kategoria ${c + 1}: gracz ${i + 1} jest pusty.`;
-        const id = slugify(name);
-        if (!id) return `Kategoria ${c + 1}: nick „${name}” nie daje poprawnego identyfikatora.`;
-        if (usedIds.has(id)) return `Gracz „${name}” występuje dwa razy (kategorie ${usedIds.get(id) + 1} i ${c + 1}). Każdy gracz może należeć tylko do jednej kategorii.`;
-        usedIds.set(id, c);
-        items.push({ id, name });
-      }
-
-      categories.push({
-        ...(categoryKeys[c] ? { key: categoryKeys[c] } : {}),
-        title: collapse(title),
-        difficulty,
-        items,
-        ...(Object.keys(explain).length ? { explain: collapse(explain) } : {})
-      });
-    }
-
-    // Same key order as the files on disk, so saving an unchanged board leaves no diff.
-    const board = { date, ...(loadedBoard?.boardId ? { boardId: loadedBoard.boardId } : {}), categories };
-    const suggestedBy = sanitise($('editorSuggestedBy').value).slice(0, 40);
-    if (suggestedBy) board.suggestedBy = suggestedBy;
-    return board;
-  }
-
-  /** Fills the editor with a board drawn from data/connections-categories.json; saving is still up to you. */
-  async function generateIntoEditor() {
-    const date = $('editorDate').value;
-    if (!date) return setMsg($('editorMsg'), 'Wybierz datę.', false);
-    const btn = $('btnGenerate');
-    btn.disabled = true;
-    try {
-      const { board, notes } = await api(`/api/puzzles/${date}/generate`, { method: 'POST' });
-      fillEditor({ ...board, suggestedBy: $('editorSuggestedBy').value || undefined });
-      setMsg($('editorMsg'), ['Wylosowano planszę — sprawdź ją i zapisz (🎲 losuje kolejną).', ...notes].join('\n'), !notes.length);
-    } catch (e) {
-      setMsg($('editorMsg'), e.message, false);
-    } finally {
-      btn.disabled = false;
-    }
-  }
-
-  $('btnGenerate').addEventListener('click', generateIntoEditor);
-  $('btnBackToList').addEventListener('click', () => navigate('connections'));
-  $('btnNextSlot').addEventListener('click', () => loadEditor(nextSlot()));
-  $('editorDate').addEventListener('change', e => loadEditor(e.target.value));
-
-  $('btnSavePuzzle').addEventListener('click', async () => {
-    const msgEl = $('editorMsg');
-    const board = collectBoard();
-    if (typeof board === 'string') return setMsg(msgEl, board, false);
-    const btn = $('btnSavePuzzle');
-    btn.disabled = true;
-    try {
-      loadedBoard = await api('/api/puzzles/' + board.date, { method: 'PUT', body: board });
-      await loadBoards();
-      loadedBoard = boards.find(b => b.date === board.date) || loadedBoard;
-      renderEditorInfo();
-      setMsg(msgEl, `Zapisano Tydzień ${loadedBoard.boardId} (puzzles/${board.date}.json). Kliknij „Opublikuj na stronę”, żeby trafiła na connect4.lol.`, true);
-      showToast('Zapisano planszę');
-      refreshPublishBar();
-    } catch (e) {
-      setMsg(msgEl, e.message + (e.details ? '\n• ' + e.details.join('\n• ') : ''), false);
-    } finally {
-      btn.disabled = false;
-    }
-  });
-
-  $('btnDeletePuzzle').addEventListener('click', () => {
-    const dateKey = $('editorDate').value;
-    if (!dateKey || !loadedBoard) return setMsg($('editorMsg'), 'Na ten dzień nie ma zapisanej planszy.', false);
-    deleteBoard(dateKey, async () => {
-      await loadBoards();
-      await loadEditor(dateKey);
-      setMsg($('editorMsg'), 'Plansza usunięta.', true);
-    });
-  });
 
   /* ---------- Publishing ---------- */
 
@@ -1122,191 +511,6 @@
       btn.textContent = '🚀 Opublikuj na stronę';
       refreshPublishBar();
     }
-  });
-
-  /* ---------- Gemini translation ---------- */
-
-  try { $('geminiKey').value = sessionStorage.getItem('lolc_gemini_key') || ''; } catch { /* storage blocked */ }
-  $('geminiKey').addEventListener('change', e => {
-    try { sessionStorage.setItem('lolc_gemini_key', e.target.value.trim()); } catch { /* storage blocked */ }
-  });
-
-  async function renderGeminiStatus() {
-    try {
-      const cfg = await api('/api/config');
-      $('geminiStatus').textContent = cfg.geminiConfigured
-        ? `Klucz wczytany z .env.local · model ${cfg.geminiModel}. Pole powyżej nadpisuje klucz tylko w tej sesji.`
-        : `Brak GEMINI_API_KEY w .env.local — wpisz klucz powyżej · model ${cfg.geminiModel}.`;
-    } catch {
-      $('geminiStatus').textContent = 'Tłumaczenie wymaga lokalnego serwera (npm run admin).';
-    }
-  }
-
-  $('btnTranslate').addEventListener('click', async () => {
-    const msgEl = $('editorMsg');
-    const source = { categories: [] };
-    for (let c = 0; c < 4; c++) {
-      source.categories.push({ title: sanitise(titleInput(c, 'pl').value), explain: sanitise(explainInput(c, 'pl').value) });
-    }
-    if (source.categories.some(cat => !cat.title)) return setMsg(msgEl, 'Uzupełnij tytuły kategorii po polsku przed tłumaczeniem.', false);
-
-    const btn = $('btnTranslate');
-    btn.disabled = true;
-    btn.textContent = '⏳ Tłumaczę…';
-    try {
-      const out = await api('/api/translate', {
-        method: 'POST',
-        body: { source, targets: TRANSLATE_TARGETS, apiKey: $('geminiKey').value.trim() || undefined }
-      });
-      const overwrite = $('geminiOverwrite').checked;
-      let filled = 0;
-      const put = (input, value) => {
-        if (!input || !value || (input.value.trim() && !overwrite)) return;
-        input.value = value;
-        filled++;
-      };
-      out.categories?.slice(0, 4).forEach((cat, c) => {
-        TRANSLATE_TARGETS.forEach(lang => {
-          put(titleInput(c, lang), cat.title?.[lang]);
-          if (source.categories[c].explain) put(explainInput(c, lang), cat.explain?.[lang]);
-        });
-      });
-      setMsg(msgEl, `Gemini uzupełnił ${filled} pól. Sprawdź tłumaczenia przed zapisem.`, true);
-    } catch (e) {
-      setMsg(msgEl, e.message, false);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = '🌐 Przetłumacz tytuły (Gemini)';
-    }
-  });
-
-  /* ---------- Suggestions (category ideas) ---------- */
-
-  /**
-   * Older versions of the game sent whole boards ({ groups: [{ category, items[] }] }); each of their four groups
-   * becomes a separate category idea.
-   */
-  function toCategoryIdeas(s) {
-    if (s.kind === 'category') return [s];
-    if (!Array.isArray(s.groups)) return [];
-    return s.groups.map((g, i) => ({ id: Number(s.id) * 10 + i, submittedAt: s.submittedAt, nick: s.nick, category: g.category, examples: g.items || [], notes: s.notes, kind: 'category' }));
-  }
-
-  /** Validates one idea (from the e-mail code or the stored queue); returns it cleaned or null. */
-  function cleanIdea(s) {
-    if (!s || typeof s.category !== 'string' || sanitise(s.category).length < 3) return null;
-    return {
-      id: Number(s.id) || Date.now(),
-      submittedAt: s.submittedAt || new Date().toISOString(),
-      nick: sanitise(s.nick || 'Anonymous').slice(0, 40),
-      category: sanitise(s.category).slice(0, 160),
-      examples: (Array.isArray(s.examples) ? s.examples : []).map(e => sanitise(String(e)).slice(0, 60)).filter(Boolean).slice(0, 12),
-      notes: sanitise(s.notes && s.notes !== 'Brak' ? s.notes : '').slice(0, 500),
-      kind: 'category'
-    };
-  }
-
-  const getIdeas = () => getSuggestions().flatMap(toCategoryIdeas).map(cleanIdea).filter(Boolean);
-  const ideaText = s => `Kategoria: ${s.category}` + (s.examples.length ? `\nPrzykładowi gracze: ${s.examples.join(', ')}` : '') +
-    (s.notes ? `\nUwagi: ${s.notes}` : '') + `\nOd: ${s.nick || 'Anonim'}`;
-
-  function renderSuggestions() {
-    const list = $('suggestList');
-    const ideas = getIdeas();
-    setSuggestions(ideas); // stores old-format entries converted
-    renderSuggestBadge(ideas.length);
-    if (!ideas.length) {
-      list.innerHTML = '<div class="empty-msg">Brak nowych propozycji</div>';
-      return;
-    }
-    list.innerHTML = ideas.map(s => `<div class="suggest-card">
-        <div class="suggest-card-header"><span class="nick">${esc(s.nick || 'Anonim')}</span><span class="date">${esc(new Date(s.submittedAt).toLocaleString('pl-PL'))}</span></div>
-        <div class="suggest-category">${esc(s.category)}</div>
-        ${s.examples.length ? `<div class="suggest-examples">Przykłady: ${s.examples.map(esc).join(', ')}</div>` : ''}
-        ${s.notes ? `<div class="suggest-notes">„${esc(s.notes)}"</div>` : ''}
-        <div class="suggest-actions">
-          <button class="btn btn-sm" data-copy="${s.id}">📋 Kopiuj dla Claude'a</button>
-          <button class="btn btn-sm btn-danger" data-reject="${s.id}">🗑 Usuń</button>
-        </div></div>`).join('');
-  }
-
-  $('suggestList').addEventListener('click', async e => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    const id = Number(btn.dataset.copy || btn.dataset.reject);
-    const idea = getIdeas().find(s => s.id === id);
-    if (!idea) return;
-    if (btn.dataset.copy) {
-      try { await navigator.clipboard.writeText(ideaText(idea)); showToast('Skopiowano propozycję'); }
-      catch { showToast('Nie udało się skopiować'); }
-    }
-    if (btn.dataset.reject) {
-      showConfirm('Usuń propozycję', `Usunąć propozycję „${idea.category}”?`, () => {
-        setSuggestions(getIdeas().filter(s => s.id !== id));
-        renderSuggestions();
-        showToast('Propozycja usunięta');
-      });
-    }
-  });
-
-  $('btnSuggestImport').addEventListener('click', () => {
-    const msgEl = $('suggestImportMsg');
-    // E-mail clients may wrap the code. New codes end with "kind":"category"}, old whole-board codes with ]}]}.
-    const chunks = $('suggestImport').value.match(/\{"id"[\s\S]*?("kind"\s*:\s*"category"\s*\}|\]\}\]\})/g) || [];
-    if (!chunks.length) return setMsg(msgEl, 'Nie znaleziono kodu propozycji. Wklej wartość pola Kod_dla_panelu z maila.', false);
-    const queue = getIdeas();
-    let added = 0, bad = 0, dup = 0;
-    for (const chunk of chunks) {
-      let ideas = [];
-      try { ideas = toCategoryIdeas(JSON.parse(chunk.replace(/\s*\n\s*/g, ' '))).map(cleanIdea); } catch { /* invalid JSON */ }
-      if (!ideas.length || ideas.some(i => !i)) { bad++; continue; }
-      for (const idea of ideas) {
-        if (queue.some(q => q.id === idea.id)) { dup++; continue; }
-        queue.push(idea);
-        added++;
-      }
-    }
-    setSuggestions(queue);
-    $('suggestImport').value = '';
-    setMsg(msgEl, `Dodano ${added}` + (dup ? `, pominięto duplikaty: ${dup}` : '') + (bad ? `, błędne kody: ${bad}` : '') + '.', !bad);
-    renderSuggestions();
-  });
-
-  /* ---------- Import / Export ---------- */
-
-  $('btnExport').addEventListener('click', async () => {
-    try {
-      const all = await loadBoards();
-      downloadJson(all, 'lolconnect_puzzles_' + todayKey() + '.json');
-      showToast('Pobrano ' + all.length + ' plansz');
-    } catch (e) {
-      showToast(e.message);
-    }
-  });
-
-  $('importFile').addEventListener('change', e => {
-    const file = e.target.files[0];
-    const msgEl = $('importMsg');
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async () => {
-      e.target.value = '';
-      let data;
-      try { data = JSON.parse(reader.result); }
-      catch { return setMsg(msgEl, 'Nieprawidłowy plik JSON.', false); }
-
-      const list = Array.isArray(data) ? data : data?.categories ? [data] : null;
-      if (!list) return setMsg(msgEl, 'Nieobsługiwany format — oczekiwana plansza albo tablica plansz z eksportu.', false);
-      const errors = [];
-      let ok = 0;
-      for (const b of list) {
-        try { await api('/api/puzzles/' + b.date, { method: 'PUT', body: b }); ok++; }
-        catch (err) { errors.push(`${b.date || '?'}: ${err.message}${err.details ? ' — ' + err.details.join('; ') : ''}`); }
-      }
-      setMsg(msgEl, `Zaimportowano ${ok}/${list.length} plansz.` + (errors.length ? '\n' + errors.join('\n') : ''), !errors.length);
-      if (ok) { showToast('Import zakończony'); refreshPublishBar(); }
-    };
-    reader.readAsText(file);
   });
 
   /* ---------- LoL Grid ---------- */
@@ -1596,7 +800,7 @@
       $('btnSync').disabled = false;
     }
     const page = document.querySelector('.page.active')?.id.replace('page-', '');
-    if (page && page !== 'editor') navigate(page);
+    if (page) navigate(page);
     refreshPublishBar();
   }
 
@@ -1605,10 +809,8 @@
   function initApp() {
     // Older panel versions kept a password hash in the browser; the hash now lives only in DEFAULT_HASH.
     localStorage.removeItem('lolc_admin_hash');
-    buildEditorForm();
     renderDashboard();
     renderDbRefresh();
-    renderGeminiStatus();
     syncWithGitHub();
   }
 

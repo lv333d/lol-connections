@@ -1,10 +1,8 @@
-// Local-only admin server: serves the site and an API for the games — the weekly Connections boards
-// (puzzles/*.json: edit, move, delete, draw from data/connections-categories.json), the daily LoL Grid boards
-// (grid/*.json, normally made by the GitHub bot: view, delete, draw a new one) and the daily Guess the Pro players
-// (guess/*.json: view, pick, draw, delete, fill the next days) — plus the player database refresh, git
-// sync/publish and Gemini.
+// Local-only admin server: serves the site and an API for the games — the daily LoL Grid boards (grid/*.json,
+// normally made by the GitHub bot: view, delete, draw a new one) and the daily Guess the Pro players (guess/*.json:
+// view, pick, draw, delete, fill the next days) — plus the player database refresh and git sync/publish.
 // Usage: npm run admin   →   http://127.0.0.1:4321/admin.html
-// Reads GEMINI_API_KEY / GEMINI_MODEL / ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
+// Reads ADMIN_PORT from .env.local. Binds to 127.0.0.1 only — never deploy this.
 import http from 'node:http';
 import { execFile, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -12,11 +10,7 @@ import { readFile, unlink } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
-import {
-  ROOT, DATE_RE, boardPath, readBoard, writeBoard, rebuildManifest, nextBoardId, validateBoard,
-  moveBoard, renumberBoards
-} from './lib/puzzles.js';
-import { generateConnectionsBoard } from './lib/connections-generator.js';
+import { ROOT, DATE_RE } from './lib/puzzles.js';
 import { rebuildGridManifest } from './generate-grid.js';
 import * as guess from './lib/guess.js';
 
@@ -25,7 +19,6 @@ const GRID_DIR = path.join(ROOT, 'grid');
 try { process.loadEnvFile(path.join(ROOT, '.env.local')); } catch { /* optional */ }
 
 const PORT = Number(process.env.ADMIN_PORT) || 4321;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const MAX_BODY = 1024 * 1024;
 
 const MIME = {
@@ -74,66 +67,6 @@ async function serveStatic(req, res, pathname) {
   } catch {
     res.writeHead(404).end('Not found');
   }
-}
-
-/* ---------- Gemini translation ---------- */
-
-const LANG_NAMES = { en: 'English', es: 'Spanish', fr: 'French' };
-
-function buildTranslatePrompt(source, targets) {
-  return [
-    'You translate content for "LoL Connect", a weekly League of Legends esports puzzle game.',
-    `Translate the Polish texts below into: ${targets.map(l => LANG_NAMES[l]).join(', ')}.`,
-    'Rules:',
-    '- Esports terms follow the convention used by the official broadcasts and Leaguepedia in English',
-    '  (e.g. "Worlds", "MSI", "First Stand", "split", "Finals MVP", "role swap", "head coach").',
-    '- Never translate player nicknames, team names, league acronyms or tournament names.',
-    '- Keep each category title short and punchy, like a puzzle category; keep the meaning exact.',
-    '- Return one entry per input entry, in the same order. Use an empty string for empty inputs.',
-    '',
-    'Input (JSON):',
-    JSON.stringify(source)
-  ].join('\n');
-}
-
-function translateSchema(targets) {
-  const langObj = { type: 'OBJECT', properties: Object.fromEntries(targets.map(l => [l, { type: 'STRING' }])), required: targets };
-  return {
-    type: 'OBJECT',
-    properties: {
-      categories: {
-        type: 'ARRAY',
-        items: {
-          type: 'OBJECT',
-          properties: { title: langObj, explain: langObj },
-          required: ['title', 'explain']
-        }
-      }
-    },
-    required: ['categories']
-  };
-}
-
-async function translate({ source, targets, apiKey }) {
-  const key = apiKey || process.env.GEMINI_API_KEY;
-  if (!key) throw Object.assign(new Error('Brak klucza Gemini (GEMINI_API_KEY w .env.local lub pole w panelu).'), { status: 400 });
-  targets = (targets || []).filter(l => LANG_NAMES[l]);
-  if (!targets.length || !Array.isArray(source?.categories)) throw Object.assign(new Error('Nieprawidłowe zapytanie.'), { status: 400 });
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_MODEL)}:generateContent`;
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: buildTranslatePrompt(source, targets) }] }],
-      generationConfig: { temperature: 0.2, responseMimeType: 'application/json', responseSchema: translateSchema(targets) }
-    })
-  });
-  const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw Object.assign(new Error(`Gemini ${r.status}: ${data.error?.message || r.statusText}`), { status: 502 });
-  const text = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
-  try { return JSON.parse(text); }
-  catch { throw Object.assign(new Error('Gemini zwrócił niepoprawny JSON.'), { status: 502 }); }
 }
 
 /* ---------- LoL Grid ---------- */
@@ -286,8 +219,8 @@ const GIT = process.env.GIT_PATH
 const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
 
 // Board folders per game; portraits and logos go along with Grid boards that introduce new players.
-const GAME_DIRS = { 'puzzles/': 'Connections', 'grid/': 'Grid', 'guess/': 'Guess the Pro' };
-const PUBLISH_PATHS = ['puzzles/', 'grid/', 'guess/', 'players/', 'assets/logos/', 'assets/flags/', 'data/'];
+const GAME_DIRS = { 'grid/': 'Grid', 'guess/': 'Guess the Pro' };
+const PUBLISH_PATHS = ['grid/', 'guess/', 'players/', 'assets/logos/', 'assets/flags/', 'data/'];
 // Database files a refresh rewrites; published together with the boards.
 const DATA_FILES = ['data/players.json', 'data/players-index.json', 'data/teams.json', 'data/guess-players.json'];
 
@@ -323,7 +256,7 @@ async function sync() {
   }
 }
 
-/** Commits board changes of both games and pushes; the hosting deploys the push automatically. */
+/** Commits board changes of the games (and a refreshed database) and pushes; the hosting deploys the push automatically. */
 async function publish() {
   const boards = await pendingBoards();
   if (!boards.length) return { published: [], message: 'Brak zmian do opublikowania.' };
@@ -345,9 +278,6 @@ async function publish() {
 /* ---------- API ---------- */
 
 async function handleApi(req, res, pathname) {
-  if (pathname === '/api/config' && req.method === 'GET') {
-    return send(res, 200, { geminiConfigured: Boolean(process.env.GEMINI_API_KEY), geminiModel: GEMINI_MODEL });
-  }
   if (pathname === '/api/publish' && req.method === 'GET') {
     return send(res, 200, { pending: await pendingBoards() });
   }
@@ -356,9 +286,6 @@ async function handleApi(req, res, pathname) {
   }
   if (pathname === '/api/sync' && req.method === 'POST') {
     return send(res, 200, await sync());
-  }
-  if (pathname === '/api/translate' && req.method === 'POST') {
-    return send(res, 200, await translate(await readBody(req)));
   }
   if (pathname === '/api/grid' && req.method === 'GET') {
     return send(res, 200, { boards: await gridBoards() });
@@ -388,54 +315,6 @@ async function handleApi(req, res, pathname) {
       return send(res, 200, { ok: true });
     }
   }
-  const gen = pathname.match(/^\/api\/puzzles\/([^/]+)\/generate$/);
-  if (gen && req.method === 'POST') {
-    if (!DATE_RE.test(gen[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
-    // Returns a draft for the editor; nothing is written until it is saved.
-    return send(res, 200, await generateConnectionsBoard(gen[1]));
-  }
-  if (pathname === '/api/puzzles' && req.method === 'GET') {
-    return send(res, 200, { boards: await rebuildManifest() });
-  }
-
-  const mv = pathname.match(/^\/api\/puzzles\/([^/]+)\/move$/);
-  if (mv && req.method === 'POST') {
-    const from = mv[1];
-    const { to } = await readBody(req);
-    if (!DATE_RE.test(from) || !DATE_RE.test(to || '')) return send(res, 400, { error: 'Nieprawidłowa data' });
-    if (from === to) return send(res, 400, { error: 'To ta sama data' });
-    try { await readBoard(from); } catch { return send(res, 404, { error: 'Brak planszy' }); }
-    return send(res, 200, await moveBoard(from, to));
-  }
-
-  const m = pathname.match(/^\/api\/puzzles\/([^/]+)$/);
-  if (m) {
-    const date = m[1];
-    if (!DATE_RE.test(date)) return send(res, 400, { error: 'Nieprawidłowa data' });
-
-    if (req.method === 'GET') {
-      try { return send(res, 200, await readBoard(date)); }
-      catch { return send(res, 404, { error: 'Brak planszy' }); }
-    }
-    if (req.method === 'PUT') {
-      const { mode, ...body } = await readBody(req); // older exports carry the removed in-game `mode` and item `type`
-      const board = { ...body, date };
-      board.categories?.forEach(c => c.items?.forEach(it => { delete it.type; }));
-      if (!board.boardId) {
-        board.boardId = await readBoard(date).then(b => b.boardId, () => nextBoardId());
-      }
-      const errs = validateBoard(board);
-      if (errs.length) return send(res, 422, { error: 'Walidacja nie powiodła się', details: errs });
-      await writeBoard(board);
-      await renumberBoards();
-      return send(res, 200, await readBoard(date));
-    }
-    if (req.method === 'DELETE') {
-      try { await unlink(boardPath(date)); } catch { return send(res, 404, { error: 'Brak planszy' }); }
-      await renumberBoards();
-      return send(res, 200, { ok: true });
-    }
-  }
   return send(res, 404, { error: 'Unknown endpoint' });
 }
 
@@ -458,5 +337,4 @@ server.on('error', e => {
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`Admin:  http://127.0.0.1:${PORT}/admin.html`);
   console.log(`Gra:    http://127.0.0.1:${PORT}/`);
-  console.log(`Gemini: ${process.env.GEMINI_API_KEY ? 'klucz z .env.local' : 'brak klucza w .env.local'} (model ${GEMINI_MODEL})`);
 });

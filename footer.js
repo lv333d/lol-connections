@@ -1,4 +1,4 @@
-/* Legal footer shared by all games (index.html, guess.html, connections.html), plus the "next game" link in
+/* Legal footer shared by all games (index.html, guess.html), plus the "next game" link in
    their result popups.
    The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects.
    On built pages (site.js SITE.built) it also owns the language picker: choosing a language opens that
@@ -12,8 +12,8 @@
   };
   const LANGS = Object.keys(TEXT);
 
-  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Connections → Grid.
-  const GAMES = [{ slug: '', icon: 'icon-grid3', name: 'Grid' }, { slug: 'guess', text: '?', name: 'Guess the Pro' }, { slug: 'connections', icon: 'icon-rows4', name: 'Connections' }];
+  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Grid.
+  const GAMES = [{ slug: '', icon: 'icon-grid3', name: 'Grid' }, { slug: 'guess', text: '?', name: 'Guess the Pro' }];
   const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
   function renderNextGame(lang) {
     const a = document.getElementById('nextGame');
@@ -27,7 +27,7 @@
     label.textContent = NEXT[lang] || NEXT.en;
     const name = document.createElement('span');
     name.className = 'next-game-name';
-    // Grid and Connections have drawn icons (.icon-grid3, .icon-rows4 in style.css), Guess the Pro a character.
+    // Grid has a drawn icon (.icon-grid3 in style.css), Guess the Pro a character.
     const icon = Object.assign(document.createElement('span'), { className: next.icon || 'next-game-char', textContent: next.text || '' });
     name.append(icon, `${next.name} →`);
     a.append(label, name);

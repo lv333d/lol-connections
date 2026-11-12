@@ -11,7 +11,6 @@
     "fetch-assets": "node scripts/fetch-assets.js",
     "build-players": "node scripts/build-player-db.js",
     "generate-grid": "node scripts/generate-grid.js",
-    "connections-candidates": "node scripts/connections-candidates.js",
     "build-guess": "node scripts/build-guess-pool.js",
     "generate-guess": "node scripts/generate-guess.js"
   },

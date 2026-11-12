@@ -6,11 +6,48 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
-    { "source": "/(.*)\\.json", "headers": [
-      { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
-      { "key": "X-Robots-Tag", "value": "noindex" }
-    ] },
-    { "source": "/players/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] },
-    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
+    {
+      "source": "/(.*)\\.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/players/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/connections",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(pl|es|fr)/connections",
+      "destination": "/:lang",
+      "permanent": true
+    }
   ]
 }

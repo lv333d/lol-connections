@@ -94,7 +94,7 @@ header::after {
   text-transform: uppercase;
   margin-top: 2px;
 }
-/* Game switcher: one tab per game, shared by index.html (Grid) and connections.html. */
+/* Game switcher: one tab per game, shared by index.html (Grid) and guess.html. */
 .game-tabs {
   display: flex;
   width: 100%;
@@ -647,12 +647,10 @@ header::after {
 .next-game-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
 .next-game-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
 
-/* Drawn game icons in the text colour: Grid a 3x3 grid (the ▦ character draws 4x4 in most fonts), Connections
-   four rows — its four groups. */
-.icon-grid3, .icon-rows4 { display: inline-block; width: 0.8em; height: 0.8em; flex-shrink: 0; background: currentColor; }
+/* Grid's drawn icon in the text colour: a 3x3 grid (the ▦ character draws 4x4 in most fonts). */
+.icon-grid3 { display: inline-block; width: 0.8em; height: 0.8em; flex-shrink: 0; background: currentColor; }
 .icon-grid3 { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; }
-.icon-rows4 { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h14v2.75H0zM0 3.75h14v2.75H0zM0 7.5h14v2.75H0zM0 11.25h14v2.75H0z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h14v2.75H0zM0 3.75h14v2.75H0zM0 7.5h14v2.75H0zM0 11.25h14v2.75H0z'/%3E%3C/svg%3E") center / contain no-repeat; }
 /* Icons centred on the tab name and the "next game" name. */
 .game-tab-icon { display: inline-flex; align-items: center; justify-content: center; }
 .next-game-name { display: inline-flex; align-items: center; gap: 8px; }
-.next-game-name .icon-grid3, .next-game-name .icon-rows4, .next-game-char { color: var(--gold); }
+.next-game-name .icon-grid3, .next-game-char { color: var(--gold); }

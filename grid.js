@@ -13,7 +13,7 @@ const MAX_RESULTS = 50;
 
 const I18N = {
   pl: {
-    // Same site subtitle as Connections (app.js) — it names the site, not the game.
+    // Same site subtitle as Guess the Pro (guess.js) — it names the site, not the game.
     subtitle: 'codzienna zagadka League of Legends',
     noPuzzleTitle: '📅 Brak siatki na dziś', noPuzzleText: 'Wróć jutro po nową siatkę!',
     nextBoardIn: 'Nowa siatka za', nextBoardSoon: 'Nowa siatka już wkrótce',

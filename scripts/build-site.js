@@ -2,7 +2,7 @@
 // - copies only the public files — publishing the project root would also expose scripts/, node_modules/
 //   (the host installs them there), the full player database and the admin panel (local admin server only);
 // - writes every page in every language from the English templates (scripts/lib/site-pages.js):
-//   /, /guess and /connections, and the same under /pl, /es, /fr;
+//   / and /guess, and the same under /pl, /es, /fr;
 // - writes robots.txt and sitemap.xml (the pages only — never the board JSON files).
 import { cp, rm, mkdir, access, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -11,8 +11,8 @@ import { SITE, buildPages, sitemap } from './lib/site-pages.js';
 
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
-  '404.html', 'site.js', 'app.js', 'grid.js', 'guess.js', 'footer.js', 'style.css', 'grid.css', 'guess.css', 'icon.svg',
-  'site.webmanifest', 'puzzles', 'grid', 'guess', 'players', 'assets', 'data/players-index.json', 'data/guess-players.json',
+  '404.html', 'site.js', 'grid.js', 'guess.js', 'footer.js', 'style.css', 'grid.css', 'guess.css', 'icon.svg',
+  'site.webmanifest', 'grid', 'guess', 'players', 'assets', 'data/players-index.json', 'data/guess-players.json',
   '_headers' // Cloudflare Pages / Netlify response headers
 ];
 
