@@ -24,8 +24,12 @@
 .gp-player .avatar { width: 38px; height: 38px; font-size: 0.8rem; }
 .gp-nick {
   font-weight: 800; font-size: 0.9rem; color: var(--gold-light);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; overflow: hidden; min-width: 0; max-width: 100%;
 }
+/* Text that doesn't fit gets smaller (fitText in guess.js) instead of breaking words or showing "…". */
+.gp-head > div, .gp-cell .gp-text { overflow-wrap: normal; word-break: normal; hyphens: none; overflow: hidden; min-width: 0; }
+.gp-cell .gp-text { max-width: 100%; }
+.gp-cell .emblem { overflow: hidden; white-space: normal; overflow-wrap: normal; line-height: 1.05; padding: 1px; letter-spacing: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; }
 
 .gp-cell {
   position: relative; aspect-ratio: 1; max-height: 64px; justify-self: stretch;
@@ -50,7 +54,7 @@
 .gp-flags > :first-child { top: 6%; left: 0; }
 .gp-flags > :last-child { bottom: 6%; right: 0; }
 .gp-cell .emblem { font-size: 0.6rem; border-width: 1px; }
-.gp-text { font-size: 0.68rem; font-weight: 800; text-align: center; line-height: 1.1; color: #fff; word-break: break-word; }
+.gp-text { font-size: 0.68rem; font-weight: 800; text-align: center; line-height: 1.1; color: #fff; }
 .gp-none { font-weight: 600; color: rgba(255, 255, 255, 0.7); text-transform: lowercase; }
 .gp-num { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
 .gp-debut .gp-num { font-size: 0.92rem; }
@@ -92,7 +96,7 @@
 
 @media (max-width: 520px) {
   .gp-row { grid-template-columns: minmax(58px, 1.1fr) repeat(6, minmax(0, 1fr)); gap: 4px; margin-bottom: 4px; }
-  .gp-head > div { font-size: 0.5rem; letter-spacing: 0; }
+  .gp-head > div { font-size: 0.56rem; letter-spacing: 0; line-height: 1.15; }
   .gp-player { flex-direction: column; gap: 2px; }
   .gp-player .avatar { width: 30px; height: 30px; }
   .gp-nick { font-size: 0.66rem; max-width: 100%; }

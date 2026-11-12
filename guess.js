@@ -17,7 +17,7 @@ const I18N = {
     nextBoardIn: 'Nowy gracz za', nextBoardSoon: 'Nowy gracz już wkrótce',
     guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
     searchPh: 'Wpisz nick lub imię gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
-    colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea', colDebut: 'Debiut',
+    colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea międzynar.', colDebut: 'Debiut tier 1',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Szukany gracz grał kiedyś w {teams}',
     natPart: 'zgadza się jedna z narodowości',
     otherLeague: 'inny', otherLeagueLong: 'Inny region (poza LCK, LPL, LEC, LCS i LTA)', moreRows: '… +{n} …',
@@ -42,7 +42,7 @@ const I18N = {
     nextBoardIn: 'New player in', nextBoardSoon: 'New player coming soon',
     guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
     searchPh: 'Type a nickname or real name…', noResults: 'No player matches.', used: 'guessed',
-    colPlayer: 'Player', colNat: 'Country', colPos: 'Position', colLeague: 'League', colTeam: 'Team', colTitles: 'Titles', colDebut: 'Debut',
+    colPlayer: 'Player', colNat: 'Country', colPos: 'Position', colLeague: 'League', colTeam: 'Team', colTitles: 'Int\'l titles', colDebut: 'Tier 1 debut',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'The answer played for {teams} at some point',
     natPart: 'one of the nationalities matches',
     otherLeague: 'other', otherLeagueLong: 'Other region (outside LCK, LPL, LEC, LCS and LTA)', moreRows: '… +{n} …',
@@ -67,7 +67,7 @@ const I18N = {
     nextBoardIn: 'Nuevo jugador en', nextBoardSoon: 'Nuevo jugador muy pronto',
     guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
     searchPh: 'Escribe un nick o nombre…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
-    colPlayer: 'Jugador', colNat: 'País', colPos: 'Posición', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos', colDebut: 'Debut',
+    colPlayer: 'Jugador', colNat: 'País', colPos: 'Posición', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos int.', colDebut: 'Debut tier 1',
     roles: { top: 'Top', jungle: 'Jungla', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'El jugador buscado jugó en {teams} en algún momento',
     natPart: 'coincide una de las nacionalidades',
     otherLeague: 'otra', otherLeagueLong: 'Otra región (fuera de LCK, LPL, LEC, LCS y LTA)', moreRows: '… +{n} …',
@@ -92,7 +92,7 @@ const I18N = {
     nextBoardIn: 'Nouveau joueur dans', nextBoardSoon: 'Nouveau joueur très bientôt',
     guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
     searchPh: 'Tapez un pseudo ou un nom…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
-    colPlayer: 'Joueur', colNat: 'Pays', colPos: 'Poste', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres', colDebut: 'Débuts',
+    colPlayer: 'Joueur', colNat: 'Pays', colPos: 'Poste', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres int.', colDebut: 'Débuts tier 1',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Le joueur recherché a joué pour {teams} à un moment',
     natPart: 'une des nationalités correspond',
     otherLeague: 'autre', otherLeagueLong: 'Autre région (hors LCK, LPL, LEC, LCS et LTA)', moreRows: '… +{n} …',
@@ -185,7 +185,8 @@ function logo(src, emblemClass, text, attrs = {}) {
   const img = el('img');
   img.src = src;
   img.alt = text;
-  img.addEventListener('error', () => img.replaceWith(emblem()), { once: true });
+  // The emblem appears only after the image failed, so it is fitted then (team names without a logo can be long).
+  img.addEventListener('error', () => { const e = emblem(); img.replaceWith(e); requestAnimationFrame(() => fitText(e)); }, { once: true });
   return img;
 }
 
@@ -297,6 +298,35 @@ function guessRow(p, animate) {
   return row;
 }
 
+/* ---------- Text that doesn't fit shrinks ---------- */
+
+// Column headers, nicknames and the words inside tiles keep their size where they fit and get smaller where they
+// don't (narrow phones, long nicks like "ShowMaker", long team names) — no cut words or "…".
+const FIT_SELECTOR = '.gp-head > div, .gp-nick, .gp-cell .gp-text, .gp-cell .emblem';
+const MIN_FONT_PX = 6;
+
+function fitText(e) {
+  e.style.fontSize = '';
+  let size = parseFloat(getComputedStyle(e).fontSize);
+  // A word wider than its box shows up as scrollWidth > clientWidth (words never break, see guess.css).
+  while ((e.scrollWidth > e.clientWidth + 0.5 || e.scrollHeight > e.clientHeight + 0.5) && size > MIN_FONT_PX) {
+    size -= 0.5;
+    e.style.fontSize = size + 'px';
+  }
+  // A team name that still doesn't fit (a very long one on a narrow phone) becomes its initials; the tile's tooltip
+  // keeps the full name.
+  if (e.classList.contains('emblem') && e.scrollWidth > e.clientWidth + 0.5 && !e.dataset.short) {
+    e.dataset.short = '1';
+    e.textContent = e.textContent.split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 3).toUpperCase();
+    fitText(e);
+  }
+}
+const fitAll = (root = document) => root.querySelectorAll(FIT_SELECTOR).forEach(fitText);
+let fitFrame = 0;
+const scheduleFit = () => { cancelAnimationFrame(fitFrame); fitFrame = requestAnimationFrame(() => fitAll()); };
+window.addEventListener('resize', scheduleFit);
+document.fonts?.ready.then(scheduleFit); // sizes change once the web fonts are in
+
 /* ---------- Game ---------- */
 
 function applyI18n() {
@@ -309,6 +339,7 @@ function applyI18n() {
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
   $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
+  scheduleFit();
 }
 
 function renderCountdown() {
@@ -414,6 +445,7 @@ function render() {
   [...state.guesses].reverse().forEach(id => rows.appendChild(guessRow(playerById.get(id), id === justAdded)));
   if (justAdded && narrowScreen.matches) rows.firstElementChild?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   justAdded = '';
+  fitAll();
   $('btnGiveUp').classList.toggle('hidden', state.gameOver);
   $('btnShowResults').classList.toggle('hidden', !state.gameOver);
 }

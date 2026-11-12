@@ -14,7 +14,7 @@ const existing = await readDays();
 const have = new Set(existing.map(d => d.date));
 const added = [];
 // A pool refresh can drop a planned player (the pool keeps 2+ international events): redraw those future days.
-// Today and past days stay as they are.
+// Today and past days stay as they are, and so does a noDraw player picked by hand in the admin panel.
 const inPool = new Set(pool.map(p => p.id));
 for (const d of existing.filter(d => d.date > todayKey() && !inPool.has(d.playerId))) {
   const pick = drawPlayer(pool, existing, d.date, [d.playerId]);
