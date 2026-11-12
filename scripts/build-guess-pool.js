@@ -19,6 +19,7 @@
 //   debut    first year on a major-league roster as a player
 //   with     pool players they shared a roster with as players (players.json teammates minus via-coaching)
 //   intl     international events played (for the daily pick and the search order)
+//   retired  true for retired players (drawn less often; never a Korean or Chinese one without titles)
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT, slugify } from './lib/puzzles.js';
@@ -114,6 +115,8 @@ for (const r of rows) {
   // the World Championship league too.
   else if (INTL_EVENT.test(event(r)) && majorYears.has(`${orgKey(r.Team)}|${r.Year}`)) i.intl.add(event(r));
 }
+// Retired Korean and Chinese players without an international title are too obscure for most players to guess:
+// they are dropped after the titles step below (the pool is also the list of guessable players).
 const pool = db.filter(p => !p.coachOnly && info.get(p.id)?.intl.size >= MIN_INTL && info.get(p.id).debut);
 const inPool = new Set(pool.map(p => p.id));
 console.log(`  pula: ${pool.length} graczy`);
@@ -134,6 +137,9 @@ for (const p of pool) {
   titles.set(p.id, won.size);
 }
 console.log(`  zwycięzców: ${winners.length}; graczy z tytułem: ${[...titles.values()].filter(Boolean).length}`);
+const dropped = pool.filter(p => p.retired && ['kr', 'cn'].includes(p.nationality) && !titles.get(p.id));
+for (const p of dropped) { pool.splice(pool.indexOf(p), 1); inPool.delete(p.id); }
+console.log(`  bez emerytów z Korei i Chin bez trofeów (${dropped.length}): pula ${pool.length}`);
 
 step('Obecna drużyna (pole „Team” profilu na Leaguepedii) i jej liga');
 // The profile's current team is what Leaguepedia shows ("Team" in the infobox; empty for free agents). The latest
@@ -202,7 +208,8 @@ const out = pool.map(p => {
     role: roleOf(i.rosters),
     orgs: [...new Set(p.teams.filter(t => !p.viaCoaching?.teams?.includes(t)).map(t => teamName.get(t)).filter(Boolean))].sort(),
     titles: titles.get(p.id), debut: i.debut, intl: i.intl.size,
-    with: p.teammates.filter(t => !coached.has(t) && inPool.has(t))
+    with: p.teammates.filter(t => !coached.has(t) && inPool.has(t)),
+    ...(p.retired ? { retired: true } : {})
   };
 }).sort((a, b) => b.intl - a.intl || a.nick.localeCompare(b.nick));
 

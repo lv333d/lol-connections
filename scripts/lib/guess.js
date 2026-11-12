@@ -8,6 +8,8 @@ export const GUESS_DIR = path.join(ROOT, 'guess');
 export const POOL_FILE = path.join(ROOT, 'data', 'guess-players.json');
 /** A player isn't drawn again within this many days before or after an existing pick. */
 export const REPEAT_DAYS = 180;
+/** Retired players come up this many times less often than active ones with the same number of events. */
+export const RETIRED_WEIGHT = 0.3;
 
 export const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
 export const todayKey = () => new Date().toISOString().slice(0, 10);
@@ -52,13 +54,13 @@ export async function setDay(date, playerId) {
 
 /**
  * A random pool player for `date`, weighted √(international events) so stars come up more often but not every
- * other day, skipping anyone picked within REPEAT_DAYS of it (and `exclude`, e.g. the day's current player).
+ * other day, retired players RETIRED_WEIGHT times as often, skipping anyone picked within REPEAT_DAYS of it (and `exclude`, e.g. the day's current player).
  */
 export function drawPlayer(pool, days, date, exclude = []) {
   const near = new Set(days.filter(d => d.date !== date && Math.abs(Date.parse(d.date) - Date.parse(date)) < REPEAT_DAYS * 864e5).map(d => d.playerId));
   let open = pool.filter(p => !near.has(p.id) && !exclude.includes(p.id));
   if (!open.length) open = pool.filter(p => !exclude.includes(p.id));
-  const weights = open.map(p => Math.sqrt(p.intl || 1));
+  const weights = open.map(p => Math.sqrt(p.intl || 1) * (p.retired ? RETIRED_WEIGHT : 1));
   let r = Math.random() * weights.reduce((a, b) => a + b, 0);
   return open.find((p, k) => (r -= weights[k]) <= 0) || open.at(-1);
 }
