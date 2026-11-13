@@ -41,7 +41,8 @@ const SITE = (() => {
   } catch { /* storage blocked: counts as new */ }
   const n = days.size;
   // Ranges, not exact counts, so the values stay few and can't single anyone out.
-  const range = n === 0 ? '0' : n === 1 ? '1' : n <= 3 ? '2-3' : n <= 7 ? '4-7' : '8+';
+  const RANGES = [[0, '0'], [1, '1'], [3, '2-3'], [7, '4-7'], [14, '8-14'], [30, '15-30'], [60, '31-60'], [90, '61-90']];
+  const range = RANGES.find(([max]) => n <= max)?.[1] || '90+';
   const data = { type: n ? 'returning' : 'new', days: range, mode: SITE.page === 'guess' ? 'guess' : 'grid' };
   // The Umami script is deferred: wait for it (every 300 ms, up to ~10 s), then send once.
   let tries = 0;
