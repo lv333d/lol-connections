@@ -22,7 +22,7 @@ const I18N = {
     natPart: 'zgadza się jedna z narodowości',
     otherLeague: 'inna', otherLeagueLong: 'Inna liga (poza LCK, LPL, LEC, LCS i LTA)', moreRows: '… +{n} …',
     none: 'brak', higher: 'Więcej', lower: 'Mniej', later: 'Później', earlier: 'Wcześniej',
-    together: 'Grał w jednej drużynie z szukanym graczem', answerWas: 'Szukany gracz',
+    together: 'Był w jednym składzie z szukanym graczem', answerWas: 'Szukany gracz',
     winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry',
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy i zobaczysz szukanego gracza. Tego nie da się cofnąć.',
@@ -32,7 +32,7 @@ const I18N = {
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
       ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Liczba prób jest nieograniczona. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>żółte</strong> — częściowa zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
       ['Kategorie', '<strong>Narodowość</strong> (przy podwójnej obie flagi; <strong>żółta</strong>, gdy zgadza się jedna z nich); <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> (LCK, LPL, LEC, LCS, LTA albo „inna” dla drużyn z innych lig) i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; drużyna jest <strong>żółta</strong>, gdy szukany gracz grał kiedyś w obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
-      ['Grali razem', 'Napis „Grał w jednej drużynie z szukanym graczem” pojawia się pod typem, który grał z szukanym graczem w jednym składzie w lidze głównej lub na turnieju międzynarodowym.'],
+      ['W jednym składzie', 'Napis „Był w jednym składzie z szukanym graczem” pojawia się pod typem, który był z szukanym graczem w tym samym czasie w składzie jednej drużyny, w lidze głównej lub na turnieju międzynarodowym.'],
       ['Nowy gracz', 'Codziennie o 00:00 UTC.']
     ]
   },
@@ -47,7 +47,7 @@ const I18N = {
     natPart: 'one of the nationalities matches',
     otherLeague: 'other', otherLeagueLong: 'Other region (outside LCK, LPL, LEC, LCS and LTA)', moreRows: '… +{n} …',
     none: 'none', higher: 'Higher', lower: 'Lower', later: 'Later', earlier: 'Earlier',
-    together: 'Played on the same team as the answer', answerWas: 'The player was',
+    together: 'Was on a roster with the answer', answerWas: 'The player was',
     winTitle: '🏆 Got it!', loseTitle: '⚔ Game over',
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the player is revealed. This cannot be undone.',
@@ -57,7 +57,7 @@ const I18N = {
       ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
       ['How to play', 'Type a nickname or real name and pick the player from the list. Guesses are unlimited. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>yellow</strong> a partial match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
       ['Categories', '<strong>Nationality</strong> (dual nationals show both flags; <strong>yellow</strong> when one of them matches); <strong>position</strong> — the most frequent one on their rosters; <strong>current league</strong> (LCK, LPL, LEC, LCS, LTA or “other” for teams in any other league) and <strong>current team</strong> — from the Leaguepedia profile, “none” for retired and teamless players; the team is <strong>yellow</strong> when the answer played for your pick\'s current team at some point (not necessarily together); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
-      ['Played together', '“Played on the same team as the answer” appears under a guess who shared a roster with the answer in a major league or at an international event.'],
+      ['Same roster', '“Was on a roster with the answer” appears under a guess who was on the same team\'s roster as the answer at the same time, in a major league or at an international event.'],
       ['New player', 'Every day at 00:00 UTC.']
     ]
   },
@@ -72,7 +72,7 @@ const I18N = {
     natPart: 'coincide una de las nacionalidades',
     otherLeague: 'otra', otherLeagueLong: 'Otra región (fuera de LCK, LPL, LEC, LCS y LTA)', moreRows: '… +{n} …',
     none: 'ninguno', higher: 'Más', lower: 'Menos', later: 'Más tarde', earlier: 'Antes',
-    together: 'Jugó en el mismo equipo que el jugador buscado', answerWas: 'El jugador era',
+    together: 'Estuvo en el mismo roster que el jugador buscado', answerWas: 'El jugador era',
     winTitle: '🏆 ¡Acertaste!', loseTitle: '⚔ Fin del juego',
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revela el jugador. No se puede deshacer.',
@@ -82,7 +82,7 @@ const I18N = {
       ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
       ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Los intentos son ilimitados. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>amarillo</strong> coincidencia parcial, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
       ['Categorías', '<strong>Nacionalidad</strong> (con doble nacionalidad, ambas banderas; <strong>amarillo</strong> si coincide una); <strong>posición</strong>: la más frecuente en sus rosters; <strong>liga actual</strong> (LCK, LPL, LEC, LCS, LTA u «otra» para equipos de otras ligas) y <strong>equipo actual</strong>: según su perfil en Leaguepedia, «ninguno» para retirados y jugadores sin equipo; el equipo sale en <strong>amarillo</strong> cuando el jugador buscado jugó alguna vez en el equipo actual de tu intento (no necesariamente juntos); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
-      ['Jugaron juntos', '«Jugó en el mismo equipo que el jugador buscado» aparece bajo un intento que compartió roster con la respuesta en una liga principal o en un torneo internacional.'],
+      ['Mismo roster', '«Estuvo en el mismo roster que el jugador buscado» aparece bajo un intento que estuvo a la vez en el roster del mismo equipo que la respuesta, en una liga principal o en un torneo internacional.'],
       ['Nuevo jugador', 'Cada día a las 00:00 UTC.']
     ]
   },
@@ -97,7 +97,7 @@ const I18N = {
     natPart: 'une des nationalités correspond',
     otherLeague: 'autre', otherLeagueLong: 'Autre région (hors LCK, LPL, LEC, LCS et LTA)', moreRows: '… +{n} …',
     none: 'aucune', higher: 'Plus', lower: 'Moins', later: 'Plus tard', earlier: 'Plus tôt',
-    together: 'A joué dans la même équipe que le joueur recherché', answerWas: 'Le joueur était',
+    together: 'A fait partie du même roster que le joueur recherché', answerWas: 'Le joueur était',
     winTitle: '🏆 Trouvé !', loseTitle: '⚔ Partie terminée',
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et le joueur est révélé. Impossible de revenir en arrière.',
@@ -107,7 +107,7 @@ const I18N = {
       ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
       ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Les essais sont illimités. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>jaune</strong> pour une correspondance partielle, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
       ['Catégories', '<strong>Nationalité</strong> (double nationalité : les deux drapeaux ; <strong>jaune</strong> si l\'une correspond) ; <strong>poste</strong> : le plus fréquent dans ses rosters ; <strong>ligue actuelle</strong> (LCK, LPL, LEC, LCS, LTA ou « autre » pour les équipes d\'autres ligues) et <strong>équipe actuelle</strong> : selon son profil Leaguepedia, « aucune » pour les retraités et les joueurs sans équipe ; l\'équipe est en <strong>jaune</strong> quand le joueur recherché a joué pour l\'équipe actuelle de votre essai à un moment (pas forcément ensemble) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
-      ['Ont joué ensemble', '« A joué dans la même équipe que le joueur recherché » apparaît sous un essai qui a partagé un roster avec la réponse dans une ligue majeure ou lors d\'un tournoi international.'],
+      ['Même roster', '« A fait partie du même roster que le joueur recherché » apparaît sous un essai qui était dans le roster de la même équipe que la réponse au même moment, dans une ligue majeure ou lors d\'un tournoi international.'],
       ['Nouveau joueur', 'Chaque jour à 00:00 UTC.']
     ]
   }
