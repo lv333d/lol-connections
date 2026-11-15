@@ -9,7 +9,7 @@
   "aliases": [
    "Clutch Gaming"
   ],
-  "players": 106
+  "players": 107
  },
  {
   "id": "kt-rolster",
@@ -80,7 +80,7 @@
   "logo": "Invictus Gaminglogo profile.png",
   "league": "LPL",
   "aliases": [],
-  "players": 81
+  "players": 82
  },
  {
   "id": "dn-freecs",
@@ -183,7 +183,7 @@
   "logo": "EDward Gaminglogo square.png",
   "league": "LPL",
   "aliases": [],
-  "players": 66
+  "players": 67
  },
  {
   "id": "fnatic",
@@ -193,7 +193,7 @@
   "logo": "Fnaticlogo profile.png",
   "league": "LEC",
   "aliases": [],
-  "players": 66
+  "players": 67
  },
  {
   "id": "team-vitality",
@@ -412,6 +412,16 @@
   "players": 46
  },
  {
+  "id": "top-esports",
+  "name": "Top Esports",
+  "page": "Top Esports",
+  "short": "TES",
+  "logo": "Top Esportslogo profile.png",
+  "league": "LPL",
+  "aliases": [],
+  "players": 45
+ },
+ {
   "id": "dplus-kia",
   "name": "Dplus Kia",
   "page": "Dplus Kia",
@@ -422,16 +432,6 @@
    "DAMWON Gaming",
    "DWG KIA"
   ],
-  "players": 44
- },
- {
-  "id": "top-esports",
-  "name": "Top Esports",
-  "page": "Top Esports",
-  "short": "TES",
-  "logo": "Top Esportslogo profile.png",
-  "league": "LPL",
-  "aliases": [],
   "players": 44
  },
  {
@@ -477,6 +477,16 @@
   "players": 41
  },
  {
+  "id": "misfits-gaming",
+  "name": "Misfits Gaming",
+  "page": "Misfits Gaming",
+  "short": "MSF",
+  "logo": "Misfits Gaminglogo profile.png",
+  "league": "LEC",
+  "aliases": [],
+  "players": 39
+ },
+ {
   "id": "samsung-galaxy",
   "name": "Samsung Galaxy",
   "page": "Samsung Galaxy",
@@ -490,16 +500,6 @@
    "MiG Frost",
    "Samsung Ozone"
   ],
-  "players": 38
- },
- {
-  "id": "misfits-gaming",
-  "name": "Misfits Gaming",
-  "page": "Misfits Gaming",
-  "short": "MSF",
-  "logo": "Misfits Gaminglogo profile.png",
-  "league": "LEC",
-  "aliases": [],
   "players": 38
  },
  {
@@ -2038,6 +2038,16 @@
   "players": 6
  },
  {
+  "id": "l-s",
+  "name": "LØS",
+  "page": "LØS",
+  "short": "LOS",
+  "logo": "LØSlogo profile.png",
+  "league": "",
+  "aliases": [],
+  "players": 6
+ },
+ {
   "id": "ddol",
   "name": "DDoL",
   "page": "DDoL",
@@ -2404,16 +2414,6 @@
   "page": "Papara SuperMassive",
   "short": "SUP",
   "logo": "Papara SuperMassivelogo profile.png",
-  "league": "",
-  "aliases": [],
-  "players": 5
- },
- {
-  "id": "l-s",
-  "name": "LØS",
-  "page": "LØS",
-  "short": "LOS",
-  "logo": "LØSlogo square.png",
   "league": "",
   "aliases": [],
   "players": 5
