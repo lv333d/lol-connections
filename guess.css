@@ -102,7 +102,8 @@
   .gp-player { flex-direction: column; gap: 2px; }
   .gp-player .avatar { width: 30px; height: 30px; }
   .gp-nick { font-size: 0.66rem; max-width: 100%; }
-  .gp-cell { padding: 3px; border-radius: 5px; }
+  /* Same coloured frame around every tile: thick enough to tell green from yellow around the logos. */
+  .gp-cell { padding: 5px; border-radius: 5px; }
   .gp-num { font-size: 0.85rem; }
   .gp-debut .gp-num { font-size: 0.7rem; }
   .gp-arrow { font-size: 0.75rem; }
