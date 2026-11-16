@@ -15,6 +15,8 @@
 //   role     position: the most frequent one on their rosters (top, jungle, mid, bot, support)
 //   orgs     organizations they played for (names from data/teams.json, never coaching) — a guess who shares one
 //            with the answer gets a yellow team cell
+//   leagues  major leagues they played in as a player ("LCK"…) — a guess whose current league is one of the
+//            answer's past leagues gets a yellow league cell
 //   titles   international titles won as a player (each Worlds / MSI / First Stand counted)
 //   debut    first year on a major-league roster as a player
 //   with     pool players they shared a roster with as players (players.json teammates minus via-coaching)
@@ -207,6 +209,7 @@ const out = pool.map(p => {
     ...leagueFields(current),
     role: roleOf(i.rosters),
     orgs: [...new Set(p.teams.filter(t => !p.viaCoaching?.teams?.includes(t)).map(t => teamName.get(t)).filter(Boolean))].sort(),
+    leagues: [...new Set(i.rosters.map(r => MAJOR_OF.get(r.League)).filter(Boolean))].sort(),
     titles: titles.get(p.id), debut: i.debut, intl: i.intl.size,
     with: p.teammates.filter(t => !coached.has(t) && inPool.has(t)),
     ...(p.retired ? { retired: true } : {}),
