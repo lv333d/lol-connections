@@ -46,44 +46,49 @@ const SITE = (() => {
   history.replaceState(history.state, '', location.pathname + (q ? '?' + q : '') + location.hash);
 })();
 
-/* New vs returning visitors in Umami, without cookies or an identifier: localStorage keeps only the visit days
-   (lolc_visits: UTC YYYY-MM-DD, the same day as todayKey() in the games, the newest VISIT_DAYS). Every view of a built
-   game page ('' or 'guess') adds today. Once per browser tab session (sessionStorage lolc_visit_sent, set after the
-   event went to umami.track) the days before today are counted and sent as the "visit" event — later views in the
-   same session (Grid ↔ Guess, reloads) only record the day. First run without lolc_visits: the list starts from the
-   days of the games' saves (lolg_state_<date>, lolgp_state_<date>) before today, so earlier players stay returning
-   (archive boards can overcount that once). Blocked storage counts as new. Not sent from the admin preview
-   (?preview=) or from the source pages of the local admin server (not built). */
+/* New vs returning visitors in Umami, without cookies or an identifier: localStorage keeps only the visit days per
+   game (lolc_visits: { grid: [...], guess: [...] }, UTC YYYY-MM-DD — the same day as todayKey() in the games — the
+   newest VISIT_DAYS each). Every view of a built game page ('' = grid or 'guess') adds today to that game. Once per
+   browser tab session (sessionStorage lolc_visit_sent, set after the event went to umami.track) the days before today
+   are counted and sent as one "visit" event: days (either game, a day in both counts once), grid and guess (each
+   game's own days), type (new without any earlier day) and mode (the page the visit started on). Later views in the
+   same session (Grid ↔ Guess, reloads) only record the day. First run without the per-game lists (nothing stored, or
+   the earlier plain list of days): they start from the games' saves before today (grid.js lolg_state_<date>,
+   guess.js lolgp_state_<date>), so earlier players stay returning (archive boards can overcount that once). Blocked
+   storage counts as new. Not sent from the admin preview (?preview=) or from the source pages of the local admin
+   server (not built). */
 (() => {
   if (!SITE.built || !['', 'guess'].includes(SITE.page)) return;
   if (new URLSearchParams(location.search).has('preview')) return;
   const VISIT_DAYS = 120;
+  const mode = SITE.page === 'guess' ? 'guess' : 'grid';
   const today = new Date().toISOString().slice(0, 10); // same UTC day as todayKey() in the games
   const isDay = d => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
-  let n = 0;
+  const before = { grid: [], guess: [] };
   try {
-    let days;
-    const stored = localStorage.getItem('lolc_visits');
-    if (stored === null) {
-      days = [];
+    let visits = null;
+    try { visits = JSON.parse(localStorage.getItem('lolc_visits')); } catch { /* unreadable: start over */ }
+    if (!visits || typeof visits !== 'object' || Array.isArray(visits)) {
+      visits = { grid: [], guess: [] };
       for (let i = 0; i < localStorage.length; i++) {
-        const date = /^lolgp?_state_(\d{4}-\d{2}-\d{2})$/.exec(localStorage.key(i))?.[1];
-        if (date && date < today) days.push(date);
+        const [, gp, date] = /^lolg(p?)_state_(\d{4}-\d{2}-\d{2})$/.exec(localStorage.key(i)) || [];
+        if (date && date < today) visits[gp ? 'guess' : 'grid'].push(date);
       }
-    } else {
-      try { days = JSON.parse(stored); } catch { days = []; }
-      if (!Array.isArray(days)) days = [];
     }
-    days = [...new Set(days.filter(isDay))].sort();
-    n = days.filter(d => d < today).length;
-    if (!days.includes(today)) days.push(today);
-    localStorage.setItem('lolc_visits', JSON.stringify(days.sort().slice(-VISIT_DAYS)));
-  } catch { n = 0; /* storage blocked: counts as new */ }
+    for (const game of ['grid', 'guess']) {
+      const days = [...new Set((Array.isArray(visits[game]) ? visits[game] : []).filter(isDay))];
+      before[game] = days.filter(d => d < today);
+      if (game === mode && !days.includes(today)) days.push(today);
+      visits[game] = days.sort().slice(-VISIT_DAYS);
+    }
+    localStorage.setItem('lolc_visits', JSON.stringify({ grid: visits.grid, guess: visits.guess }));
+  } catch { /* storage blocked: counts as new */ }
   try { if (sessionStorage.getItem('lolc_visit_sent')) return; } catch { /* blocked: send anyway */ }
   // Ranges, not exact counts, so the values stay few and can't single anyone out.
   const RANGES = [[0, '0'], [1, '1'], [3, '2-3'], [7, '4-7'], [14, '8-14'], [30, '15-30'], [60, '31-60'], [90, '61-90']];
-  const range = RANGES.find(([max]) => n <= max)?.[1] || '90+';
-  const data = { type: n ? 'returning' : 'new', days: range, mode: SITE.page === 'guess' ? 'guess' : 'grid' };
+  const range = n => RANGES.find(([max]) => n <= max)?.[1] || '90+';
+  const n = new Set([...before.grid, ...before.guess]).size;
+  const data = { type: n ? 'returning' : 'new', days: range(n), grid: range(before.grid.length), guess: range(before.guess.length), mode };
   // The Umami script is deferred: wait for it (every 300 ms, up to ~10 s), then send once per tab session.
   let tries = 0;
   const timer = setInterval(() => {
