@@ -18,21 +18,6 @@
       background: var(--bg); color: var(--text); min-height: 100vh;
     }
     code { background: var(--panel2); padding: 1px 6px; border-radius: 4px; color: var(--gold); font-size: 0.85em; }
-    .login-overlay {
-      position: fixed; inset: 0; background: var(--bg); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .login-box {
-      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-      padding: 32px; width: 100%; max-width: 360px; text-align: center;
-    }
-    .login-box h1 { color: var(--gold-light); font-size: 1.3rem; margin-bottom: 6px; }
-    .login-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
-    .login-box input {
-      width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border);
-      background: var(--panel2); color: var(--text); font-size: 0.95rem; margin-bottom: 12px;
-    }
-    .login-error { color: #e55; font-size: 0.82rem; min-height: 20px; margin-bottom: 8px; }
     .layout { display: flex; min-height: 100vh; }
     .sidebar {
       width: var(--sidebar-w); min-width: var(--sidebar-w); background: var(--panel);
@@ -182,17 +167,7 @@
   </style>
 </head>
 <body>
-  <div class="login-overlay" id="loginOverlay">
-    <div class="login-box">
-      <h1>⚔ Admin LoL Connect</h1>
-      <p>Zaloguj się, aby zarządzać planszami</p>
-      <div class="login-error" id="loginError"></div>
-      <input type="password" id="loginPassword" placeholder="Hasło" autocomplete="current-password">
-      <button class="btn" id="btnLogin" style="width:100%">Zaloguj</button>
-    </div>
-  </div>
-
-  <div class="layout hidden" id="appLayout">
+  <div class="layout" id="appLayout">
     <aside class="sidebar">
       <div class="sidebar-brand">
         <h2>⚔ Admin</h2>
@@ -310,12 +285,11 @@
   <script>
   /*
     Panel działa z lokalnym serwerem (scripts/admin-server.js), który zapisuje plansze Grida, graczy dnia
-    Guess the Pro i bazę graczy. Logowanie poniżej to tylko zasłona — hash jest jawny w kodzie.
+    Guess the Pro i bazę graczy. Bez hasła: serwer słucha tylko na 127.0.0.1.
   */
 
   /** @typedef {import('./types/puzzle').Condition} Condition */
 
-  const DEFAULT_HASH = '6fe154bdfd6074961d1521c927fd8f596f53db081882da28b5f4a607f5db071b';
   // Below this many days of Grid boards ahead the overview warns (the bot tops up to 14 every Monday).
   const GRID_MIN_DAYS_AHEAD = 7;
 
@@ -360,12 +334,6 @@
     return data;
   }
 
-  async function hashPassword(pwd) {
-    const enc = new TextEncoder().encode(pwd);
-    const buf = await crypto.subtle.digest('SHA-256', enc);
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
   function showToast(msg) {
     const t = $('toast');
     t.textContent = msg;
@@ -397,22 +365,7 @@
   });
   $('confirmOverlay').addEventListener('click', e => { if (e.target.id === 'confirmOverlay') closeConfirm(); });
 
-  /* ---------- Login & navigation ---------- */
-
-  async function doLogin() {
-    const hash = await hashPassword($('loginPassword').value);
-    if (hash === DEFAULT_HASH) {
-      sessionStorage.setItem('lolc_admin_session', '1');
-      $('loginOverlay').classList.add('hidden');
-      $('appLayout').classList.remove('hidden');
-      initApp();
-    } else {
-      $('loginError').textContent = 'Nieprawidłowe hasło';
-    }
-  }
-
-  $('btnLogin').addEventListener('click', doLogin);
-  $('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  /* ---------- Navigation ---------- */
 
   function navigate(page) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
@@ -807,18 +760,19 @@
   $('btnSync').addEventListener('click', syncWithGitHub);
 
   function initApp() {
-    // Older panel versions kept a password hash in the browser; the hash now lives only in DEFAULT_HASH.
+    // Older panel versions kept a password hash and a login session in the browser; the panel no longer has a password
+    // (the admin server only listens on 127.0.0.1).
     localStorage.removeItem('lolc_admin_hash');
+    sessionStorage.removeItem('lolc_admin_session');
+    // The game previews and the game links run on this same local origin: Umami must not count them (the Umami
+    // script reads umami.disabled from localStorage).
+    try { localStorage.setItem('umami.disabled', '1'); } catch { /* storage blocked */ }
     renderDashboard();
     renderDbRefresh();
     syncWithGitHub();
   }
 
-  if (sessionStorage.getItem('lolc_admin_session') === '1') {
-    $('loginOverlay').classList.add('hidden');
-    $('appLayout').classList.remove('hidden');
-    initApp();
-  }
+  initApp();
   </script>
 </body>
 </html>
