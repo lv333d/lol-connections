@@ -50,8 +50,8 @@ const SITE = (() => {
    game (lolc_visits: { grid: [...], guess: [...] }, UTC YYYY-MM-DD — the same day as todayKey() in the games — the
    newest VISIT_DAYS each). Every view of a built game page ('' = grid or 'guess') adds today to that game. Once per
    browser tab session (sessionStorage lolc_visit_sent, set after the event went to umami.track) the days before today
-   are counted and sent as one "visit" event: days (either game, a day in both counts once), grid and guess (each
-   game's own days), type (new without any earlier day) and mode (the page the visit started on). Later views in the
+   are counted and sent as one "visit" event: grid and guess (each game's own days) and type (new without any earlier
+   day in either game); the page the visit started on is the event's own URL in Umami. Later views in the
    same session (Grid ↔ Guess, reloads) only record the day. First run without the per-game lists (nothing stored, or
    the earlier plain list of days): they start from the games' saves before today (grid.js lolg_state_<date>,
    guess.js lolgp_state_<date>), so earlier players stay returning (archive boards can overcount that once). Blocked
@@ -87,8 +87,7 @@ const SITE = (() => {
   // Ranges, not exact counts, so the values stay few and can't single anyone out.
   const RANGES = [[0, '0'], [1, '1'], [3, '2-3'], [7, '4-7'], [14, '8-14'], [30, '15-30'], [60, '31-60'], [90, '61-90']];
   const range = n => RANGES.find(([max]) => n <= max)?.[1] || '90+';
-  const n = new Set([...before.grid, ...before.guess]).size;
-  const data = { type: n ? 'returning' : 'new', days: range(n), grid: range(before.grid.length), guess: range(before.guess.length), mode };
+  const data = { type: before.grid.length || before.guess.length ? 'returning' : 'new', grid: range(before.grid.length), guess: range(before.guess.length) };
   // The Umami script is deferred: wait for it (every 300 ms, up to ~10 s), then send once per tab session.
   let tries = 0;
   const timer = setInterval(() => {
