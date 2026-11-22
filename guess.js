@@ -12,7 +12,7 @@ const MAJOR_LEAGUES = ['LCK', 'LPL', 'LEC', 'LCS', 'LTA'];
 
 const I18N = {
   pl: {
-    subtitle: 'codzienna zagadka League of Legends',
+    subtitle: 'Codzienna zagadka LoL esports',
     noPuzzleTitle: '📅 Brak gracza na dziś', noPuzzleText: 'Wróć jutro po nową zagadkę!',
     nextBoardIn: 'Nowy gracz za', nextBoardSoon: 'Nowy gracz już wkrótce',
     guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
@@ -28,6 +28,8 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy i zobaczysz szukanego gracza. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
+    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria', statsLabel: 'Statystyki',
+    comingSoon: 'Serie i statystyki już wkrótce',
     guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
@@ -38,7 +40,7 @@ const I18N = {
     ]
   },
   en: {
-    subtitle: 'daily League of Legends puzzle',
+    subtitle: 'Daily LoL esports puzzle',
     noPuzzleTitle: '📅 No player today', noPuzzleText: 'Come back tomorrow for a new puzzle!',
     nextBoardIn: 'New player in', nextBoardSoon: 'New player coming soon',
     guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
@@ -54,6 +56,8 @@ const I18N = {
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the player is revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
+    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak', statsLabel: 'Stats',
+    comingSoon: 'Streaks and stats are coming soon',
     guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
@@ -64,7 +68,7 @@ const I18N = {
     ]
   },
   es: {
-    subtitle: 'acertijo diario de League of Legends',
+    subtitle: 'Acertijo diario de LoL esports',
     noPuzzleTitle: '📅 No hay jugador hoy', noPuzzleText: '¡Vuelve mañana por un nuevo acertijo!',
     nextBoardIn: 'Nuevo jugador en', nextBoardSoon: 'Nuevo jugador muy pronto',
     guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
@@ -80,6 +84,8 @@ const I18N = {
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revela el jugador. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
+    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha', statsLabel: 'Estadísticas',
+    comingSoon: 'Rachas y estadísticas muy pronto',
     guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
@@ -90,7 +96,7 @@ const I18N = {
     ]
   },
   fr: {
-    subtitle: 'énigme quotidienne de League of Legends',
+    subtitle: 'Énigme quotidienne LoL esports',
     noPuzzleTitle: '📅 Pas de joueur aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle énigme !',
     nextBoardIn: 'Nouveau joueur dans', nextBoardSoon: 'Nouveau joueur très bientôt',
     guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
@@ -106,6 +112,8 @@ const I18N = {
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et le joueur est révélé. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
+    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série', statsLabel: 'Statistiques',
+    comingSoon: 'Séries et statistiques bientôt disponibles',
     guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
@@ -361,6 +369,7 @@ function applyI18n() {
   // The same keys are filled into the HTML at build time (scripts/build-site.js), so built pages don't change here.
   document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.dataset.i18n); });
   document.querySelectorAll('[data-i18n-ph]').forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-title]').forEach(e => { e.title = t(e.dataset.i18nTitle); });
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
@@ -434,6 +443,7 @@ async function loadDate(date) {
   if (seq !== loadSeq) return;
   if (!d || !playerById.has(d.playerId)) {
     day = answer = null;
+    $('boardNo').textContent = '';
     $('gameArea').classList.add('hidden');
     $('noPuzzleScreen').classList.remove('hidden');
     return;
@@ -461,6 +471,7 @@ function answerCard(target) {
 }
 
 function render() {
+  $('boardNo').textContent = '#' + day.number; // the day's number, beside the date
   $('guessesLeft').textContent = state.guesses.length;
   $('guessSearch').classList.toggle('hidden', state.gameOver);
   $('answerCard').classList.toggle('hidden', !state.gameOver);
@@ -624,6 +635,8 @@ $('btnGiveUpConfirm').addEventListener('click', () => {
 });
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
+// Streak and statistics: placeholders in the header until they get their own windows.
+['btnStreak', 'btnStats'].forEach(id => $(id).addEventListener('click', () => showToast(t('comingSoon'))));
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

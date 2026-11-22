@@ -54,74 +54,84 @@
 </head>
 <body>
   <div class="app">
-    <header>
-      <div class="logo">
-        <h1><img src="icon.svg" alt="LoL Connect Logo" class="header-logo-icon"> LoL Connect</h1>
-        <p id="subtitle" data-i18n="subtitle">daily League of Legends puzzle</p>
+    <header class="site-header">
+      <div class="brand">
+        <img src="icon.svg" alt="" class="brand-icon" width="32" height="32">
+        <div class="brand-text">
+          <span class="brand-name">LoL Connect</span>
+          <span id="subtitle" class="brand-tag" data-i18n="subtitle"></span>
+        </div>
       </div>
       <nav class="game-tabs" aria-label="Game mode">
-        <a href="/" class="game-tab"><span class="game-tab-icon"><span class="icon-grid3" aria-hidden="true"></span></span>Grid</a>
-        <a href="/guess" class="game-tab active" aria-current="page"><span class="game-tab-icon">?</span>Guess the Pro<span class="tab-ribbon" aria-hidden="true" data-until="2026-11-26">NEW</span></a>
+        <a href="/" class="game-tab"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>Grid</a>
+        <a href="/guess" class="game-tab" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>Guess the Pro<span class="tab-new" data-until="2026-11-26"><span class="visually-hidden" data-i18n="newLabel"></span></span></a>
+        <span class="game-tab game-tab-soon" data-i18n-title="soonLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke-dasharray="3 3"/><path d="M12 8v8M8 12h8"/></svg><span class="visually-hidden" data-i18n="soonLabel"></span></span>
       </nav>
-      <div class="header-controls">
-        <div class="lang-wrap">
-          <span class="lang-icon">🌐</span>
-          <select id="langSelect" class="lang-select" aria-label="Language">
-            <option value="pl">PL</option>
-            <option value="en">EN</option>
-            <option value="es">ES</option>
-            <option value="fr">FR</option>
-          </select>
-        </div>
-        <div class="date-nav-wrap">
-          <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">&lt;</button>
-          <div id="dateDisplay" class="date-display"></div>
-          <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">&gt;</button>
-        </div>
-        <div class="header-buttons">
-          <button id="btnGuide" class="text-btn"><span class="text-btn-icon">📖</span><span id="btnGuideLabel" data-i18n="btnGuideLabel"></span></button>
-        </div>
+      <div class="header-actions">
+        <button id="btnStreak" type="button" class="hbtn hbtn-streak" data-i18n-title="streakLabel"><span class="hbtn-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg><span id="streakCount">–</span></span><span class="hbtn-lbl" data-i18n="streakLabel"></span></button>
+        <button id="btnStats" type="button" class="hbtn" data-i18n-title="statsLabel"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg><span class="hbtn-lbl" data-i18n="statsLabel"></span></button>
+        <button id="btnGuide" type="button" class="hbtn" data-i18n-title="btnGuideLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2.9-1.2 1.8"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg><span id="btnGuideLabel" class="hbtn-lbl" data-i18n="btnGuideLabel"></span></button>
       </div>
     </header>
 
-    <div id="noPuzzleScreen" class="no-puzzle hidden">
-      <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
-      <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
-    </div>
-
-    <div id="gameArea" class="game-area hidden">
-      <div class="grid-status">
-        <span id="guessesLabel" data-i18n="guessesLabel"></span>
-        <span id="guessesLeft" class="guesses-left"></span>
-      </div>
-
-      <div id="answerCard" class="gp-answer hidden"></div>
-
-      <div id="guessSearch" class="gp-search">
-        <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
-               role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
-        <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
-      </div>
-
-      <div class="gp-table" role="table">
-        <div class="gp-row gp-head" role="row">
-          <div role="columnheader" data-i18n="colPlayer">Player</div>
-          <div role="columnheader" data-i18n="colNat">Country</div>
-          <div role="columnheader" data-i18n="colPos">Position</div>
-          <div role="columnheader" data-i18n="colLeague">League</div>
-          <div role="columnheader" data-i18n="colTeam">Team</div>
-          <div role="columnheader" data-i18n="colTitles">Int'l titles</div>
-          <div role="columnheader" data-i18n="colDebut">Tier&nbsp;1 debut</div>
+    <main class="game-panel">
+      <div class="board-line">
+        <div class="date-nav-wrap">
+          <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">‹</button>
+          <span id="boardNo" class="board-no"></span><span id="dateDisplay" class="date-display"></span>
+          <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">›</button>
         </div>
-        <div id="guessRows" role="rowgroup"></div>
+        <div class="grid-status"><span id="guessesLabel" data-i18n="guessesLabel"></span> <strong id="guessesLeft" class="guesses-left"></strong></div>
       </div>
 
-      <div class="actions">
-        <button id="btnGiveUp" data-i18n="giveUp" class="btn btn-secondary"></button>
-        <button id="btnShowResults" data-i18n="results" class="btn hidden"></button>
+      <div id="noPuzzleScreen" class="no-puzzle hidden">
+        <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
+        <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
       </div>
-    </div>
+
+      <div id="gameArea" class="game-area hidden">
+        <div id="answerCard" class="gp-answer hidden"></div>
+
+        <div id="guessSearch" class="gp-search">
+          <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
+                 role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+          <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
+        </div>
+
+        <div class="gp-table" role="table">
+          <div class="gp-row gp-head" role="row">
+            <div role="columnheader" data-i18n="colPlayer">Player</div>
+            <div role="columnheader" data-i18n="colNat">Country</div>
+            <div role="columnheader" data-i18n="colPos">Position</div>
+            <div role="columnheader" data-i18n="colLeague">League</div>
+            <div role="columnheader" data-i18n="colTeam">Team</div>
+            <div role="columnheader" data-i18n="colTitles">Int'l titles</div>
+            <div role="columnheader" data-i18n="colDebut">Tier&nbsp;1 debut</div>
+          </div>
+          <div id="guessRows" role="rowgroup"></div>
+        </div>
+
+        <div class="actions">
+          <button id="btnGiveUp" data-i18n="giveUp" class="btn btn-secondary"></button>
+          <button id="btnShowResults" data-i18n="results" class="btn hidden"></button>
+        </div>
+      </div>
+    </main>
   </div>
+
+  <!-- Footer: one line (footer.js fills it: fan project · legal notice · TikTok · Discord) and the language. -->
+  <footer class="site-footer">
+    <div id="footerLine" class="footer-line"></div>
+    <div class="lang-wrap">
+      <span class="lang-icon" aria-hidden="true">🌐</span>
+      <select id="langSelect" class="lang-select" aria-label="Language">
+        <option value="pl">Polski</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </footer>
 
   <!-- Results -->
   <div id="resultOverlay" class="overlay hidden">

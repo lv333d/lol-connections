@@ -10,7 +10,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 /* No double-tap zoom delay on controls; no grey flash on tap. */
 button, a, select, .tile { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 :root {
-  --bg: radial-gradient(circle at 50% 30%, #0d1527 0%, #050811 100%);
+  --bg:
+    radial-gradient(60% 34% at 10% -6%, rgba(63, 208, 232, 0.13), transparent 70%),
+    radial-gradient(55% 30% at 92% -6%, rgba(200, 170, 110, 0.12), transparent 70%),
+    radial-gradient(90% 40% at 50% 108%, rgba(63, 208, 232, 0.07), transparent 70%),
+    #050811;
+  --cyan: #3fd0e8;
   --gold: #c8aa6e;
   --gold-light: #f0e6d2;
   --gold-dark: #785a28;
@@ -29,29 +34,20 @@ body {
   line-height: 1.5;
   position: relative;
 }
+/* Hextech lattice, only faintly towards the bottom of the screen. */
 body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: linear-gradient(rgba(200, 170, 110, 0.02) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(200, 170, 110, 0.02) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v33' fill='none' stroke='%23c8aa6e' stroke-opacity='.09' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 97px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 55%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 55%, #000 100%);
+  opacity: 0.5;
   pointer-events: none;
   z-index: -1;
 }
-.app {
-  max-width: 680px;
-  margin: 40px auto;
-  padding: 24px;
-  background: var(--panel);
-  border: 1px solid rgba(200, 170, 110, 0.25);
-  border-top: 3px solid var(--gold);
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7),
-              0 0 30px rgba(0, 180, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
+.app { max-width: 640px; margin: 0 auto; padding: max(10px, env(safe-area-inset-top)) 12px 8px; }
 header {
   display: flex; flex-direction: column; align-items: center;
   gap: 16px; padding: 12px 0 20px;
@@ -94,132 +90,6 @@ header::after {
   text-transform: uppercase;
   margin-top: 2px;
 }
-/* Game switcher: one tab per game, shared by index.html (Grid) and guess.html. */
-.game-tabs {
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid var(--border);
-}
-.game-tab {
-  flex: 1;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 12px;
-  font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.86rem;
-  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-}
-.game-tab:hover { color: var(--gold-light); background: rgba(200, 170, 110, 0.05); }
-.game-tab.active {
-  color: var(--gold-light);
-  border-bottom-color: var(--gold);
-  background: linear-gradient(to top, rgba(200, 170, 110, 0.14), transparent);
-  text-shadow: 0 0 8px rgba(200, 170, 110, 0.35);
-}
-.game-tab-icon { color: var(--gold); font-family: 'Montserrat', sans-serif; }
-.header-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 12px;
-}
-.header-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.date-nav-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
-}
-.date-nav-btn {
-  background: rgba(200, 170, 110, 0.1);
-  border: 1px solid var(--border);
-  color: var(--gold-light);
-  border-radius: 4px;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 0.75rem;
-  transition: all 0.2s ease;
-  user-select: none;
-  flex-shrink: 0;
-}
-.date-nav-btn:hover:not(:disabled) {
-  background: rgba(200, 170, 110, 0.25);
-  border-color: var(--gold);
-  color: #fff;
-  box-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
-}
-.date-nav-btn:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-  border-color: transparent;
-}
-.date-display {
-  /* Fixed width, so the arrows don't move with the length of the date. */
-  flex: 0 1 16rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  text-align: center;
-  white-space: nowrap;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* Phones: one row — language, date between its arrows, icon-only buttons (the date is shortened in JS). */
-@media (max-width: 520px) {
-  .header-controls { gap: 6px; }
-  .date-nav-wrap { gap: 4px; }
-  .date-display { flex: 1; }
-}
-.lang-wrap {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 10px; border-radius: 4px; border: 1px solid var(--border);
-  background: rgba(18, 28, 48, 0.45);
-  transition: all 0.2s;
-}
-.lang-wrap:hover {
-  border-color: var(--gold);
-  background: rgba(18, 28, 48, 0.7);
-  box-shadow: 0 0 8px rgba(200, 170, 110, 0.2);
-}
-.lang-icon { font-size: 0.95rem; opacity: 0.85; }
-.lang-select {
-  padding: 2px; border: none; background: transparent; color: var(--gold-light);
-  font-size: 0.8rem; font-family: inherit; font-weight: 600; cursor: pointer; outline: none;
-}
-.lang-select option {
-  background: #0d1322;
-  color: var(--text);
-}
-.text-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 6px 13px; border-radius: 4px; border: 1px solid var(--border);
-  background: rgba(18, 28, 48, 0.45); color: var(--text-muted); font-size: 0.76rem;
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-  cursor: pointer; font-family: inherit; white-space: nowrap;
-  transition: all 0.2s;
-}
-.text-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold-light);
-  background: rgba(18, 28, 48, 0.7);
-  box-shadow: 0 0 8px rgba(200, 170, 110, 0.2);
-}
-.text-btn-icon { color: var(--gold); font-weight: 800; font-size: 0.85rem; }
 .next-board {
   font-size: 0.78rem; color: var(--text-muted);
   margin-top: 10px; text-align: center;
@@ -495,21 +365,8 @@ header::after {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
-@media (max-width: 768px) {
-  .app { margin: 16px auto; padding: 16px; }
-}
-/* Landscape screens (laptops): the whole panel fits the window height — smaller top gap, tighter header and
-   Connections tiles when the window is short. The Grid board scales with the height in grid.css. */
-@media (min-width: 521px) {
-  .app { margin: clamp(10px, 3vh, 40px) auto; }
-}
+/* Laptops with short windows: tighter spacing so the board fits (the board itself scales in grid.css). */
 @media (min-width: 521px) and (max-height: 900px) {
-  .app { padding-top: 16px; padding-bottom: 16px; }
-  header { gap: 10px; padding: 4px 0 12px; }
-  .logo h1 { font-size: 1.45rem; }
-  .header-logo-icon { width: 28px; height: 28px; }
-  .logo p { font-size: 0.68rem; margin-top: 0; }
-  .game-tab { padding: 7px 12px; }
   .next-board { margin-top: 8px; }
   .lives-row { margin: 10px 0 8px; }
   .progress-bar { margin-bottom: 10px; }
@@ -521,28 +378,6 @@ header::after {
 /* Phones: the panel goes edge to edge, controls get finger-sized, inputs stay at 16px so iOS doesn't zoom. */
 @media (max-width: 520px) {
   body { background-attachment: scroll; }
-  .app {
-    margin: 0 0 10px;
-    padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 16px max(12px, env(safe-area-inset-left));
-    border-left: none; border-right: none; border-radius: 0 0 12px 12px;
-    backdrop-filter: none; -webkit-backdrop-filter: none;
-  }
-  header { gap: 10px; padding: 2px 0 10px; }
-  .logo h1 { font-size: 1.35rem; letter-spacing: 1.5px; gap: 8px; }
-  .header-logo-icon { width: 26px; height: 26px; }
-  .logo p { display: none; }
-  .game-tab { padding: 8px 6px; font-size: 0.8rem; letter-spacing: 0.5px; gap: 6px; }
-  .header-buttons { gap: 6px; }
-  .date-nav-btn { width: 38px; height: 38px; font-size: 0.85rem; }
-  .text-btn { width: 38px; height: 38px; padding: 0; justify-content: center; }
-  .text-btn-icon { font-size: 1rem; }
-  /* Label stays for screen readers, only the icon shows. */
-  .text-btn > span:not(.text-btn-icon) {
-    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-  }
-  .lang-wrap { min-height: 38px; padding: 4px 6px; }
-  .lang-icon { display: none; }
-  .lang-select { font-size: 16px; }
   .next-board { margin-top: 8px; }
   .lives-row { margin: 10px 0 8px; }
   .progress-bar { margin-bottom: 10px; }
@@ -560,43 +395,6 @@ header::after {
   }
   .form-group input, .form-group textarea { font-size: 16px; }
   .no-puzzle { padding: 32px 16px; }
-}
-/* Tall phones have room to spare: the header gets its breathing space and subtitle back. */
-@media (max-width: 520px) and (min-height: 760px) {
-  .app { padding-top: max(18px, env(safe-area-inset-top)); }
-  header { gap: 16px; padding: 6px 0 18px; }
-  .logo h1 { font-size: 1.5rem; }
-  .header-logo-icon { width: 30px; height: 30px; }
-  .logo p { display: block; font-size: 0.68rem; margin-top: 4px; }
-  .game-tab { padding: 12px 6px; }
-  .next-board { margin-top: 14px; }
-}
-
-/* Legal notice: deliberately small and low-contrast, below the game panel. */
-.site-footer {
-  max-width: 680px;
-  margin: 0 auto 28px;
-  padding: 0 24px;
-  font-size: 0.56rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  opacity: 0.45;
-  text-align: center;
-}
-.site-footer a { color: inherit; }
-@media (max-width: 520px) {
-  /* On tall phones the panel stretches down to the footer and the game sits in the middle of the
-     space under the header, instead of a gap between the panel and the footer. */
-  body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
-  .app { flex: 1; display: flex; flex-direction: column; width: 100%; }
-  .app > .no-puzzle { margin-top: auto; margin-bottom: auto; }
-  /* Spare height: one share above the board, two below it with the buttons in their middle —
-     so the buttons sit halfway between the board and the bottom of the panel. */
-  .app > .game-area { flex: 1; display: flex; flex-direction: column; }
-  .app > .game-area::before { content: ''; flex: 1; }
-  /* padding-top mirrors the panel's 16px bottom padding, so the gaps above and below the buttons match. */
-  .app > .game-area > .actions { flex: 2; align-items: center; margin-top: 0; padding-top: 16px; }
-  .site-footer { margin-bottom: 0; padding: 0 16px max(8px, env(safe-area-inset-bottom)); font-size: 0.5rem; line-height: 1.4; }
 }
 
 .group-banner.missed {
@@ -616,26 +414,6 @@ header::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 ::-webkit-scrollbar-corner { background: transparent; }
 
-/* Game tab icons: large, beside the name; on a phone (three tabs) above it, so each name stays on one line. */
-.game-tab { white-space: nowrap; }
-.game-tab-icon { font-size: 1.35rem; line-height: 1; }
-@media (max-width: 520px) {
-  .game-tab { flex-direction: column; gap: 3px; padding-left: 2px; padding-right: 2px; font-size: 0.72rem; letter-spacing: 0.2px; }
-  .game-tab-icon { font-size: 1.25rem; }
-}
-
-/* "NEW" ribbon across the top-right corner of a game tab. Its centre sits as far from the top as from the right
-   edge (top + half its height = right + half its width), so the text is in the middle of the visible part. */
-.game-tab { position: relative; overflow: hidden; }
-.tab-ribbon {
-  position: absolute; top: 7px; right: -28px; width: 84px; height: 14px; transform: rotate(45deg);
-  background: linear-gradient(to bottom, #e8c56f, #b8872e); color: #1a1205;
-  font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 800; letter-spacing: 1px;
-  display: flex; align-items: center; justify-content: center; line-height: 1; text-shadow: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5); pointer-events: none;
-}
-@media (max-width: 520px) { .tab-ribbon { top: 4px; right: -32px; height: 12px; font-size: 0.45rem; } }
-
 /* Link to the next game at the bottom of a result popup. */
 .next-game {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -650,7 +428,136 @@ header::after {
 /* Grid's drawn icon in the text colour: a 3x3 grid (the ▦ character draws 4x4 in most fonts). */
 .icon-grid3 { display: inline-block; width: 0.8em; height: 0.8em; flex-shrink: 0; background: currentColor; }
 .icon-grid3 { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; }
-/* Icons centred on the tab name and the "next game" name. */
-.game-tab-icon { display: inline-flex; align-items: center; justify-content: center; }
+/* Icon centred on the "next game" name. */
 .next-game-name { display: inline-flex; align-items: center; gap: 8px; }
 .next-game-name .icon-grid3, .next-game-char { color: var(--gold); }
+
+/* ==========================================================================
+   Page shell (both games): header — logo, game tabs, streak / stats / guide —, the board line (‹ #37 date ›
+   and guesses), the game panel and the one-line footer. Phones first; one header row from 760 px.
+   ========================================================================== */
+button { font-family: inherit; }
+
+/* ---------- Header ---------- */
+header.site-header {
+  display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0 8px; padding: 0;
+}
+header.site-header::after { display: none; }
+.brand { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1 1 0; }  /* shrinks instead of pushing the buttons to a new row */
+.brand-icon { width: 32px; height: 32px; flex-shrink: 0; filter: drop-shadow(0 0 6px rgba(200, 170, 110, 0.35)); }
+.brand-text { display: flex; flex-direction: column; min-width: 0; }
+.brand-name {
+  font-family: 'Cinzel', serif; font-weight: 800; font-size: 1.08rem; letter-spacing: 1.2px; line-height: 1.1;
+  color: var(--gold-light); white-space: nowrap;
+}
+/* Subtitle: --text-muted on the background ≈ 7.9:1. */
+.brand-tag { font-size: 0.62rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Streak, statistics, guide: icon + a short label under it, at least 44×44 px. */
+.header-actions { display: flex; flex-shrink: 0; }
+.hbtn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  min-width: 44px; min-height: 44px; padding: 2px 3px; border: 0; border-radius: 8px; background: none;
+  color: var(--gold-light); cursor: pointer;
+}
+.hbtn svg { width: 21px; height: 21px; flex-shrink: 0; }
+.hbtn-lbl { font-size: 0.56rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.hbtn:hover { background: rgba(200, 170, 110, 0.08); }
+.hbtn:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.hbtn-ico { display: flex; align-items: center; gap: 1px; height: 21px; font-weight: 800; font-size: 0.84rem; color: #ffb547; }
+.hbtn-streak svg { width: 19px; color: #ff9b3d; }
+
+/* Game tabs: text with a cyan underline; the next mode as a small "coming soon" icon on the right. */
+.game-tabs {
+  order: 3; flex-basis: 100%; display: flex; align-items: stretch; gap: 4px;
+  margin-top: 6px; border-bottom: 1px solid var(--border);
+}
+.game-tab {
+  position: relative; display: flex; align-items: center; gap: 7px; min-height: 42px; padding: 0 12px;
+  font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-decoration: none; white-space: nowrap;
+}
+.game-tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+.game-tab:hover { color: var(--gold-light); }
+.game-tab:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.game-tab[aria-current="page"] { color: var(--gold-light); }
+.game-tab[aria-current="page"]::after {
+  content: ''; position: absolute; left: 8px; right: 8px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--cyan);
+}
+.tab-new { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); align-self: flex-start; margin: 11px 0 0 -4px; }
+.game-tab-soon { margin-left: auto; min-width: 44px; padding: 0; justify-content: center; opacity: 0.55; cursor: default; }
+.game-tab-soon:hover { color: var(--text-muted); }
+
+/* ---------- Board line: ‹ #37 date › ……… guesses ---------- */
+.board-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; margin: 6px 0; }
+.date-nav-wrap { display: flex; align-items: center; min-width: 0; }
+.date-nav-btn {
+  position: relative; flex-shrink: 0; width: 30px; height: 40px; padding: 0; border: 0; background: none;
+  color: var(--gold); font-size: 1.15rem; line-height: 1; cursor: pointer; user-select: none;
+}
+.date-nav-btn::after { content: ''; position: absolute; inset: 0 -7px; }   /* 44 px wide touch area */
+.date-nav-btn:hover:not(:disabled) { color: var(--gold-light); }
+.date-nav-btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.date-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.board-no { font-weight: 800; font-size: 0.9rem; color: var(--cyan); margin-right: 6px; }
+.board-no:empty { display: none; }
+.date-display { font-size: 0.82rem; font-weight: 600; color: var(--gold-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.board-line .grid-status {
+  display: flex; align-items: baseline; gap: 5px; margin: 0; flex-shrink: 0;
+  font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; text-transform: none; letter-spacing: 0;
+}
+.board-line .guesses-left { font-size: 1.1rem; font-weight: 800; color: var(--gold-light); text-shadow: none; }
+.tries-max { margin-left: -4px; }
+.game-panel:has(#gameArea.hidden) .grid-status { visibility: hidden; }
+.game-panel .game-area > .actions { margin-top: 14px; }
+
+/* ---------- Footer: one line + language ---------- */
+.site-footer {
+  display: flex; flex-direction: column; align-items: center; max-width: 640px; margin: 16px auto 0;
+  padding: 6px 12px max(16px, env(safe-area-inset-bottom)); font-size: 0.72rem; color: var(--text-muted);
+}
+.footer-line { display: flex; align-items: center; white-space: nowrap; }
+.footer-line > * + *::before { content: '·'; margin: 0 7px; color: var(--gold-dark); }
+.footer-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--text-muted); font: inherit; text-decoration: none; cursor: pointer; }
+.footer-link:hover, .footer-link:focus-visible { color: var(--gold-light); text-decoration: underline; outline: none; }
+.lang-wrap { display: inline-flex; align-items: center; gap: 4px; }
+.lang-icon { font-size: 0.8rem; }
+.lang-select {
+  min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--text-muted);
+  font: inherit; cursor: pointer;
+}
+.lang-select:hover { color: var(--gold-light); }
+.lang-select:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
+.lang-select option { background: #0d1322; color: var(--text); }
+.legal-text { font-size: 0.84rem; line-height: 1.6; color: var(--text-muted); }
+.legal-text a { color: var(--cyan); }
+
+/* ---------- Small phones ---------- */
+@media (max-width: 374px) {
+  .app { padding-left: 10px; padding-right: 10px; }
+  .brand { gap: 6px; }
+  .brand-icon { width: 28px; height: 28px; }
+  .brand-name { font-size: 0.96rem; letter-spacing: 0.8px; }
+  .brand-tag { font-size: 0.56rem; }
+  .hbtn { padding: 2px 1px; }
+  .hbtn-lbl { font-size: 0.52rem; }
+  .game-tab { padding: 0 9px; font-size: 0.76rem; }
+  .footer-line > * + *::before { margin: 0 5px; }
+}
+/* Phones: 16 px in the language list, so iOS doesn't zoom. */
+@media (max-width: 520px) {
+  .lang-select { font-size: 16px; }
+}
+/* ---------- Wide screens: one header row, the game in a panel ---------- */
+@media (min-width: 760px) {
+  .app { max-width: 760px; padding-top: clamp(10px, 3vh, 24px); }
+  header.site-header { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; }
+  .game-tabs { order: 0; margin: 0; border: 0; justify-self: center; }
+  .game-tab-soon { margin-left: 0; }
+  .brand-icon { width: 40px; height: 40px; }
+  .brand-name { font-size: 1.3rem; }
+  .game-panel {
+    margin-top: 14px; padding: 8px 20px 20px; border: 1px solid var(--border); border-radius: 12px;
+    background: rgba(8, 13, 25, 0.55); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  }
+}

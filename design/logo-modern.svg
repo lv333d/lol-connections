@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- The same mark as icon.svg (cyan L, three gold squares on the diagonal), flattened for small sizes:
+       no glow, no inner blue frame, no dark tiles, solid colours, a slightly rounder and thicker frame. -->
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="#0b1324" stroke="#c8aa6e" stroke-width="10"/>
+  <path fill="#3fd0e8" d="M44 40H74A8 8 0 0 1 82 48V166A8 8 0 0 0 90 174H208A8 8 0 0 1 216 182V208A8 8 0 0 1 208 216H44A8 8 0 0 1 36 208V48A8 8 0 0 1 44 40Z"/>
+  <g fill="#c8aa6e">
+    <rect x="133" y="40" width="40" height="40" rx="9"/>
+    <rect x="176" y="83" width="40" height="40" rx="9"/>
+    <rect x="90" y="126" width="40" height="40" rx="9"/>
+  </g>
+</svg>

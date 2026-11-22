@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl" data-built>
+<head>
+  <meta charset="UTF-8">
+  <!-- Root-relative like the live pages: guess.js fetches guess/… and data/… from the site root. -->
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#050811">
+  <title>Makieta A2 — Guess the Pro · LoL Connect</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <script>
+    /* Mock-up of the real game: guess.js in its admin-preview mode (?preview=DATE — nothing is saved).
+       ?date=… or today; then three guesses are made automatically so the table is not empty (?empty=1: none). */
+    (() => {
+      const q = new URLSearchParams(location.search);
+      if (!q.has('preview')) {
+        q.set('preview', q.get('date') || new Date().toISOString().slice(0, 10));
+        history.replaceState(null, '', location.pathname + '?' + q);
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="grid.css">
+  <link rel="stylesheet" href="guess.css">
+  <link rel="stylesheet" href="design/a2.css">
+  <style>
+    /* Guess the Pro in A2: the live table and search (guess.css), on the A2 background and header. */
+    .a2 .gp-search { width: 100%; margin: 4px auto 14px; max-width: 460px; background: none; }
+    .a2 .search-input { width: 100%; background: var(--a2-panel); border: 1px solid var(--a2-line); color: var(--a2-gold-l); }
+    .a2 .gp-table { max-width: 640px; }
+    .a2 .actions { margin-top: 14px; }
+    .a2 #toast { z-index: 60; }
+  </style>
+</head>
+<body class="a2">
+  <div class="app">
+    <header class="a2-top">
+      <a class="a2-brand" href="#" aria-label="LoL Connect — strona główna">
+        <img src="icon.svg" alt="">
+        <span class="a2-brand-text"><span class="a2-word">LoL Connect</span><span class="a2-tag">Codzienna zagadka LoL esports</span></span>
+      </a>
+      <nav class="a2-tabs" aria-label="Tryby gry">
+        <a class="a2-tab" href="design/variant-a2.html">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>
+          Grid</a>
+        <a class="a2-tab" href="design/variant-a2-guess.html" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>
+          Guess the Pro<span class="a2-new" title="Nowość" aria-label="Nowość"></span></a>
+        <span class="a2-tab a2-soon" aria-disabled="true" title="Wkrótce: nowy tryb" aria-label="Wkrótce: nowy tryb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke-dasharray="3 3"/><path d="M12 8v8M8 12h8"/></svg></span>
+      </nav>
+      <div class="a2-actions">
+        <button class="a2-hbtn a2-streak" type="button" data-soon="Seria dni — etap 2" title="Seria: 3 dni z rzędu">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg>3</span>
+          <span class="lbl">Seria</span></button>
+        <button class="a2-hbtn" type="button" data-soon="Statystyki — etap 2" title="Statystyki">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg>
+          <span class="lbl">Statystyki</span></button>
+        <button class="a2-hbtn" type="button" id="btnGuide" title="Jak grać">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2.9-1.2 1.8"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+          <span class="lbl">Jak grać</span></button>
+      </div>
+    </header>
+    <div id="noPuzzleScreen" class="no-puzzle hidden">
+      <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
+      <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
+    </div>
+
+    <main id="gameArea" class="game-area a2-game hidden">
+      <div class="a2-line">
+        <div class="a2-datenav">
+          <button id="btnPrevDate" type="button" aria-label="Poprzedni dzień">‹</button>
+          <span class="a2-no" data-guess-no>#—</span><span id="dateDisplay" class="a2-date"></span>
+          <button id="btnNextDate" type="button" aria-label="Następny dzień">›</button>
+        </div>
+        <span class="a2-tries"><span id="guessesLabel" data-i18n="guessesLabel"></span> <strong id="guessesLeft"></strong></span>
+      </div>
+
+      <div id="answerCard" class="gp-answer hidden"></div>
+
+      <div id="guessSearch" class="gp-search">
+        <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
+               role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+        <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
+      </div>
+
+      <div class="gp-table" role="table">
+        <div class="gp-row gp-head" role="row">
+          <div role="columnheader" data-i18n="colPlayer">Player</div>
+          <div role="columnheader" data-i18n="colNat">Country</div>
+          <div role="columnheader" data-i18n="colPos">Position</div>
+          <div role="columnheader" data-i18n="colLeague">League</div>
+          <div role="columnheader" data-i18n="colTeam">Team</div>
+          <div role="columnheader" data-i18n="colTitles">Int'l titles</div>
+          <div role="columnheader" data-i18n="colDebut">Tier&nbsp;1 debut</div>
+        </div>
+        <div id="guessRows" role="rowgroup"></div>
+      </div>
+
+      <div class="actions">
+        <button id="btnGiveUp" data-i18n="giveUp" class="a2-btn"></button>
+        <button id="btnShowResults" data-i18n="results" class="a2-btn hidden"></button>
+      </div>
+    </main>
+  </div>
+  <footer class="a2-foot">
+    <div class="a2-foot-line">
+      <span>Projekt fanowski</span>
+      <button type="button" data-open="legal">Informacje prawne</button>
+      <a href="#" data-soon="Link do TikToka ustawiany w adminie">TikTok</a>
+      <a href="#" data-soon="Link do Discorda ustawiany w adminie">Discord</a>
+    </div>
+    <select id="langSelect" aria-label="Język"><option value="pl">🌐 Polski</option><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option></select>
+  </footer>
+  <div id="legal" class="overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <button class="x" type="button" data-close="legal" aria-label="Zamknij">×</button>
+      <h2 id="legalTitle">Informacje prawne</h2>
+      <p>LoL Connect to niekomercyjny projekt fanowski. LoL Connect nie jest wspierany przez Riot Games i nie odzwierciedla poglądów ani opinii Riot Games ani nikogo oficjalnie zaangażowanego w tworzenie lub zarządzanie własnościami Riot Games. Riot Games i wszystkie powiązane własności są znakami towarowymi lub zastrzeżonymi znakami towarowymi Riot Games, Inc. Projekt nie jest powiązany z żadną ligą ani drużyną e-sportową — ich nazwy i loga należą do właścicieli. Dane i zdjęcia graczy: <a href="https://lol.fandom.com/" target="_blank" rel="noopener">Leaguepedia</a> (teksty na licencji CC BY-SA); prawa do zdjęć należą do ich autorów.</p>
+    </div>
+  </div>
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="resultOverlay" aria-label="Close">&times;</button>
+      <h2 id="resultTitle"></h2>
+      <div id="resultPlayer" class="gp-result-player"></div>
+      <div id="resultScore" class="result-score"></div>
+      <div id="emojiGrid" class="emoji-grid"></div>
+      <div class="result-actions">
+        <button id="btnShare" data-i18n="share" class="btn"></button>
+        <button id="btnCopy" data-i18n="copy" class="btn btn-secondary"></button>
+      </div>
+      <div id="nextBoard" class="grid-countdown hidden">
+        <div id="nextBoardLabel"></div>
+        <div id="nextBoardTime" class="grid-countdown-time"></div>
+      </div>
+      <a id="nextGame" class="next-game" href="/"></a>
+    </div>
+  </div>
+  <div id="giveUpOverlay" class="overlay hidden">
+    <div class="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="giveUpTitle" aria-describedby="giveUpText">
+      <h2 id="giveUpTitle" data-i18n="giveUpTitle"></h2>
+      <p id="giveUpText" data-i18n="giveUpText"></p>
+      <div class="result-actions">
+        <button id="btnGiveUpCancel" data-i18n="giveUpCancel" class="btn btn-secondary"></button>
+        <button id="btnGiveUpConfirm" data-i18n="giveUpConfirm" class="btn"></button>
+      </div>
+    </div>
+  </div>
+  <div id="guideOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="guideOverlay" aria-label="Close">&times;</button>
+      <h2 id="guideTitle" data-i18n="guideTitle"></h2>
+      <div id="guideContent"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+
+  <script src="site.js"></script>
+  <script src="guess.js"></script>
+  <script>
+    /* Mock-up extras: the legal modal and placeholder buttons (as design/mock.js), the day's number, and three
+       automatic guesses — a player from the answer's league, one of the same nationality and a famous one. */
+    (() => {
+      const $ = id => document.getElementById(id);
+      const say = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400); };
+      document.querySelectorAll('[data-soon]').forEach(b => b.addEventListener('click', () => say(b.dataset.soon)));
+      document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => $(b.dataset.open).classList.remove('hidden')));
+      const date = new URLSearchParams(location.search).get('preview');
+      Promise.all([fetch(`guess/${date}.json`).then(r => r.json()), fetch('data/guess-players.json').then(r => r.json())]).then(async ([day, pool]) => {
+        document.querySelector('[data-guess-no]').textContent = '#' + day.number;
+        if (new URLSearchParams(location.search).has('empty')) return;
+        const ans = pool.find(p => p.id === day.playerId);
+        const nats = p => p.nats || (p.nat ? [p.nat] : []);
+        const fame = (a, b) => (b.t || 0) - (a.t || 0);
+        const others = pool.filter(p => p.id !== ans.id).sort(fame);
+        const picks = [];
+        const add = p => { if (p && !picks.includes(p)) picks.push(p); };
+        add(others.find(p => p.league === ans.league && p.team?.id !== ans.team?.id));
+        add(others.find(p => nats(p).some(n => nats(ans).includes(n)) && p.league !== ans.league));
+        add(others.find(p => !picks.includes(p)));
+        while (!$('gameArea') || $('gameArea').classList.contains('hidden')) await new Promise(r => setTimeout(r, 100));
+        const input = $('searchInput');
+        for (const p of picks.reverse()) {
+          input.value = p.nick;
+          input.dispatchEvent(new Event('input'));
+          const i = [...document.querySelectorAll('#searchResults li')].findIndex(li => li.textContent.includes(p.nick));
+          for (let k = 0; k <= i; k++) input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+          input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+          await new Promise(r => setTimeout(r, 120));
+        }
+        input.blur();
+        window.scrollTo(0, 0);
+      });
+    })();
+  </script>
+</body>
+</html>

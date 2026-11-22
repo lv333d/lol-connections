@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#050811">
+  <title>Makieta A2 — Grid · LoL Connect</title>
+  <link rel="icon" type="image/svg+xml" href="../icon.svg">
+  <link rel="stylesheet" href="a2.css">
+  <style>
+    /* Grid board of variant A2 (header, tabs, board line and footer: a2.css). Cells and category cards as in A,
+       with fainter camera corners. Generated from _grid_tpl.html + variant-a.html. */
+    button { font: inherit; color: inherit; }
+    /* ---------- Grid ---------- */
+    .grid { display: grid; grid-template-columns: minmax(70px, 0.8fr) repeat(3, 1fr); gap: 6px; }
+    .corner { display: flex; align-items: center; justify-content: center; opacity: 0.5; }
+    .corner img { width: 44%; height: auto; }
+    .cond {
+      position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-width: 0;
+      padding: 8px 4px 7px; border-radius: 8px; background: linear-gradient(180deg, rgba(22, 34, 58, 0.75), rgba(13, 21, 38, 0.6));
+      border: 1px solid var(--a2-line);
+    }
+    .cond-col { border-bottom: 2px solid var(--a2-gold-d); }
+    .cond-row { border-right: 2px solid var(--a2-gold-d); }
+    .cond-logo { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #ece6d6; padding: 4px; }
+    .cond-logo img { max-width: 100%; max-height: 100%; }
+    .cond-logo.flag { background: none; padding: 0; }
+    .cond-logo.flag img { width: 100%; border-radius: 4px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4); }
+    .cond-logo.round { border-radius: 50%; padding: 0; overflow: hidden; border: 2px solid var(--a2-gold); }
+    .cond-logo.round img { width: 100%; height: 100%; object-fit: cover; }
+    .cond-logo.emblem { font-weight: 800; font-size: 0.8rem; color: #1a1205; }
+    .cond-cap { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; line-height: 1.15; color: var(--a2-gold-l); max-width: 100%; overflow-wrap: anywhere; }
+    .info {
+      position: absolute; top: 3px; right: 3px; width: 17px; height: 17px; border-radius: 50%; border: 1px solid rgba(63, 208, 232, 0.7);
+      background: rgba(5, 8, 17, 0.7); color: var(--a2-cyan); font-size: 0.62rem; font-weight: 800; font-style: italic; font-family: Georgia, serif;
+      line-height: 15px; text-align: center; cursor: help; padding: 0;
+    }
+    .info::after { content: ''; position: absolute; inset: -14px; }   /* 17 + 2×14 ≈ 45 px touch target */
+    .info:focus-visible { outline: 2px solid var(--a2-cyan); outline-offset: 2px; }
+
+    .cell {
+      position: relative; aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--a2-line); background: var(--a2-panel); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    /* Camera-frame corners. */
+    .cell::before {
+      content: ''; position: absolute; inset: 5px; pointer-events: none; opacity: 0.45;
+      background:
+        linear-gradient(var(--a2-gold), var(--a2-gold)) top left / 10px 1.5px, linear-gradient(var(--a2-gold), var(--a2-gold)) top left / 1.5px 10px,
+        linear-gradient(var(--a2-gold), var(--a2-gold)) bottom right / 10px 1.5px, linear-gradient(var(--a2-gold), var(--a2-gold)) bottom right / 1.5px 10px;
+      background-repeat: no-repeat;
+    }
+    .plus { font-size: 2rem; font-weight: 300; color: var(--a2-gold); opacity: 0.75; line-height: 1; }
+    @media (hover: hover) {
+      .cell:not(.filled):hover { border-color: var(--a2-cyan); box-shadow: 0 0 0 1px rgba(63, 208, 232, 0.35), 0 0 18px rgba(63, 208, 232, 0.18); transform: translateY(-2px); }
+    }
+    .cell:focus-visible { outline: 2px solid var(--a2-cyan); outline-offset: 2px; }
+    .cell.filled { border-color: rgba(74, 224, 136, 0.7); cursor: default; }
+    .cell.filled::before { display: none; }
+    .portrait { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+    .nick {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 4px 4px; font-size: 0.7rem; font-weight: 800; text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(5, 8, 17, 0.92) 55%); color: #fff;
+      border-bottom: 2px solid var(--a2-ok);
+    }
+    .nogrid { grid-column: 1 / -1; text-align: center; padding: 40px 0; color: var(--a2-muted); }
+
+    .below { display: flex; justify-content: center; margin-top: 12px; }
+    .btn {
+      min-height: 44px; padding: 0 22px; border-radius: 6px; border: 1px solid var(--a2-line); background: rgba(200, 170, 110, 0.06);
+      color: var(--a2-gold-l); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.4px; text-transform: uppercase; cursor: pointer;
+    }
+    .btn:hover { border-color: var(--a2-gold); }
+
+    /* ---------- Modal + toast ---------- */
+    .overlay { position: fixed; inset: 0; z-index: 50; background: rgba(2, 4, 10, 0.75); display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .overlay.hidden { display: none; }
+    .modal { max-width: 520px; max-height: 85vh; overflow: auto; background: var(--a2-navy); border: 1px solid var(--a2-line); border-top: 3px solid var(--a2-cyan); border-radius: 10px; padding: 20px; position: relative; }
+    .modal h2 { font-family: 'Cinzel', serif; color: var(--a2-gold-l); font-size: 1.05rem; margin-bottom: 10px; }
+    .modal p { font-size: 0.82rem; line-height: 1.55; color: var(--a2-muted); }
+    .modal p a { color: var(--a2-cyan); }
+    .x { position: absolute; top: 6px; right: 6px; width: 44px; height: 44px; border: 0; background: none; color: var(--a2-muted); font-size: 1.4rem; cursor: pointer; }
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 60;
+      max-width: min(92vw, 420px); padding: 10px 16px; border-radius: 8px; background: var(--a2-panel-hi); border: 1px solid var(--a2-cyan);
+      font-size: 0.82rem; font-weight: 600; text-align: center; transition: opacity .2s, transform .2s;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .below { display: flex; justify-content: center; margin-top: 12px; }
+    @media (max-width: 374px) {
+      .grid { grid-template-columns: minmax(62px, 0.75fr) repeat(3, 1fr); gap: 5px; }
+      .cond-logo { width: 40px; height: 40px; }
+      .cond-cap { font-size: 0.64rem; }
+    }
+    @media (min-width: 760px) {
+      .grid { max-width: 560px; margin: 0 auto; gap: 8px; }
+      .a2-line { max-width: 560px; margin-left: auto; margin-right: auto; }
+      .cond-logo { width: 54px; height: 54px; }
+      .cond-cap { font-size: 0.76rem; }
+      .nick { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body class="a2">
+  <template id="emblemTpl"><img src="../icon.svg" alt=""></template>
+  <div class="app">
+    <header class="a2-top">
+      <a class="a2-brand" href="#" aria-label="LoL Connect — strona główna">
+        <img src="../icon.svg" alt="">
+        <span class="a2-brand-text"><span class="a2-word">LoL Connect</span><span class="a2-tag">Codzienna zagadka LoL esports</span></span>
+      </a>
+      <nav class="a2-tabs" aria-label="Tryby gry">
+        <a class="a2-tab" href="variant-a2.html" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>
+          Grid</a>
+        <a class="a2-tab" href="variant-a2-guess.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>
+          Guess the Pro<span class="a2-new" title="Nowość" aria-label="Nowość"></span></a>
+        <span class="a2-tab a2-soon" aria-disabled="true" title="Wkrótce: nowy tryb" aria-label="Wkrótce: nowy tryb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke-dasharray="3 3"/><path d="M12 8v8M8 12h8"/></svg></span>
+      </nav>
+      <div class="a2-actions">
+        <button class="a2-hbtn a2-streak" type="button" data-soon="Seria dni — etap 2" title="Seria: 3 dni z rzędu">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg>3</span>
+          <span class="lbl">Seria</span></button>
+        <button class="a2-hbtn" type="button" data-soon="Statystyki — etap 2" title="Statystyki">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg>
+          <span class="lbl">Statystyki</span></button>
+        <button class="a2-hbtn" type="button" data-soon="Tu otworzy się poradnik" title="Jak grać">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2.9-1.2 1.8"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+          <span class="lbl">Jak grać</span></button>
+      </div>
+    </header>
+    <main class="a2-game">
+      <div class="a2-line">
+        <div class="a2-datenav">
+          <button type="button" aria-label="Poprzedni dzień" data-soon="Makieta: poprzedni dzień">‹</button>
+          <span class="a2-no" data-board-no>#—</span><span class="a2-date" data-date-long></span>
+          <button type="button" aria-label="Następny dzień" disabled>›</button>
+        </div>
+        <span class="a2-tries">Próby <strong data-guesses-left>—</strong>/9</span>
+      </div>
+      <div id="grid" class="grid"></div>
+      <div class="below"><button class="a2-btn" type="button" data-soon="Makieta: poddanie się">Poddaj się</button></div>
+    </main>
+  </div>
+  <footer class="a2-foot">
+    <div class="a2-foot-line">
+      <span>Projekt fanowski</span>
+      <button type="button" data-open="legal">Informacje prawne</button>
+      <a href="#" data-soon="Link do TikToka ustawiany w adminie">TikTok</a>
+      <a href="#" data-soon="Link do Discorda ustawiany w adminie">Discord</a>
+    </div>
+    <select aria-label="Język"><option value="pl">🌐 Polski</option><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option></select>
+  </footer>
+  <div id="legal" class="overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <button class="x" type="button" data-close="legal" aria-label="Zamknij">×</button>
+      <h2 id="legalTitle">Informacje prawne</h2>
+      <p>LoL Connect to niekomercyjny projekt fanowski. LoL Connect nie jest wspierany przez Riot Games i nie odzwierciedla poglądów ani opinii Riot Games ani nikogo oficjalnie zaangażowanego w tworzenie lub zarządzanie własnościami Riot Games. Riot Games i wszystkie powiązane własności są znakami towarowymi lub zastrzeżonymi znakami towarowymi Riot Games, Inc. Projekt nie jest powiązany z żadną ligą ani drużyną e-sportową — ich nazwy i loga należą do właścicieli. Dane i zdjęcia graczy: <a href="https://lol.fandom.com/" target="_blank" rel="noopener">Leaguepedia</a> (teksty na licencji CC BY-SA); prawa do zdjęć należą do ich autorów.</p>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="mock.js"></script>
+</body>
+</html>

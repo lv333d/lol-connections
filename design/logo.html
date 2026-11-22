@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Logo — obecne i odświeżone</title>
+  <link rel="stylesheet" href="a2.css">
+  <style>
+    /* The current logo (icon.svg) next to the proposed flat refresh (design/logo-modern.svg), at favicon and
+       header sizes, on the site background and on a light browser tab. */
+    .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; }
+    h1 { font: 800 1.2rem 'Cinzel', serif; color: var(--a2-gold-l); margin: 0 0 4px; }
+    p.lead { color: var(--a2-muted); font-size: 0.85rem; margin: 0 0 18px; line-height: 1.5; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .card { background: var(--a2-panel); border: 1px solid var(--a2-line); border-radius: 12px; padding: 16px; }
+    .card h2 { font-size: 0.9rem; margin: 0 0 12px; color: var(--a2-gold-l); }
+    .sizes { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+    .sizes figure { margin: 0; text-align: center; font-size: 0.7rem; color: var(--a2-muted); }
+    .sizes img { display: block; margin: 0 auto 6px; }
+    .tab { margin-top: 14px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px 8px 0 0; background: #f1f3f4; color: #202124; font: 13px system-ui, sans-serif; width: max-content; }
+    .tab.dark { background: #35363a; color: #e8eaed; }
+    .hdr { margin-top: 14px; display: flex; align-items: center; gap: 8px; }
+    .hdr img { width: 32px; height: 32px; }
+    ul { margin: 12px 0 0; padding-left: 18px; color: var(--a2-muted); font-size: 0.8rem; line-height: 1.5; }
+  </style>
+</head>
+<body class="a2">
+  <div class="wrap">
+    <h1>Logo</h1>
+    <p class="lead">Po lewej obecne logo (zostaje w wariancie A2). Po prawej propozycja odświeżenia: ten sam znak (cyjanowe L i trzy złote pola po przekątnej), ale płaski. Przy 16–32 px poświata, wewnętrzna niebieska ramka i ciemne kafelki zlewają się w szum.</p>
+    <div class="cols">
+      <div class="card">
+        <h2>Obecne — icon.svg</h2>
+        <div class="sizes">
+          <figure><img src="../icon.svg" width="16" height="16" alt="">16</figure>
+          <figure><img src="../icon.svg" width="32" height="32" alt="">32</figure>
+          <figure><img src="../icon.svg" width="48" height="48" alt="">48</figure>
+          <figure><img src="../icon.svg" width="128" height="128" alt="">128</figure>
+        </div>
+        <div class="tab"><img src="../icon.svg" width="16" height="16" alt="">LoL Connect</div>
+        <div class="tab dark"><img src="../icon.svg" width="16" height="16" alt="">LoL Connect</div>
+        <div class="hdr"><img src="../icon.svg" alt=""><span class="a2-word">LoL Connect</span></div>
+      </div>
+      <div class="card">
+        <h2>Odświeżone — propozycja</h2>
+        <div class="sizes">
+          <figure><img src="logo-modern.svg" width="16" height="16" alt="">16</figure>
+          <figure><img src="logo-modern.svg" width="32" height="32" alt="">32</figure>
+          <figure><img src="logo-modern.svg" width="48" height="48" alt="">48</figure>
+          <figure><img src="logo-modern.svg" width="128" height="128" alt="">128</figure>
+        </div>
+        <div class="tab"><img src="logo-modern.svg" width="16" height="16" alt="">LoL Connect</div>
+        <div class="tab dark"><img src="logo-modern.svg" width="16" height="16" alt="">LoL Connect</div>
+        <div class="hdr"><img src="logo-modern.svg" alt=""><span class="a2-word">LoL Connect</span></div>
+        <ul>
+          <li>bez poświaty i gradientów — ostre krawędzie w 16 px,</li>
+          <li>bez 4 ciemnych kafelków — zostaje sam znak „L + przekątna”,</li>
+          <li>grubsza złota ramka, większe zaokrąglenie (jak ikony aplikacji).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

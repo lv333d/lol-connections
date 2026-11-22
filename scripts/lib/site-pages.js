@@ -86,6 +86,8 @@ export async function buildPages(root) {
         (m, open, tag, key, close) => (typeof dict[key] === 'string' ? open + escHtml(dict[key]) + close : m));
       html = html.replace(/(\bdata-i18n-ph="([^"]+)")/g, (m, attr, key) =>
         (typeof dict[key] === 'string' ? `${attr} placeholder="${escAttr(dict[key])}"` : m));
+      html = html.replace(/(\bdata-i18n-title="([^"]+)")/g, (m, attr, key) =>
+        (typeof dict[key] === 'string' ? `${attr} title="${escAttr(dict[key])}"` : m));
       html = replaceOnce(html, /<div id="guideContent"><\/div>/, `<div id="guideContent">${GUIDE[page.id](dict)}</div>`, 'guideContent');
 
       // Links between pages and the language picker stay in this language.

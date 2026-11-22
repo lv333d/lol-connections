@@ -1,0 +1,125 @@
+/* Variant A2 — "Broadcast, calmer": shared by design/variant-a2.html (Grid) and design/variant-a2-guess.html
+   (Guess the Pro, which also loads style.css, grid.css and guess.css — every rule here is scoped to .a2 / a2-*
+   classes so it wins over them without touching the live pages).
+   Compared with A: the old logo, one quiet tab line (text + cyan underline, no glow, "coming soon" as a small
+   icon), the board line without the cyan block, no moving light beams, hexes only faintly at the bottom. */
+@font-face { font-family: 'Cinzel'; font-weight: 600 800; font-display: swap; src: url('../assets/fonts/cinzel-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Cinzel'; font-weight: 600 800; font-display: swap; src: url('../assets/fonts/cinzel-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+@font-face { font-family: 'Montserrat'; font-weight: 400 800; font-display: swap; src: url('../assets/fonts/montserrat-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-weight: 400 800; font-display: swap; src: url('../assets/fonts/montserrat-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+
+:root {
+  --a2-bg: #050811; --a2-navy: #0b1324; --a2-panel: rgba(13, 21, 38, 0.82); --a2-panel-hi: rgba(22, 34, 58, 0.92);
+  --a2-gold: #c8aa6e; --a2-gold-l: #f0e6d2; --a2-gold-d: #785a28;
+  --a2-cyan: #3fd0e8; --a2-ok: #4ae088; --a2-muted: #a8aec0;   /* muted on the background: ≈ 8.9:1 */
+  --a2-line: rgba(200, 170, 110, 0.22);
+}
+body.a2 {
+  font-family: 'Montserrat', system-ui, sans-serif; color: var(--a2-gold-l); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; margin: 0;
+  background:
+    radial-gradient(60% 34% at 10% -6%, rgba(63, 208, 232, 0.13), transparent 70%),
+    radial-gradient(55% 30% at 92% -6%, rgba(200, 170, 110, 0.12), transparent 70%),
+    radial-gradient(90% 40% at 50% 108%, rgba(63, 208, 232, 0.07), transparent 70%),
+    var(--a2-bg);
+  background-attachment: fixed;
+}
+body.a2::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v33' fill='none' stroke='%23c8aa6e' stroke-opacity='.09' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 97px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 55%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 55%, #000 100%);
+}
+body.a2 * { box-sizing: border-box; }
+.a2 button, .a2 a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* The live style.css draws .app as a framed card; A2 has no card on phones. */
+.a2 .app { max-width: 640px; margin: 0 auto; padding: max(10px, env(safe-area-inset-top)) 12px 8px; background: none; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-radius: 0; }
+
+/* ---------- Top bar ---------- */
+/* style.css (loaded by the Guess page) styles every <header> as a centred column with a line under it. */
+.a2 .a2-top { flex-direction: row; padding: 0; }
+.a2 .a2-top::after { display: none; }
+.a2-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 8px; }
+.a2-brand { display: flex; align-items: center; gap: 8px; min-width: 0; text-decoration: none; color: inherit; }
+.a2-brand img { width: 32px; height: 32px; flex-shrink: 0; }
+.a2-brand-text { display: flex; flex-direction: column; min-width: 0; }
+.a2-word { font-family: 'Cinzel', serif; font-weight: 800; font-size: 1.08rem; letter-spacing: 1.2px; line-height: 1.1; color: var(--a2-gold-l); white-space: nowrap; }
+.a2-tag { font-size: 0.62rem; color: var(--a2-muted); white-space: nowrap; }
+.a2-actions { display: flex; flex-shrink: 0; }
+.a2-hbtn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-width: 44px; min-height: 44px; padding: 2px 3px;
+  border: 0; background: none; border-radius: 8px; cursor: pointer; color: var(--a2-gold-l); font: inherit;
+}
+.a2-hbtn svg { width: 21px; height: 21px; }
+.a2-hbtn .lbl { font-size: 0.56rem; font-weight: 600; color: var(--a2-muted); }
+.a2-hbtn:hover { background: rgba(200, 170, 110, 0.08); }
+.a2-hbtn:focus-visible { outline: 2px solid var(--a2-cyan); outline-offset: -2px; }
+.a2-streak .ico { display: flex; align-items: center; gap: 1px; font-weight: 800; font-size: 0.84rem; color: #ffb547; line-height: 21px; }
+.a2-streak svg { color: #ff9b3d; width: 19px; }
+
+/* ---------- Tabs: text + underline ---------- */
+.a2-tabs { order: 3; flex-basis: 100%; display: flex; align-items: stretch; gap: 4px; margin-top: 6px; border-bottom: 1px solid var(--a2-line); }
+.a2-tab {
+  position: relative; display: flex; align-items: center; gap: 7px; min-height: 42px; padding: 0 12px; text-decoration: none;
+  font-size: 0.8rem; font-weight: 700; color: var(--a2-muted); white-space: nowrap;
+}
+.a2-tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+.a2-tab[aria-current="page"] { color: var(--a2-gold-l); }
+.a2-tab[aria-current="page"]::after { content: ''; position: absolute; left: 8px; right: 8px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--a2-cyan); }
+.a2-tab:hover { color: var(--a2-gold-l); }
+.a2-tab:focus-visible { outline: 2px solid var(--a2-cyan); outline-offset: -2px; }
+.a2-new { width: 7px; height: 7px; border-radius: 50%; background: var(--a2-cyan); align-self: flex-start; margin: 11px 0 0 -4px; }
+.a2-soon { margin-left: auto; min-width: 44px; padding: 0; justify-content: center; opacity: 0.55; cursor: default; }
+
+/* ---------- Board line: ‹ #37 · date › ……… guesses ---------- */
+.a2-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0 6px; min-height: 40px; }
+.a2-datenav { display: flex; align-items: center; min-width: 0; }
+.a2-datenav button { position: relative; width: 30px; height: 40px; border: 0; background: none; color: var(--a2-gold); font-size: 1.15rem; cursor: pointer; padding: 0; }
+.a2-datenav button::after { content: ''; position: absolute; inset: 0 -7px; }
+.a2-datenav button:disabled { opacity: 0.3; cursor: default; }
+.a2-no { font-weight: 800; color: var(--a2-cyan); margin-right: 6px; font-size: 0.9rem; }
+.a2-date { font-size: 0.82rem; font-weight: 600; color: var(--a2-gold-l); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.a2-tries { display: flex; align-items: baseline; gap: 5px; font-size: 0.72rem; color: var(--a2-muted); font-weight: 600; white-space: nowrap; }
+.a2-tries strong { font-size: 1.1rem; color: var(--a2-gold-l); font-weight: 800; }
+
+/* ---------- Buttons, footer, modal, toast ---------- */
+.a2-btn {
+  min-height: 44px; padding: 0 22px; border-radius: 6px; border: 1px solid var(--a2-line); background: rgba(200, 170, 110, 0.06);
+  color: var(--a2-gold-l); font: 700 0.82rem 'Montserrat', sans-serif; letter-spacing: 0.4px; text-transform: uppercase; cursor: pointer;
+}
+.a2-btn:hover { border-color: var(--a2-gold); }
+.a2-foot { display: flex; flex-direction: column; align-items: center; margin: 16px auto 0; padding: 10px 12px 20px; font-size: 0.72rem; color: var(--a2-muted); max-width: 640px; }
+.a2-foot-line { display: flex; align-items: center; white-space: nowrap; }
+.a2-foot-line > * + *::before { content: '·'; margin: 0 7px; color: var(--a2-gold-d); }
+.a2-foot a, .a2-foot button { color: var(--a2-muted); text-decoration: none; background: none; border: 0; cursor: pointer; padding: 10px 0; font: inherit; }
+.a2-foot a:hover, .a2-foot button:hover { color: var(--a2-gold-l); text-decoration: underline; }
+.a2-foot select { background: none; border: 0; color: var(--a2-muted); font: inherit; padding: 8px 4px; min-height: 44px; cursor: pointer; }
+.a2-foot select option { background: var(--a2-navy); }
+
+.a2 .x { position: absolute; top: 6px; right: 6px; width: 44px; height: 44px; border: 0; background: none; color: var(--a2-muted); font-size: 1.4rem; cursor: pointer; }
+
+/* ---------- Small phones ---------- */
+@media (max-width: 374px) {
+  .a2 .app { padding-left: 10px; padding-right: 10px; }
+  .a2-brand { gap: 6px; }
+  .a2-brand img { width: 28px; height: 28px; }
+  .a2-word { font-size: 0.96rem; letter-spacing: 0.8px; }
+  .a2-tag { font-size: 0.56rem; }
+  .a2-hbtn { padding: 2px 1px; }
+  .a2-hbtn .lbl { font-size: 0.52rem; }
+  .a2-tab { padding: 0 9px; font-size: 0.76rem; }
+}
+/* ---------- Desktop: one header row ---------- */
+@media (min-width: 760px) {
+  .a2 .app { max-width: 760px; padding-top: 22px; }
+  .a2-top { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; }
+  .a2-tabs { order: 0; margin: 0; border: 0; justify-self: center; }
+  .a2-soon { margin-left: 0; }
+  .a2-brand img { width: 40px; height: 40px; }
+  .a2-word { font-size: 1.3rem; }
+  .a2-game { margin-top: 16px; padding: 10px 20px 20px; background: rgba(8, 13, 25, 0.55); border: 1px solid var(--a2-line); border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .a2 *, .a2 *::before, .a2 *::after { animation: none !important; transition: none !important; }
+}

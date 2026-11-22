@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Makiety — porównanie rozmiarów</title>
+  <style>
+    /* Review tool for the stage-1 mock-ups: one variant at several real viewport sizes (each iframe keeps the
+       device's CSS size, so the page's own breakpoints apply, and is scaled down to fit when needed).
+       ?v=a|b  ?only=390x667  ?date=YYYY-MM-DD */
+    body { margin: 0; padding: 16px; background: #1b1f27; color: #dfe3ea; font: 13px system-ui, sans-serif; }
+    .bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .bar a { color: #9fd8ff; }
+    .row { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+    figure { margin: 0; }
+    figcaption { margin-bottom: 6px; font-weight: 600; }
+    .frame { overflow: hidden; border: 1px solid #3a4150; border-radius: 6px; background: #050811; }
+    iframe { border: 0; display: block; transform-origin: 0 0; }
+  </style>
+</head>
+<body>
+  <div class="bar" id="bar"></div>
+  <div class="row" id="row"></div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const PAGES = { a: ['A — Transmisja', 'variant-a.html'], b: ['B — Arena hextech', 'variant-b.html'], a2: ['A2 — Grid', 'variant-a2.html'], a2g: ['A2 — Guess the Pro', 'variant-a2-guess.html'],
+      grid: ['Strona: Grid', '/index.html'], guess: ['Strona: Guess the Pro', '/guess.html'] };
+    // ?src=URL: any page (e.g. the built dist/ served on another port) instead of the list above.
+    if (q.get('src')) PAGES.src = ['Adres', q.get('src')];
+    const v = q.get('src') ? 'src' : PAGES[q.get('v')] ? q.get('v') : 'a';
+    const day = q.get('date') || new Date().toISOString().slice(0, 10);
+    // Mock-ups take ?date=; the real games their admin preview (?preview=, &solved=1 for a finished game).
+    const date = v === 'src' ? '' : PAGES[v][1].startsWith('/') ? `?preview=${day}${q.has('solved') ? '&solved=1' : ''}` : (q.get('date') ? '?date=' + encodeURIComponent(q.get('date')) : '');
+    const SIZES = [[360, 740], [390, 667], [390, 844], [430, 932], [1280, 800]];
+    const only = q.get('only');
+    const sizes = only ? SIZES.filter(([w, h]) => `${w}x${h}` === only) : SIZES;
+    document.getElementById('bar').innerHTML = `<strong>${PAGES[v][0]}</strong> · `
+      + Object.entries(PAGES).map(([k, [name]]) => `<a href="?v=${k}">${name}</a>`).join(' · ')
+      + ` · <a href="${PAGES[v][1]}${date}" target="_blank">otwórz osobno ↗</a> · <a href="logo.html">logo</a>`;
+    const row = document.getElementById('row');
+    for (const [w, h] of sizes) {
+      const scale = Math.min(1, (innerWidth - 40) / w, q.has('fit') ? (innerHeight - 90) / h : 1);
+      const fig = document.createElement('figure');
+      fig.innerHTML = `<figcaption>${w} × ${h}${scale < 1 ? ` (skala ${Math.round(scale * 100)}%)` : ''}</figcaption>`;
+      const frame = document.createElement('div');
+      frame.className = 'frame';
+      frame.style.width = Math.round(w * scale) + 'px';
+      frame.style.height = Math.round(h * scale) + 'px';
+      const f = document.createElement('iframe');
+      f.src = PAGES[v][1] + date;
+      f.title = `Wariant ${v} ${w}×${h}`;
+      f.style.width = w + 'px';
+      f.style.height = h + 'px';
+      f.style.transform = `scale(${scale})`;
+      // Phones draw overlay scrollbars that take no width; desktop Chrome would steal 15 px from the frame.
+      if (w < 760) f.addEventListener('load', () => { try { const st = f.contentDocument.createElement('style'); st.textContent = 'html{scrollbar-width:none}'; f.contentDocument.head.appendChild(st); } catch {} });
+      frame.appendChild(f);
+      fig.appendChild(frame);
+      row.appendChild(fig);
+    }
+  </script>
+</body>
+</html>

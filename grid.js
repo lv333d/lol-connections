@@ -14,7 +14,7 @@ const MAX_RESULTS = 50;
 const I18N = {
   pl: {
     // Same site subtitle as Guess the Pro (guess.js) — it names the site, not the game.
-    subtitle: 'codzienna zagadka League of Legends',
+    subtitle: 'Codzienna zagadka LoL esports',
     noPuzzleTitle: '📅 Brak siatki na dziś', noPuzzleText: 'Wróć jutro po nową siatkę!',
     nextBoardIn: 'Nowa siatka za', nextBoardSoon: 'Nowa siatka już wkrótce',
     guessesLabel: 'Pozostałe próby:', giveUp: 'Poddaj się', results: 'Wyniki',
@@ -25,6 +25,8 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy, a pozostałe pola zostaną odkryte. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
+    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria', statsLabel: 'Statystyki',
+    comingSoon: 'Serie i statystyki już wkrótce',
     answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza lub trenera, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
@@ -40,7 +42,7 @@ const I18N = {
     }
   },
   en: {
-    subtitle: 'daily League of Legends puzzle',
+    subtitle: 'Daily LoL esports puzzle',
     noPuzzleTitle: '📅 No grid today', noPuzzleText: 'Come back tomorrow for a new grid!',
     nextBoardIn: 'New grid in', nextBoardSoon: 'New grid coming soon',
     guessesLabel: 'Guesses left:', giveUp: 'Give up', results: 'Results',
@@ -51,6 +53,8 @@ const I18N = {
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the remaining cells are revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
+    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak', statsLabel: 'Stats',
+    comingSoon: 'Streaks and stats are coming soon',
     answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player or coach who meets the row condition <strong>and</strong> the column condition.'],
@@ -66,7 +70,7 @@ const I18N = {
     }
   },
   es: {
-    subtitle: 'acertijo diario de League of Legends',
+    subtitle: 'Acertijo diario de LoL esports',
     noPuzzleTitle: '📅 No hay cuadrícula hoy', noPuzzleText: '¡Vuelve mañana por una nueva!',
     nextBoardIn: 'Nueva cuadrícula en', nextBoardSoon: 'Nueva cuadrícula muy pronto',
     guessesLabel: 'Intentos restantes:', giveUp: 'Rendirse', results: 'Resultados',
@@ -77,6 +81,8 @@ const I18N = {
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revelan las casillas restantes. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
+    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha', statsLabel: 'Estadísticas',
+    comingSoon: 'Rachas y estadísticas muy pronto',
     answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro o entrenador que cumpla la condición de la fila <strong>y</strong> de la columna.'],
@@ -92,7 +98,7 @@ const I18N = {
     }
   },
   fr: {
-    subtitle: 'énigme quotidienne de League of Legends',
+    subtitle: 'Énigme quotidienne LoL esports',
     noPuzzleTitle: '📅 Pas de grille aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle grille !',
     nextBoardIn: 'Nouvelle grille dans', nextBoardSoon: 'Nouvelle grille très bientôt',
     guessesLabel: 'Essais restants :', giveUp: 'Abandonner', results: 'Résultats',
@@ -103,6 +109,8 @@ const I18N = {
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et les cases restantes sont révélées. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
+    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série', statsLabel: 'Statistiques',
+    comingSoon: 'Séries et statistiques bientôt disponibles',
     answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro ou un coach qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
@@ -278,13 +286,6 @@ function conditionBadge(c, small = false) {
       break;
     case 'team':
       icon.appendChild(logo(conditionImage(c), 'emblem-team', c.short || c.label));
-      // Former names also count — listed behind an "i" corner mark instead of in the main tooltip.
-      if (c.aliases?.length) {
-        const aka = icon.appendChild(el('span', 'aka'));
-        aka.title = `${tc('aka')}: ${c.aliases.join(', ')}`;
-        aka.setAttribute('aria-label', aka.title);
-        aka.addEventListener('click', e => { e.stopPropagation(); showToast(aka.title); });
-      }
       break;
     case 'coach':
     case 'retired':
@@ -305,6 +306,17 @@ function conditionBadge(c, small = false) {
   const caption = el('div', 'cond-caption');
   caption.textContent = short;
   wrap.appendChild(caption);
+  // "i" on the board's category cards: the full condition, with a team's former names (they count too). The dot
+  // stays small; its ::after gives it a 44×44 px touch area (grid.css).
+  if (!small) {
+    const more = c.kind === 'team' && c.aliases?.length ? `${long}. ${tc('aka')}: ${c.aliases.join(', ')}` : long;
+    const info = el('button', 'cond-info', 'i');
+    info.type = 'button';
+    info.title = more;
+    info.setAttribute('aria-label', more);
+    info.addEventListener('click', e => { e.stopPropagation(); showToast(more); });
+    wrap.appendChild(info);
+  }
   return wrap;
 }
 
@@ -315,6 +327,7 @@ function applyI18n() {
   // The same keys are filled into the HTML at build time (scripts/build-site.js), so built pages don't change here.
   document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.dataset.i18n); });
   document.querySelectorAll('[data-i18n-ph]').forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-title]').forEach(e => { e.title = t(e.dataset.i18nTitle); });
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
@@ -400,6 +413,7 @@ async function loadDate(date) {
   prefetchBoard(availableDates[selectedDateIndex + 1]);
   if (!b) {
     board = null;
+    $('boardNo').textContent = '';
     $('gameArea').classList.add('hidden');
     $('noPuzzleScreen').classList.remove('hidden');
     return;
@@ -437,6 +451,7 @@ function revealSolution() {
 }
 
 function render() {
+  $('boardNo').textContent = '#' + board.boardId; // the day's number, beside the date
   hideAnswers();
   $('guessesLeft').textContent = state.guessesLeft;
   const grid = $('lolGrid');
@@ -708,6 +723,8 @@ window.addEventListener('scroll', hideAnswers, { passive: true });
 window.addEventListener('resize', hideAnswers);
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
+// Streak and statistics: placeholders in the header until they get their own windows.
+['btnStreak', 'btnStats'].forEach(id => $(id).addEventListener('click', () => showToast(t('comingSoon'))));
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

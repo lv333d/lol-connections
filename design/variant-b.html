@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#04070f">
+  <title>Makieta B — Arena hextech · LoL Connect</title>
+  <link rel="icon" type="image/svg+xml" href="logo-b.svg">
+  <style>
+    @font-face { font-family: 'Cinzel'; font-weight: 600 800; font-display: swap; src: url('../assets/fonts/cinzel-latin.woff2') format('woff2'); }
+    @font-face { font-family: 'Cinzel'; font-weight: 600 800; font-display: swap; src: url('../assets/fonts/cinzel-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+    @font-face { font-family: 'Montserrat'; font-weight: 400 800; font-display: swap; src: url('../assets/fonts/montserrat-latin.woff2') format('woff2'); }
+    @font-face { font-family: 'Montserrat'; font-weight: 400 800; font-display: swap; src: url('../assets/fonts/montserrat-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+
+    /* ===== Variant B — "Hextech arena": the game as a lit stage. Gold light from above, a cyan arena glow from
+       below, a hextech ring behind the board; one dock for modes and actions; chamfered (cut-corner) cells,
+       hexagonal plates for the categories and the guesses as nine crystals. ===== */
+    :root {
+      --bg: #04070f; --navy: #0a1222; --panel: rgba(12, 20, 36, 0.86); --panel-hi: rgba(20, 32, 56, 0.92);
+      --gold: #c8aa6e; --gold-l: #f0e6d2; --gold-d: #785a28;
+      --cyan: #0bc6e3; --cyan-l: #7fe6f5; --ok: #4ae088;
+      --text: #f0e6d2; --muted: #a8aec0;
+      --line: rgba(200, 170, 110, 0.26); --cut: 10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; font: inherit; color: inherit; }
+    body {
+      font-family: 'Montserrat', system-ui, sans-serif; color: var(--text); min-height: 100vh; min-height: 100dvh; overflow-x: hidden;
+      background:
+        radial-gradient(70% 30% at 50% -6%, rgba(200, 170, 110, 0.22), transparent 70%),
+        radial-gradient(90% 40% at 50% 104%, rgba(11, 198, 227, 0.16), transparent 70%),
+        radial-gradient(40% 30% at 0% 50%, rgba(11, 198, 227, 0.06), transparent 70%),
+        radial-gradient(40% 30% at 100% 50%, rgba(11, 198, 227, 0.06), transparent 70%),
+        var(--bg);
+      background-attachment: fixed;
+    }
+    /* Small hexes everywhere, strongest at the edges of the screen. */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath d='M14 0l14 8.1v16.2L14 32.4 0 24.3V8.1zM14 32.4v16.1' fill='none' stroke='%237fe6f5' stroke-opacity='.07' stroke-width='.8'/%3E%3C/svg%3E");
+      background-size: 28px 48.5px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, transparent 30%, #000 100%);
+      mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, transparent 30%, #000 100%);
+    }
+
+    .app { max-width: 620px; margin: 0 auto; padding: max(8px, env(safe-area-inset-top)) 12px 6px; }
+
+    /* ---------- Brand ---------- */
+    .brand { display: flex; align-items: center; justify-content: center; gap: 9px; text-decoration: none; }
+    .brand svg { width: 32px; height: 32px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(200, 170, 110, 0.35)); }
+    .brand-text { display: flex; flex-direction: column; align-items: flex-start; }
+    .wordmark { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.12rem; letter-spacing: 3px; line-height: 1; color: var(--gold-l); white-space: nowrap; text-transform: uppercase; }
+    .wordmark b { font-weight: 800; color: var(--cyan-l); }
+    .tagline { margin-top: 3px; font-size: 0.6rem; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+
+    /* ---------- Dock: modes | actions ---------- */
+    .dock {
+      display: flex; align-items: stretch; margin-top: 8px; padding: 3px; border-radius: 14px;
+      background: linear-gradient(180deg, rgba(20, 32, 56, 0.85), rgba(10, 18, 34, 0.85));
+      border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(240, 230, 210, 0.06);
+    }
+    .dock-group { display: flex; flex: 1.5; min-width: 0; }
+    .dock-group.right { flex: 1; }
+    .dock-sep { width: 1px; margin: 6px 2px; background: var(--line); }
+    .di {
+      position: relative; flex: 1; min-width: 0; min-height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      border: 0; background: none; border-radius: 11px; cursor: pointer; text-decoration: none; color: var(--gold-l);
+    }
+    .di svg { width: 21px; height: 21px; }
+    .di .lbl { font-size: 0.56rem; font-weight: 700; color: var(--muted); white-space: nowrap; letter-spacing: 0.1px; }
+    .di[aria-current="page"] { background: radial-gradient(120% 90% at 50% 100%, rgba(11, 198, 227, 0.28), rgba(11, 198, 227, 0.06)); box-shadow: inset 0 0 0 1px rgba(11, 198, 227, 0.55); }
+    .di[aria-current="page"] .lbl { color: var(--cyan-l); }
+    .di:hover { background-color: rgba(200, 170, 110, 0.08); }
+    .di:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+    .di.soon { opacity: 0.5; cursor: default; }
+    .di .new { position: absolute; top: 2px; right: 3px; font-size: 0.46rem; font-weight: 800; padding: 1px 3px; border-radius: 3px; background: var(--gold); color: #1a1205; }
+    .di.streak .ico { display: flex; align-items: center; gap: 1px; font-weight: 800; font-size: 0.82rem; color: #ffb547; line-height: 21px; }
+    .di.streak svg { color: #ff9b3d; filter: drop-shadow(0 0 5px rgba(255, 140, 50, 0.6)); width: 19px; }
+
+    /* ---------- Board line: date + crystals ---------- */
+    .line { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 10px 2px 8px; min-height: 40px; }
+    .datenav { display: flex; align-items: center; min-width: 0; }
+    .datenav button { position: relative; width: 30px; height: 40px; border: 0; background: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; }
+    .datenav button::after { content: ''; position: absolute; inset: 0 -7px; }
+    .datenav button:disabled { opacity: 0.3; cursor: default; }
+    .hexno {
+      display: flex; align-items: center; justify-content: center; width: 44px; height: 40px; margin-right: 6px;
+      clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+      background: linear-gradient(160deg, var(--gold), var(--gold-d)); color: #160f03; font-family: 'Cinzel', serif; font-weight: 800; font-size: 0.86rem;
+    }
+    .date { font-size: 0.8rem; font-weight: 600; color: var(--gold-l); white-space: nowrap; }
+    .tries { display: flex; align-items: center; gap: 7px; }
+    .tries-n { font-size: 0.68rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+    .tries-n strong { font-size: 1.05rem; color: var(--cyan-l); font-weight: 800; }
+    .pips { display: flex; gap: 3px; }
+    .pip { width: 8px; height: 12px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: rgba(168, 174, 192, 0.28); }
+    .pip.on { background: linear-gradient(180deg, var(--cyan-l), var(--cyan)); filter: drop-shadow(0 0 3px rgba(11, 198, 227, 0.8)); }
+
+    /* ---------- Board ---------- */
+    .board { position: relative; }
+    /* Hextech ring behind the board. */
+    .board::before {
+      content: ''; position: absolute; left: 50%; top: 52%; width: 100%; aspect-ratio: 1; transform: translate(-50%, -50%); z-index: -1; pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23c8aa6e'%3E%3Ccircle cx='100' cy='100' r='96' stroke-opacity='.10' stroke-width='.6'/%3E%3Ccircle cx='100' cy='100' r='88' stroke-opacity='.07' stroke-width='3' stroke-dasharray='1 5'/%3E%3Cpath d='M100 14l74.5 43v86L100 186 25.5 143V57z' stroke-opacity='.08' stroke-width='.8'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .grid { display: grid; grid-template-columns: minmax(70px, 0.8fr) repeat(3, 1fr); gap: 6px; }
+    .corner { display: flex; align-items: center; justify-content: center; }
+    .corner svg { width: 44%; height: auto; opacity: 0.5; }
+    .cond { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 6px 2px; min-width: 0; }
+    /* Hexagonal plate with a gold rim (outer hexagon = rim, inner = plate). */
+    .cond-logo {
+      position: relative; width: 52px; height: 58px; display: flex; align-items: center; justify-content: center; padding: 11px 9px;
+      clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: linear-gradient(160deg, #f3d38f, var(--gold-d));
+    }
+    .cond-logo::before { content: ''; position: absolute; inset: 2px; clip-path: inherit; background: #efe9da; }
+    .cond-logo img { position: relative; max-width: 100%; max-height: 100%; }
+    .cond-logo.flag img { width: 100%; border-radius: 2px; }
+    .cond-logo.round { padding: 2px; }
+    .cond-logo.round img { width: 100%; height: 100%; object-fit: cover; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+    .cond-logo.emblem { font-weight: 800; font-size: 0.8rem; color: #1a1205; }
+    .cond-cap { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase; text-align: center; line-height: 1.15; color: var(--gold-l); max-width: 100%; overflow-wrap: anywhere; }
+    .cond-col .cond-cap { border-bottom: 2px solid var(--cyan); padding-bottom: 2px; }
+    .cond-row .cond-cap { border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+    .info {
+      position: absolute; top: 2px; right: 4px; width: 18px; height: 18px; padding: 0; border-radius: 50%; cursor: help;
+      border: 1px solid var(--gold); background: var(--navy); color: var(--gold-l); font: italic 800 0.64rem/16px Georgia, serif; text-align: center;
+    }
+    .info::after { content: ''; position: absolute; inset: -13px; }   /* 18 + 2×13 = 44 px touch target */
+    .info:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+    .cell {
+      position: relative; aspect-ratio: 1; padding: 0; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+      background: linear-gradient(160deg, rgba(200, 170, 110, 0.55), rgba(11, 198, 227, 0.35));   /* = the 1 px rim */
+      transition: background .2s, transform .2s;
+    }
+    .cell::before { content: ''; position: absolute; inset: 1px; clip-path: inherit; background: radial-gradient(90% 90% at 50% 110%, rgba(11, 198, 227, 0.10), transparent 60%), var(--panel); }
+    .cell > * { position: relative; }
+    .plus { font-size: 1.9rem; font-weight: 300; color: var(--cyan-l); opacity: 0.7; line-height: 1; }
+    @media (hover: hover) {
+      .cell:not(.filled):hover { background: linear-gradient(160deg, var(--gold-l), var(--cyan)); transform: translateY(-2px); }
+      .cell:not(.filled):hover .plus { opacity: 1; }
+    }
+    .cell:focus-visible { outline: none; background: linear-gradient(160deg, var(--gold-l), var(--cyan)); }
+    .cell.filled { background: linear-gradient(160deg, var(--ok), #1b8a4c); cursor: default; }
+    .cell.filled::before { background: var(--navy); }
+    .portrait { position: absolute !important; inset: 1px; width: calc(100% - 2px); height: calc(100% - 2px); object-fit: cover; object-position: 50% 15%; clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
+    .nick {
+      position: absolute !important; left: 1px; right: 1px; bottom: 1px; padding: 12px 4px 4px; font-size: 0.7rem; font-weight: 800; text-align: center; color: #fff;
+      background: linear-gradient(180deg, transparent, rgba(4, 7, 15, 0.94) 55%);
+    }
+    .nogrid { grid-column: 1 / -1; text-align: center; padding: 40px 0; color: var(--muted); }
+
+    .below { display: flex; justify-content: center; margin-top: 12px; }
+    .btn {
+      min-height: 44px; padding: 0 24px; border: 0; cursor: pointer; color: var(--gold-l); font-weight: 700; font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase;
+      clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+      background: linear-gradient(180deg, rgba(200, 170, 110, 0.22), rgba(200, 170, 110, 0.08));
+    }
+    .btn:hover { background: linear-gradient(180deg, rgba(200, 170, 110, 0.35), rgba(200, 170, 110, 0.14)); }
+
+    .foot { display: flex; flex-direction: column; align-items: center; margin: 18px auto 0; padding: 10px 12px 20px; font-size: 0.72rem; color: var(--muted); max-width: 620px; }
+    .foot-line { display: flex; align-items: center; white-space: nowrap; }
+    .foot-line > * + *::before { content: '◆'; margin: 0 7px; font-size: 0.45rem; vertical-align: 2px; color: var(--gold-d); }
+    .foot a, .foot button { color: var(--muted); text-decoration: none; background: none; border: 0; cursor: pointer; padding: 10px 0; }
+    .foot a:hover, .foot button:hover { color: var(--gold-l); text-decoration: underline; }
+    .foot select { background: none; border: 0; color: var(--muted); font: inherit; padding: 8px 4px; min-height: 44px; cursor: pointer; }
+    .foot select option { background: #0b1324; }
+
+    .overlay { position: fixed; inset: 0; z-index: 50; background: rgba(2, 4, 10, 0.78); display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .overlay.hidden { display: none; }
+    .modal { position: relative; max-width: 520px; max-height: 85vh; overflow: auto; padding: 22px 20px; background: var(--navy); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 0 0 1px rgba(11, 198, 227, 0.15), 0 20px 50px rgba(0, 0, 0, 0.7); }
+    .modal h2 { font-family: 'Cinzel', serif; color: var(--gold-l); font-size: 1.05rem; margin-bottom: 10px; }
+    .modal p { font-size: 0.82rem; line-height: 1.55; color: var(--muted); }
+    .modal p a { color: var(--cyan-l); }
+    .x { position: absolute; top: 6px; right: 6px; width: 44px; height: 44px; border: 0; background: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 60; max-width: min(92vw, 420px);
+      padding: 10px 16px; border-radius: 4px; background: var(--panel-hi); border: 1px solid var(--gold); font-size: 0.82rem; font-weight: 600; text-align: center;
+      transition: opacity .2s, transform .2s;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 374px) {
+      .app { padding-left: 10px; padding-right: 10px; }
+      .wordmark { font-size: 1rem; letter-spacing: 2.4px; }
+      .di .lbl { font-size: 0.52rem; }
+      .di svg { width: 19px; height: 19px; }
+      .grid { grid-template-columns: minmax(62px, 0.75fr) repeat(3, 1fr); gap: 5px; }
+      .cond-logo { width: 46px; height: 52px; padding: 10px 8px; }
+      .cond-cap { font-size: 0.62rem; }
+      .pip { width: 7px; height: 11px; }
+      .date { font-size: 0.74rem; }
+    }
+    /* Desktop: brand left, dock right; the board in a lit frame. */
+    @media (min-width: 760px) {
+      .app { max-width: 780px; padding-top: 22px; }
+      header { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      .brand svg { width: 42px; height: 42px; }
+      .wordmark { font-size: 1.4rem; }
+      .dock { margin: 0; flex: 0 1 470px; }
+      .game { margin-top: 20px; padding: 14px 24px 22px; border: 1px solid var(--line); border-top: 2px solid var(--gold); border-radius: 4px;
+        background: linear-gradient(180deg, rgba(10, 18, 34, 0.75), rgba(4, 7, 15, 0.6)); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 60px rgba(11, 198, 227, 0.06); }
+      .grid, .line { max-width: 560px; margin-left: auto; margin-right: auto; }
+      .grid { gap: 8px; }
+      .cond-logo { width: 60px; height: 68px; padding: 13px 11px; }
+      .cond-cap { font-size: 0.76rem; }
+      .nick { font-size: 0.82rem; }
+      :root { --cut: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Emblem B: a hextech crystal (gold hexagon) split by a cyan "connection" line — three linked nodes. -->
+  <template id="emblemTpl">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 2l26 15v30L32 62 6 47V17z" fill="#c8aa6e"/>
+      <path d="M32 8l21 12.2v23.6L32 56 11 43.8V20.2z" fill="#0a1222"/>
+      <path d="M18 40L32 24l14 16" fill="none" stroke="#0bc6e3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#f0e6d2"><circle cx="18" cy="40" r="5"/><circle cx="32" cy="24" r="5"/><circle cx="46" cy="40" r="5"/></g>
+    </svg>
+  </template>
+
+  <div class="app">
+    <header>
+      <a class="brand" href="#" aria-label="LoL Connect — strona główna">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 2l26 15v30L32 62 6 47V17z" fill="#c8aa6e"/>
+          <path d="M32 8l21 12.2v23.6L32 56 11 43.8V20.2z" fill="#0a1222"/>
+          <path d="M18 40L32 24l14 16" fill="none" stroke="#0bc6e3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#f0e6d2"><circle cx="18" cy="40" r="5"/><circle cx="32" cy="24" r="5"/><circle cx="46" cy="40" r="5"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="wordmark">LoL <b>Connect</b></span>
+          <span class="tagline">Codzienna zagadka LoL esports</span>
+        </span>
+      </a>
+
+      <nav class="dock" aria-label="Tryby gry i menu">
+        <div class="dock-group">
+          <a class="di" href="#" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>
+            <span class="lbl">Grid</span></a>
+          <a class="di" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>
+            <span class="lbl">Guess the Pro</span><span class="new">NEW</span></a>
+          <span class="di soon" aria-disabled="true" title="Nowy tryb już wkrótce">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" stroke-dasharray="3 3"/><path d="M12 8v8M8 12h8"/></svg>
+            <span class="lbl">Wkrótce</span></span>
+        </div>
+        <div class="dock-sep" aria-hidden="true"></div>
+        <div class="dock-group right">
+          <button class="di streak" type="button" data-soon="Seria dni — etap 2" title="Seria: 3 dni z rzędu">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg>3</span>
+            <span class="lbl">Seria</span></button>
+          <button class="di" type="button" data-soon="Statystyki — etap 2" title="Statystyki">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="9" width="4" height="12" rx="1"/></svg>
+            <span class="lbl">Statystyki</span></button>
+          <button class="di" type="button" data-soon="Tu otworzy się poradnik" title="Jak grać">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2.9-1.2 1.8"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+            <span class="lbl">Jak grać</span></button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="game">
+      <div class="line">
+        <div class="datenav">
+          <button type="button" aria-label="Poprzedni dzień" data-soon="Makieta: poprzedni dzień">‹</button>
+          <span class="hexno" data-board-no>#—</span>
+          <span class="date" data-date-long></span>
+          <button type="button" aria-label="Następny dzień" disabled>›</button>
+        </div>
+        <div class="tries">
+          <span class="tries-n">Próby <strong data-guesses-left>—</strong></span>
+          <span class="pips" data-pips role="img"></span>
+        </div>
+      </div>
+      <div class="board"><div id="grid" class="grid"></div></div>
+      <div class="below"><button class="btn" type="button" data-soon="Makieta: poddanie się">Poddaj się</button></div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-line">
+      <span>Projekt fanowski</span>
+      <button type="button" data-open="legal">Informacje prawne</button>
+      <a href="#" data-soon="Link do TikToka ustawiany w adminie">TikTok</a>
+      <a href="#" data-soon="Link do Discorda ustawiany w adminie">Discord</a>
+    </div>
+    <select aria-label="Język"><option>🌐 Polski</option><option>English</option><option>Español</option><option>Français</option></select>
+  </footer>
+
+  <div id="legal" class="overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <button class="x" type="button" data-close="legal" aria-label="Zamknij">×</button>
+      <h2 id="legalTitle">Informacje prawne</h2>
+      <p>LoL Connect to niekomercyjny projekt fanowski. LoL Connect nie jest wspierany przez Riot Games i nie odzwierciedla poglądów ani opinii Riot Games ani nikogo oficjalnie zaangażowanego w tworzenie lub zarządzanie własnościami Riot Games. Riot Games i wszystkie powiązane własności są znakami towarowymi lub zastrzeżonymi znakami towarowymi Riot Games, Inc. Projekt nie jest powiązany z żadną ligą ani drużyną e-sportową — ich nazwy i loga należą do właścicieli. Dane i zdjęcia graczy: <a href="https://lol.fandom.com/" target="_blank" rel="noopener">Leaguepedia</a> (teksty na licencji CC BY-SA); prawa do zdjęć należą do ich autorów.</p>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="mock.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
 import http from 'node:http';
 import { execFile, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
-import { readFile, unlink } from 'node:fs/promises';
+import { readFile, writeFile, unlink } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -233,7 +233,35 @@ async function pendingBoards() {
     const date = file.match(/(\d{4}-\d{2}-\d{2})\.json/)?.[1];
     const game = Object.entries(GAME_DIRS).find(([dir]) => file.startsWith(dir))?.[1];
     return date && game && { game, date, change: code.includes('D') ? 'usunięta' : code.includes('?') || code.includes('A') ? 'nowa' : 'zmieniona' };
-  }).filter(Boolean).concat(await pendingData());
+  }).filter(Boolean).concat(await pendingData(), await pendingSite());
+}
+
+// Site settings edited in the admin (footer links); published with the boards.
+const SITE_CONFIG = 'data/site-config.json';
+const SITE_CONFIG_KEYS = ['tiktok', 'discord'];
+
+async function readSiteConfig() {
+  let cfg = {};
+  try { cfg = JSON.parse(await readFile(path.join(ROOT, SITE_CONFIG), 'utf8')); } catch { /* none yet */ }
+  return Object.fromEntries(SITE_CONFIG_KEYS.map(k => [k, typeof cfg[k] === 'string' ? cfg[k] : '']));
+}
+
+/** Footer links: empty (hidden on the site) or an https:// address. */
+async function saveSiteConfig(body) {
+  const cfg = {};
+  for (const k of SITE_CONFIG_KEYS) {
+    const v = typeof body?.[k] === 'string' ? body[k].trim() : '';
+    if (v && !/^https:\/\/[^\s"<>]+$/i.test(v)) throw Object.assign(new Error(`Link ${k}: podaj adres zaczynający się od https:// albo zostaw puste`), { status: 400 });
+    cfg[k] = v;
+  }
+  await writeFile(path.join(ROOT, SITE_CONFIG), JSON.stringify(cfg, null, 2) + '\n');
+  return cfg;
+}
+
+/** One entry when the site settings differ from the last commit. */
+async function pendingSite() {
+  const changed = (await git('status', '--porcelain', '--', SITE_CONFIG)).trim();
+  return changed ? [{ game: 'Strona', date: '', change: 'linki w stopce' }] : [];
 }
 
 /** One entry when the player database differs from the last commit (after a refresh). */
@@ -284,6 +312,8 @@ async function handleApi(req, res, pathname) {
   if (pathname === '/api/publish' && req.method === 'POST') {
     return send(res, 200, await publish());
   }
+  if (pathname === '/api/site-config' && req.method === 'GET') return send(res, 200, await readSiteConfig());
+  if (pathname === '/api/site-config' && req.method === 'PUT') return send(res, 200, await saveSiteConfig(await readBody(req)));
   if (pathname === '/api/sync' && req.method === 'POST') {
     return send(res, 200, await sync());
   }
