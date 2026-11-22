@@ -129,6 +129,8 @@
     .preview-frame { position: relative; flex-shrink: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #050811; }
     .preview-frame iframe { border: 0; display: block; transform-origin: 0 0; }
     .site-links { display: grid; gap: 10px; }
+    .site-links label.cfg-row { grid-template-columns: 90px 110px 1fr; }
+    .stats-source { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .site-links label { display: grid; grid-template-columns: 80px 1fr; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted); }
     .site-links input { padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(10, 16, 28, 0.6); color: var(--text); font: inherit; }
     .site-links-bar { display: flex; align-items: center; gap: 12px; }
@@ -183,6 +185,8 @@
         <div class="nav-item" data-page="grid"><span class="nav-icon">▦</span><span class="nav-label">Plansze Grida</span></div>
         <div class="nav-section">Guess the Pro · codziennie</div>
         <div class="nav-item" data-page="guess"><span class="nav-icon">?</span><span class="nav-label">Gracze dnia</span></div>
+        <div class="nav-section">Gracze</div>
+        <div class="nav-item" data-page="stats"><span class="nav-icon">📈</span><span class="nav-label">Statystyki</span></div>
         <div class="nav-section">Strona</div>
         <div class="nav-item" data-page="design"><span class="nav-icon">🎨</span><span class="nav-label">Wygląd</span></div>
       </nav>
@@ -257,6 +261,39 @@
         </div>
         <datalist id="guessPoolList"></datalist>
       </div>
+      <!-- ---------- Player counters ---------- -->
+      <div class="page" id="page-stats">
+        <h1>📈 Statystyki graczy</h1>
+        <p class="page-lead">Ile osób ukończyło dzisiejszą zagadkę (wygrana, przegrana albo poddanie). Bez kont i danych osobowych: losowy identyfikator urządzenia, jeden wynik na urządzenie, grę i dzień. Na stronie: „N graczy zagrało dzisiaj” — dopiero od progu ustawionego niżej.</p>
+        <div class="stats-source">
+          <span class="muted">Źródło:</span>
+          <button class="btn btn-sm" id="srcLocal">💻 Lokalne (przykładowe)</button>
+          <button class="btn btn-sm btn-ghost" id="srcLive">🌐 connect4.lol</button>
+          <span class="muted" id="srcNote"></span>
+        </div>
+        <div class="db-box" id="seedBox" style="margin-top:12px">
+          <strong>Dane przykładowe</strong> <span class="muted">— tylko w tym lokalnym serwerze; gra na 127.0.0.1 pokazuje je od razu (odśwież ją)</span>
+          <div class="site-links-bar" style="margin-top:10px">
+            <button class="btn btn-sm btn-ghost" data-seed="none">Brak</button>
+            <button class="btn btn-sm btn-ghost" data-seed="low">Mało — pod progiem</button>
+            <button class="btn btn-sm btn-ghost" data-seed="high">Dużo — nad progiem</button>
+            <span class="muted" id="seedStatus"></span>
+          </div>
+        </div>
+        <div class="section-title"><h2>Próg</h2><span class="sub">zapisywane w bazie; strona czyta je z /api/config</span></div>
+        <div class="db-box site-links">
+          <label class="cfg-row">Licznik od <input type="number" min="0" id="cfgThreshold"> <span class="muted">graczy — poniżej nic się nie wyświetla</span></label>
+          <div class="site-links-bar"><button class="btn btn-sm" id="btnSaveCfg">💾 Zapisz próg</button><span class="muted" id="cfgSaveStatus"></span></div>
+        </div>
+        <div class="section-title"><h2>Ukończone gry</h2><span class="sub">ostatnie 14 dni</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dzień</th><th>Grid: gier</th><th>Grid: 9/9</th><th>Guess: gier</th><th>Guess: zgadnięte</th></tr></thead>
+            <tbody id="statsDays"></tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- ---------- Design (stage 1 mock-ups) ---------- -->
       <div class="page" id="page-design">
         <h1>🎨 Wygląd i stopka</h1>
@@ -766,6 +803,50 @@
     const next = dates[dates.indexOf(preview.date) + delta];
     if (next) { preview.date = next; showPreview(); }
   };
+  /* ---------- Player counters ---------- */
+
+  const statsView = { source: 'local', data: null };
+  const pct = (a, b) => (b ? `${Math.round(a / b * 100)}%` : '—');
+
+  async function loadStats() {
+    const q = `days=14${statsView.source === 'live' ? '&source=live' : ''}`;
+    $('srcNote').textContent = 'Wczytuję…';
+    let d;
+    try { d = await api(`/api/admin/stats?${q}`); }
+    catch (e) { $('srcNote').textContent = e.message; return; }
+    statsView.data = d;
+    $('srcLocal').classList.toggle('btn-ghost', statsView.source !== 'local');
+    $('srcLive').classList.toggle('btn-ghost', statsView.source !== 'live');
+    if (d.source === 'local') {
+      $('srcLive').disabled = !d.liveAvailable;
+      $('srcLive').title = d.liveAvailable ? d.liveUrl : 'Dodaj ADMIN_TOKEN do .env.local (ten sam co w Vercelu) i uruchom panel ponownie';
+      $('srcNote').textContent = `dane przykładowe: ${{ none: 'brak', low: 'mało', high: 'dużo' }[d.level]}`;
+    } else {
+      $('srcNote').textContent = 'na żywo';
+    }
+    $('seedBox').classList.toggle('hidden', statsView.source !== 'local');
+    $('cfgThreshold').value = d.config.showThreshold;
+    $('statsDays').innerHTML = d.days.map(x => `<tr>
+      <td>${fmtDate(x.date)}</td><td>${x.grid.played}</td><td>${pct(x.grid.won, x.grid.played)}</td>
+      <td>${x.guess.played}</td><td>${pct(x.guess.won, x.guess.played)}</td></tr>`).join('');
+  }
+  $('srcLocal').addEventListener('click', () => { statsView.source = 'local'; loadStats(); });
+  $('srcLive').addEventListener('click', () => { statsView.source = 'live'; loadStats(); });
+  document.querySelectorAll('[data-seed]').forEach(b => b.addEventListener('click', async () => {
+    $('seedStatus').textContent = 'Generuję…';
+    try { await api('/api/admin/seed', { method: 'POST', body: { level: b.dataset.seed } }); $('seedStatus').textContent = 'Gotowe — odśwież grę.'; }
+    catch (e) { $('seedStatus').textContent = e.message; }
+    loadStats();
+  }));
+  $('btnSaveCfg').addEventListener('click', async () => {
+    $('cfgSaveStatus').textContent = 'Zapisuję…';
+    try {
+      await api(`/api/admin/config${statsView.source === 'live' ? '?source=live' : ''}`, { method: 'PUT', body: { showThreshold: Number($('cfgThreshold').value) } });
+      $('cfgSaveStatus').textContent = statsView.source === 'live' ? 'Zapisano na connect4.lol (strona pobierze w ciągu ~5 min).' : 'Zapisano lokalnie.';
+    } catch (e) { $('cfgSaveStatus').textContent = e.message; }
+  });
+  document.querySelector('[data-page="stats"]').addEventListener('click', () => loadStats());
+
   /* ---------- Footer links (data/site-config.json) ---------- */
 
   async function loadSiteLinks() {

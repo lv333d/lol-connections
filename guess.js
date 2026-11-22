@@ -363,6 +363,7 @@ function applyI18n() {
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
   PROGRESS.renderHeader('guess', currentLang);
+  if (day) renderLive();
   scheduleFit();
 }
 
@@ -462,6 +463,8 @@ async function loadDate(date) {
   day = d;
   answer = playerById.get(d.playerId);
   state = loadState(date) || newState();
+  sendResult();   // a finished game the server didn't get yet
+  refreshLive();
   state.guesses = state.guesses.filter(id => playerById.has(id)); // players can leave the pool on a data refresh
   if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
   justAdded = '';
@@ -595,6 +598,35 @@ function endGame() {
   state.gameOver = true;
   state.finishedOn = todayKey();
   PROGRESS.renderHeader('guess', currentLang);
+  setTimeout(sendResult, 0);   // after the move is saved
+}
+
+/* ---------- Player counters (live.js; nothing shows when the API doesn't answer) ---------- */
+
+let live = { date: '', cfg: null, data: null };
+function refreshLive() {
+  const date = selectedDate;
+  Promise.all([LIVE.config(), LIVE.stats('guess', date)]).then(([cfg, data]) => {
+    if (date !== selectedDate) return;
+    live = { date, cfg, data };
+    renderLive();
+  });
+}
+function renderLive() {
+  const line = live.date === selectedDate ? LIVE.solvedLine(live.data, live.cfg, selectedDate, currentLang) : '';
+  $('liveLine').textContent = line;
+  $('liveLine').classList.toggle('hidden', !line);
+}
+/** Sends the finished game once (state.sent); an unsent one is retried the next time the day is opened. */
+function sendResult() {
+  const st = state, date = selectedDate;
+  if (!st.gameOver || st.sent || PREVIEW) return;
+  LIVE.submit('guess', date, { won: st.won, guesses: Math.max(1, st.guesses.length) }).then(ok => {
+    if (!ok) return;
+    st.sent = true;
+    try { localStorage.setItem(stateKey(date), JSON.stringify(st)); } catch { /* storage blocked */ }
+    if (date === selectedDate) refreshLive();
+  });
 }
 
 function showResult() {

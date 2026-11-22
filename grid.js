@@ -325,6 +325,7 @@ function applyI18n() {
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
   PROGRESS.renderHeader('grid', currentLang);
+  if (board) renderLive();
 }
 
 const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
@@ -431,6 +432,8 @@ async function loadDate(date) {
   $('noPuzzleScreen').classList.add('hidden');
   board = b;
   state = loadState(date) || newState();
+  sendResult();   // a finished game the server didn't get yet
+  refreshLive();
   if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
   $('gameArea').classList.remove('hidden');
   // A finished board shows the revealed grid and the "Results" button; the popup opens only right after the game ends.
@@ -438,6 +441,35 @@ async function loadDate(date) {
 }
 
 const cellAnswers = i => board.answers[Math.floor(i / 3)][i % 3];
+
+/* ---------- Player counters (live.js; nothing shows when the API doesn't answer) ---------- */
+
+let live = { date: '', cfg: null, data: null };
+function refreshLive() {
+  const date = selectedDate;
+  Promise.all([LIVE.config(), LIVE.stats('grid', date)]).then(([cfg, data]) => {
+    if (date !== selectedDate) return;
+    live = { date, cfg, data };
+    renderLive();
+  });
+}
+function renderLive() {
+  const line = live.date === selectedDate ? LIVE.solvedLine(live.data, live.cfg, selectedDate, currentLang) : '';
+  $('liveLine').textContent = line;
+  $('liveLine').classList.toggle('hidden', !line);
+}
+
+/** Sends the finished game once (state.sent); an unsent one is retried the next time the day is opened. */
+function sendResult() {
+  const st = state, date = selectedDate;
+  if (!st.gameOver || st.sent || PREVIEW) return;
+  LIVE.submit('grid', date, { cells: st.cells }).then(ok => {
+    if (!ok) return;
+    st.sent = true;
+    try { localStorage.setItem(stateKey(date), JSON.stringify(st)); } catch { /* storage blocked */ }
+    if (date === selectedDate) refreshLive();
+  });
+}
 const nickOf = id => playerById.get(id)?.nick || id;
 
 /**
@@ -670,6 +702,7 @@ function endGame() {
   state.gameOver = true;
   state.finishedOn = todayKey();
   PROGRESS.renderHeader('grid', currentLang);
+  setTimeout(sendResult, 0);   // after the move is saved
 }
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 

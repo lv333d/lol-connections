@@ -634,3 +634,6 @@ header.site-header::after { display: none; }
   10%, 92% { transform: rotateX(0); opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* ---------- Player counters (live.js) ---------- */
+.live-line { margin: -2px 0 8px; text-align: center; font-size: 0.78rem; font-weight: 600; color: var(--cyan); }

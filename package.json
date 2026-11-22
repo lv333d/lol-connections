@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node scripts/test-progress.mjs",
+    "test": "node scripts/test-progress.mjs && node scripts/test-stats.mjs",
     "admin": "node scripts/admin-server.js",
     "leaguepedia:check": "node scripts/leaguepedia-check.js",
     "fetch-assets": "node scripts/fetch-assets.js",

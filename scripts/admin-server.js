@@ -13,6 +13,8 @@ import path from 'node:path';
 import { ROOT, DATE_RE } from './lib/puzzles.js';
 import { rebuildGridManifest } from './generate-grid.js';
 import * as guess from './lib/guess.js';
+import * as live from '../api/_lib/core.js';
+import { memoryStore, seed as seedStats } from './lib/stats-mock.js';
 
 const GRID_DIR = path.join(ROOT, 'grid');
 
@@ -303,9 +305,63 @@ async function publish() {
   return { published: boards, message: `Opublikowano: ${summary}. Strona zaktualizuje się za ok. minutę.` };
 }
 
+/* ---------- Player counters (stage 4) ---------- */
+
+// The game served here talks to the same /api/result, /api/stats, /api/config as on Vercel, backed by an in-memory
+// store with sample data (admin: "Statystyki" → none / low / high). The admin's statistics can instead come from
+// the live site: ADMIN_TOKEN (and optionally STATS_URL, default https://connect4.lol) in .env.local — the token
+// stays on this server.
+const statsStore = memoryStore();
+let statsLevel = 'none';
+const STATS_URL = (process.env.STATS_URL || 'https://connect4.lol').replace(/\/+$/, '');
+const localCtx = req => ({
+  store: statsStore,
+  ipHash: '',   // no rate limit locally
+  loadBoard: async (mode, date) => { try { return JSON.parse(await readFile(path.join(ROOT, mode === 'grid' ? 'grid' : 'guess', `${date}.json`), 'utf8')); } catch { return null; } }
+});
+const sendLive = (res, out) => send(res, out.status, out.body);
+
+async function remoteAdmin(pathAndQuery, method = 'GET', body) {
+  if (!process.env.ADMIN_TOKEN) throw Object.assign(new Error('Brak ADMIN_TOKEN w .env.local — dane na żywo niedostępne'), { status: 400 });
+  const r = await fetch(`${STATS_URL}/api/admin/${pathAndQuery}`, {
+    method, headers: { Authorization: `Bearer ${process.env.ADMIN_TOKEN}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const data = await r.json().catch(() => ({ error: `HTTP ${r.status}` }));
+  if (!r.ok) throw Object.assign(new Error(`${STATS_URL}: ${data.error || r.status}`), { status: 502 });
+  return data;
+}
+
+async function handleLive(req, res, pathname, query) {
+  if (pathname === '/api/result' && req.method === 'POST') return sendLive(res, await live.postResult(await readBody(req), localCtx(req))), true;
+  if (pathname === '/api/stats' && req.method === 'GET') return sendLive(res, await live.getStats(query, localCtx(req))), true;
+  if (pathname === '/api/config' && req.method === 'GET') return sendLive(res, await live.getPublicConfig(localCtx(req))), true;
+  const remote = query.source === 'live';
+  if (pathname === '/api/admin/stats' && req.method === 'GET') {
+    if (remote) return send(res, 200, { ...(await remoteAdmin(`stats?days=${encodeURIComponent(query.days || 14)}&date=${encodeURIComponent(query.date || '')}`)), source: 'live' }), true;
+    return send(res, 200, { ...(await live.adminStats(query, localCtx(req))).body, source: 'local', level: statsLevel, liveAvailable: Boolean(process.env.ADMIN_TOKEN), liveUrl: STATS_URL }), true;
+  }
+  if (pathname === '/api/admin/config' && req.method === 'PUT') {
+    const body = await readBody(req);
+    if (remote) return send(res, 200, await remoteAdmin('config', 'PUT', body)), true;
+    return sendLive(res, await live.adminSetConfig(body, localCtx(req))), true;
+  }
+  if (pathname === '/api/admin/seed' && req.method === 'POST') {
+    const { level } = await readBody(req);
+    if (!['none', 'low', 'high'].includes(level)) return send(res, 400, { error: 'level' }), true;
+    const cfg = await live.getConfig(statsStore);
+    await seedStats(statsStore, level, { root: ROOT });
+    await statsStore.hset('config', cfg);   // keep the thresholds set in the panel
+    statsLevel = level;
+    return send(res, 200, { ok: true, level }), true;
+  }
+  return false;
+}
+
 /* ---------- API ---------- */
 
-async function handleApi(req, res, pathname) {
+async function handleApi(req, res, pathname, query = {}) {
+  if (await handleLive(req, res, pathname, query)) return;
   if (pathname === '/api/publish' && req.method === 'GET') {
     return send(res, 200, { pending: await pendingBoards() });
   }
@@ -349,9 +405,9 @@ async function handleApi(req, res, pathname) {
 }
 
 const server = http.createServer(async (req, res) => {
-  const { pathname } = new URL(req.url, 'http://localhost');
+  const { pathname, searchParams } = new URL(req.url, 'http://localhost');
   try {
-    if (pathname.startsWith('/api/')) await handleApi(req, res, pathname);
+    if (pathname.startsWith('/api/')) await handleApi(req, res, pathname, Object.fromEntries(searchParams));
     else await serveStatic(req, res, pathname);
   } catch (e) {
     console.error(e);
