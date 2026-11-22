@@ -38,8 +38,8 @@
   display: flex; align-items: center; justify-content: center; gap: 2px;
   border-radius: 6px; border: 1px solid; padding: 6px; cursor: default; overflow: hidden;
 }
-.gp-cell.ok { background: rgba(28, 84, 50, 0.75); border-color: rgba(74, 224, 136, 0.65); }
-.gp-cell.no { background: rgba(92, 26, 30, 0.7); border-color: rgba(255, 110, 110, 0.45); }
+.gp-cell.ok { background: rgba(36, 108, 64, 0.85); border-color: rgba(90, 232, 150, 0.75); }
+.gp-cell.no { background: rgba(116, 34, 40, 0.8); border-color: rgba(255, 120, 120, 0.55); }
 /* Partial match: bright amber, clearly lighter than the dark green and red. */
 .gp-cell.part { background: linear-gradient(160deg, #d9a521, #a87410); border-color: #ffd970; box-shadow: 0 0 8px rgba(255, 200, 70, 0.35); cursor: help; }
 .gp-cell.part .gp-none { color: #2a1c02; font-weight: 800; }
@@ -75,7 +75,8 @@
 #guessRows > .gp-row { padding-bottom: 6px; border-bottom: 1px solid rgba(200, 170, 110, 0.18); }
 @media (max-width: 520px) { #guessRows > .gp-row { padding-bottom: 4px; } }
 /* The answer revealed after giving up: on top, set apart from the guesses below it. */
-#guessRows > .gp-revealed { border-bottom: 2px solid rgba(200, 170, 110, 0.6); margin-bottom: 2px; }
+#guessRows > .gp-revealed { border-bottom: 2px solid rgba(200, 170, 110, 0.6); }
+.gp-revealed .gp-nick::after { content: ' 🏳️'; }
 
 /* A new guess flips in tile by tile. */
 .gp-new > * { animation: gp-flip .45s ease-out both; }
