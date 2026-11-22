@@ -302,9 +302,9 @@ function numTile(cls, value, cmp, upKey, downKey) {
   return c;
 }
 
-function guessRow(p, animate) {
+function guessRow(p, animate, extraClass = '') {
   const cmp = compare(p);
-  const row = el('div', 'gp-row' + (animate ? ' gp-new' : '') + (p.id === answer.id ? ' gp-correct' : ''));
+  const row = el('div', 'gp-row' + (animate ? ' gp-new' : '') + (p.id === answer.id ? ' gp-correct' : '') + extraClass);
   row.setAttribute('role', 'row');
   const who = el('div', 'gp-player');
   who.setAttribute('role', 'cell');
@@ -469,6 +469,8 @@ function render() {
   rows.innerHTML = '';
   // Newest guess on top, right under the search box (the first one ends up at the bottom); phones scroll the new
   // one into view under the search bar that stays at the top of the screen.
+  // After giving up, the answer's own row goes on top so its categories can be compared with the guesses.
+  if (state.gameOver && !state.won) rows.appendChild(guessRow(answer, justAdded === answer.id, ' gp-revealed'));
   [...state.guesses].reverse().forEach(id => rows.appendChild(guessRow(playerById.get(id), id === justAdded)));
   if (justAdded && narrowScreen.matches) rows.firstElementChild?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   justAdded = '';
@@ -616,8 +618,9 @@ $('btnGiveUpConfirm').addEventListener('click', () => {
   $('giveUpOverlay').classList.add('hidden');
   state.gameOver = true;
   saveState();
+  justAdded = answer.id; // the revealed answer row flips in
   render();
-  showResult();
+  setTimeout(showResult, 900);
 });
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));

@@ -74,6 +74,8 @@
 /* A thin line between guesses (under the "played together" note when there is one). */
 #guessRows > .gp-row { padding-bottom: 6px; border-bottom: 1px solid rgba(200, 170, 110, 0.18); }
 @media (max-width: 520px) { #guessRows > .gp-row { padding-bottom: 4px; } }
+/* The answer revealed after giving up: on top, set apart from the guesses below it. */
+#guessRows > .gp-revealed { border-bottom: 2px solid rgba(200, 170, 110, 0.6); margin-bottom: 2px; }
 
 /* A new guess flips in tile by tile. */
 .gp-new > * { animation: gp-flip .45s ease-out both; }
