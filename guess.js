@@ -16,7 +16,7 @@ const I18N = {
     noPuzzleTitle: '📅 Brak gracza na dziś', noPuzzleText: 'Wróć jutro po nową zagadkę!',
     nextBoardIn: 'Nowy gracz za', nextBoardSoon: 'Nowy gracz już wkrótce',
     guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
-    searchPh: 'Wpisz nick lub imię gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
+    searchPh: 'Wpisz nick gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
     colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea międzynar.', colDebut: 'Debiut tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Szukany gracz grał kiedyś w {teams}',
     natPart: 'zgadza się jedna z narodowości',
@@ -29,21 +29,19 @@ const I18N = {
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy i zobaczysz szukanego gracza. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
     newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
-    guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
-    guide: [
-      ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
-      ['Jak grać', 'Wpisz nick lub imię gracza i wybierz go z listy. Liczba prób jest nieograniczona. Po każdej zobaczysz, co twój typ ma wspólnego z szukanym graczem: <strong>zielone</strong> pole to zgodność, <strong>żółte</strong> — częściowa zgodność, <strong>czerwone</strong> — różnica. Strzałka przy liczbie pokazuje, czy szukana wartość jest większa (↑) czy mniejsza (↓).'],
-      ['Kategorie', '<strong>Narodowość</strong> (przy podwójnej obie flagi; <strong>żółta</strong>, gdy zgadza się jedna z nich); <strong>pozycja</strong> — najczęstsza w składach turniejowych; <strong>obecna liga</strong> (LCK, LPL, LEC, LCS, LTA albo „inna” dla drużyn z innych lig) i <strong>obecna drużyna</strong> — według profilu na Leaguepedii, „brak” dla emerytów i graczy bez drużyny; liga i drużyna są <strong>żółte</strong>, gdy szukany gracz grał kiedyś w obecnej lidze lub obecnej drużynie twojego typu (niekoniecznie razem z nim); <strong>trofea międzynarodowe</strong> — wygrane Worlds, MSI i First Stand jako zawodnik; <strong>debiut w tier 1</strong> — rok pierwszego składu w LCK, LPL, LEC, LCS lub LTA.'],
-      ['W jednym składzie', 'Napis „Był w jednym składzie z szukanym graczem” pojawia się pod typem, który był z szukanym graczem w tym samym czasie w składzie jednej drużyny, w lidze głównej lub na turnieju międzynarodowym.'],
-      ['Nowy gracz', 'Codziennie o 00:00 UTC.']
-    ]
+    // The guide window (onboarding.js).
+    onbNext: "Dalej", onbClose: "Zamknij", onbLang: "Język",
+    onbSkip: "Pomiń",
+    onbDone: "Gramy!",
+    onbSteps: [["Zgadnij gracza dnia", "Wpisz nick dowolnego pro-gracza. Po każdej próbie zobaczysz, co ma wspólnego z szukanym: kraj, pozycję, ligę, drużynę, trofea i debiut."], ["Kolory i strzałki", "<strong>Zielone</strong> — zgodność, <strong>żółte</strong> — częściowa zgodność, <strong>czerwone</strong> — różnica. Strzałka mówi, czy szukana liczba jest większa (↑) czy mniejsza (↓)."]],
+    btnGuideLabel: 'Poradnik',
   },
   en: {
     subtitle: 'Daily LoL esports puzzle',
     noPuzzleTitle: '📅 No player today', noPuzzleText: 'Come back tomorrow for a new puzzle!',
     nextBoardIn: 'New player in', nextBoardSoon: 'New player coming soon',
     guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
-    searchPh: 'Type a nickname or real name…', noResults: 'No player matches.', used: 'guessed',
+    searchPh: 'Type a player’s nickname…', noResults: 'No player matches.', used: 'guessed',
     colPlayer: 'Player', colNat: 'Country', colPos: 'Position', colLeague: 'League', colTeam: 'Team', colTitles: 'Int\'l titles', colDebut: 'Tier\u00A01 debut',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'The answer played for {teams} at some point',
     natPart: 'one of the nationalities matches',
@@ -56,21 +54,19 @@ const I18N = {
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the player is revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
     newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
-    guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
-    guide: [
-      ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
-      ['How to play', 'Type a nickname or real name and pick the player from the list. Guesses are unlimited. After each one you see what your pick shares with the answer: <strong>green</strong> means a match, <strong>yellow</strong> a partial match, <strong>red</strong> a difference. The arrow next to a number shows whether the answer\'s value is higher (↑) or lower (↓).'],
-      ['Categories', '<strong>Nationality</strong> (dual nationals show both flags; <strong>yellow</strong> when one of them matches); <strong>position</strong> — the most frequent one on their rosters; <strong>current league</strong> (LCK, LPL, LEC, LCS, LTA or “other” for teams in any other league) and <strong>current team</strong> — from the Leaguepedia profile, “none” for retired and teamless players; the league and the team are <strong>yellow</strong> when the answer played in your pick\'s current league or for their current team at some point (not necessarily together); <strong>international titles</strong> — Worlds, MSI and First Stand won as a player; <strong>tier 1 debut</strong> — year of the first LCK, LPL, LEC, LCS or LTA roster.'],
-      ['Same roster', '“Was on a roster with the answer” appears under a guess who was on the same team\'s roster as the answer at the same time, in a major league or at an international event.'],
-      ['New player', 'Every day at 00:00 UTC.']
-    ]
+    // The guide window (onboarding.js).
+    onbNext: "Next", onbClose: "Close", onbLang: "Language",
+    onbSkip: "Skip",
+    onbDone: "Let's play!",
+    onbSteps: [["Guess the player of the day", "Type any pro player’s nickname. Each guess shows what they share with the answer: country, position, league, team, titles and debut."], ["Colours and arrows", "<strong>Green</strong> — a match, <strong>yellow</strong> — a partial match, <strong>red</strong> — different. An arrow tells whether the answer’s number is higher (↑) or lower (↓)."]],
+    btnGuideLabel: 'Guide',
   },
   es: {
     subtitle: 'Acertijo diario de LoL esports',
     noPuzzleTitle: '📅 No hay jugador hoy', noPuzzleText: '¡Vuelve mañana por un nuevo acertijo!',
     nextBoardIn: 'Nuevo jugador en', nextBoardSoon: 'Nuevo jugador muy pronto',
     guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
-    searchPh: 'Escribe un nick o nombre…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
+    searchPh: 'Escribe el nick del jugador…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
     colPlayer: 'Jugador', colNat: 'País', colPos: 'Posición', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos int.', colDebut: 'Debut tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungla', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'El jugador buscado jugó en {teams} en algún momento',
     natPart: 'coincide una de las nacionalidades',
@@ -83,21 +79,19 @@ const I18N = {
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revela el jugador. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
     newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
-    guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
-    guide: [
-      ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
-      ['Cómo jugar', 'Escribe un nick o nombre real y elige al jugador de la lista. Los intentos son ilimitados. Tras cada uno verás qué comparte tu elección con la respuesta: <strong>verde</strong> es coincidencia, <strong>amarillo</strong> coincidencia parcial, <strong>rojo</strong> una diferencia. La flecha junto a un número indica si el valor buscado es mayor (↑) o menor (↓).'],
-      ['Categorías', '<strong>Nacionalidad</strong> (con doble nacionalidad, ambas banderas; <strong>amarillo</strong> si coincide una); <strong>posición</strong>: la más frecuente en sus rosters; <strong>liga actual</strong> (LCK, LPL, LEC, LCS, LTA u «otra» para equipos de otras ligas) y <strong>equipo actual</strong>: según su perfil en Leaguepedia, «ninguno» para retirados y jugadores sin equipo; la liga y el equipo salen en <strong>amarillo</strong> cuando el jugador buscado jugó alguna vez en la liga actual o en el equipo actual de tu intento (no necesariamente juntos); <strong>títulos internacionales</strong>: Worlds, MSI y First Stand ganados como jugador; <strong>debut en tier 1</strong>: año del primer roster en LCK, LPL, LEC, LCS o LTA.'],
-      ['Mismo roster', '«Estuvo en el mismo roster que el jugador buscado» aparece bajo un intento que estuvo a la vez en el roster del mismo equipo que la respuesta, en una liga principal o en un torneo internacional.'],
-      ['Nuevo jugador', 'Cada día a las 00:00 UTC.']
-    ]
+    // The guide window (onboarding.js).
+    onbNext: "Siguiente", onbClose: "Cerrar", onbLang: "Idioma",
+    onbSkip: "Saltar",
+    onbDone: "¡A jugar!",
+    onbSteps: [["Adivina el jugador del día", "Escribe el nick de cualquier jugador pro. Cada intento muestra lo que comparte con la respuesta: país, posición, liga, equipo, títulos y debut."], ["Colores y flechas", "<strong>Verde</strong>: coincide, <strong>amarillo</strong>: coincide en parte, <strong>rojo</strong>: distinto. La flecha indica si el número buscado es mayor (↑) o menor (↓)."]],
+    btnGuideLabel: 'Guía',
   },
   fr: {
     subtitle: 'Énigme quotidienne LoL esports',
     noPuzzleTitle: '📅 Pas de joueur aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle énigme !',
     nextBoardIn: 'Nouveau joueur dans', nextBoardSoon: 'Nouveau joueur très bientôt',
     guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
-    searchPh: 'Tapez un pseudo ou un nom…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
+    searchPh: 'Tapez le pseudo du joueur…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
     colPlayer: 'Joueur', colNat: 'Pays', colPos: 'Poste', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres int.', colDebut: 'Débuts tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Le joueur recherché a joué pour {teams} à un moment',
     natPart: 'une des nationalités correspond',
@@ -110,14 +104,12 @@ const I18N = {
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et le joueur est révélé. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
     newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
-    guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
-    guide: [
-      ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
-      ['Comment jouer', 'Tapez un pseudo ou un nom et choisissez le joueur dans la liste. Les essais sont illimités. Après chacun, vous voyez ce que votre choix partage avec la réponse : <strong>vert</strong> pour une correspondance, <strong>jaune</strong> pour une correspondance partielle, <strong>rouge</strong> pour une différence. La flèche à côté d\'un nombre indique si la valeur cherchée est plus grande (↑) ou plus petite (↓).'],
-      ['Catégories', '<strong>Nationalité</strong> (double nationalité : les deux drapeaux ; <strong>jaune</strong> si l\'une correspond) ; <strong>poste</strong> : le plus fréquent dans ses rosters ; <strong>ligue actuelle</strong> (LCK, LPL, LEC, LCS, LTA ou « autre » pour les équipes d\'autres ligues) et <strong>équipe actuelle</strong> : selon son profil Leaguepedia, « aucune » pour les retraités et les joueurs sans équipe ; la ligue et l\'équipe sont en <strong>jaune</strong> quand le joueur recherché a joué dans la ligue actuelle ou pour l\'équipe actuelle de votre essai à un moment (pas forcément ensemble) ; <strong>titres internationaux</strong> : Worlds, MSI et First Stand gagnés en tant que joueur ; <strong>débuts en tier 1</strong> : année du premier roster en LCK, LPL, LEC, LCS ou LTA.'],
-      ['Même roster', '« A fait partie du même roster que le joueur recherché » apparaît sous un essai qui était dans le roster de la même équipe que la réponse au même moment, dans une ligue majeure ou lors d\'un tournoi international.'],
-      ['Nouveau joueur', 'Chaque jour à 00:00 UTC.']
-    ]
+    // The guide window (onboarding.js).
+    onbNext: "Suivant", onbClose: "Fermer", onbLang: "Langue",
+    onbSkip: "Passer",
+    onbDone: "On joue !",
+    onbSteps: [["Devinez le joueur du jour", "Tapez le pseudo de n’importe quel joueur pro. Chaque essai montre ce qu’il partage avec la réponse : pays, poste, ligue, équipe, titres et débuts."], ["Couleurs et flèches", "<strong>Vert</strong> : identique, <strong>jaune</strong> : en partie, <strong>rouge</strong> : différent. La flèche indique si le nombre cherché est plus grand (↑) ou plus petit (↓)."]],
+    btnGuideLabel: 'Guide',
   }
 };
 
@@ -371,7 +363,6 @@ function applyI18n() {
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
   PROGRESS.renderHeader('guess', currentLang);
-  $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
   scheduleFit();
 }
 
@@ -404,8 +395,30 @@ function updateNavButtons() {
   $('btnNextDate').disabled = selectedDateIndex < 0 || selectedDateIndex >= availableDates.length - 1;
 }
 
+/** The guide's two steps show a guess row turning over and the colours. */
+const tileDemo = (cls, html, delay) => `<span class="gp-cell onb-tile ${cls}" style="animation-delay:${delay}s">${html}</span>`;
+function guessDemos() {
+  const row = `<div class="onb-demo onb-guess" aria-hidden="true"><span class="onb-who"><img src="players/caps.webp" alt="">Caps</span>`
+    + tileDemo('no', '<img src="assets/flags/dk.svg" alt="">', 0.2) + tileDemo('ok', '<b>MID</b>', 0.45)
+    + tileDemo('part', '<img src="assets/logos/leagues/LEC.webp" alt="">', 0.7) + tileDemo('no', '<b>1</b><i>↑</i>', 0.95) + '</div>';
+  const colours = `<div class="onb-demo onb-guess onb-static" aria-hidden="true">`
+    + tileDemo('ok', '✓', 0) + tileDemo('part', '~', 0) + tileDemo('no', '✗', 0) + tileDemo('no', '<b>2019</b><i>↑</i>', 0) + '</div>';
+  return [row, colours, ''];
+}
+/** The guide (the "Guide" button; by itself on a first visit). Built anew when the language changes in it. */
+function openGuide() {
+  ONBOARDING.show('guess', () => ({
+    steps: t('onbSteps').map(([title, text], i) => ({ title, text, demo: guessDemos()[i] })),
+    labels: { next: t('onbNext'), skip: t('onbSkip'), done: t('onbDone'), close: t('onbClose'), lang: t('onbLang') }
+  }));
+}
+function maybeOnboard() {
+  if (ONBOARDING.isNew('guess', 'lolgp_state_') || ONBOARDING.reopen('guess')) openGuide();
+}
+
 async function init() {
   applyI18n();
+  maybeOnboard();
   const [manifest, pool] = await Promise.all([fetchJson('guess/index.json'), fetchJson('data/guess-players.json', { revalidate: true })]);
   players = (pool || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
   playerById = new Map(players.map(p => [p.id, p]));
@@ -641,7 +654,7 @@ $('btnGiveUpConfirm').addEventListener('click', () => {
   setTimeout(showResult, 900);
 });
 $('btnShowResults').addEventListener('click', showResult);
-$('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
+$('btnGuide').addEventListener('click', openGuide);
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

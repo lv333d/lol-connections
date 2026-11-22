@@ -152,14 +152,15 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
   text-transform: uppercase; letter-spacing: 0.3px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.cond.small .cond-icon { width: 36px; height: 36px; }
+/* The two conditions at the top of the search window: big enough to read the logos (phones: see below). */
+.cond.small .cond-icon { width: 64px; height: 64px; }
 /* Team and league logos are designed for light backgrounds (Fnatic, Dignitas, LCK are dark) — give them a light plate. */
 .cond-team .cond-icon > img, .cond-league .cond-icon > img {
   background: #ece6d6; border-radius: 10px; padding: 5px;
   width: 100%; height: 100%; object-fit: contain;
   box-shadow: 0 0 0 1px rgba(200, 170, 110, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
 }
-.cond.small .cond-caption { font-size: 0.64rem; }
+.cond.small .cond-caption { font-size: 0.78rem; }
 /* Flags are 4:3 — keep the ratio inside the square icon box. */
 .cond-nationality .cond-icon > img {
   width: 100%; height: auto; border-radius: 4px;
@@ -268,6 +269,8 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
   /* Search sits at the top, so the on-screen keyboard doesn't cover the results. */
   #searchOverlay { align-items: flex-start; }
   .search-modal { padding: 16px 14px 12px; gap: 10px; }
+  .cond.small .cond-icon { width: 52px; height: 52px; }
+  .cond.small .cond-caption { font-size: 0.72rem; }
   .search-results { max-height: 46vh; max-height: 46dvh; }
   .result-item { padding: 10px 12px; }
   .grid-countdown-time { font-size: 1.4rem; }

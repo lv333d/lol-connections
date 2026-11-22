@@ -8,6 +8,7 @@
 //             (data/guess-players.json) every pool player, their current team's logo and their flag
 //   --all     every player in data/players.json (the search list shows a portrait for each)
 //   --teams   logos of every team in data/teams.json
+//   --refresh-logos  download the team logos again even when the file exists (after changing how logos are picked)
 //   --limit   stop after N portraits (handy for a first test)
 import { readFile, readdir, mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
@@ -36,6 +37,7 @@ const DOWNLOAD_CONCURRENCY = 4;
 const args = process.argv.slice(2);
 const ALL = args.includes('--all');
 const ALL_TEAMS = args.includes('--teams');
+const REFRESH_LOGOS = args.includes('--refresh-logos');
 const LIMIT = Number(args.find(a => a.startsWith('--limit='))?.split('=')[1]) || Infinity;
 
 const exists = f => access(f).then(() => true, () => false);
@@ -140,7 +142,8 @@ async function convert(url, outFile, kind) {
   const img = sharp(input).rotate();
   const pipeline = kind === 'portrait'
     ? img.resize(PORTRAIT_SIZE, PORTRAIT_SIZE, { fit: 'cover', position: 'top' }).webp({ quality: 80, effort: 5 })
-    : img.resize(LOGO_SIZE, LOGO_SIZE, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).webp({ quality: 85, alphaQuality: 90, effort: 5 });
+    // Logos: empty margins trimmed first, so the emblem fills the plate.
+    : sharp(await img.clone().trim({ threshold: 2 }).toBuffer().catch(() => input)).resize(LOGO_SIZE, LOGO_SIZE, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).webp({ quality: 85, alphaQuality: 90, effort: 5 });
   await writeFile(outFile, await pipeline.toBuffer());
 }
 
@@ -182,17 +185,20 @@ async function main() {
     });
   }
 
-  // Logos: the Teams table file, else Leaguepedia's naming convention "{Team page}logo square.png".
+  // Logos: Leaguepedia's "{Team page}logo square.png" first — the emblem alone, where the Teams table file is often
+  // the wide emblem + name logo (G2, Dignitas, Fnatic…), unreadable on a small plate — else the Teams table file.
   const wantedTeams = teams.filter(t => ALL_TEAMS || gridTeams.has(t.id));
   const logoJobs = Object.entries(LEAGUE_LOGOS).map(([id, file]) => ({ label: `[liga] ${id}`, files: [file], out: path.join(LEAGUE_LOGOS_DIR, `${id}.webp`) }));
   for (const t of wantedTeams) {
-    const files = [t.logo, `${t.page || t.name}logo square.png`].filter(Boolean);
+    const files = [`${t.page || t.name}logo square.png`, t.logo].filter(Boolean);
     logoJobs.push({ label: `[drużyna] ${t.name}`, files, out: path.join(TEAM_LOGOS_DIR, `${t.id}.webp`) });
   }
   await mkdir(TEAM_LOGOS_DIR, { recursive: true });
   await mkdir(LEAGUE_LOGOS_DIR, { recursive: true });
   const logoTodo = [];
-  for (const job of logoJobs) if (!(await exists(job.out))) logoTodo.push(job);
+  for (const job of logoJobs) {
+    if (!(await exists(job.out)) || (REFRESH_LOGOS && job.out.startsWith(TEAM_LOGOS_DIR))) logoTodo.push(job);
+  }
   console.log(`\nLoga lig i drużyn: ${logoJobs.length} potrzebnych, pobieram ${logoTodo.length}.`);
   if (logoTodo.length) {
     const logoUrls = await imageUrls([...new Set(logoTodo.flatMap(j => j.files))]);

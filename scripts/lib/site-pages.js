@@ -2,8 +2,7 @@
 // Each template (index.html, guess.html — English in the repo, which the local admin server serves as is)
 // becomes /, /pl, /es, /fr (+ /guess) with the language's text already in the HTML: <html lang>, translated
 // description and Open Graph tags, canonical + hreflang (x-default = English at /), the game's UI strings
-// (data-i18n keys from grid.js / guess.js I18N) and the Guide window's content — the same markup the game's
-// applyI18n() renders, so nothing changes for players and search engines get the rules without running JS.
+// (data-i18n keys from grid.js / guess.js I18N) — the same text the game's applyI18n() fills in, so nothing changes for players and search engines get the rules without running JS.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -36,13 +35,6 @@ function replaceOnce(html, re, value, what) {
   if (!re.test(html)) throw new Error(`Szablon: brak ${what}`);
   return html.replace(re, value);
 }
-
-// Guide window content — keep in sync with applyI18n() in grid.js and guess.js. The strings carry intended
-// markup (<strong>), as in the game.
-const GUIDE = {
-  grid: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join(''),
-  guess: d => d.guide.map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('')
-};
 
 /** All language versions of all pages: [{ file, html, url, lang, page }]. */
 export async function buildPages(root) {
@@ -81,14 +73,13 @@ export async function buildPages(root) {
         return `<script type="application/ld+json">\n  ${JSON.stringify(data).replace(/</g, '\\u003c')}\n  </script>`;
       });
 
-      // Game UI strings and the Guide window, so the page reads right before (and without) JavaScript.
+      // Game UI strings, so the page reads right before (and without) JavaScript.
       html = html.replace(/(<([a-z0-9]+)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>)[^<]*(<\/\2>)/g,
         (m, open, tag, key, close) => (typeof dict[key] === 'string' ? open + escHtml(dict[key]) + close : m));
       html = html.replace(/(\bdata-i18n-ph="([^"]+)")/g, (m, attr, key) =>
         (typeof dict[key] === 'string' ? `${attr} placeholder="${escAttr(dict[key])}"` : m));
       html = html.replace(/(\bdata-i18n-title="([^"]+)")/g, (m, attr, key) =>
         (typeof dict[key] === 'string' ? `${attr} title="${escAttr(dict[key])}"` : m));
-      html = replaceOnce(html, /<div id="guideContent"><\/div>/, `<div id="guideContent">${GUIDE[page.id](dict)}</div>`, 'guideContent');
 
       // Links between pages and the language picker stay in this language.
       html = html.replace(/href="\/" class="game-tab/g, `href="${pagePath(lang, '')}" class="game-tab`)

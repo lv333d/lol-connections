@@ -18,7 +18,7 @@ const I18N = {
     noPuzzleTitle: '📅 Brak siatki na dziś', noPuzzleText: 'Wróć jutro po nową siatkę!',
     nextBoardIn: 'Nowa siatka za', nextBoardSoon: 'Nowa siatka już wkrótce',
     guessesLabel: 'Pozostałe próby:', giveUp: 'Poddaj się', results: 'Wyniki',
-    searchPh: 'Wpisz nick lub imię gracza…', searchTitle: 'Wybierz gracza',
+    searchPh: 'Wpisz nick gracza…', searchTitle: 'Wybierz gracza',
     noResults: 'Brak graczy o takim nicku.', typeMore: 'Zacznij pisać, aby wyszukać gracza.',
     used: 'już użyty', wrong: '{nick} nie spełnia obu warunków.', correct: 'Trafione!', finished: 'Koniec gry — kliknij „Wyniki”.',
     winTitle: '🏆 Perfekcyjna siatka!', doneTitle: '⚔ Koniec gry', score: '{n}/9',
@@ -26,13 +26,12 @@ const I18N = {
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy, a pozostałe pola zostaną odkryte. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
     newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
-    answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
-    guide: [
-      ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza lub trenera, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
-      ['Jak grać', 'Kliknij <strong>+</strong>, wyszukaj gracza lub trenera po nicku lub imieniu i wybierz go z listy. Masz 9 prób — błędna odpowiedź też zużywa próbę. Każdej osoby możesz użyć tylko raz.'],
-      ['Trenerzy', 'Trenerzy też się liczą: warunek drużyny lub ligi spełnia każdy, kto w niej grał <strong>albo</strong> był w niej trenerem.'],
-      ['Nowa siatka', 'Codziennie o 00:00 UTC. Każda siatka ma co najmniej jedno poprawne rozwiązanie.']
-    ],
+    // The guide window (onboarding.js).
+    onbNext: "Dalej", onbClose: "Zamknij", onbLang: "Język",
+    onbSkip: "Pomiń",
+    onbDone: "Gramy!",
+    onbSteps: [["Siatka 3×3", "W każdym polu wpisz pro-gracza, który pasuje <strong>i</strong> do wiersza, <strong>i</strong> do kolumny — na przykład grał w T1 i wygrał Worlds."], ["9 prób", "Kliknij pole, wpisz nick gracza i wybierz go z listy. Błędna odpowiedź też zużywa próbę, a każdej osoby użyjesz tylko raz. Trenerzy też się liczą."]],
+    answers: '{n} odp.', btnGuideLabel: 'Poradnik',
     cond: {
       coach: 'Trener', coachLong: 'Był trenerem',
       retired: 'Emerytowany gracz', retiredLong: 'Zakończył karierę zawodniczą',
@@ -45,7 +44,7 @@ const I18N = {
     noPuzzleTitle: '📅 No grid today', noPuzzleText: 'Come back tomorrow for a new grid!',
     nextBoardIn: 'New grid in', nextBoardSoon: 'New grid coming soon',
     guessesLabel: 'Guesses left:', giveUp: 'Give up', results: 'Results',
-    searchPh: 'Type a nickname or real name…', searchTitle: 'Pick a player',
+    searchPh: 'Type a player’s nickname…', searchTitle: 'Pick a player',
     noResults: 'No player matches.', typeMore: 'Start typing to search for a player.',
     used: 'already used', wrong: '{nick} does not meet both conditions.', correct: 'Correct!', finished: 'Game over — press “Results”.',
     winTitle: '🏆 Immaculate grid!', doneTitle: '⚔ Game over', score: '{n}/9',
@@ -53,13 +52,12 @@ const I18N = {
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the remaining cells are revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
     newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
-    answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
-    guide: [
-      ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player or coach who meets the row condition <strong>and</strong> the column condition.'],
-      ['How to play', 'Click <strong>+</strong>, search for a player or coach by nickname or real name and pick from the list. You have 9 guesses — wrong answers use one too. Each person can be used once.'],
-      ['Coaches', 'Coaches count too: a team or league condition is met by anyone who played there <strong>or</strong> coached there.'],
-      ['New grid', 'Every day at 00:00 UTC. Every grid has at least one valid solution.']
-    ],
+    // The guide window (onboarding.js).
+    onbNext: "Next", onbClose: "Close", onbLang: "Language",
+    onbSkip: "Skip",
+    onbDone: "Let's play!",
+    onbSteps: [["3×3 grid", "In each cell, name a pro player who fits the row <strong>and</strong> the column — for example, played for T1 and won Worlds."], ["9 guesses", "Tap a cell, type the player’s nickname and pick them from the list. A wrong answer uses a guess too, and each person can be used once. Coaches count as well."]],
+    answers: '{n} ans.', btnGuideLabel: 'Guide',
     cond: {
       coach: 'Coach', coachLong: 'Worked as a coach',
       retired: 'Retired player', retiredLong: 'Retired from playing',
@@ -72,7 +70,7 @@ const I18N = {
     noPuzzleTitle: '📅 No hay cuadrícula hoy', noPuzzleText: '¡Vuelve mañana por una nueva!',
     nextBoardIn: 'Nueva cuadrícula en', nextBoardSoon: 'Nueva cuadrícula muy pronto',
     guessesLabel: 'Intentos restantes:', giveUp: 'Rendirse', results: 'Resultados',
-    searchPh: 'Escribe un nick o nombre…', searchTitle: 'Elige un jugador',
+    searchPh: 'Escribe el nick del jugador…', searchTitle: 'Elige un jugador',
     noResults: 'Ningún jugador coincide.', typeMore: 'Empieza a escribir para buscar.',
     used: 'ya usado', wrong: '{nick} no cumple ambas condiciones.', correct: '¡Correcto!', finished: 'Fin del juego — pulsa «Resultados».',
     winTitle: '🏆 ¡Cuadrícula perfecta!', doneTitle: '⚔ Fin del juego', score: '{n}/9',
@@ -80,13 +78,12 @@ const I18N = {
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revelan las casillas restantes. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
     newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
-    answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
-    guide: [
-      ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro o entrenador que cumpla la condición de la fila <strong>y</strong> de la columna.'],
-      ['Cómo jugar', 'Pulsa <strong>+</strong>, busca a un jugador o entrenador por nick o nombre real y elige de la lista. Tienes 9 intentos — los fallos también cuentan. Cada persona solo se puede usar una vez.'],
-      ['Entrenadores', 'Los entrenadores también cuentan: una condición de equipo o liga la cumple quien jugó <strong>o</strong> entrenó allí.'],
-      ['Nueva cuadrícula', 'Cada día a las 00:00 UTC. Cada cuadrícula tiene al menos una solución.']
-    ],
+    // The guide window (onboarding.js).
+    onbNext: "Siguiente", onbClose: "Cerrar", onbLang: "Idioma",
+    onbSkip: "Saltar",
+    onbDone: "¡A jugar!",
+    onbSteps: [["Cuadrícula 3×3", "En cada casilla, escribe un jugador pro que cumpla la fila <strong>y</strong> la columna — por ejemplo, jugó en T1 y ganó Worlds."], ["9 intentos", "Toca una casilla, escribe el nick del jugador y elígelo de la lista. Un fallo también gasta un intento y cada persona se usa una sola vez. Los entrenadores también cuentan."]],
+    answers: '{n} resp.', btnGuideLabel: 'Guía',
     cond: {
       coach: 'Entrenador', coachLong: 'Fue entrenador',
       retired: 'Jugador retirado', retiredLong: 'Se retiró como jugador',
@@ -99,7 +96,7 @@ const I18N = {
     noPuzzleTitle: '📅 Pas de grille aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle grille !',
     nextBoardIn: 'Nouvelle grille dans', nextBoardSoon: 'Nouvelle grille très bientôt',
     guessesLabel: 'Essais restants :', giveUp: 'Abandonner', results: 'Résultats',
-    searchPh: 'Tapez un pseudo ou un nom…', searchTitle: 'Choisissez un joueur',
+    searchPh: 'Tapez le pseudo du joueur…', searchTitle: 'Choisissez un joueur',
     noResults: 'Aucun joueur trouvé.', typeMore: 'Commencez à taper pour chercher.',
     used: 'déjà utilisé', wrong: '{nick} ne remplit pas les deux conditions.', correct: 'Correct !', finished: 'Partie terminée — cliquez sur « Résultats ».',
     winTitle: '🏆 Grille parfaite !', doneTitle: '⚔ Partie terminée', score: '{n}/9',
@@ -107,13 +104,12 @@ const I18N = {
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et les cases restantes sont révélées. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
     newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
-    answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
-    guide: [
-      ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro ou un coach qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
-      ['Comment jouer', 'Cliquez sur <strong>+</strong>, cherchez un joueur ou un coach par pseudo ou nom et choisissez dans la liste. Vous avez 9 essais — les erreurs comptent aussi. Chaque personne ne peut être utilisée qu\'une fois.'],
-      ['Coachs', 'Les coachs comptent aussi : une condition d\'équipe ou de ligue est remplie par quiconque y a joué <strong>ou</strong> l\'a coachée.'],
-      ['Nouvelle grille', 'Chaque jour à 00:00 UTC. Chaque grille a au moins une solution.']
-    ],
+    // The guide window (onboarding.js).
+    onbNext: "Suivant", onbClose: "Fermer", onbLang: "Langue",
+    onbSkip: "Passer",
+    onbDone: "On joue !",
+    onbSteps: [["Grille 3×3", "Dans chaque case, trouvez un joueur pro qui remplit la ligne <strong>et</strong> la colonne — par exemple, a joué chez T1 et gagné les Worlds."], ["9 essais", "Touchez une case, tapez le pseudo du joueur et choisissez-le dans la liste. Une erreur coûte aussi un essai, et chaque personne ne sert qu’une fois. Les coachs comptent aussi."]],
+    answers: '{n} rép.', btnGuideLabel: 'Guide',
     cond: {
       coach: 'Coach', coachLong: 'A été coach',
       retired: 'Joueur retraité', retiredLong: 'A pris sa retraite de joueur',
@@ -329,7 +325,6 @@ function applyI18n() {
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
   PROGRESS.renderHeader('grid', currentLang);
-  $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
 }
 
 const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
@@ -366,8 +361,26 @@ function updateNavButtons() {
   $('btnNextDate').disabled = selectedDateIndex < 0 || selectedDateIndex >= availableDates.length - 1;
 }
 
+/** The guide's first step: an animated cell (T1 × Worlds → Faker). */
+const GRID_DEMO = `<div class="onb-demo onb-grid" aria-hidden="true">
+  <div class="onb-cond"><img src="assets/logos/teams/t1.webp" alt=""><span>T1</span></div><span class="onb-x">×</span>
+  <div class="onb-cond plate"><img src="assets/badges/worlds.webp" alt=""><span>Worlds</span></div><span class="onb-x">→</span>
+  <div class="onb-cell"><span class="onb-plus">+</span><span class="onb-typing">Fak</span><span class="onb-done"><img src="players/faker.webp" alt=""><b>Faker</b></span></div>
+</div>`;
+/** The guide (the "Guide" button; by itself on a first visit). Built anew when the language changes in it. */
+function openGuide() {
+  ONBOARDING.show('grid', () => ({
+    steps: t('onbSteps').map(([title, text], i) => ({ title, text, demo: i === 0 ? GRID_DEMO : '' })),
+    labels: { next: t('onbNext'), skip: t('onbSkip'), done: t('onbDone'), close: t('onbClose'), lang: t('onbLang') }
+  }));
+}
+function maybeOnboard() {
+  if (ONBOARDING.isNew('grid', 'lolg_state_') || ONBOARDING.reopen('grid')) openGuide();
+}
+
 async function init() {
   applyI18n();
+  maybeOnboard();
   const [manifest, index] = await Promise.all([fetchJson('grid/index.json'), fetchJson('data/players-index.json', { revalidate: true })]);
   players = (index || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
   playerById = new Map(players.map(p => [p.id, p]));
@@ -729,7 +742,7 @@ document.addEventListener('click', e => {
 window.addEventListener('scroll', hideAnswers, { passive: true });
 window.addEventListener('resize', hideAnswers);
 $('btnShowResults').addEventListener('click', showResult);
-$('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
+$('btnGuide').addEventListener('click', openGuide);
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

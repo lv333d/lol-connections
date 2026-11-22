@@ -299,6 +299,7 @@
         <button class="btn btn-sm" id="previewPhone">📱 Telefon</button>
         <button class="btn btn-sm btn-ghost" id="previewDesktop">🖥 Komputer</button>
         <label><input type="checkbox" id="previewSolved"> Rozwiązanie</label>
+        <label title="Jak ktoś, kto wchodzi pierwszy raz: poradnik na start i podpowiedź nad siatką, bez względu na zapisy tej przeglądarki (nic się nie zapisuje)"><input type="checkbox" id="previewNew"> Nowy gracz</label>
         <label title="Symulowana seria dni: płomień w nagłówku i „Seria: N 🔥 — wróć jutro po #…” w oknie wyniku (zaznacz Rozwiązanie i kliknij Wyniki)">🔥 Seria <input type="number" id="previewStreak" min="0" max="999" placeholder="—" style="width:64px"></label>
         <button class="btn btn-sm btn-ghost" id="previewClose" title="Zamknij">✕</button>
       </div>
@@ -757,7 +758,7 @@
     stage.scrollTop = 0;
     if (preview.game.startsWith('design-')) { iframe.src = `design/${DESIGN_PAGES[preview.game.slice(7)][1]}?date=${preview.date}`; return; }
     const streak = /^\d{1,3}$/.test($('previewStreak').value) ? `&streak=${$('previewStreak').value}` : '';
-    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}${streak}`;
+    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}${$('previewNew').checked ? '&newplayer=1' : ''}${streak}`;
   }
 
   const stepPreview = delta => {
@@ -791,6 +792,7 @@
   $('previewDesktop').addEventListener('click', () => { preview.device = 'desktop'; showPreview(); });
   $('previewSolved').addEventListener('change', showPreview);
   $('previewStreak').addEventListener('change', showPreview);
+  $('previewNew').addEventListener('change', showPreview);
   $('previewClose').addEventListener('click', () => { $('previewOverlay').classList.add('hidden'); $('previewIframe').src = 'about:blank'; });
   document.addEventListener('keydown', e => {
     if ($('previewOverlay').classList.contains('hidden')) return;

@@ -568,3 +568,69 @@ header.site-header::after { display: none; }
 .hbtn-streak.streak-off .hbtn-ico { color: var(--text-muted); }
 .hbtn-streak.streak-off svg { color: var(--text-muted); opacity: 0.7; }
 .streak-line { margin-top: 18px; font-size: 0.95rem; font-weight: 700; color: #ffb547; text-align: center; }
+
+/* ---------- First-visit guide (onboarding.js) ---------- */
+.onb-overlay { z-index: 950; }
+.onb-modal { max-width: 400px; text-align: center; }
+.onb-modal h2 { margin: 6px 0 8px; font-size: 1.15rem; }
+/* Top row: language on the left, × on the right. */
+.onb-top { display: flex; align-items: center; justify-content: space-between; margin: -14px -12px 6px; }
+.onb-lang { display: inline-flex; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.8rem; }
+.onb-lang select {
+  min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--text-muted);
+  font: inherit; font-size: 0.82rem; cursor: pointer;
+}
+.onb-lang select:hover { color: var(--gold-light); }
+.onb-lang select:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
+.onb-lang select option { background: #0d1322; color: var(--text); }
+.onb-close {
+  width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--text-muted); font-size: 1.6rem; line-height: 1;
+}
+.onb-close:hover, .onb-close:focus-visible { color: var(--gold-light); outline: none; }
+@media (max-width: 520px) { .onb-lang select { font-size: 16px; } }
+.onb-text { font-size: 0.9rem; line-height: 1.55; color: var(--text-muted); }
+.onb-text strong { color: var(--gold-light); }
+.onb-dots { display: flex; justify-content: center; gap: 6px; margin: 16px 0 4px; }
+.onb-dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(168, 174, 192, 0.35); }
+.onb-dots span.on { background: var(--cyan); }
+.onb-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+.onb-actions .btn { flex: 1 1 0; max-width: 170px; min-height: 44px; padding-left: 10px; padding-right: 10px; }
+.onb-demo-slot:empty { display: none; }
+.onb-demo { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 2px 0 12px; }
+.onb-x { color: var(--text-muted); font-size: 1.1rem; }
+.onb-cond { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.66rem; font-weight: 800; color: var(--gold-light); text-transform: uppercase; }
+.onb-cond img { width: 44px; height: 44px; object-fit: contain; padding: 4px; border-radius: 8px; background: #ece6d6; }
+/* The cell: "+", then a name being typed, then the player — on a loop. Without animation only the player shows. */
+.onb-cell {
+  position: relative; width: 78px; height: 78px; border-radius: 6px; overflow: hidden;
+  border: 1px solid rgba(74, 224, 136, 0.7); background: rgba(13, 21, 38, 0.82);
+}
+.onb-cell > * { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+.onb-plus { font-size: 2rem; font-weight: 300; color: var(--gold); }
+.onb-typing { font-size: 0.85rem; font-weight: 700; color: var(--gold-light); }
+.onb-typing::after { content: '|'; margin-left: 1px; color: var(--cyan); }
+.onb-done { opacity: 1; flex-direction: column; justify-content: flex-end; }
+.onb-done img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+.onb-done b { position: relative; width: 100%; padding: 10px 2px 3px; font-size: 0.68rem; color: #fff; background: linear-gradient(transparent, rgba(5, 8, 17, 0.92) 55%); }
+.onb-plus { animation: onb-plus 4.8s infinite; }
+.onb-typing { animation: onb-typing 4.8s infinite; }
+.onb-done { animation: onb-done 4.8s infinite; }
+.onb-cell { animation: onb-border 4.8s infinite; }
+@keyframes onb-plus { 0%, 22% { opacity: 1; } 26%, 100% { opacity: 0; } }
+@keyframes onb-typing { 0%, 24% { opacity: 0; } 28%, 54% { opacity: 1; } 58%, 100% { opacity: 0; } }
+@keyframes onb-done { 0%, 56% { opacity: 0; transform: scale(0.92); } 62%, 96% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+@keyframes onb-border { 0%, 56% { border-color: rgba(200, 170, 110, 0.3); } 60%, 100% { border-color: rgba(74, 224, 136, 0.7); } }
+/* Guess the Pro: a guess row turning over tile by tile (guess.css colours). */
+.onb-guess { gap: 5px; }
+.onb-who { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-right: 4px; font-size: 0.68rem; font-weight: 800; color: var(--gold-light); }
+.onb-who img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; object-position: top; }
+.onb-tile.gp-cell { width: 48px; max-height: none; padding: 5px; flex-direction: column; font-size: 0.8rem; color: #fff; }
+.onb-tile img { max-width: 100%; max-height: 100%; }
+.onb-tile i { font-style: normal; font-size: 0.7rem; color: #ffca58; }
+.onb-guess:not(.onb-static) .onb-tile { animation: onb-flip 4.8s infinite both; }
+@keyframes onb-flip {
+  0% { transform: rotateX(90deg); opacity: 0; }
+  10%, 92% { transform: rotateX(0); opacity: 1; }
+  100% { opacity: 0; }
+}

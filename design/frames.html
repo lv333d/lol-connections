@@ -31,7 +31,7 @@
     const v = q.get('src') ? 'src' : PAGES[q.get('v')] ? q.get('v') : 'a';
     const day = q.get('date') || new Date().toISOString().slice(0, 10);
     // Mock-ups take ?date=; the real games their admin preview (?preview=, &solved=1 for a finished game).
-    const date = v === 'src' ? '' : PAGES[v][1].startsWith('/') ? `?preview=${day}${q.has('solved') ? '&solved=1' : ''}${q.get('streak') ? '&streak=' + encodeURIComponent(q.get('streak')) : ''}` : (q.get('date') ? '?date=' + encodeURIComponent(q.get('date')) : '');
+    const date = v === 'src' ? '' : PAGES[v][1].startsWith('/') ? `?preview=${day}${q.has('solved') ? '&solved=1' : ''}${q.get('streak') ? '&streak=' + encodeURIComponent(q.get('streak')) : ''}${q.has('newplayer') ? '&newplayer=1' : ''}` : (q.get('date') ? '?date=' + encodeURIComponent(q.get('date')) : '');
     const SIZES = [[360, 740], [390, 667], [390, 844], [430, 932], [1280, 800]];
     const only = q.get('only');
     const sizes = only ? SIZES.filter(([w, h]) => `${w}x${h}` === only) : SIZES;
