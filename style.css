@@ -561,3 +561,10 @@ header.site-header::after { display: none; }
     background: rgba(8, 13, 25, 0.55); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
   }
 }
+
+/* ---------- Streak (progress.js) ---------- */
+/* The flame is a counter, not a button. Not played today (or no streak yet): dimmed. */
+.hbtn-streak, .hbtn-streak:hover { cursor: default; background: none; }
+.hbtn-streak.streak-off .hbtn-ico { color: var(--text-muted); }
+.hbtn-streak.streak-off svg { color: var(--text-muted); opacity: 0.7; }
+.streak-line { margin-top: 18px; font-size: 0.95rem; font-weight: 700; color: #ffb547; text-align: center; }

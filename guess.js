@@ -28,8 +28,7 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy i zobaczysz szukanego gracza. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
-    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria', statsLabel: 'Statystyki',
-    comingSoon: 'Serie i statystyki już wkrótce',
+    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
     guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Odgadnij dzisiejszego pro-gracza. Każdy z nich co najmniej dwa razy grał na Worlds, MSI lub First Stand w drużynie z LCK, LPL, LEC, LCS lub LTA.'],
@@ -56,8 +55,7 @@ const I18N = {
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the player is revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
-    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak', statsLabel: 'Stats',
-    comingSoon: 'Streaks and stats are coming soon',
+    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
     guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Guess today\'s pro player. Every one of them played at least two Worlds, MSI or First Stand events for an LCK, LPL, LEC, LCS or LTA team.'],
@@ -84,8 +82,7 @@ const I18N = {
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revela el jugador. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
-    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha', statsLabel: 'Estadísticas',
-    comingSoon: 'Rachas y estadísticas muy pronto',
+    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
     guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Adivina el jugador pro de hoy. Todos jugaron al menos dos veces en Worlds, MSI o First Stand con un equipo de LCK, LPL, LEC, LCS o LTA.'],
@@ -112,8 +109,7 @@ const I18N = {
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et le joueur est révélé. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
-    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série', statsLabel: 'Statistiques',
-    comingSoon: 'Séries et statistiques bientôt disponibles',
+    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
     guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Devinez le joueur pro du jour. Tous ont joué au moins deux fois aux Worlds, au MSI ou au First Stand avec une équipe de LCK, LPL, LEC, LCS ou LTA.'],
@@ -374,6 +370,7 @@ function applyI18n() {
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
+  PROGRESS.renderHeader('guess', currentLang);
   $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
   scheduleFit();
 }
@@ -554,7 +551,7 @@ function guess(id) {
   state.guesses.push(id);
   justAdded = id;
   if (id === answer.id) state.won = true;
-  if (state.won) state.gameOver = true;
+  if (state.won) endGame();
   saveState();
   clearSearch();
   render();
@@ -580,11 +577,21 @@ function buildShareText() {
   return `⚔ LoL Connect · Guess the Pro #${day.number} — ${state.won ? '🎯 ' + state.guesses.length : '🏳️'}\n\n${emojiRows()}\n\n${SITE.url(currentLang, 'guess')}`;
 }
 
+/** The game ends: finishedOn (the UTC day it ended) tells streaks a day's puzzle from an archive game (progress.js). */
+function endGame() {
+  state.gameOver = true;
+  state.finishedOn = todayKey();
+  PROGRESS.renderHeader('guess', currentLang);
+}
+
 function showResult() {
   $('resultTitle').textContent = state.won ? t('winTitle') : t('loseTitle');
   answerCard($('resultPlayer'));
   $('resultScore').textContent = `${t('guessesLabel')} ${state.guesses.length}`;
   $('emojiGrid').innerHTML = emojiRows().replace(/\n/g, '<br>');
+  const line = PROGRESS.resultLine('guess', currentLang, selectedDate, day.number);
+  $('streakLine').textContent = line;
+  $('streakLine').classList.toggle('hidden', !line);
   $('resultOverlay').classList.remove('hidden');
 }
 
@@ -601,7 +608,7 @@ function showToast(msg) {
   e.textContent = msg;
   e.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => e.classList.remove('show'), 2200);
+  toastTimer = setTimeout(() => e.classList.remove('show'), Math.max(2200, msg.length * 55));
 }
 
 /* ---------- Events ---------- */
@@ -627,7 +634,7 @@ $('btnGiveUp').addEventListener('click', () => $('giveUpOverlay').classList.remo
 $('btnGiveUpCancel').addEventListener('click', () => $('giveUpOverlay').classList.add('hidden'));
 $('btnGiveUpConfirm').addEventListener('click', () => {
   $('giveUpOverlay').classList.add('hidden');
-  state.gameOver = true;
+  endGame();
   saveState();
   justAdded = answer.id; // the revealed answer row flips in
   render();
@@ -635,8 +642,6 @@ $('btnGiveUpConfirm').addEventListener('click', () => {
 });
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
-// Streak and statistics: placeholders in the header until they get their own windows.
-['btnStreak', 'btnStats'].forEach(id => $(id).addEventListener('click', () => showToast(t('comingSoon'))));
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

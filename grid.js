@@ -25,8 +25,7 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy, a pozostałe pola zostaną odkryte. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
-    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria', statsLabel: 'Statystyki',
-    comingSoon: 'Serie i statystyki już wkrótce',
+    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
     answers: '{n} odp.', guideTitle: '📖 Jak grać', btnGuideLabel: 'Poradnik',
     guide: [
       ['Cel', 'Wypełnij siatkę 3×3. W każdym polu wskaż pro-gracza lub trenera, który spełnia warunek z wiersza <strong>i</strong> kolumny.'],
@@ -53,8 +52,7 @@ const I18N = {
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the remaining cells are revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
-    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak', statsLabel: 'Stats',
-    comingSoon: 'Streaks and stats are coming soon',
+    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
     answers: '{n} ans.', guideTitle: '📖 How to play', btnGuideLabel: 'Guide',
     guide: [
       ['Goal', 'Fill the 3×3 grid. For each cell, name a pro player or coach who meets the row condition <strong>and</strong> the column condition.'],
@@ -81,8 +79,7 @@ const I18N = {
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revelan las casillas restantes. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
-    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha', statsLabel: 'Estadísticas',
-    comingSoon: 'Rachas y estadísticas muy pronto',
+    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
     answers: '{n} resp.', guideTitle: '📖 Cómo jugar', btnGuideLabel: 'Guía',
     guide: [
       ['Objetivo', 'Completa la cuadrícula 3×3. En cada casilla, elige un jugador pro o entrenador que cumpla la condición de la fila <strong>y</strong> de la columna.'],
@@ -109,8 +106,7 @@ const I18N = {
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et les cases restantes sont révélées. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
-    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série', statsLabel: 'Statistiques',
-    comingSoon: 'Séries et statistiques bientôt disponibles',
+    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
     answers: '{n} rép.', guideTitle: '📖 Comment jouer', btnGuideLabel: 'Guide',
     guide: [
       ['Objectif', 'Remplissez la grille 3×3. Pour chaque case, trouvez un joueur pro ou un coach qui remplit la condition de la ligne <strong>et</strong> de la colonne.'],
@@ -332,6 +328,7 @@ function applyI18n() {
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
   renderCountdown();
+  PROGRESS.renderHeader('grid', currentLang);
   $('guideContent').innerHTML = t('guide').map(([h, p]) => `<div class="guide-section"><h3>${h}</h3><p>${p}</p></div>`).join('');
 }
 
@@ -595,7 +592,7 @@ function guess(id) {
   const ok = cellAnswers(cell).includes(id);
   if (ok) state.cells[cell] = id;
   else state.wrong.push({ cell, id });
-  if (state.guessesLeft <= 0 || state.cells.every(Boolean)) state.gameOver = true;
+  if (state.guessesLeft <= 0 || state.cells.every(Boolean)) endGame();
   saveState();
   render();
 
@@ -654,6 +651,13 @@ const scheduleHideAnswers = () => { clearTimeout(answersHideTimer); answersHideT
 /* ---------- Results ---------- */
 
 const score = () => state.cells.filter(Boolean).length;
+
+/** The game ends: finishedOn (the UTC day it ended) tells streaks a day's puzzle from an archive game (progress.js). */
+function endGame() {
+  state.gameOver = true;
+  state.finishedOn = todayKey();
+  PROGRESS.renderHeader('grid', currentLang);
+}
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 
 function buildShareText() {
@@ -664,6 +668,9 @@ function showResult() {
   $('resultTitle').textContent = score() === 9 ? t('winTitle') : t('doneTitle');
   $('resultScore').textContent = t('score', { n: score() });
   $('emojiGrid').innerHTML = emojiGrid().replace(/\n/g, '<br>');
+  const line = PROGRESS.resultLine('grid', currentLang, selectedDate, board.boardId);
+  $('streakLine').textContent = line;
+  $('streakLine').classList.toggle('hidden', !line);
   $('resultOverlay').classList.remove('hidden');
 }
 
@@ -682,7 +689,7 @@ function showToast(msg) {
   e.classList.add('show');
   // A new toast restarts the timer, so quick taps on several conditions don't cut the last one short.
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => e.classList.remove('show'), 2200);
+  toastTimer = setTimeout(() => e.classList.remove('show'), Math.max(2200, msg.length * 55));
 }
 
 /* ---------- Events ---------- */
@@ -709,7 +716,7 @@ $('btnGiveUp').addEventListener('click', () => $('giveUpOverlay').classList.remo
 $('btnGiveUpCancel').addEventListener('click', () => $('giveUpOverlay').classList.add('hidden'));
 $('btnGiveUpConfirm').addEventListener('click', () => {
   $('giveUpOverlay').classList.add('hidden');
-  state.gameOver = true;
+  endGame();
   saveState();
   render();
   showResult();
@@ -723,8 +730,6 @@ window.addEventListener('scroll', hideAnswers, { passive: true });
 window.addEventListener('resize', hideAnswers);
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', () => $('guideOverlay').classList.remove('hidden'));
-// Streak and statistics: placeholders in the header until they get their own windows.
-['btnStreak', 'btnStats'].forEach(id => $(id).addEventListener('click', () => showToast(t('comingSoon'))));
 $('btnShare').addEventListener('click', () => shareResult(buildShareText()));
 $('btnCopy').addEventListener('click', () => navigator.clipboard.writeText(buildShareText()).then(() => showToast(t('copied'))));
 $('btnPrevDate').addEventListener('click', () => { if (selectedDateIndex > 0) loadDate(availableDates[selectedDateIndex - 1]); });

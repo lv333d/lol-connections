@@ -299,6 +299,7 @@
         <button class="btn btn-sm" id="previewPhone">📱 Telefon</button>
         <button class="btn btn-sm btn-ghost" id="previewDesktop">🖥 Komputer</button>
         <label><input type="checkbox" id="previewSolved"> Rozwiązanie</label>
+        <label title="Symulowana seria dni: płomień w nagłówku i „Seria: N 🔥 — wróć jutro po #…” w oknie wyniku (zaznacz Rozwiązanie i kliknij Wyniki)">🔥 Seria <input type="number" id="previewStreak" min="0" max="999" placeholder="—" style="width:64px"></label>
         <button class="btn btn-sm btn-ghost" id="previewClose" title="Zamknij">✕</button>
       </div>
       <div class="preview-stage"><div class="preview-frame" id="previewFrame"><iframe id="previewIframe" title="Podgląd planszy"></iframe></div></div>
@@ -755,7 +756,8 @@
     $('previewFrame').style.height = Math.round(h * scale) + 'px';
     stage.scrollTop = 0;
     if (preview.game.startsWith('design-')) { iframe.src = `design/${DESIGN_PAGES[preview.game.slice(7)][1]}?date=${preview.date}`; return; }
-    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}`;
+    const streak = /^\d{1,3}$/.test($('previewStreak').value) ? `&streak=${$('previewStreak').value}` : '';
+    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}${streak}`;
   }
 
   const stepPreview = delta => {
@@ -788,6 +790,7 @@
   $('previewPhone').addEventListener('click', () => { preview.device = 'phone'; showPreview(); });
   $('previewDesktop').addEventListener('click', () => { preview.device = 'desktop'; showPreview(); });
   $('previewSolved').addEventListener('change', showPreview);
+  $('previewStreak').addEventListener('change', showPreview);
   $('previewClose').addEventListener('click', () => { $('previewOverlay').classList.add('hidden'); $('previewIframe').src = 'about:blank'; });
   document.addEventListener('keydown', e => {
     if ($('previewOverlay').classList.contains('hidden')) return;
