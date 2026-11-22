@@ -215,7 +215,7 @@
       <!-- ---------- Overview ---------- -->
       <div class="page active" id="page-dashboard">
         <h1>📊 Przegląd</h1>
-        <p class="page-lead">LoL Grid i Guess the Pro są codziennie, a nowe dni dogenerowuje bot na GitHubie (w poniedziałki o 22:00 UTC). Tutaj pilnujesz zapasu, możesz wylosować inną siatkę lub innego gracza na wybrany dzień i zaktualizować bazę graczy. Przy wejściu panel pobiera aktualny stan z GitHuba.</p>
+        <p class="page-lead">LoL Grid, Guess the Pro i Ścieżka kariery są codziennie, a nowe dni dogenerowuje bot na GitHubie (w poniedziałki o 22:00 UTC). Tutaj pilnujesz zapasu, możesz wylosować inną siatkę lub innego gracza na wybrany dzień i zaktualizować bazę graczy. Przy wejściu panel pobiera aktualny stan z GitHuba.</p>
 
         <div class="section-title"><h2>▦ LoL Grid</h2><span class="sub">nowa plansza codziennie o 00:00 UTC</span></div>
         <div class="stats-grid" id="gridStats"></div>
@@ -224,6 +224,10 @@
         <div class="section-title"><h2>? Guess the Pro</h2><span class="sub">nowy gracz codziennie o 00:00 UTC</span></div>
         <div class="stats-grid" id="guessStats"></div>
         <div id="guessNotice"></div>
+
+        <div class="section-title"><h2>⋯ Ścieżka kariery</h2><span class="sub">nowa ścieżka codziennie o 00:00 UTC</span></div>
+        <div class="stats-grid" id="pathStats"></div>
+        <div id="pathNotice"></div>
 
         <div class="section-title"><h2>🗄 Baza graczy</h2><span class="sub">drużyny, ligi, trofea i pula Guess the Pro z Leaguepedii</span></div>
         <div class="db-box">
@@ -480,6 +484,7 @@
   let gridBoards = [];
 
   let guessDays = [], guessPool = [];
+  let pathData = { days: [], pool: [], config: {} };
   async function loadGuess() {
     try { ({ days: guessDays, pool: guessPool } = await api('/api/guess')); }
     catch { guessDays = []; guessPool = []; }
@@ -498,7 +503,7 @@
     `<div class="stat-card ${cls}"><div class="lbl">${label}</div><div class="val">${value}</div>${note ? `<div class="note">${note}</div>` : ''}</div>`;
 
   async function renderDashboard() {
-    await Promise.all([loadGrid(), loadGuess()]);
+    await Promise.all([loadGrid(), loadGuess(), loadPath()]);
     const today = todayKey();
 
     // LoL Grid
@@ -527,6 +532,20 @@
     ].join('');
     $('guessNotice').innerHTML = guessAhead < GRID_MIN_DAYS_AHEAD
       ? `<div class="notice warn">Zapas dni Guess the Pro jest mały. Bot dolosuje je w poniedziałek o 22:00 UTC; możesz to zrobić od razu w zakładce „Gracze dnia” albo lokalnie <code>npm run generate-guess</code>.</div>`
+      : '';
+
+    // Career Path
+    const pathToday = pathData.days.find(d => d.date === today);
+    const lastPath = pathData.days.at(-1);
+    const pathAhead = lastPath ? daysBetween(today, lastPath.date) : -1;
+    $('pathStats').innerHTML = [
+      pathToday ? statCard('Dzisiejszy gracz', esc(pathToday.nick), `#${pathToday.number}`, 'ok') : statCard('Dzisiejszy gracz', 'brak', 'gracze nie mają zagadki!', 'warn'),
+      statCard('Ścieżki wybrane do', lastPath ? fmtDate(lastPath.date, { day: 'numeric', month: 'short' }) : '—',
+        pathAhead >= 0 ? `zapas: ${pathAhead} dni` : '', pathAhead < GRID_MIN_DAYS_AHEAD ? 'warn' : ''),
+      statCard('Graczy w puli', pathData.pool.length)
+    ].join('');
+    $('pathNotice').innerHTML = pathAhead < GRID_MIN_DAYS_AHEAD
+      ? `<div class="notice warn">Zapas dni Ścieżki kariery jest mały. Bot dolosuje je w poniedziałek o 22:00 UTC; możesz to zrobić od razu w zakładce „Ścieżki dnia” albo lokalnie <code>npm run generate-path</code>.</div>`
       : '';
   }
 
@@ -829,7 +848,9 @@
   };
   /* ---------- Career Path ---------- */
 
-  let pathData = { days: [], pool: [], config: {} };
+  async function loadPath() {
+    try { pathData = await api('/api/path'); } catch { pathData = { days: [], pool: [], config: {} }; }
+  }
   async function renderPath() {
     try { pathData = await api('/api/path'); } catch (e) { showToast(e.message); return; }
     const { days, pool, config } = pathData;
