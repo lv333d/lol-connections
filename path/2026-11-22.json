@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-22",
+ "number": 1,
+ "playerId": "elk",
+ "career": [
+  {
+   "id": "team-we",
+   "name": "Team WE",
+   "short": "WE"
+  },
+  {
+   "id": "ultra-prime",
+   "name": "Ultra Prime",
+   "short": "UP"
+  },
+  {
+   "id": "bilibili-gaming",
+   "name": "Bilibili Gaming",
+   "short": "BLG"
+  },
+  {
+   "id": "weibo-gaming",
+   "name": "Weibo Gaming",
+   "short": "WBG"
+  }
+ ]
+}

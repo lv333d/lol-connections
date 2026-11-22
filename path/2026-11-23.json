@@ -1,0 +1,33 @@
+{
+ "date": "2026-11-23",
+ "number": 2,
+ "playerId": "gala",
+ "career": [
+  {
+   "id": "dominus-esports",
+   "name": "Dominus Esports",
+   "short": "DMO",
+   "before": true
+  },
+  {
+   "id": "royal-never-give-up",
+   "name": "Royal Never Give Up",
+   "short": "RNG"
+  },
+  {
+   "id": "lng-esports",
+   "name": "LNG Esports",
+   "short": "LNG"
+  },
+  {
+   "id": "invictus-gaming",
+   "name": "Invictus Gaming",
+   "short": "iG"
+  },
+  {
+   "id": "jd-gaming",
+   "name": "JD Gaming",
+   "short": "JDG"
+  }
+ ]
+}

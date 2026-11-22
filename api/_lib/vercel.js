@@ -39,11 +39,11 @@ export const redisStore = {
   expire: (k, s) => redis('EXPIRE', k, s)
 };
 
-/** The board as the site serves it (grid/<date>.json, guess/<date>.json), from this deployment. */
+/** The board as the site serves it (grid/, guess/, path/<date>.json), from this deployment. */
 export async function loadBoard(req, mode, date) {
   const host = req.headers['x-forwarded-host'] || req.headers.host;
   try {
-    const res = await fetch(`https://${host}/${mode === 'grid' ? 'grid' : 'guess'}/${date}.json`);
+    const res = await fetch(`https://${host}/${mode}/${date}.json`);
     return res.ok ? await res.json() : null;
   } catch { return null; }
 }

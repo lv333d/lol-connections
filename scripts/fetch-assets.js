@@ -86,8 +86,15 @@ async function collectTargets(db) {
     if (p.team) gridTeams.add(p.team.id);
     (p.nats || [p.nat]).filter(Boolean).forEach(n => gridFlags.add(n));
   }
+  // Career Path: the logo of every team on a scheduled path (a team outside teams.json is looked up by its name).
+  const pathTeams = new Map();
+  for (const file of await jsonFiles(path.join(ROOT, 'path'))) {
+    const day = await readJson(file, null);
+    if (day?.playerId) targets.set(day.playerId, db.byId.get(day.playerId)?.nick || day.playerId);
+    (day?.career || []).forEach(t => { gridTeams.add(t.id); pathTeams.set(t.id, t.name); });
+  }
   if (ALL) db.players.forEach(p => targets.set(p.id, p.nick));
-  return { targets, gridTeams, gridFlags };
+  return { targets, gridTeams, gridFlags, pathTeams };
 }
 
 /** Maps target ids to Leaguepedia pages: DB id → DB nick → PlayerRedirects (old/alternate nicknames). */
@@ -158,7 +165,7 @@ async function main() {
     db.byNickSlug.get(k).push(p);
   });
 
-  const { targets, gridTeams, gridFlags } = await collectTargets(db);
+  const { targets, gridTeams, gridFlags, pathTeams } = await collectTargets(db);
   await mkdir(PLAYERS_DIR, { recursive: true });
   const missing = [];
   for (const [id, name] of targets) if (!(await exists(path.join(PLAYERS_DIR, `${id}.webp`)))) missing.push([id, name]);
@@ -192,6 +199,10 @@ async function main() {
   for (const t of wantedTeams) {
     const files = [`${t.page || t.name}logo square.png`, t.logo].filter(Boolean);
     logoJobs.push({ label: `[drużyna] ${t.name}`, files, out: path.join(TEAM_LOGOS_DIR, `${t.id}.webp`) });
+  }
+  const known = new Set(teams.map(t => t.id));
+  for (const [id, name] of pathTeams) {
+    if (!known.has(id)) logoJobs.push({ label: `[drużyna] ${name}`, files: [`${name}logo square.png`, `${name}logo profile.png`], out: path.join(TEAM_LOGOS_DIR, `${id}.webp`) });
   }
   await mkdir(TEAM_LOGOS_DIR, { recursive: true });
   await mkdir(LEAGUE_LOGOS_DIR, { recursive: true });

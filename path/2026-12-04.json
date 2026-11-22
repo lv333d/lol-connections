@@ -1,0 +1,47 @@
+{
+ "date": "2026-12-04",
+ "number": 13,
+ "playerId": "targamas",
+ "career": [
+  {
+   "id": "giants-gaming",
+   "name": "Giants Gaming",
+   "short": "GIA",
+   "before": true
+  },
+  {
+   "id": "fnatic-rising",
+   "name": "Fnatic Rising",
+   "short": "FNC.R",
+   "league": "UKLC"
+  },
+  {
+   "id": "misfits-premier",
+   "name": "Misfits Premier",
+   "short": "MSFP",
+   "league": "LFL"
+  },
+  {
+   "id": "karmine-corp",
+   "name": "Karmine Corp",
+   "short": "KC",
+   "league": "LFL"
+  },
+  {
+   "id": "g2-esports",
+   "name": "G2 Esports",
+   "short": "G2"
+  },
+  {
+   "id": "excel-esports",
+   "name": "Excel Esports",
+   "short": "XL"
+  },
+  {
+   "id": "karmine-corp",
+   "name": "Karmine Corp",
+   "short": "KC",
+   "after": true
+  }
+ ]
+}

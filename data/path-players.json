@@ -1,0 +1,5272 @@
+[
+ {
+  "id": "corejj",
+  "nick": "CoreJJ",
+  "name": "Jo Yong-in",
+  "intl": 13,
+  "retired": false,
+  "career": [
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "samsung-galaxy",
+    "name": "Samsung Galaxy",
+    "short": "SSG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   }
+  ]
+ },
+ {
+  "id": "impact",
+  "nick": "Impact",
+  "name": "Jeong Eon-young",
+  "intl": 13,
+  "retired": false,
+  "career": [
+   {
+    "id": "xenics-storm",
+    "name": "Xenics Storm",
+    "short": "XS"
+   },
+   {
+    "id": "tempest",
+    "name": "Tempest",
+    "short": ""
+   },
+   {
+    "id": "xenics-storm",
+    "name": "Xenics Storm",
+    "short": "XS",
+    "league": "NLB"
+   },
+   {
+    "id": "sk-telecom-t1-k",
+    "name": "SK Telecom T1 K",
+    "short": "SKT K"
+   },
+   {
+    "id": "team-impulse",
+    "name": "Team Impulse",
+    "short": "TIP"
+   },
+   {
+    "id": "nrg-esports",
+    "name": "NRG Esports",
+    "short": "NRG Esports"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "sentinels",
+    "name": "Sentinels",
+    "short": "SEN"
+   }
+  ]
+ },
+ {
+  "id": "chovy",
+  "nick": "Chovy",
+  "name": "Jeong Ji-hoon",
+  "intl": 12,
+  "retired": false,
+  "career": [
+   {
+    "id": "griffin-korean-team",
+    "name": "Griffin (Korean Team)",
+    "short": "Griffin (Korean Team)"
+   },
+   {
+    "id": "dragonx",
+    "name": "DragonX",
+    "short": ""
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   }
+  ]
+ },
+ {
+  "id": "hans-sama",
+  "nick": "Hans Sama",
+  "name": "Steven Liv",
+  "intl": 12,
+  "retired": false,
+  "career": [
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF",
+    "before": true
+   },
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": ""
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   }
+  ]
+ },
+ {
+  "id": "ruler",
+  "nick": "Ruler",
+  "name": "Park Jae-hyuk",
+  "intl": 12,
+  "retired": false,
+  "career": [
+   {
+    "id": "samsung-galaxy",
+    "name": "Samsung Galaxy",
+    "short": "SSG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   }
+  ]
+ },
+ {
+  "id": "inspired",
+  "nick": "Inspired",
+  "name": "Kacper Słoma",
+  "intl": 11,
+  "retired": false,
+  "career": [
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "lyon-2024-american-team",
+    "name": "LYON",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "knight-zhuo-ding",
+  "nick": "Knight",
+  "name": "Zhuo Ding",
+  "intl": 11,
+  "retired": false,
+  "career": [
+   {
+    "id": "suning",
+    "name": "Suning",
+    "short": "SN",
+    "before": true
+   },
+   {
+    "id": "topsports-gaming",
+    "name": "Topsports Gaming",
+    "short": "Topsports Gaming"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   }
+  ]
+ },
+ {
+  "id": "peanut",
+  "nick": "Peanut",
+  "name": "Han Wang-ho",
+  "intl": 11,
+  "retired": true,
+  "career": [
+   {
+    "id": "najin-e-mfire",
+    "name": "NaJin e-mFire",
+    "short": "NJF"
+   },
+   {
+    "id": "rox-tigers",
+    "name": "ROX Tigers",
+    "short": "ROX"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   }
+  ]
+ },
+ {
+  "id": "jensen",
+  "nick": "Jensen",
+  "name": "Nicolaj Jensen",
+  "intl": 10,
+  "retired": true,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   }
+  ]
+ },
+ {
+  "id": "perkz",
+  "nick": "Perkz",
+  "name": "Luka Perković",
+  "intl": 10,
+  "retired": true,
+  "career": [
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2",
+    "before": true
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "team-heretics",
+    "name": "Team Heretics",
+    "short": "TH",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "369",
+  "nick": "369",
+  "name": "Bai Jia-Hao",
+  "intl": 9,
+  "retired": false,
+  "career": [
+   {
+    "id": "topsports-gaming",
+    "name": "Topsports Gaming",
+    "short": "Topsports Gaming",
+    "before": true
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "deft",
+  "nick": "Deft",
+  "name": "Kim Hyuk-kyu",
+  "intl": 9,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-blue",
+    "name": "Samsung Blue",
+    "short": "SSB"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   }
+  ]
+ },
+ {
+  "id": "doran-choi-hyeon-jun",
+  "nick": "Doran",
+  "name": "Choi Hyeon-jun",
+  "intl": 9,
+  "retired": false,
+  "career": [
+   {
+    "id": "griffin-korean-team",
+    "name": "Griffin (Korean Team)",
+    "short": "Griffin (Korean Team)",
+    "before": true
+   },
+   {
+    "id": "dragonx",
+    "name": "DragonX",
+    "short": ""
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "t1",
+    "name": "T1",
+    "short": "T1"
+   }
+  ]
+ },
+ {
+  "id": "doublelift",
+  "nick": "Doublelift",
+  "name": "Yiliang \"Peter\" Peng",
+  "intl": 9,
+  "retired": true,
+  "career": [
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG",
+    "before": true
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "mikyx",
+  "nick": "Mikyx",
+  "name": "Mihael Mehle",
+  "intl": 9,
+  "retired": false,
+  "career": [
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY",
+    "before": true
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK"
+   }
+  ]
+ },
+ {
+  "id": "viper-park-do-hyeon",
+  "nick": "Viper",
+  "name": "Park Do-hyeon",
+  "intl": 9,
+  "retired": false,
+  "career": [
+   {
+    "id": "griffin-korean-team",
+    "name": "Griffin (Korean Team)",
+    "short": "Griffin (Korean Team)"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   }
+  ]
+ },
+ {
+  "id": "xmithie",
+  "nick": "Xmithie",
+  "name": "Jake Kevin Puchero",
+  "intl": 9,
+  "retired": true,
+  "career": [
+   {
+    "id": "team-vulcun",
+    "name": "Team Vulcun",
+    "short": "VUL",
+    "before": true
+   },
+   {
+    "id": "complexityblack",
+    "name": "compLexity.Black",
+    "short": "CLB"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   }
+  ]
+ },
+ {
+  "id": "zven",
+  "nick": "Zven",
+  "name": "Jesper Svenningsen",
+  "intl": 9,
+  "retired": false,
+  "career": [
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   }
+  ]
+ },
+ {
+  "id": "gala",
+  "nick": "GALA",
+  "name": "Chen Wei",
+  "intl": 8,
+  "retired": false,
+  "career": [
+   {
+    "id": "dominus-esports",
+    "name": "Dominus Esports",
+    "short": "DMO",
+    "before": true
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   }
+  ]
+ },
+ {
+  "id": "humanoid",
+  "nick": "Humanoid",
+  "name": "Marek Brázda",
+  "intl": 8,
+  "retired": false,
+  "career": [
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY",
+    "before": true
+   },
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": ""
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "entropiq",
+    "name": "Entropiq",
+    "short": "EIQ",
+    "league": "RIFT SUMMIT"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   }
+  ]
+ },
+ {
+  "id": "hylissang",
+  "nick": "Hylissang",
+  "name": "Zdravets Iliev Galabov",
+  "intl": 8,
+  "retired": true,
+  "career": [
+   {
+    "id": "unicorns-of-love",
+    "name": "Unicorns of Love",
+    "short": "UOL"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": ""
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "kiin",
+  "nick": "Kiin",
+  "name": "Kim Gi-in",
+  "intl": 8,
+  "retired": false,
+  "career": [
+   {
+    "id": "ever8-winners",
+    "name": "Ever8 Winners",
+    "short": "EEW"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   }
+  ]
+ },
+ {
+  "id": "bjergsen",
+  "nick": "Bjergsen",
+  "name": "Søren Bjerg",
+  "intl": 7,
+  "retired": true,
+  "career": [
+   {
+    "id": "copenhagen-wolves",
+    "name": "Copenhagen Wolves",
+    "short": "CW",
+    "before": true
+   },
+   {
+    "id": "ninjas-in-pyjamas",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   }
+  ]
+ },
+ {
+  "id": "jankos",
+  "nick": "Jankos",
+  "name": "Marcin Jankowski",
+  "intl": 7,
+  "retired": true,
+  "career": [
+   {
+    "id": "team-roccat",
+    "name": "Team ROCCAT",
+    "short": "ROC",
+    "before": true
+   },
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "team-heretics",
+    "name": "Team Heretics",
+    "short": "TH",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "rekkles",
+  "nick": "Rekkles",
+  "name": "Carl Martin Erik Larsson",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC",
+    "before": true
+   },
+   {
+    "id": "elements",
+    "name": "Elements",
+    "short": "EL"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC",
+    "league": "LFL"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "t1-esports-academy",
+    "name": "T1 Esports Academy",
+    "short": "T1.EA",
+    "league": "LCK CL"
+   },
+   {
+    "id": "los-ratones",
+    "name": "Los Ratones",
+    "short": "LR"
+   }
+  ]
+ },
+ {
+  "id": "scout",
+  "nick": "Scout",
+  "name": "Lee Ye-chan",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT",
+    "before": true
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   }
+  ]
+ },
+ {
+  "id": "tarzan-lee-seung-yong",
+  "nick": "Tarzan",
+  "name": "Lee Seung-yong",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "griffin-korean-team",
+    "name": "Griffin (Korean Team)",
+    "short": "Griffin (Korean Team)"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "anyones-legend",
+    "name": "Anyone's Legend",
+    "short": "AL"
+   }
+  ]
+ },
+ {
+  "id": "tian",
+  "nick": "Tian",
+  "name": "Gao Tian-Liang",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "suning",
+    "name": "Suning",
+    "short": "SN",
+    "before": true
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   }
+  ]
+ },
+ {
+  "id": "uzi-jian-zi-hao",
+  "nick": "Uzi",
+  "name": "Jian Zi-Hao",
+  "intl": 7,
+  "retired": true,
+  "career": [
+   {
+    "id": "royal-club",
+    "name": "Royal Club",
+    "short": "RYL"
+   },
+   {
+    "id": "oh-my-god",
+    "name": "Oh My God",
+    "short": "OMG"
+   },
+   {
+    "id": "qiao-gu-reapers",
+    "name": "Qiao Gu Reapers",
+    "short": "QG"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   }
+  ]
+ },
+ {
+  "id": "wei-yan-yang-wei",
+  "nick": "Wei",
+  "name": "Yan Yang-Wei",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "estar-chinese-team",
+    "name": "eStar (Chinese Team)",
+    "short": "eStar (Chinese Team)",
+    "before": true
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   }
+  ]
+ },
+ {
+  "id": "xun",
+  "nick": "Xun",
+  "name": "Peng Li-Xun",
+  "intl": 7,
+  "retired": false,
+  "career": [
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG",
+    "before": true
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   }
+  ]
+ },
+ {
+  "id": "bang",
+  "nick": "Bang",
+  "name": "Bae Jun-sik",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "najin-shield",
+    "name": "NaJin Shield",
+    "short": ""
+   },
+   {
+    "id": "xenics-blast",
+    "name": "Xenics Blast",
+    "short": "XB"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": "",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "bdd",
+  "nick": "Bdd",
+  "name": "Gwak Bo-seong",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "cj-entus",
+    "name": "CJ Entus",
+    "short": "CJ",
+    "before": true
+   },
+   {
+    "id": "longzhu-gaming",
+    "name": "Longzhu Gaming",
+    "short": "LZ"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   }
+  ]
+ },
+ {
+  "id": "elk",
+  "nick": "Elk",
+  "name": "Zhao Jia-Hao",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "ultra-prime",
+    "name": "Ultra Prime",
+    "short": "UP"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   }
+  ]
+ },
+ {
+  "id": "khan",
+  "nick": "Khan",
+  "name": "Kim Dong-ha",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ",
+    "before": true
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "dwg-kia",
+    "name": "DWG KIA",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "mata",
+  "nick": "Mata",
+  "name": "Cho Se-hyeong",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-white",
+    "name": "Samsung White",
+    "short": "SSW",
+    "before": true
+   },
+   {
+    "id": "vici-gaming",
+    "name": "Vici Gaming",
+    "short": "VG"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   }
+  ]
+ },
+ {
+  "id": "pray",
+  "nick": "PraY",
+  "name": "Kim Jong-in",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "najin-sword",
+    "name": "NaJin Sword",
+    "short": ""
+   },
+   {
+    "id": "rox-tigers",
+    "name": "ROX Tigers",
+    "short": "ROX"
+   },
+   {
+    "id": "longzhu-gaming",
+    "name": "Longzhu Gaming",
+    "short": "LZ"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   }
+  ]
+ },
+ {
+  "id": "rookie",
+  "nick": "Rookie",
+  "name": "Song Eui-jin",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "kt-rolster-arrows",
+    "name": "KT Rolster Arrows",
+    "short": "KT.A"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "victory-five",
+    "name": "Victory Five",
+    "short": "V5"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "ninjas-in-pyjamascn",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   }
+  ]
+ },
+ {
+  "id": "soaz",
+  "nick": "sOAZ",
+  "name": "Paul Boyer",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC",
+    "before": true
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "svenskeren",
+  "nick": "Svenskeren",
+  "name": "Dennis Johnsen",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "copenhagen-wolves",
+    "name": "Copenhagen Wolves",
+    "short": "CW"
+   },
+   {
+    "id": "ninjas-in-pyjamas",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP"
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "vulcan-philippe-laflamme",
+  "nick": "Vulcan",
+  "name": "Philippe Laflamme",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "clutch-gaming",
+    "name": "Clutch Gaming",
+    "short": "CG",
+    "before": true
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   }
+  ]
+ },
+ {
+  "id": "wildturtle",
+  "nick": "WildTurtle",
+  "name": "Jason Tran",
+  "intl": 6,
+  "retired": true,
+  "career": [
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM",
+    "before": true
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "wunder",
+  "nick": "Wunder",
+  "name": "Martin Nordahl Hansen",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "team-heretics",
+    "name": "Team Heretics",
+    "short": "TH"
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK"
+   }
+  ]
+ },
+ {
+  "id": "zeka-kim-geon-woo",
+  "nick": "Zeka",
+  "name": "Kim Geon-woo",
+  "intl": 6,
+  "retired": false,
+  "career": [
+   {
+    "id": "vici-gaming",
+    "name": "Vici Gaming",
+    "short": "VG"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   }
+  ]
+ },
+ {
+  "id": "beryl",
+  "nick": "BeryL",
+  "name": "Cho Geon-hee",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "damwon-gaming",
+    "name": "DAMWON Gaming",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   }
+  ]
+ },
+ {
+  "id": "canna",
+  "nick": "Canna",
+  "name": "Kim Chang-dong",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "t1",
+    "name": "T1",
+    "short": "T1",
+    "before": true
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC"
+   }
+  ]
+ },
+ {
+  "id": "carzzy",
+  "nick": "Carzzy",
+  "name": "Matyáš Orság",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": ""
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   }
+  ]
+ },
+ {
+  "id": "crisp",
+  "nick": "Crisp",
+  "name": "Liu Qing-Song",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "newbee",
+    "name": "Newbee",
+    "short": "NB"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   }
+  ]
+ },
+ {
+  "id": "dhokla",
+  "nick": "Dhokla",
+  "name": "Niship Doshi",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "optic-gaming",
+    "name": "OpTic Gaming",
+    "short": "OPT",
+    "before": true
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "tsm-academy",
+    "name": "TSM Academy",
+    "short": "TSM.A",
+    "league": "LCS.A"
+   },
+   {
+    "id": "solafide-esports",
+    "name": "SolaFide Esports",
+    "short": "SF",
+    "league": "RCL"
+   },
+   {
+    "id": "wildcard-gaming-red",
+    "name": "Wildcard Gaming Red",
+    "short": "WCR",
+    "league": "CU"
+   },
+   {
+    "id": "team-liquid-academy",
+    "name": "Team Liquid Academy",
+    "short": "TL.A",
+    "league": "LCS.A"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "nrg",
+    "name": "NRG",
+    "short": "NRG"
+   },
+   {
+    "id": "ntmr",
+    "name": "NTMR",
+    "short": "NTMR"
+   },
+   {
+    "id": "near-airport",
+    "name": "Near Airport",
+    "short": "NA"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "lyon-2024-american-team",
+    "name": "LYON",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "gorilla",
+  "nick": "GorillA",
+  "name": "Kang Beom-hyun",
+  "intl": 5,
+  "retired": true,
+  "career": [
+   {
+    "id": "najin-white-shield",
+    "name": "NaJin White Shield",
+    "short": "NJWS"
+   },
+   {
+    "id": "rox-tigers",
+    "name": "ROX Tigers",
+    "short": "ROX"
+   },
+   {
+    "id": "longzhu-gaming",
+    "name": "Longzhu Gaming",
+    "short": "LZ"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "sandbox-gaming",
+    "name": "SANDBOX Gaming",
+    "short": "SANDBOX Gaming"
+   }
+  ]
+ },
+ {
+  "id": "huhi",
+  "nick": "huhi",
+  "name": "Choi Jae-hyun",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "bigfile-miracle",
+    "name": "Bigfile Miracle",
+    "short": "BFM"
+   },
+   {
+    "id": "quvic-e-sports",
+    "name": "Quvic E-Sports",
+    "short": "QVC"
+   },
+   {
+    "id": "team-fusion",
+    "name": "Team Fusion",
+    "short": "FSN"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "nrg",
+    "name": "NRG",
+    "short": "NRG"
+   },
+   {
+    "id": "disguised",
+    "name": "Disguised",
+    "short": "DSG"
+   },
+   {
+    "id": "sentinels",
+    "name": "Sentinels",
+    "short": "SEN"
+   }
+  ]
+ },
+ {
+  "id": "huni",
+  "nick": "Huni",
+  "name": "Heo Seung-hoon",
+  "intl": 5,
+  "retired": true,
+  "career": [
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "echo-fox",
+    "name": "Echo Fox",
+    "short": "FOX"
+   },
+   {
+    "id": "clutch-gaming",
+    "name": "Clutch Gaming",
+    "short": "CG"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   }
+  ]
+ },
+ {
+  "id": "lehends",
+  "nick": "Lehends",
+  "name": "Son Si-woo",
+  "intl": 5,
+  "retired": false,
+  "career": [
+   {
+    "id": "griffin-korean-team",
+    "name": "Griffin (Korean Team)",
+    "short": "Griffin (Korean Team)",
+    "before": true
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   }
+  ]
+ },
+ {
+  "id": "mithy",
+  "nick": "Mithy",
+  "name": "Alfonso Aguirre Rodríguez",
+  "intl": 5,
+  "retired": true,
+  "career": [
+   {
+    "id": "lemondogs",
+    "name": "Lemondogs",
+    "short": "LD",
+    "before": true
+   },
+   {
+    "id": "ninjas-in-pyjamas",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP",
+    "league": "EU CS"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   }
+  ]
+ },
+ {
+  "id": "nisqy",
+  "nick": "Nisqy",
+  "name": "Yasin Dinçer",
+  "intl": 5,
+  "retired": true,
+  "career": [
+   {
+    "id": "team-envyus",
+    "name": "Team EnVyUs",
+    "short": "NV",
+    "before": true
+   },
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": ""
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "aphromoo",
+  "nick": "aphromoo",
+  "name": "Zaqueri Black",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG",
+    "before": true
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   }
+  ]
+ },
+ {
+  "id": "biofrost",
+  "nick": "Biofrost",
+  "name": "Vincent Wang",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM",
+    "before": true
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "clid",
+  "nick": "Clid",
+  "name": "Kim Tae-min",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "qg-reapers",
+    "name": "QG Reapers",
+    "short": "QGR",
+    "before": true
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   }
+  ]
+ },
+ {
+  "id": "cuzz",
+  "nick": "Cuzz",
+  "name": "Moon Woo-chan",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ",
+    "before": true
+   },
+   {
+    "id": "t1",
+    "name": "T1",
+    "short": "T1"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "kwangdong-freecs",
+    "name": "Kwangdong Freecs",
+    "short": ""
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   }
+  ]
+ },
+ {
+  "id": "fbi",
+  "nick": "FBI",
+  "name": "Ian Victor Huang",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG",
+    "before": true
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "nrg",
+    "name": "NRG",
+    "short": "NRG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   }
+  ]
+ },
+ {
+  "id": "flandre",
+  "nick": "Flandre",
+  "name": "Li Xuan-Jun",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "snake-esports",
+    "name": "Snake Esports",
+    "short": "SS"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "anyones-legend",
+    "name": "Anyone's Legend",
+    "short": "AL"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   }
+  ]
+ },
+ {
+  "id": "hope-wang-jie",
+  "nick": "Hope",
+  "name": "Wang Jie",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG",
+    "before": true
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "anyones-legend",
+    "name": "Anyone's Legend",
+    "short": "AL"
+   }
+  ]
+ },
+ {
+  "id": "karsa",
+  "nick": "Karsa",
+  "name": "Hung Hao-Hsuan",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "yoe-flash-wolves",
+    "name": "yoe Flash Wolves",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "flash-wolves",
+    "name": "Flash Wolves",
+    "short": "FW"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "victory-five",
+    "name": "Victory Five",
+    "short": "V5"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "ctbc-flying-oyster",
+    "name": "CTBC Flying Oyster",
+    "short": "CFO"
+   },
+   {
+    "id": "talon-hong-kong-team",
+    "name": "TALON (Hong Kong Team)",
+    "short": ""
+   },
+   {
+    "id": "psg-talon",
+    "name": "PSG Talon",
+    "short": "PSG"
+   }
+  ]
+ },
+ {
+  "id": "odoamne",
+  "nick": "Odoamne",
+  "name": "Andrei Pascu",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K",
+    "before": true
+   },
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04"
+   },
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": ""
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL"
+   },
+   {
+    "id": "giantx",
+    "name": "GIANTX",
+    "short": "GX",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "pawn",
+  "nick": "PawN",
+  "name": "Heo Won-seok",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-white",
+    "name": "Samsung White",
+    "short": "SSW"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "pobelter",
+  "nick": "Pobelter",
+  "name": "Eugene Park",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG",
+    "before": true
+   },
+   {
+    "id": "winterfox",
+    "name": "Winterfox",
+    "short": "WFX"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "santorin",
+  "nick": "Santorin",
+  "name": "Lucas Tao Kilmer Larsen",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM",
+    "before": true
+   },
+   {
+    "id": "huma",
+    "name": "Huma",
+    "short": "HMA",
+    "league": "EU CS"
+   },
+   {
+    "id": "nrg-esports",
+    "name": "NRG Esports",
+    "short": "NRG Esports"
+   },
+   {
+    "id": "gold-coin-united",
+    "name": "Gold Coin United",
+    "short": "GCU",
+    "league": "NA CS"
+   },
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "ssumday",
+  "nick": "Ssumday",
+  "name": "Kim Chan-ho",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   }
+  ]
+ },
+ {
+  "id": "trick",
+  "nick": "Trick",
+  "name": "Kim Gang-yun",
+  "intl": 4,
+  "retired": true,
+  "career": [
+   {
+    "id": "cj-entus",
+    "name": "CJ Entus",
+    "short": "CJ",
+    "before": true
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "bbq-olivers",
+    "name": "bbq Olivers",
+    "short": "bbq"
+   },
+   {
+    "id": "galakticos",
+    "name": "Galakticos",
+    "short": "GAL",
+    "league": "TCL"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04"
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "trymbi",
+  "nick": "Trymbi",
+  "name": "Adrian Trybus",
+  "intl": 4,
+  "retired": false,
+  "career": [
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "team-heretics",
+    "name": "Team Heretics",
+    "short": "TH"
+   },
+   {
+    "id": "vivo-keyd-stars",
+    "name": "Vivo Keyd Stars",
+    "short": "VKS"
+   },
+   {
+    "id": "shifters",
+    "name": "Shifters",
+    "short": "SHFT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "breathe",
+  "nick": "Breathe",
+  "name": "Chen Chen",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "anyones-legend",
+    "name": "Anyone's Legend",
+    "short": "AL"
+   }
+  ]
+ },
+ {
+  "id": "crown",
+  "nick": "Crown",
+  "name": "Lee Min-ho",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-galaxy",
+    "name": "Samsung Galaxy",
+    "short": "SSG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "optic-gaming",
+    "name": "OpTic Gaming",
+    "short": "OPT"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "expect",
+  "nick": "Expect",
+  "name": "Ki Dae-han",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "midas-fio",
+    "name": "Midas FIO",
+    "short": "FIO"
+   },
+   {
+    "id": "xenics-storm",
+    "name": "Xenics Storm",
+    "short": "XS",
+    "league": "LTC"
+   },
+   {
+    "id": "2144-gaming",
+    "name": "2144 Gaming",
+    "short": "2144"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG",
+    "league": "EM"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL"
+   }
+  ]
+ },
+ {
+  "id": "ghost-jang-yong-jun",
+  "nick": "Ghost",
+  "name": "Jang Yong-jun",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "cj-entus",
+    "name": "CJ Entus",
+    "short": "CJ",
+    "before": true
+   },
+   {
+    "id": "bbq-olivers",
+    "name": "bbq Olivers",
+    "short": "bbq"
+   },
+   {
+    "id": "sandbox-gaming",
+    "name": "SANDBOX Gaming",
+    "short": "SANDBOX Gaming"
+   },
+   {
+    "id": "dwg-kia",
+    "name": "DWG KIA",
+    "short": ""
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   },
+   {
+    "id": "estral-esports",
+    "name": "Estral Esports",
+    "short": "EST",
+    "league": "LRN"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "hang",
+  "nick": "Hang",
+  "name": "Fu Ming-Hang",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "rare-atom",
+    "name": "Rare Atom",
+    "short": "RA",
+    "before": true
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   }
+  ]
+ },
+ {
+  "id": "hauntzer",
+  "nick": "Hauntzer",
+  "name": "Kevin Yarnell",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "gravity-north-american-team",
+    "name": "Gravity (North American Team)",
+    "short": "Gravity (North American Team)",
+    "before": true
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "ignar",
+  "nick": "Ignar",
+  "name": "Lee Dong-geun",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "incredible-miracle",
+    "name": "Incredible Miracle",
+    "short": "IM",
+    "before": true
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "bbq-olivers",
+    "name": "bbq Olivers",
+    "short": "bbq"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "nrg",
+    "name": "NRG",
+    "short": "NRG"
+   },
+   {
+    "id": "giantx",
+    "name": "GIANTX",
+    "short": "GX"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   }
+  ]
+ },
+ {
+  "id": "isles",
+  "nick": "Isles",
+  "name": "Jonah Rosario",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9",
+    "before": true
+   },
+   {
+    "id": "wildcard-gaming",
+    "name": "Wildcard Gaming",
+    "short": "WC"
+   },
+   {
+    "id": "peach-cats",
+    "name": "Peach Cats",
+    "short": "PC",
+    "league": "Aegis Champion League"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "lyon-2024-american-team",
+    "name": "LYON",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "kellin",
+  "nick": "Kellin",
+  "name": "Kim Hyeong-gyu",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "jin-air-green-wings",
+    "name": "Jin Air Green Wings",
+    "short": "JAG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   },
+   {
+    "id": "bnk-fearx",
+    "name": "BNK FEARX",
+    "short": "BFX"
+   }
+  ]
+ },
+ {
+  "id": "kuro",
+  "nick": "Kuro",
+  "name": "Lee Seo-haeng",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "incredible-miracle-2",
+    "name": "Incredible Miracle 2",
+    "short": "IM2"
+   },
+   {
+    "id": "najin-black-sword",
+    "name": "NaJin Black Sword",
+    "short": "NJBS"
+   },
+   {
+    "id": "rox-tigers",
+    "name": "ROX Tigers",
+    "short": "ROX"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   }
+  ]
+ },
+ {
+  "id": "licorice",
+  "nick": "Licorice",
+  "name": "Eric Ritchie",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9",
+    "before": true
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "lyon-2024-american-team",
+    "name": "LYON",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "light-wang-guang-yu",
+  "nick": "Light",
+  "name": "Wang Guang-Yu",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "snake-esports",
+    "name": "Snake Esports",
+    "short": "SS"
+   },
+   {
+    "id": "wudu",
+    "name": "WuDu",
+    "short": "WD"
+   },
+   {
+    "id": "snake-wudu",
+    "name": "Snake WuDu",
+    "short": "SWD",
+    "league": "LDL"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   }
+  ]
+ },
+ {
+  "id": "looper",
+  "nick": "Looper",
+  "name": "Jang Hyeong-seok",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-white",
+    "name": "Samsung White",
+    "short": "SSW",
+    "before": true
+   },
+   {
+    "id": "masters-3",
+    "name": "Masters 3",
+    "short": "M3"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "echo-fox",
+    "name": "Echo Fox",
+    "short": "FOX"
+   }
+  ]
+ },
+ {
+  "id": "meteos",
+  "nick": "Meteos",
+  "name": "William Hartman",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9",
+    "before": true
+   },
+   {
+    "id": "phoenix1",
+    "name": "Phoenix1",
+    "short": "P1"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "flyquest-academy",
+    "name": "FlyQuest Academy",
+    "short": "FLY.A",
+    "league": "LCS.A"
+   },
+   {
+    "id": "optic-gaming",
+    "name": "OpTic Gaming",
+    "short": "OPT"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   }
+  ]
+ },
+ {
+  "id": "morgan",
+  "nick": "Morgan",
+  "name": "Park Ru-han",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG",
+    "before": true
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "oksavingsbank-brion",
+    "name": "OKSavingsBank BRION",
+    "short": "OKSavingsBank BRION"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   }
+  ]
+ },
+ {
+  "id": "noah-oh-hyeon-taek",
+  "nick": "Noah",
+  "name": "Oh Hyeon-taek",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT",
+    "before": true
+   },
+   {
+    "id": "zero-tenacity",
+    "name": "Zero Tenacity",
+    "short": "Z10",
+    "league": "UL"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "giantx",
+    "name": "GIANTX",
+    "short": "GX",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "olleh",
+  "nick": "Olleh",
+  "name": "Kim Joo-sung",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "hong-kong-esports",
+    "name": "Hong Kong Esports",
+    "short": "HKES",
+    "before": true
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "dignitas-academy",
+    "name": "Dignitas Academy",
+    "short": "DIG.A",
+    "league": "LCS.A"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   }
+  ]
+ },
+ {
+  "id": "pyosik",
+  "nick": "Pyosik",
+  "name": "Hong Chang-hyeon",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX",
+    "before": true
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "dn-freecs",
+    "name": "DN SOOPers",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "rascal",
+  "nick": "Rascal",
+  "name": "Kim Kwang-hee",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "kingzone-dragonx",
+    "name": "Kingzone DragonX",
+    "short": "KZ"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   }
+  ]
+ },
+ {
+  "id": "river-kim-dong-woo",
+  "nick": "River",
+  "name": "Kim Dong-woo",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "talon-hong-kong-team",
+    "name": "TALON (Hong Kong Team)",
+    "short": ""
+   },
+   {
+    "id": "psg-talon",
+    "name": "PSG Talon",
+    "short": "PSG"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   }
+  ]
+ },
+ {
+  "id": "ryu",
+  "nick": "Ryu",
+  "name": "Ryu Sang-wook",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "startale",
+    "name": "StarTale",
+    "short": "ST"
+   },
+   {
+    "id": "kt-rolster-bullets",
+    "name": "KT Rolster Bullets",
+    "short": "KT.B"
+   },
+   {
+    "id": "millenium",
+    "name": "Millenium",
+    "short": "MIL"
+   },
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "phoenix1",
+    "name": "Phoenix1",
+    "short": "P1"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   }
+  ]
+ },
+ {
+  "id": "tactical",
+  "nick": "Tactical",
+  "name": "Edward Ra",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL",
+    "before": true
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "luminosity-gaming",
+    "name": "Luminosity Gaming",
+    "short": "LG",
+    "league": "NACL"
+   },
+   {
+    "id": "conviction",
+    "name": "Conviction",
+    "short": "CNV",
+    "league": "NACL"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   }
+  ]
+ },
+ {
+  "id": "targamas",
+  "nick": "Targamas",
+  "name": "Raphaël Crabbé",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "giants-gaming",
+    "name": "Giants Gaming",
+    "short": "GIA",
+    "before": true
+   },
+   {
+    "id": "fnatic-rising",
+    "name": "Fnatic Rising",
+    "short": "FNC.R",
+    "league": "UKLC"
+   },
+   {
+    "id": "misfits-premier",
+    "name": "Misfits Premier",
+    "short": "MSFP",
+    "league": "LFL"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC",
+    "league": "LFL"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "umti",
+  "nick": "UmTi",
+  "name": "Um Sung-hyeon",
+  "intl": 3,
+  "retired": true,
+  "career": [
+   {
+    "id": "jin-air-green-wings",
+    "name": "Jin Air Green Wings",
+    "short": "JAG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "jin-air-green-wings",
+    "name": "Jin Air Green Wings",
+    "short": "JAG",
+    "league": "CK"
+   },
+   {
+    "id": "fredit-brion",
+    "name": "Fredit BRION",
+    "short": "Fredit BRION"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   }
+  ]
+ },
+ {
+  "id": "xiye",
+  "nick": "xiye",
+  "name": "Su Han-Wei",
+  "intl": 3,
+  "retired": false,
+  "career": [
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE",
+    "before": true
+   },
+   {
+    "id": "dominus-esports",
+    "name": "Dominus Esports",
+    "short": "DMO"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "abbedagge",
+  "nick": "Abbedagge",
+  "name": "Felix Alfred Braun",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04",
+    "before": true
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL"
+   },
+   {
+    "id": "karmine-corp-blue",
+    "name": "Karmine Corp Blue",
+    "short": "KCB",
+    "league": "LFL"
+   },
+   {
+    "id": "disguised",
+    "name": "Disguised",
+    "short": "DSG"
+   },
+   {
+    "id": "sk-gaming",
+    "name": "SK Gaming",
+    "short": "SK",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "adam-adam-maanane",
+  "nick": "Adam",
+  "name": "Adam Maanane",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC",
+    "before": true
+   },
+   {
+    "id": "team-bds",
+    "name": "Team BDS",
+    "short": "BDS"
+   },
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": ""
+   },
+   {
+    "id": "natus-vincere",
+    "name": "Natus Vincere",
+    "short": "NAVI",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "aiming",
+  "nick": "Aiming",
+  "name": "Kim Ha-ram",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": "",
+    "before": true
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "kiwoom-drx",
+    "name": "Kiwoom DRX",
+    "short": "KRX"
+   }
+  ]
+ },
+ {
+  "id": "alphari",
+  "nick": "Alphari",
+  "name": "Barney Morris",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF",
+    "before": true
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   }
+  ]
+ },
+ {
+  "id": "amazing-maurice-stuckenschneider",
+  "nick": "Amazing",
+  "name": "Maurice Stückenschneider",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "copenhagen-wolves",
+    "name": "Copenhagen Wolves",
+    "short": "CW",
+    "before": true
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "mysterious-monkeys",
+    "name": "Mysterious Monkeys",
+    "short": "MM"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "amazingj",
+  "nick": "AmazingJ",
+  "name": "Shek Wai Ho",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "energy-pacemaker",
+    "name": "Energy Pacemaker",
+    "short": "EP",
+    "before": true
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "i-may",
+    "name": "I May",
+    "short": "IM"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "ben",
+  "nick": "Ben",
+  "name": "Nam Dong-hyun",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "topsports-gaming",
+    "name": "Topsports Gaming",
+    "short": "Topsports Gaming"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "closer-can-celik",
+  "nick": "Closer",
+  "name": "Can Çelik",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG",
+    "before": true
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC"
+   },
+   {
+    "id": "giantx",
+    "name": "GIANTX",
+    "short": "GX",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "cody-sun",
+  "nick": "Cody Sun",
+  "name": "Liyu \"Cody\" Sun",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "clutch-gaming",
+    "name": "Clutch Gaming",
+    "short": "CG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "contractz",
+  "nick": "Contractz",
+  "name": "Juan Arturo Garcia",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9",
+    "before": true
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "100-thieves",
+    "name": "100 Thieves",
+    "short": "100T"
+   },
+   {
+    "id": "evil-geniuses-academy",
+    "name": "Evil Geniuses Academy",
+    "short": "EG.A",
+    "league": "LCS.A"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "nrg",
+    "name": "NRG",
+    "short": "NRG"
+   },
+   {
+    "id": "shopify-rebellion",
+    "name": "Shopify Rebellion",
+    "short": "SR"
+   }
+  ]
+ },
+ {
+  "id": "cool",
+  "nick": "Cool",
+  "name": "Yu Jia-Jun",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "oh-my-god",
+    "name": "Oh My God",
+    "short": "OMG"
+   },
+   {
+    "id": "newbee",
+    "name": "Newbee",
+    "short": "NB"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   }
+  ]
+ },
+ {
+  "id": "cryin",
+  "nick": "Cryin",
+  "name": "Yuan Cheng-Wei",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "estar-chinese-team",
+    "name": "eStar (Chinese Team)",
+    "short": "eStar (Chinese Team)",
+    "before": true
+   },
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "ultra-prime",
+    "name": "Ultra Prime",
+    "short": "UP"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   }
+  ]
+ },
+ {
+  "id": "deokdam",
+  "nick": "deokdam",
+  "name": "Seo Dae-gil",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "team-dynamics",
+    "name": "Team Dynamics",
+    "short": "DYN"
+   },
+   {
+    "id": "dwg-kia",
+    "name": "DWG KIA",
+    "short": ""
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "dn-soopers",
+    "name": "DN SOOPers",
+    "short": "DN SOOPers"
+   }
+  ]
+ },
+ {
+  "id": "doinb",
+  "nick": "Doinb",
+  "name": "Kim Tae-sang",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "qiao-gu-reapers",
+    "name": "Qiao Gu Reapers",
+    "short": "QG"
+   },
+   {
+    "id": "newbee-young",
+    "name": "Newbee Young",
+    "short": "NBY",
+    "league": "LSPL"
+   },
+   {
+    "id": "qg-reapers",
+    "name": "QG Reapers",
+    "short": "QGR"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   },
+   {
+    "id": "rogue-warriors",
+    "name": "Rogue Warriors",
+    "short": "RW"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "ninjas-in-pyjamascn",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP"
+   }
+  ]
+ },
+ {
+  "id": "febiven",
+  "nick": "FEBIVEN",
+  "name": "Fabian Diepstraten",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K",
+    "before": true
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "clutch-gaming",
+    "name": "Clutch Gaming",
+    "short": "CG"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "flame",
+  "nick": "Flame",
+  "name": "Lee Ho-jong",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "cj-entus-blaze",
+    "name": "CJ Entus Blaze",
+    "short": "CJB"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "longzhu-gaming",
+    "name": "Longzhu Gaming",
+    "short": "LZ"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "damwon-gaming",
+    "name": "DAMWON Gaming",
+    "short": "",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "froggen",
+  "nick": "Froggen",
+  "name": "Henrik Hansen",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "counter-logic-gaming-europe",
+    "name": "Counter Logic Gaming Europe",
+    "short": "CLG.EU",
+    "before": true
+   },
+   {
+    "id": "evil-geniuseseu",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "alliance",
+    "name": "Alliance",
+    "short": "ALL"
+   },
+   {
+    "id": "echo-fox",
+    "name": "Echo Fox",
+    "short": "FOX"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG",
+    "league": "EM"
+   },
+   {
+    "id": "golden-guardians",
+    "name": "Golden Guardians",
+    "short": "GG"
+   },
+   {
+    "id": "dignitas",
+    "name": "Dignitas",
+    "short": "DIG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "haru",
+  "nick": "Haru",
+  "name": "Kang Min-seung",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "cj-entus",
+    "name": "CJ Entus",
+    "short": "CJ"
+   },
+   {
+    "id": "samsung-galaxy",
+    "name": "Samsung Galaxy",
+    "short": "SSG"
+   },
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN"
+   },
+   {
+    "id": "sk-telecom-t1",
+    "name": "SK Telecom T1",
+    "short": "SKT"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "kaos-latin-gamers",
+    "name": "Kaos Latin Gamers",
+    "short": "KLG",
+    "league": "LLA"
+   },
+   {
+    "id": "x7-esports",
+    "name": "X7 Esports",
+    "short": "X7",
+    "league": "NLC"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "hjarnan",
+  "nick": "Hjarnan",
+  "name": "Petter Freyschuss",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "team-roccat",
+    "name": "Team ROCCAT",
+    "short": "ROC"
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "ad-hoc-gaming",
+    "name": "ad hoc gaming",
+    "short": "AHG",
+    "league": "ESL Meisterschaft"
+   },
+   {
+    "id": "excel-esports",
+    "name": "Excel Esports",
+    "short": "XL",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "iboy",
+  "nick": "iBoy",
+  "name": "Hu Xian-Zhao",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "rare-atom",
+    "name": "Rare Atom",
+    "short": "RA"
+   },
+   {
+    "id": "thundertalk-gaming",
+    "name": "ThunderTalk Gaming",
+    "short": "TT"
+   },
+   {
+    "id": "anyones-legend",
+    "name": "Anyone's Legend",
+    "short": "AL"
+   }
+  ]
+ },
+ {
+  "id": "imp",
+  "nick": "imp",
+  "name": "Gu Seung-bin",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "mvp-white",
+    "name": "MVP White",
+    "short": "MVP White"
+   },
+   {
+    "id": "samsung-white",
+    "name": "Samsung White",
+    "short": "SSW"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "jd-gaming",
+    "name": "JD Gaming",
+    "short": "JDG"
+   }
+  ]
+ },
+ {
+  "id": "jiejie",
+  "nick": "Jiejie",
+  "name": "Zhao Li-Jie",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "invictus-gaming",
+    "name": "Invictus Gaming",
+    "short": "iG"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   }
+  ]
+ },
+ {
+  "id": "jun-yoon-se-jun",
+  "nick": "Jun",
+  "name": "Yoon Se-jun",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX",
+    "before": true
+   },
+   {
+    "id": "kwangdong-freecs",
+    "name": "Kwangdong Freecs",
+    "short": ""
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "giantx",
+    "name": "GIANTX",
+    "short": "GX"
+   }
+  ]
+ },
+ {
+  "id": "kikis",
+  "nick": "Kikis",
+  "name": "Mateusz Szkudlarek",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "unicorns-of-love",
+    "name": "Unicorns of Love",
+    "short": "UOL",
+    "before": true
+   },
+   {
+    "id": "g2-esports",
+    "name": "G2 Esports",
+    "short": "G2"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "mysterious-monkeys",
+    "name": "Mysterious Monkeys",
+    "short": "MM"
+   },
+   {
+    "id": "szata-maga",
+    "name": "Szata Maga",
+    "short": "SM"
+   },
+   {
+    "id": "illuminar-gaming",
+    "name": "Illuminar Gaming",
+    "short": "IHG",
+    "league": "EM"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": "",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "kingen",
+  "nick": "Kingen",
+  "name": "Hwang Seong-hoon",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT",
+    "before": true
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "dplus-kia",
+    "name": "Dplus Kia",
+    "short": "DK"
+   },
+   {
+    "id": "nongshim-redforce",
+    "name": "Nongshim RedForce",
+    "short": "NS"
+   }
+  ]
+ },
+ {
+  "id": "kobbe",
+  "nick": "Kobbe",
+  "name": "Kasper Kobberup",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "splyce",
+    "name": "Splyce",
+    "short": "SPY",
+    "before": true
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "astralis",
+    "name": "Astralis",
+    "short": "AST",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "langx",
+  "nick": "Langx",
+  "name": "Xie Zhen-Ying",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "royal-never-give-up",
+    "name": "Royal Never Give Up",
+    "short": "RNG"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "victory-five",
+    "name": "Victory Five",
+    "short": "V5"
+   },
+   {
+    "id": "thundertalk-gaming",
+    "name": "ThunderTalk Gaming",
+    "short": "TT"
+   }
+  ]
+ },
+ {
+  "id": "life",
+  "nick": "Life",
+  "name": "Kim Jeong-min",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "geng",
+    "name": "Gen.G",
+    "short": "GEN",
+    "before": true
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "hanwha-life-esports",
+    "name": "Hanwha Life Esports",
+    "short": "HLE"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "dn-freecs",
+    "name": "DN SOOPers",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "marin",
+  "nick": "MaRin",
+  "name": "Jang Gyeong-hwan",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "sk-telecom-t1-s",
+    "name": "SK Telecom T1 S",
+    "short": "SKT S",
+    "before": true
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   },
+   {
+    "id": "topsports-gaming",
+    "name": "Topsports Gaming",
+    "short": "Topsports Gaming"
+   }
+  ]
+ },
+ {
+  "id": "mark-ling-xu",
+  "nick": "Mark",
+  "name": "Ling Xu",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "dominus-esports",
+    "name": "Dominus Esports",
+    "short": "DMO"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "top-esports",
+    "name": "Top Esports",
+    "short": "TES"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   }
+  ]
+ },
+ {
+  "id": "mouse",
+  "nick": "Mouse",
+  "name": "Chen Yu-Hao",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG",
+    "before": true
+   },
+   {
+    "id": "ad-gaming",
+    "name": "AD Gaming",
+    "short": "ADG",
+    "league": "LSPL"
+   },
+   {
+    "id": "edward-gaming",
+    "name": "EDward Gaming",
+    "short": "EDG"
+   },
+   {
+    "id": "rogue-warriors",
+    "name": "Rogue Warriors",
+    "short": "RW"
+   }
+  ]
+ },
+ {
+  "id": "nagne",
+  "nick": "Nagne",
+  "name": "Kim Sang-moon",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "najin-black-sword",
+    "name": "NaJin Black Sword",
+    "short": "NJBS",
+    "before": true
+   },
+   {
+    "id": "kt-rolster",
+    "name": "KT Rolster",
+    "short": "KT"
+   },
+   {
+    "id": "wydream",
+    "name": "WYDream",
+    "short": "WYD",
+    "league": "LSPL"
+   },
+   {
+    "id": "ninjas-in-pyjamas",
+    "name": "Ninjas in Pyjamas",
+    "short": "NIP",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "powerofevil",
+  "nick": "PowerOfEvil",
+  "name": "Tristan Schrage",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "unicorns-of-love",
+    "name": "Unicorns of Love",
+    "short": "UOL",
+    "before": true
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF"
+   },
+   {
+    "id": "optic-gaming",
+    "name": "OpTic Gaming",
+    "short": "OPT"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   },
+   {
+    "id": "flyquest",
+    "name": "FlyQuest",
+    "short": "FLY"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "reignover",
+  "nick": "Reignover",
+  "name": "Kim Yeu-jin",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC",
+    "before": true
+   },
+   {
+    "id": "immortals",
+    "name": "Immortals",
+    "short": "IMT"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG"
+   }
+  ]
+ },
+ {
+  "id": "shad0w",
+  "nick": "Shad0w",
+  "name": "Zhao Zhi-Qiang",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "mad-lions",
+    "name": "MAD Lions",
+    "short": ""
+   },
+   {
+    "id": "lgd-gaming",
+    "name": "LGD Gaming",
+    "short": "LGD"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   },
+   {
+    "id": "funplus-phoenix",
+    "name": "FunPlus Phoenix",
+    "short": "FPX"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "ctbc-flying-oyster",
+    "name": "CTBC Flying Oyster",
+    "short": "CFO"
+   }
+  ]
+ },
+ {
+  "id": "smoothie",
+  "nick": "Smoothie",
+  "name": "Andy Ta",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "team-dragon-knights",
+    "name": "Team Dragon Knights",
+    "short": "TDK"
+   },
+   {
+    "id": "team-liquid",
+    "name": "Team Liquid",
+    "short": "TL"
+   },
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9"
+   },
+   {
+    "id": "echo-fox",
+    "name": "Echo Fox",
+    "short": "FOX"
+   },
+   {
+    "id": "tsm",
+    "name": "TSM",
+    "short": "TSM"
+   },
+   {
+    "id": "counter-logic-gaming",
+    "name": "Counter Logic Gaming",
+    "short": "CLG",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "spirit",
+  "nick": "Spirit",
+  "name": "Lee Da-yoon",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "samsung-blue",
+    "name": "Samsung Blue",
+    "short": "SSB",
+    "before": true
+   },
+   {
+    "id": "team-we",
+    "name": "Team WE",
+    "short": "WE"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "afreeca-freecs",
+    "name": "Afreeca Freecs",
+    "short": ""
+   }
+  ]
+ },
+ {
+  "id": "tabzz",
+  "nick": "Tabzz",
+  "name": "Erik van Helvert",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "lemondogs",
+    "name": "Lemondogs",
+    "short": "LD",
+    "before": true
+   },
+   {
+    "id": "alliance",
+    "name": "Alliance",
+    "short": "ALL"
+   },
+   {
+    "id": "team-roccat",
+    "name": "Team ROCCAT",
+    "short": "ROC"
+   },
+   {
+    "id": "millenium",
+    "name": "Millenium",
+    "short": "MIL",
+    "league": "EU CS"
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   }
+  ]
+ },
+ {
+  "id": "teddy",
+  "nick": "Teddy",
+  "name": "Park Jin-seong",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "jin-air-green-wings",
+    "name": "Jin Air Green Wings",
+    "short": "JAG",
+    "before": true
+   },
+   {
+    "id": "t1",
+    "name": "T1",
+    "short": "T1"
+   },
+   {
+    "id": "kwangdong-freecs",
+    "name": "Kwangdong Freecs",
+    "short": ""
+   },
+   {
+    "id": "liiv-sandbox",
+    "name": "Liiv SANDBOX",
+    "short": "LSB"
+   },
+   {
+    "id": "drx",
+    "name": "DRX",
+    "short": "DRX"
+   },
+   {
+    "id": "hanjin-brion",
+    "name": "HANJIN BRION",
+    "short": "BRO"
+   }
+  ]
+ },
+ {
+  "id": "upset",
+  "nick": "Upset",
+  "name": "Elias Lipp",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04",
+    "before": true
+   },
+   {
+    "id": "origen",
+    "name": "Origen",
+    "short": "OG"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "karmine-corp",
+    "name": "Karmine Corp",
+    "short": "KC"
+   },
+   {
+    "id": "fnatic",
+    "name": "Fnatic",
+    "short": "FNC"
+   }
+  ]
+ },
+ {
+  "id": "vander",
+  "nick": "Vander",
+  "name": "Oskar Mateusz Bogdan",
+  "intl": 2,
+  "retired": true,
+  "career": [
+   {
+    "id": "team-roccat",
+    "name": "Team ROCCAT",
+    "short": "ROC",
+    "before": true
+   },
+   {
+    "id": "h2k-gaming",
+    "name": "H2k-Gaming",
+    "short": "H2K"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04",
+    "league": "EU CS"
+   },
+   {
+    "id": "team-vitality",
+    "name": "Team Vitality",
+    "short": "VIT"
+   },
+   {
+    "id": "fc-schalke-04-esports",
+    "name": "FC Schalke 04 Esports",
+    "short": "S04"
+   },
+   {
+    "id": "rogue-european-team",
+    "name": "Rogue",
+    "short": ""
+   },
+   {
+    "id": "misfits-gaming",
+    "name": "Misfits Gaming",
+    "short": "MSF",
+    "after": true
+   }
+  ]
+ },
+ {
+  "id": "weiwei",
+  "nick": "Weiwei",
+  "name": "Wei Bo-Han",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "suning",
+    "name": "Suning",
+    "short": "SN",
+    "before": true
+   },
+   {
+    "id": "victory-five",
+    "name": "Victory Five",
+    "short": "V5"
+   },
+   {
+    "id": "bilibili-gaming",
+    "name": "Bilibili Gaming",
+    "short": "BLG"
+   },
+   {
+    "id": "weibo-gaming",
+    "name": "Weibo Gaming",
+    "short": "WBG"
+   },
+   {
+    "id": "lng-esports",
+    "name": "LNG Esports",
+    "short": "LNG"
+   }
+  ]
+ },
+ {
+  "id": "zeyzal",
+  "nick": "Zeyzal",
+  "name": "Tristan Stidam",
+  "intl": 2,
+  "retired": false,
+  "career": [
+   {
+    "id": "cloud9",
+    "name": "Cloud9",
+    "short": "C9",
+    "before": true
+   },
+   {
+    "id": "evil-geniusesna",
+    "name": "Evil Geniuses",
+    "short": "EG"
+   },
+   {
+    "id": "solafide-esports",
+    "name": "SolaFide Esports",
+    "short": "SF",
+    "league": "RCL"
+   },
+   {
+    "id": "cloud9-challengers",
+    "name": "Cloud9 Challengers",
+    "short": "C9C",
+    "league": "NACL"
+   },
+   {
+    "id": "disguised",
+    "name": "Disguised",
+    "short": "DSG",
+    "league": "NACL"
+   },
+   {
+    "id": "shopify-rebellion",
+    "name": "Shopify Rebellion",
+    "short": "SR"
+   },
+   {
+    "id": "luminosity-gaming",
+    "name": "Luminosity Gaming",
+    "short": "LG",
+    "league": "NACL"
+   },
+   {
+    "id": "shopify-rebellion",
+    "name": "Shopify Rebellion",
+    "short": "SR"
+   }
+  ]
+ }
+]

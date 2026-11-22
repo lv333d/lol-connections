@@ -18,7 +18,8 @@ export const DEFAULT_CONFIG = { showThreshold: 100 };
 const RATE_LIMIT = { post: 20, get: 120 };      // per IP hash and minute
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const DEVICE = /^[a-z0-9-]{16,64}$/i;
-const MODES = ['grid', 'guess'];
+const MODES = ['grid', 'guess', 'path'];
+const MAX_GUESSES = { guess: 500, path: 5 };
 
 const day = (now, n = 0) => { const d = new Date(now); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
 const reply = (status, body, headers = {}) => ({ status, body, headers });
@@ -66,7 +67,7 @@ export async function postResult(body, ctx) {
     won = seen.size === 9;
   } else {
     const g = body.guesses;
-    if (!Number.isInteger(g) || g < 1 || g > 500 || typeof body.won !== 'boolean') return bad('guesses');
+    if (!Number.isInteger(g) || g < 1 || g > MAX_GUESSES[mode] || typeof body.won !== 'boolean') return bad('guesses');
     won = body.won;
   }
 
@@ -112,7 +113,7 @@ export async function adminStats(query, ctx) {
   const list = [];
   for (let k = 0; k < days; k++) {
     const d = day(now, -k);
-    list.push({ date: d, grid: await summary(ctx.store, 'grid', d), guess: await summary(ctx.store, 'guess', d) });
+    list.push({ date: d, grid: await summary(ctx.store, 'grid', d), guess: await summary(ctx.store, 'guess', d), path: await summary(ctx.store, 'path', d) });
   }
   return reply(200, { days: list, config: await getConfig(ctx.store) });
 }

@@ -13,7 +13,9 @@
     "build-players": "node scripts/build-player-db.js",
     "generate-grid": "node scripts/generate-grid.js",
     "build-guess": "node scripts/build-guess-pool.js",
-    "generate-guess": "node scripts/generate-guess.js"
+    "generate-guess": "node scripts/generate-guess.js",
+    "build-careers": "node scripts/build-careers.js",
+    "generate-path": "node scripts/generate-path.js"
   },
   "dependencies": {
     "sharp": "0.35.5"

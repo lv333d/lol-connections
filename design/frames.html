@@ -25,7 +25,7 @@
   <script>
     const q = new URLSearchParams(location.search);
     const PAGES = { a: ['A — Transmisja', 'variant-a.html'], b: ['B — Arena hextech', 'variant-b.html'], a2: ['A2 — Grid', 'variant-a2.html'], a2g: ['A2 — Guess the Pro', 'variant-a2-guess.html'],
-      grid: ['Strona: Grid', '/index.html'], guess: ['Strona: Guess the Pro', '/guess.html'] };
+      grid: ['Strona: Grid', '/index.html'], guess: ['Strona: Guess the Pro', '/guess.html'], path: ['Strona: Ścieżka kariery', '/path.html'] };
     // ?src=URL: any page (e.g. the built dist/ served on another port) instead of the list above.
     if (q.get('src')) PAGES.src = ['Adres', q.get('src')];
     const v = q.get('src') ? 'src' : PAGES[q.get('v')] ? q.get('v') : 'a';

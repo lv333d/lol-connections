@@ -7,6 +7,8 @@
     "split: names whose Leaguepedia 'RenamedTo' link must NOT be followed (the name stays its own team).",
     "labels: display name for an organization whose Leaguepedia page title is awkward or outdated (the id stays derived from the page title).",
     "logos: Leaguepedia file name of the logo, when the Teams table has none or an outdated one.",
+    "pathShort: Career Path only — a team tag where Leaguepedia has none (the tag shows under the circle).",
+    "pathMerge: Career Path only — teams that count as an organization there (academies the name doesn't give away); academies named '… Academy/Rookies/Challengers/Beta/Youth/Junior/Next' are merged automatically.",
     "Leaguepedia renames not listed here are followed automatically (e.g. Gamers2 → G2 Esports, KSV eSports → Gen.G)."
   ],
   "merge": {
@@ -23,6 +25,34 @@
     "Movistar KOI": ["MAD Lions", "MAD Lions KOI"],
     "Rogue (European Team)": ["KOI (Spanish Team)"],
     "Counter Logic Gaming": ["CLG Prime"]
+  },
+  "pathShort": {
+    "Evil Geniuses.NA": "EG",
+    "Ninjas in Pyjamas.CN": "NIP",
+    "Energy Pacemaker.HK": "EP"
+  },
+  "pathMerge": {
+    "HANJIN BRION": ["OKSavingsBank BRION", "Fredit BRION", "BRION"],
+    "Counter Logic Gaming": ["CLG Black"],
+    "G2 Esports": ["G2 Arctic"],
+    "Suning": ["Suning-S"],
+    "Dplus Kia": ["DAMWON Game Academy"],
+    "Movistar KOI": ["MAD Lions Madrid", "MAD Lions E.C."],
+    "GIANTX": ["GIANTX iTero"],
+    "FunPlus Phoenix": ["FunPlus Phoenix Blaze"],
+    "EDward Gaming": ["EDward Esports", "EDward Gaming Future", "EDward Gaming Youth Team"],
+    "ROX Tigers": ["HUYA Tigers", "Tigers"],
+    "CJ Entus": ["Azubu Blaze", "MiG Blaze"],
+    "Samsung Galaxy": ["MVP Blue", "MVP Ozone"],
+    "QG Reapers": ["Qiao Gu Reapers"],
+    "Cloud9": ["Cloud9 Challenger"],
+    "Estral Esports": ["Isurus", "Isurus Estral"],
+    "Gamtee": ["Gamtee Fenghui"],
+    "Royal Never Give Up": ["Royal Club", "Star Horn Royal Club"],
+    "Vici Gaming": ["Vici Star Gaming"],
+    "DRX": ["Incredible Miracle 1", "Incredible Miracle 2"],
+    "Energy Pacemaker": ["Energy Pacemaker.HK"],
+    "Rogue (European Team)": ["Rogue Esports Club"]
   },
   "split": ["OpTic Gaming", "Samsung Galaxy", "Splyce"],
   "labels": {

@@ -32,6 +32,8 @@ jobs:
         run: node scripts/generate-grid.js --days=14
       - name: Pick upcoming Guess the Pro players
         run: node scripts/generate-guess.js --days=14
+      - name: Pick upcoming Career Path players
+        run: node scripts/generate-path.js --days=14
       - name: Fetch missing portraits and logos
         continue-on-error: true
         env:
@@ -42,6 +44,6 @@ jobs:
         run: |
           git config user.name "lv333d"
           git config user.email "137284250+lv333d@users.noreply.github.com"
-          git add grid/ guess/ players/ assets/logos/ assets/flags/
+          git add grid/ guess/ path/ players/ assets/logos/ assets/flags/
           git diff --cached --quiet || git commit -m "LoL Grid + Guess the Pro: days up to $(date -u -d '+13 days' +%F)"
           git push

@@ -1,0 +1,38 @@
+{
+ "date": "2026-11-27",
+ "number": 6,
+ "playerId": "bdd",
+ "career": [
+  {
+   "id": "cj-entus",
+   "name": "CJ Entus",
+   "short": "CJ",
+   "before": true
+  },
+  {
+   "id": "longzhu-gaming",
+   "name": "Longzhu Gaming",
+   "short": "LZ"
+  },
+  {
+   "id": "kt-rolster",
+   "name": "KT Rolster",
+   "short": "KT"
+  },
+  {
+   "id": "geng",
+   "name": "Gen.G",
+   "short": "GEN"
+  },
+  {
+   "id": "nongshim-redforce",
+   "name": "Nongshim RedForce",
+   "short": "NS"
+  },
+  {
+   "id": "kt-rolster",
+   "name": "KT Rolster",
+   "short": "KT"
+  }
+ ]
+}

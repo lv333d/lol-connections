@@ -1,0 +1,32 @@
+{
+ "date": "2026-12-05",
+ "number": 14,
+ "playerId": "flandre",
+ "career": [
+  {
+   "id": "snake-esports",
+   "name": "Snake Esports",
+   "short": "SS"
+  },
+  {
+   "id": "edward-gaming",
+   "name": "EDward Gaming",
+   "short": "EDG"
+  },
+  {
+   "id": "jd-gaming",
+   "name": "JD Gaming",
+   "short": "JDG"
+  },
+  {
+   "id": "anyones-legend",
+   "name": "Anyone's Legend",
+   "short": "AL"
+  },
+  {
+   "id": "bilibili-gaming",
+   "name": "Bilibili Gaming",
+   "short": "BLG"
+  }
+ ]
+}

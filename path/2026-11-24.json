@@ -1,0 +1,32 @@
+{
+ "date": "2026-11-24",
+ "number": 3,
+ "playerId": "wunder",
+ "career": [
+  {
+   "id": "splyce",
+   "name": "Splyce",
+   "short": "SPY"
+  },
+  {
+   "id": "g2-esports",
+   "name": "G2 Esports",
+   "short": "G2"
+  },
+  {
+   "id": "fnatic",
+   "name": "Fnatic",
+   "short": "FNC"
+  },
+  {
+   "id": "team-heretics",
+   "name": "Team Heretics",
+   "short": "TH"
+  },
+  {
+   "id": "sk-gaming",
+   "name": "SK Gaming",
+   "short": "SK"
+  }
+ ]
+}

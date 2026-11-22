@@ -11,7 +11,8 @@ import { LANGS, OG_LOCALE, META } from './site-i18n.js';
 export const SITE = 'https://connect4.lol';
 export const PAGES = [
   { id: 'grid', template: 'index.html', slug: '', i18nFrom: 'grid.js' },
-  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' }
+  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' },
+  { id: 'path', template: 'path.html', slug: 'path', i18nFrom: 'path.js' }
 ];
 
 /** Site path of a page in a language: / , /guess, /pl, /pl/guess… (same rule as site.js SITE.path). */
@@ -84,6 +85,7 @@ export async function buildPages(root) {
       // Links between pages and the language picker stay in this language.
       html = html.replace(/href="\/" class="game-tab/g, `href="${pagePath(lang, '')}" class="game-tab`)
         .replace(/href="\/guess" class="game-tab/g, `href="${pagePath(lang, 'guess')}" class="game-tab`)
+        .replace(/href="\/path" class="game-tab/g, `href="${pagePath(lang, 'path')}" class="game-tab`)
         .replace(`<option value="${lang}">`, `<option value="${lang}" selected>`);
 
       out.push({ file: pageFile(lang, page.slug), html, url, lang, page: page.slug });

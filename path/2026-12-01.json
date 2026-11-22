@@ -1,0 +1,27 @@
+{
+ "date": "2026-12-01",
+ "number": 10,
+ "playerId": "corejj",
+ "career": [
+  {
+   "id": "dignitas",
+   "name": "Dignitas",
+   "short": "DIG"
+  },
+  {
+   "id": "samsung-galaxy",
+   "name": "Samsung Galaxy",
+   "short": "SSG"
+  },
+  {
+   "id": "geng",
+   "name": "Gen.G",
+   "short": "GEN"
+  },
+  {
+   "id": "team-liquid",
+   "name": "Team Liquid",
+   "short": "TL"
+  }
+ ]
+}

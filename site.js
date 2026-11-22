@@ -47,47 +47,48 @@ const SITE = (() => {
 })();
 
 /* New vs returning visitors in Umami, without cookies or an identifier: localStorage keeps only the visit days per
-   game (lolc_visits: { grid: [...], guess: [...] }, UTC YYYY-MM-DD — the same day as todayKey() in the games — the
+   game (lolc_visits: { grid: [...], guess: [...], path: [...] }, UTC YYYY-MM-DD — the same day as todayKey() in the games — the
    newest VISIT_DAYS each). Every view of a built game page ('' = grid or 'guess') adds today to that game. Once per
    browser tab session (sessionStorage lolc_visit_sent, set after the event went to umami.track) the days before today
    are counted and sent as one "visit" event: grid and guess (each game's own days) and type (new without any earlier
    day in either game); the page the visit started on is the event's own URL in Umami. Later views in the
    same session (Grid ↔ Guess, reloads) only record the day. First run without the per-game lists (nothing stored, or
    the earlier plain list of days): they start from the games' saves before today (grid.js lolg_state_<date>,
-   guess.js lolgp_state_<date>), so earlier players stay returning (archive boards can overcount that once). Blocked
+   guess.js lolgp_state_<date>, path.js lolpa_state_<date>), so earlier players stay returning (archive boards can overcount that once). Blocked
    storage counts as new. Not sent from the admin preview (?preview=) or from the source pages of the local admin
    server (not built). */
 (() => {
-  if (!SITE.built || !['', 'guess'].includes(SITE.page)) return;
+  if (!SITE.built || !['', 'guess', 'path'].includes(SITE.page)) return;
   if (new URLSearchParams(location.search).has('preview')) return;
   const VISIT_DAYS = 120;
-  const mode = SITE.page === 'guess' ? 'guess' : 'grid';
+  const mode = SITE.page === 'guess' ? 'guess' : SITE.page === 'path' ? 'path' : 'grid';
+  const GAMES = ['grid', 'guess', 'path'];
   const today = new Date().toISOString().slice(0, 10); // same UTC day as todayKey() in the games
   const isDay = d => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);
-  const before = { grid: [], guess: [] };
+  const before = { grid: [], guess: [], path: [] };
   try {
     let visits = null;
     try { visits = JSON.parse(localStorage.getItem('lolc_visits')); } catch { /* unreadable: start over */ }
     if (!visits || typeof visits !== 'object' || Array.isArray(visits)) {
-      visits = { grid: [], guess: [] };
+      visits = { grid: [], guess: [], path: [] };
       for (let i = 0; i < localStorage.length; i++) {
-        const [, gp, date] = /^lolg(p?)_state_(\d{4}-\d{2}-\d{2})$/.exec(localStorage.key(i)) || [];
-        if (date && date < today) visits[gp ? 'guess' : 'grid'].push(date);
+        const [, prefix, date] = /^(lolg|lolgp|lolpa)_state_(\d{4}-\d{2}-\d{2})$/.exec(localStorage.key(i)) || [];
+        if (date && date < today) visits[{ lolg: 'grid', lolgp: 'guess', lolpa: 'path' }[prefix]].push(date);
       }
     }
-    for (const game of ['grid', 'guess']) {
+    for (const game of GAMES) {
       const days = [...new Set((Array.isArray(visits[game]) ? visits[game] : []).filter(isDay))];
       before[game] = days.filter(d => d < today);
       if (game === mode && !days.includes(today)) days.push(today);
       visits[game] = days.sort().slice(-VISIT_DAYS);
     }
-    localStorage.setItem('lolc_visits', JSON.stringify({ grid: visits.grid, guess: visits.guess }));
+    localStorage.setItem('lolc_visits', JSON.stringify({ grid: visits.grid, guess: visits.guess, path: visits.path }));
   } catch { /* storage blocked: counts as new */ }
   try { if (sessionStorage.getItem('lolc_visit_sent')) return; } catch { /* blocked: send anyway */ }
   // Ranges, not exact counts, so the values stay few and can't single anyone out.
   const RANGES = [[0, '0'], [1, '1'], [3, '2-3'], [7, '4-7'], [14, '8-14'], [30, '15-30'], [60, '31-60'], [90, '61-90']];
   const range = n => RANGES.find(([max]) => n <= max)?.[1] || '90+';
-  const data = { type: before.grid.length || before.guess.length ? 'returning' : 'new', grid: range(before.grid.length), guess: range(before.guess.length) };
+  const data = { type: GAMES.some(g => before[g].length) ? 'returning' : 'new', grid: range(before.grid.length), guess: range(before.guess.length), path: range(before.path.length) };
   // The Umami script is deferred: wait for it (every 300 ms, up to ~10 s), then send once per tab session.
   let tries = 0;
   const timer = setInterval(() => {

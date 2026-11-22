@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  /* Remembered language: the language menu stores the visitor's choice (lolc_lang, footer.js), and the English
+     pages (/, /guess and /path — where search results and links without a language land) open in that language. Links to
+     /pl, /es and /fr are left alone. Only an explicit choice counts, never the browser language, so crawlers and
+     new visitors always get the page they asked for. */
+  (function () {
+    try {
+      var d = document.documentElement, l = localStorage.getItem('lolc_lang');
+      if (!d.hasAttribute('data-built') || d.lang !== 'en' || !/^(pl|es|fr)$/.test(l || '')) return;
+      var p = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/+$/, '');
+      location.replace('/' + l + p + location.search + location.hash);
+    } catch (e) { /* storage blocked */ }
+  })();
+  </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
+  <meta charset="UTF-8">
+  <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/guess etc. -->
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#050811">
+  <title>Career Path — LoL Connect</title>
+  <meta name="description" content="Guess the daily League of Legends pro player from their career path: the teams they played for, in order, revealed one by one.">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://connect4.lol/path">
+  <!-- Open Graph / Facebook / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LoL Connect">
+  <meta property="og:url" content="https://connect4.lol/path">
+  <meta property="og:title" content="Career Path — LoL Connect">
+  <meta property="og:description" content="Name the pro player from the teams of their career.">
+  <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="LoL Connect — daily League of Legends esports puzzles">
+  <!-- X / Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Career Path — LoL Connect">
+  <meta name="twitter:description" content="Name the pro player from the teams of their career.">
+  <meta name="twitter:image" content="https://connect4.lol/assets/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="grid.css">
+  <link rel="stylesheet" href="path.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Career Path","url":"https://connect4.lol/path","description":"Guess the daily League of Legends pro player from their career path.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og-image.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og-image.png"}]}
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header class="site-header">
+      <div class="brand">
+        <img src="icon.svg" alt="" class="brand-icon" width="32" height="32">
+        <div class="brand-text">
+          <span class="brand-name">LoL Connect</span>
+          <span id="subtitle" class="brand-tag" data-i18n="subtitle"></span>
+        </div>
+      </div>
+      <nav class="game-tabs" aria-label="Game mode">
+        <a href="/" class="game-tab"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>Grid</a>
+        <a href="/guess" class="game-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>Guess the Pro</a>
+        <a href="/path" class="game-tab" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="4.5" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="19.5" cy="12" r="2.5"/><path d="M7 12h2.5M14.5 12H17"/></svg><span data-i18n="pathTab"></span><span class="tab-new" data-until="2026-12-06"><span class="visually-hidden" data-i18n="newLabel"></span></span></a>
+      </nav>
+      <div class="header-actions">
+        <div id="streakBox" class="hbtn hbtn-streak" role="img"><span class="hbtn-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg><span id="streakCount">–</span></span><span class="hbtn-lbl" data-i18n="streakLabel"></span></div>
+        <button id="btnGuide" type="button" class="hbtn" data-i18n-title="btnGuideLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2.9-1.2 1.8"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg><span id="btnGuideLabel" class="hbtn-lbl" data-i18n="btnGuideLabel"></span></button>
+      </div>
+    </header>
+
+    <main class="game-panel">
+      <div class="board-line">
+        <div class="date-nav-wrap">
+          <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">‹</button>
+          <span id="boardNo" class="board-no"></span><span id="dateDisplay" class="date-display"></span>
+          <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">›</button>
+        </div>
+        <div class="grid-status"><span id="guessesLabel" data-i18n="guessesLabel"></span> <strong id="guessesLeft" class="guesses-left"></strong><span class="tries-max">/5</span></div>
+      </div>
+      <p id="liveLine" class="live-line hidden" aria-live="polite"></p>
+
+      <div id="noPuzzleScreen" class="no-puzzle hidden">
+        <h2 id="noPuzzleTitle" data-i18n="noPuzzleTitle"></h2>
+        <p id="noPuzzleText" data-i18n="noPuzzleText"></p>
+      </div>
+
+      <div id="gameArea" class="game-area hidden">
+        <!-- The career: a circle per team, in order; hidden ones show "?" (path.js). -->
+        <div id="pathBar" class="path-bar" role="list"></div>
+        <div id="answerCard" class="gp-answer hidden"></div>
+
+        <div id="guessSearch" class="gp-search">
+          <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
+                 role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+          <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
+        </div>
+
+        <ol id="pathGuesses" class="path-guesses"></ol>
+
+        <div class="actions">
+          <button id="btnGiveUp" data-i18n="giveUp" class="btn btn-secondary"></button>
+          <button id="btnShowResults" data-i18n="results" class="btn hidden"></button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer: one line (footer.js fills it: fan project · legal notice · TikTok · Discord) and the language. -->
+  <footer class="site-footer">
+    <div id="footerLine" class="footer-line"></div>
+    <div class="lang-wrap">
+      <span class="lang-icon" aria-hidden="true">🌐</span>
+      <select id="langSelect" class="lang-select" aria-label="Language">
+        <option value="pl">Polski</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </footer>
+
+  <!-- Results -->
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="modal">
+      <button class="modal-close" data-close="resultOverlay" aria-label="Close">&times;</button>
+      <h2 id="resultTitle"></h2>
+      <div id="resultPlayer" class="gp-result-player"></div>
+      <div id="resultPath" class="path-bar path-bar-small"></div>
+      <div id="resultScore" class="result-score"></div>
+      <div id="emojiGrid" class="emoji-grid"></div>
+      <div class="result-actions">
+        <button id="btnShare" data-i18n="share" class="btn"></button>
+        <button id="btnCopy" data-i18n="copy" class="btn btn-secondary"></button>
+      </div>
+      <p id="streakLine" class="streak-line hidden"></p>
+      <div id="nextBoard" class="grid-countdown hidden">
+        <div id="nextBoardLabel"></div>
+        <div id="nextBoardTime" class="grid-countdown-time"></div>
+      </div>
+      <a id="nextGame" class="next-game" href="/"></a>
+    </div>
+  </div>
+
+  <!-- Give-up confirmation -->
+  <div id="giveUpOverlay" class="overlay hidden">
+    <div class="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="giveUpTitle" aria-describedby="giveUpText">
+      <h2 id="giveUpTitle" data-i18n="giveUpTitle"></h2>
+      <p id="giveUpText" data-i18n="giveUpText"></p>
+      <div class="result-actions">
+        <button id="btnGiveUpCancel" data-i18n="giveUpCancel" class="btn btn-secondary"></button>
+        <button id="btnGiveUpConfirm" data-i18n="giveUpConfirm" class="btn"></button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="site.js"></script>
+  <script src="progress.js"></script>
+  <script src="onboarding.js"></script>
+  <script src="live.js"></script>
+  <script src="path.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>

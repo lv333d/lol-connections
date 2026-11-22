@@ -1,0 +1,33 @@
+{
+ "date": "2026-11-29",
+ "number": 8,
+ "playerId": "tian",
+ "career": [
+  {
+   "id": "suning",
+   "name": "Suning",
+   "short": "SN",
+   "before": true
+  },
+  {
+   "id": "funplus-phoenix",
+   "name": "FunPlus Phoenix",
+   "short": "FPX"
+  },
+  {
+   "id": "top-esports",
+   "name": "Top Esports",
+   "short": "TES"
+  },
+  {
+   "id": "weibo-gaming",
+   "name": "Weibo Gaming",
+   "short": "WBG"
+  },
+  {
+   "id": "top-esports",
+   "name": "Top Esports",
+   "short": "TES"
+  }
+ ]
+}

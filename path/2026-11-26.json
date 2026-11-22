@@ -1,0 +1,38 @@
+{
+ "date": "2026-11-26",
+ "number": 5,
+ "playerId": "doran-choi-hyeon-jun",
+ "career": [
+  {
+   "id": "griffin-korean-team",
+   "name": "Griffin (Korean Team)",
+   "short": "Griffin (Korean Team)",
+   "before": true
+  },
+  {
+   "id": "dragonx",
+   "name": "DragonX",
+   "short": ""
+  },
+  {
+   "id": "kt-rolster",
+   "name": "KT Rolster",
+   "short": "KT"
+  },
+  {
+   "id": "geng",
+   "name": "Gen.G",
+   "short": "GEN"
+  },
+  {
+   "id": "hanwha-life-esports",
+   "name": "Hanwha Life Esports",
+   "short": "HLE"
+  },
+  {
+   "id": "t1",
+   "name": "T1",
+   "short": "T1"
+  }
+ ]
+}

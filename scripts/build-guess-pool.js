@@ -27,6 +27,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT, slugify } from './lib/puzzles.js';
 import { cargoQuery, cargoStr } from './lib/leaguepedia.js';
+import { buildPathPool } from './build-careers.js';
 
 const DATA_DIR = path.join(ROOT, 'data');
 const fresh = process.argv.includes('--fresh');
@@ -218,6 +219,8 @@ const out = pool.map(p => {
 }).sort((a, b) => b.intl - a.intl || a.nick.localeCompare(b.nick));
 
 await writeFile(path.join(DATA_DIR, 'guess-players.json'), JSON.stringify(out) + '\n');
+// Career Path pool: built on this pool (data/path-players.json).
+await buildPathPool();
 step('Podsumowanie');
 console.log(`  data/guess-players.json: ${out.length} graczy`);
 console.log(`  pozycje: ${Object.entries(Object.groupBy(out, p => p.role || '?')).map(([r, v]) => `${r} ${v.length}`).join(', ')}`);

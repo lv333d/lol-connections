@@ -25,7 +25,7 @@ const I18N = {
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
     giveUpTitle: 'Poddać się?', giveUpText: 'Gra się zakończy, a pozostałe pola zostaną odkryte. Tego nie da się cofnąć.',
     giveUpConfirm: 'Poddaj się', giveUpCancel: 'Graj dalej',
-    newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
+    pathTab: 'Career Path', newLabel: 'Nowość', soonLabel: 'Wkrótce: nowy tryb', streakLabel: 'Seria',
     // The guide window (onboarding.js).
     onbNext: "Dalej", onbClose: "Zamknij", onbLang: "Język",
     onbSkip: "Pomiń",
@@ -51,7 +51,7 @@ const I18N = {
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
     giveUpTitle: 'Give up?', giveUpText: 'The game ends and the remaining cells are revealed. This cannot be undone.',
     giveUpConfirm: 'Give up', giveUpCancel: 'Keep playing',
-    newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
+    pathTab: 'Career Path', newLabel: 'New', soonLabel: 'Coming soon: a new mode', streakLabel: 'Streak',
     // The guide window (onboarding.js).
     onbNext: "Next", onbClose: "Close", onbLang: "Language",
     onbSkip: "Skip",
@@ -77,7 +77,7 @@ const I18N = {
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
     giveUpTitle: '¿Rendirse?', giveUpText: 'La partida termina y se revelan las casillas restantes. No se puede deshacer.',
     giveUpConfirm: 'Rendirse', giveUpCancel: 'Seguir jugando',
-    newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
+    pathTab: 'Career Path', newLabel: 'Nuevo', soonLabel: 'Próximamente: un nuevo modo', streakLabel: 'Racha',
     // The guide window (onboarding.js).
     onbNext: "Siguiente", onbClose: "Cerrar", onbLang: "Idioma",
     onbSkip: "Saltar",
@@ -103,7 +103,7 @@ const I18N = {
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
     giveUpTitle: 'Abandonner ?', giveUpText: 'La partie se termine et les cases restantes sont révélées. Impossible de revenir en arrière.',
     giveUpConfirm: 'Abandonner', giveUpCancel: 'Continuer',
-    newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
+    pathTab: 'Career Path', newLabel: 'Nouveau', soonLabel: 'Bientôt : un nouveau mode', streakLabel: 'Série',
     // The guide window (onboarding.js).
     onbNext: "Suivant", onbClose: "Fermer", onbLang: "Langue",
     onbSkip: "Passer",

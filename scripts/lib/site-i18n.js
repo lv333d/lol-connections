@@ -50,5 +50,26 @@ export const META = {
       ogDesc: 'Devinez le joueur pro League of Legends du jour.'
     }
   },
+  path: {
+    en: {
+      desc: 'Guess the daily League of Legends pro player from their career path: the teams they played for, in order, revealed one by one.',
+      ogTitle: 'Career Path — LoL Connect',
+      ogDesc: 'Name the pro player from the teams of their career.'
+    },
+    pl: {
+      desc: 'Zgadnij codziennego pro-gracza League of Legends po jego ścieżce kariery: drużynach, w których grał, po kolei, odkrywanych jedna po drugiej.',
+      ogTitle: 'Career Path — LoL Connect',
+      ogDesc: 'Zgadnij pro-gracza po drużynach z jego kariery.'
+    },
+    es: {
+      desc: 'Adivina el jugador pro diario de League of Legends por su trayectoria: los equipos en los que jugó, en orden, descubiertos uno a uno.',
+      ogTitle: 'Career Path — LoL Connect',
+      ogDesc: 'Adivina el jugador pro por los equipos de su carrera.'
+    },
+    fr: {
+      desc: 'Devinez le joueur pro League of Legends du jour grâce à son parcours : les équipes où il a joué, dans l’ordre, dévoilées une à une.',
+      ogTitle: 'Career Path — LoL Connect',
+      ogDesc: 'Trouvez le joueur pro grâce aux équipes de sa carrière.'
+    }
+  }
 };
-

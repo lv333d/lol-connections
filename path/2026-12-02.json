@@ -1,0 +1,28 @@
+{
+ "date": "2026-12-02",
+ "number": 11,
+ "playerId": "pyosik",
+ "career": [
+  {
+   "id": "drx",
+   "name": "DRX",
+   "short": "DRX",
+   "before": true
+  },
+  {
+   "id": "team-liquid",
+   "name": "Team Liquid",
+   "short": "TL"
+  },
+  {
+   "id": "kt-rolster",
+   "name": "KT Rolster",
+   "short": "KT"
+  },
+  {
+   "id": "dn-freecs",
+   "name": "DN SOOPers",
+   "short": ""
+  }
+ ]
+}

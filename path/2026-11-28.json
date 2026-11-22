@@ -1,0 +1,32 @@
+{
+ "date": "2026-11-28",
+ "number": 7,
+ "playerId": "river-kim-dong-woo",
+ "career": [
+  {
+   "id": "talon-hong-kong-team",
+   "name": "TALON (Hong Kong Team)",
+   "short": ""
+  },
+  {
+   "id": "psg-talon",
+   "name": "PSG Talon",
+   "short": "PSG"
+  },
+  {
+   "id": "dignitas",
+   "name": "Dignitas",
+   "short": "DIG"
+  },
+  {
+   "id": "golden-guardians",
+   "name": "Golden Guardians",
+   "short": "GG"
+  },
+  {
+   "id": "100-thieves",
+   "name": "100 Thieves",
+   "short": "100T"
+  }
+ ]
+}

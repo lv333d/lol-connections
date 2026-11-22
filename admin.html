@@ -185,6 +185,8 @@
         <div class="nav-item" data-page="grid"><span class="nav-icon">▦</span><span class="nav-label">Plansze Grida</span></div>
         <div class="nav-section">Guess the Pro · codziennie</div>
         <div class="nav-item" data-page="guess"><span class="nav-icon">?</span><span class="nav-label">Gracze dnia</span></div>
+        <div class="nav-section">Ścieżka kariery · codziennie</div>
+        <div class="nav-item" data-page="path"><span class="nav-icon">⋯</span><span class="nav-label">Ścieżki dnia</span></div>
         <div class="nav-section">Gracze</div>
         <div class="nav-item" data-page="stats"><span class="nav-icon">📈</span><span class="nav-label">Statystyki</span></div>
         <div class="nav-section">Strona</div>
@@ -261,6 +263,23 @@
         </div>
         <datalist id="guessPoolList"></datalist>
       </div>
+      <!-- ---------- Career Path ---------- -->
+      <div class="page" id="page-path">
+        <h1>⋯ Ścieżka kariery — gracze dnia</h1>
+        <p class="page-lead">Codziennie jeden gracz i jego drużyny po kolei (tylko okresy zawodnicze, akademie scalone z organizacją). Pula: gracze z puli Guess the Pro z co najmniej tyloma turniejami międzynarodowymi, ile ustawisz niżej, i ścieżką od <span id="pathMinTeams">3</span> do <span id="pathMaxTeams">8</span> drużyn. Bot na GitHubie dolosowuje brakujące dni w poniedziałki; gracz nie powtarza się przez 180 dni i nie trafia w ciągu <span id="pathGap">14</span> dni od dnia, w którym jest graczem Guess the Pro (przy ręcznym wyborze tylko ostrzeżenie ⚠). Zmiany trafiają na stronę po „Opublikuj na stronę”.</p>
+        <div class="db-box site-links">
+          <label class="cfg-row">Próg puli <input type="number" min="2" id="pathMinIntl"> <span class="muted">turniejów międzynarodowych (min. 2) — <span id="pathPoolCount"></span></span></label>
+          <div class="site-links-bar"><button class="btn btn-sm" id="btnPathCfg">💾 Zapisz i przelicz pulę</button><button class="btn btn-sm btn-ghost" id="btnPathFill">🎲 Dolosuj brakujące dni (14 naprzód)</button><span class="muted" id="pathCfgStatus"></span></div>
+        </div>
+        <div class="table-wrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Dzień</th><th>#</th><th>Gracz</th><th>Ścieżka</th><th>Uwagi</th><th></th></tr></thead>
+            <tbody id="pathTable"></tbody>
+          </table>
+        </div>
+        <datalist id="pathPoolList"></datalist>
+      </div>
+
       <!-- ---------- Player counters ---------- -->
       <div class="page" id="page-stats">
         <h1>📈 Statystyki graczy</h1>
@@ -288,7 +307,7 @@
         <div class="section-title"><h2>Ukończone gry</h2><span class="sub">ostatnie 14 dni</span></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Dzień</th><th>Grid: gier</th><th>Grid: 9/9</th><th>Guess: gier</th><th>Guess: zgadnięte</th></tr></thead>
+            <thead><tr><th>Dzień</th><th>Grid: gier</th><th>Grid: 9/9</th><th>Guess: gier</th><th>Guess: zgadnięte</th><th>Ścieżka: gier</th><th>Ścieżka: zgadnięte</th></tr></thead>
             <tbody id="statsDays"></tbody>
           </table>
         </div>
@@ -448,6 +467,7 @@
     if (page === 'dashboard') { renderDashboard(); renderDbRefresh(); }
     if (page === 'grid') renderGrid();
     if (page === 'guess') renderGuess();
+    if (page === 'path') renderPath();
     window.scrollTo(0, 0);
   }
 
@@ -755,7 +775,8 @@
   // Stage-1 mock-ups (design/): key → [name, page].
   const DESIGN_PAGES = { a: ['Wariant A', 'variant-a.html'], b: ['Wariant B', 'variant-b.html'], a2: ['A2 — Grid', 'variant-a2.html'], a2g: ['A2 — Guess the Pro', 'variant-a2-guess.html'] };
   // Days the preview can step through, per game.
-  const previewDates = () => preview.game === 'guess' || preview.game === 'design-a2g'
+  const previewDates = () => preview.game === 'path' ? pathData.days.map(d => d.date)
+    : preview.game === 'guess' || preview.game === 'design-a2g'
     ? guessDays.filter(d => d.player).map(d => d.date)
     : gridBoards.filter(b => !b.missing).map(b => b.date);
 
@@ -771,6 +792,9 @@
     const i = dates.indexOf(preview.date);
     if (preview.game.startsWith('design-')) {
       $('previewTitle').textContent = `🎨 ${DESIGN_PAGES[preview.game.slice(7)][0]} · ${fmtDate(preview.date)}`;
+    } else if (preview.game === 'path') {
+      const p = pathData.days.find(x => x.date === preview.date);
+      $('previewTitle').textContent = `⋯ ${fmtDate(preview.date)}${p ? ` · #${p.number} · ${p.nick}` : ''}`;
     } else if (preview.game === 'guess') {
       const g = guessDays.find(x => x.date === preview.date);
       $('previewTitle').textContent = `? ${fmtDate(preview.date)}${g ? ` · #${g.number} · ${g.player?.nick || ''}` : ''}`;
@@ -795,7 +819,7 @@
     stage.scrollTop = 0;
     if (preview.game.startsWith('design-')) { iframe.src = `design/${DESIGN_PAGES[preview.game.slice(7)][1]}?date=${preview.date}`; return; }
     const streak = /^\d{1,3}$/.test($('previewStreak').value) ? `&streak=${$('previewStreak').value}` : '';
-    iframe.src = `${preview.game === 'guess' ? 'guess.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}${$('previewNew').checked ? '&newplayer=1' : ''}${streak}`;
+    iframe.src = `${preview.game === 'guess' ? 'guess.html' : preview.game === 'path' ? 'path.html' : 'index.html'}?preview=${preview.date}${$('previewSolved').checked ? '&solved=1' : ''}${$('previewNew').checked ? '&newplayer=1' : ''}${streak}`;
   }
 
   const stepPreview = delta => {
@@ -803,6 +827,79 @@
     const next = dates[dates.indexOf(preview.date) + delta];
     if (next) { preview.date = next; showPreview(); }
   };
+  /* ---------- Career Path ---------- */
+
+  let pathData = { days: [], pool: [], config: {} };
+  async function renderPath() {
+    try { pathData = await api('/api/path'); } catch (e) { showToast(e.message); return; }
+    const { days, pool, config } = pathData;
+    $('pathMinIntl').value = config.minIntl;
+    $('pathMinTeams').textContent = config.minTeams;
+    $('pathMaxTeams').textContent = config.maxTeams;
+    $('pathGap').textContent = config.guessGap;
+    $('pathPoolCount').textContent = `w puli ${pool.length} graczy`;
+    $('pathPoolList').innerHTML = pool.map(p => `<option value="${esc(p.nick)}">${esc(p.name || '')} · ${p.teams} drużyn · ${p.intl} turn.</option>`).join('');
+    const today = todayKey();
+    $('pathTable').innerHTML = days.filter(d => d.date >= addDays(today, -3)).map(d => {
+      const warn = [];
+      if (!d.inPool) warn.push('⚠ spoza puli');
+      if (d.guessNear.length) warn.push(`⚠ Guess the Pro: ${d.guessNear.map(x => fmtDate(x, { day: 'numeric', month: 'short' })).join(', ')}`);
+      const teams = d.career.map(t => esc(t.short || t.name)).join(' → ');
+      const played = d.date <= today;
+      return `<tr class="${d.date === today ? 'today' : ''}">
+        <td class="nowrap">${fmtDate(d.date)}<br><span class="muted">${inDays(daysBetween(today, d.date))}</span></td>
+        <td>#${d.number}</td>
+        <td><strong>${esc(d.nick)}</strong><br><span class="muted">${d.career.length} drużyn</span></td>
+        <td style="font-size:0.8rem">${teams}</td>
+        <td class="${warn.length ? 'gap-bad' : 'muted'}" style="font-size:0.8rem">${warn.join('<br>') || '—'}</td>
+        <td><div class="row-actions">
+          <button class="btn btn-sm btn-ghost" data-path-preview="${d.date}" title="Podgląd w grze">👁</button>
+          <button class="btn btn-sm btn-ghost" data-path-pick="${d.date}" title="Wybierz gracza">✏</button>
+          <button class="btn btn-sm btn-ghost" data-path-draw="${d.date}" data-played="${played}" title="Wylosuj innego">🎲</button>
+          <button class="btn btn-sm btn-ghost" data-path-del="${d.date}" data-played="${played}" title="Usuń dzień">🗑</button>
+        </div></td></tr>`;
+    }).join('') || '<tr><td colspan="6" class="muted">Brak dni — kliknij „Dolosuj brakujące dni”.</td></tr>';
+  }
+  const pathPlayedNote = played => played === 'true' ? ' Ten dzień jest już w grze — kto go zaczął, straci postęp.' : '';
+  $('pathTable').addEventListener('click', async e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.pathPreview) return openPreview(b.dataset.pathPreview, 'path');
+    if (b.dataset.pathDraw) return showConfirm('Wylosować innego gracza?', `Dzień ${b.dataset.pathDraw}.${pathPlayedNote(b.dataset.played)}`, async () => {
+      try { showToast((await api(`/api/path/${b.dataset.pathDraw}/draw`, { method: 'POST' })).message); } catch (err) { showToast(err.message); }
+      renderPath(); refreshPublishBar();
+    });
+    if (b.dataset.pathDel) return showConfirm('Usunąć dzień?', `Dzień ${b.dataset.pathDel}; numery kolejnych dni się przesuną.${pathPlayedNote(b.dataset.played)}`, async () => {
+      try { await api(`/api/path/${b.dataset.pathDel}`, { method: 'DELETE' }); } catch (err) { showToast(err.message); }
+      renderPath(); refreshPublishBar();
+    });
+    if (b.dataset.pathPick) {
+      const cell = b.closest('tr').children[2];
+      cell.innerHTML = `<div class="gp-pick"><input list="pathPoolList" placeholder="Nick gracza…"><button class="btn btn-sm">OK</button></div>`;
+      const input = cell.querySelector('input');
+      input.focus();
+      const save = async () => {
+        const p = pathData.pool.find(x => x.nick.toLowerCase() === input.value.trim().toLowerCase());
+        if (!p) return showToast('Nie ma takiego gracza w puli Ścieżki');
+        try { showToast((await api(`/api/path/${b.dataset.pathPick}`, { method: 'PUT', body: { playerId: p.id } })).message); } catch (err) { showToast(err.message); }
+        renderPath(); refreshPublishBar();
+      };
+      cell.querySelector('button').addEventListener('click', save);
+      input.addEventListener('keydown', ev => { if (ev.key === 'Enter') save(); });
+    }
+  });
+  $('btnPathFill').addEventListener('click', async () => {
+    $('pathCfgStatus').textContent = 'Losuję…';
+    try { $('pathCfgStatus').textContent = (await api('/api/path/fill', { method: 'POST', body: { days: 14 } })).message; } catch (e) { $('pathCfgStatus').textContent = e.message; }
+    renderPath(); refreshPublishBar();
+  });
+  $('btnPathCfg').addEventListener('click', async () => {
+    $('pathCfgStatus').textContent = 'Przeliczam…';
+    try { $('pathCfgStatus').textContent = (await api('/api/path/config', { method: 'PUT', body: { minIntl: Number($('pathMinIntl').value) } })).message + ' — dni graczy spoza puli dolosujesz przyciskiem obok.'; }
+    catch (e) { $('pathCfgStatus').textContent = e.message; }
+    renderPath(); refreshPublishBar();
+  });
+
   /* ---------- Player counters ---------- */
 
   const statsView = { source: 'local', data: null };
@@ -828,7 +925,8 @@
     $('cfgThreshold').value = d.config.showThreshold;
     $('statsDays').innerHTML = d.days.map(x => `<tr>
       <td>${fmtDate(x.date)}</td><td>${x.grid.played}</td><td>${pct(x.grid.won, x.grid.played)}</td>
-      <td>${x.guess.played}</td><td>${pct(x.guess.won, x.guess.played)}</td></tr>`).join('');
+      <td>${x.guess.played}</td><td>${pct(x.guess.won, x.guess.played)}</td>
+      <td>${x.path?.played ?? 0}</td><td>${pct(x.path?.won || 0, x.path?.played || 0)}</td></tr>`).join('');
   }
   $('srcLocal').addEventListener('click', () => { statsView.source = 'local'; loadStats(); });
   $('srcLive').addEventListener('click', () => { statsView.source = 'live'; loadStats(); });

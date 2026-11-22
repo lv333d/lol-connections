@@ -43,6 +43,14 @@ export async function seed(store, level, { root, days = 8 } = {}) {
         if (rand() < 0.12) await store.hincrby(`sum:grid:${date}`, 'won', 1);
       }
     }
+    // Career Path: about two in three find the player.
+    if (await readJson(path.join(root, 'path', `${date}.json`))) {
+      const n = Math.round(games * 0.6);
+      for (let g = 0; g < n; g++) {
+        await store.hincrby(`sum:path:${date}`, 'played', 1);
+        if (rand() < 0.66) await store.hincrby(`sum:path:${date}`, 'won', 1);
+      }
+    }
     // Guess the Pro: about three in four find the player.
     if (await readJson(path.join(root, 'guess', `${date}.json`))) {
       const n = Math.round(games * 0.8);

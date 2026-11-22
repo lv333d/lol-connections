@@ -1,0 +1,72 @@
+{
+ "date": "2026-12-03",
+ "number": 12,
+ "playerId": "dhokla",
+ "career": [
+  {
+   "id": "optic-gaming",
+   "name": "OpTic Gaming",
+   "short": "OPT",
+   "before": true
+  },
+  {
+   "id": "immortals",
+   "name": "Immortals",
+   "short": "IMT"
+  },
+  {
+   "id": "tsm-academy",
+   "name": "TSM Academy",
+   "short": "TSM.A",
+   "league": "LCS.A"
+  },
+  {
+   "id": "solafide-esports",
+   "name": "SolaFide Esports",
+   "short": "SF",
+   "league": "RCL"
+  },
+  {
+   "id": "wildcard-gaming-red",
+   "name": "Wildcard Gaming Red",
+   "short": "WCR",
+   "league": "CU"
+  },
+  {
+   "id": "team-liquid-academy",
+   "name": "Team Liquid Academy",
+   "short": "TL.A",
+   "league": "LCS.A"
+  },
+  {
+   "id": "counter-logic-gaming",
+   "name": "Counter Logic Gaming",
+   "short": "CLG"
+  },
+  {
+   "id": "nrg",
+   "name": "NRG",
+   "short": "NRG"
+  },
+  {
+   "id": "ntmr",
+   "name": "NTMR",
+   "short": "NTMR"
+  },
+  {
+   "id": "near-airport",
+   "name": "Near Airport",
+   "short": "NA"
+  },
+  {
+   "id": "100-thieves",
+   "name": "100 Thieves",
+   "short": "100T"
+  },
+  {
+   "id": "lyon-2024-american-team",
+   "name": "LYON",
+   "short": ""
+  }
+ ]
+}

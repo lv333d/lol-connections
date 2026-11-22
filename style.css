@@ -484,7 +484,9 @@ header.site-header::after { display: none; }
 .game-tab[aria-current="page"]::after {
   content: ''; position: absolute; left: 8px; right: 8px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--cyan);
 }
-.tab-new { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); align-self: flex-start; margin: 11px 0 0 -4px; }
+/* "new" next to a new game's name: small, bold, cyan (the translated word stays for screen readers). */
+.tab-new { align-self: flex-start; margin: 7px 0 0 -3px; font-size: 0.56rem; font-weight: 800; line-height: 1; color: var(--cyan); }
+.tab-new::before { content: 'new'; }
 .game-tab-soon { margin-left: auto; min-width: 44px; padding: 0; justify-content: center; opacity: 0.55; cursor: default; }
 .game-tab-soon:hover { color: var(--text-muted); }
 
@@ -541,12 +543,16 @@ header.site-header::after { display: none; }
   .brand-tag { font-size: 0.56rem; }
   .hbtn { padding: 2px 1px; }
   .hbtn-lbl { font-size: 0.52rem; }
-  .game-tab { padding: 0 9px; font-size: 0.76rem; }
+  .game-tab { padding: 0 5px; font-size: 0.7rem; gap: 4px; }
   .footer-line > * + *::before { margin: 0 5px; }
 }
-/* Phones: 16 px in the language list, so iOS doesn't zoom. */
+/* Phones: 16 px in the language list, so iOS doesn't zoom; three game tabs side by side. */
 @media (max-width: 520px) {
   .lang-select { font-size: 16px; }
+  .game-tabs { gap: 0; }
+  .game-tab { padding: 0 7px; gap: 5px; font-size: 0.74rem; }
+  .game-tab svg { width: 16px; height: 16px; }
+  .tab-new { margin-left: -2px; font-size: 0.5rem; }
 }
 /* ---------- Wide screens: one header row, the game in a panel ---------- */
 @media (min-width: 760px) {

@@ -2,7 +2,8 @@
    nothing new is stored, so players who played before this file existed get their streaks at once.
 
    Saves: Grid lolg_state_<date> { cells, guessesLeft, wrong, gameOver, finishedOn? },
-          Guess the Pro lolgp_state_<date> { guesses, gameOver, won, finishedOn? }.
+          Guess the Pro lolgp_state_<date> { guesses, gameOver, won, finishedOn? },
+          Career Path lolpa_state_<date> { guesses, gameOver, won, finishedOn? }.
 
    Rules (day boundary = 00:00 UTC, the same moment a new puzzle comes out):
    - a day counts for a mode when that day's puzzle was finished (won, lost or given up) on that same UTC day;
@@ -15,7 +16,7 @@ const PROGRESS = (() => {
   const todayKey = () => new Date().toISOString().slice(0, 10);
   const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
   const DATE = /^\d{4}-\d{2}-\d{2}$/;
-  const PREFIX = { grid: 'lolg_state_', guess: 'lolgp_state_' };
+  const PREFIX = { grid: 'lolg_state_', guess: 'lolgp_state_', path: 'lolpa_state_' };
 
   const T = {
     pl: {

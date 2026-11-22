@@ -20,8 +20,9 @@
   const LANGS = Object.keys(TEXT);
   const pick = lang => (LANGS.includes(lang) ? lang : 'en');
 
-  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Grid.
-  const GAMES = [{ slug: '', icon: 'icon-grid3', name: 'Grid' }, { slug: 'guess', text: '?', name: 'Guess the Pro' }];
+  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Career Path → Grid.
+  const GAMES = [{ slug: '', icon: 'icon-grid3', name: 'Grid' }, { slug: 'guess', text: '?', name: 'Guess the Pro' },
+    { slug: 'path', text: '⋯', name: 'Career Path' }];
   const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
   function renderNextGame(lang) {
     const a = document.getElementById('nextGame');
@@ -37,7 +38,7 @@
     name.className = 'next-game-name';
     // Grid has a drawn icon (.icon-grid3 in style.css), Guess the Pro a character.
     const icon = Object.assign(document.createElement('span'), { className: next.icon || 'next-game-char', textContent: next.text || '' });
-    name.append(icon, `${next.name} →`);
+    name.append(icon, `${typeof next.name === 'string' ? next.name : next.name[lang] || next.name.en} →`);
     a.append(label, name);
   }
 

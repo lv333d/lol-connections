@@ -1,0 +1,33 @@
+{
+ "date": "2026-11-25",
+ "number": 4,
+ "playerId": "morgan",
+ "career": [
+  {
+   "id": "jd-gaming",
+   "name": "JD Gaming",
+   "short": "JDG",
+   "before": true
+  },
+  {
+   "id": "team-we",
+   "name": "Team WE",
+   "short": "WE"
+  },
+  {
+   "id": "hanwha-life-esports",
+   "name": "Hanwha Life Esports",
+   "short": "HLE"
+  },
+  {
+   "id": "oksavingsbank-brion",
+   "name": "OKSavingsBank BRION",
+   "short": "OKSavingsBank BRION"
+  },
+  {
+   "id": "team-liquid",
+   "name": "Team Liquid",
+   "short": "TL"
+  }
+ ]
+}

@@ -13,6 +13,8 @@ import path from 'node:path';
 import { ROOT, DATE_RE } from './lib/puzzles.js';
 import { rebuildGridManifest } from './generate-grid.js';
 import * as guess from './lib/guess.js';
+import * as careerPath from './lib/path.js';
+import { buildPathPool, MIN_TEAMS, MAX_TEAMS } from './build-careers.js';
 import * as live from '../api/_lib/core.js';
 import { memoryStore, seed as seedStats } from './lib/stats-mock.js';
 
@@ -147,6 +149,55 @@ async function guessFill(count) {
   return { message: stdout.trim().split('\n')[0] };
 }
 
+/* ---------- Career Path ---------- */
+
+/** Days with their player and path, the pool, the threshold, and the days whose player is also the Guess the Pro
+ *  player within GUESS_GAP_DAYS (a warning in the panel). */
+async function pathDays() {
+  const [days, pool, cfg, guessDays] = await Promise.all([careerPath.readDays(), careerPath.readPool(), careerPath.readConfig(), careerPath.readGuessDays()]);
+  const byId = new Map(pool.map(p => [p.id, p]));
+  const guessById = new Map(guessDays.map(d => [d.date, d.playerId]));
+  return {
+    config: { ...cfg, minTeams: MIN_TEAMS, maxTeams: MAX_TEAMS, guessGap: careerPath.GUESS_GAP_DAYS },
+    days: days.map(d => {
+      const near = guessDays.filter(g => g.playerId === d.playerId && Math.abs(Date.parse(g.date) - Date.parse(d.date)) <= careerPath.GUESS_GAP_DAYS * 864e5).map(g => g.date);
+      return { date: d.date, number: d.number, playerId: d.playerId, nick: byId.get(d.playerId)?.nick || d.playerId, inPool: byId.has(d.playerId), career: d.career, guessNear: near, guessThatDay: guessById.get(d.date) || null };
+    }),
+    pool: pool.map(p => ({ id: p.id, nick: p.nick, name: p.name, intl: p.intl, teams: p.career.length }))
+  };
+}
+
+async function pathPick(date, playerId) {
+  await careerPath.setDay(date, playerId);
+  const pool = await careerPath.readPool();
+  return { message: `${date}: ${pool.find(p => p.id === playerId)?.nick || playerId}` };
+}
+
+async function pathDraw(date) {
+  const [pool, days, guessDays] = await Promise.all([careerPath.readPool(), careerPath.readDays(), careerPath.readGuessDays()]);
+  if (!pool.length) throw Object.assign(new Error('Brak data/path-players.json — uruchom npm run build-careers'), { status: 500 });
+  const current = days.find(d => d.date === date)?.playerId;
+  const pick = careerPath.drawPlayer(pool, days, guessDays, date, current ? [current] : []);
+  await careerPath.setDay(date, pick.id, pool);
+  return { message: `Wylosowano na ${date}: ${pick.nick}` };
+}
+
+async function pathFill(count) {
+  const days = Math.min(60, Math.max(1, Number(count) || 14));
+  const { stdout } = await node('generate-path.js', [`--days=${days}`], 60000);
+  return { message: stdout.trim().split('\n')[0] };
+}
+
+/** New threshold (international events): saved, the pool rebuilt from data/careers.json; future days of players
+ *  that left the pool are drawn again by "fill". */
+async function pathSetConfig(body) {
+  const minIntl = Number(body?.minIntl);
+  if (!Number.isInteger(minIntl) || minIntl < 2 || minIntl > 50) throw Object.assign(new Error('Próg: liczba całkowita od 2 (pula Guess the Pro zaczyna się od 2)'), { status: 400 });
+  await careerPath.writeConfig({ ...(await careerPath.readConfig()), minIntl });
+  const pool = await buildPathPool();
+  return { message: `Próg ${minIntl}+: w puli ${pool.length} graczy`, pool: pool.length };
+}
+
 /* ---------- Player database refresh ---------- */
 
 // The same steps as the monthly GitHub bot (.github/workflows/refresh-players.yml). The first one is required
@@ -155,6 +206,7 @@ const REFRESH_STEPS = [
   { label: 'Baza graczy z Leaguepedii', script: 'build-player-db.js', args: () => ['--fresh'], required: true },
   { label: 'Pula Guess the Pro', script: 'build-guess-pool.js', args: () => ['--fresh'] },
   { label: 'Gracze dnia Guess the Pro (14 dni)', script: 'generate-guess.js', args: () => ['--days=14'] },
+  { label: 'Ścieżka kariery (14 dni)', script: 'generate-path.js', args: () => ['--days=14'] },
   { label: 'Odpowiedzi przyszłych plansz Grida', script: 'generate-grid.js', args: () => [`--date=${guess.addDays(guess.todayKey(), 1)}`, '--days=14', '--recompute'] },
   { label: 'Zdjęcia, loga i flagi', script: 'fetch-assets.js', args: () => [] }
 ];
@@ -221,10 +273,10 @@ const GIT = process.env.GIT_PATH
 const git = (...args) => run(GIT, args, { cwd: ROOT, windowsHide: true }).then(r => r.stdout.trim());
 
 // Board folders per game; portraits and logos go along with Grid boards that introduce new players.
-const GAME_DIRS = { 'grid/': 'Grid', 'guess/': 'Guess the Pro' };
-const PUBLISH_PATHS = ['grid/', 'guess/', 'players/', 'assets/logos/', 'assets/flags/', 'data/'];
+const GAME_DIRS = { 'grid/': 'Grid', 'guess/': 'Guess the Pro', 'path/': 'Ścieżka kariery' };
+const PUBLISH_PATHS = ['grid/', 'guess/', 'path/', 'players/', 'assets/logos/', 'assets/flags/', 'data/'];
 // Database files a refresh rewrites; published together with the boards.
-const DATA_FILES = ['data/players.json', 'data/players-index.json', 'data/teams.json', 'data/guess-players.json'];
+const DATA_FILES = ['data/players.json', 'data/players-index.json', 'data/teams.json', 'data/guess-players.json', 'data/careers.json', 'data/path-players.json', 'data/path-config.json'];
 
 /** Board files changed since the last commit: { game, date, change: 'nowa' | 'zmieniona' | 'usunięta' }. */
 async function pendingBoards() {
@@ -317,7 +369,7 @@ const STATS_URL = (process.env.STATS_URL || 'https://connect4.lol').replace(/\/+
 const localCtx = req => ({
   store: statsStore,
   ipHash: '',   // no rate limit locally
-  loadBoard: async (mode, date) => { try { return JSON.parse(await readFile(path.join(ROOT, mode === 'grid' ? 'grid' : 'guess', `${date}.json`), 'utf8')); } catch { return null; } }
+  loadBoard: async (mode, date) => { try { return JSON.parse(await readFile(path.join(ROOT, mode, `${date}.json`), 'utf8')); } catch { return null; } }
 });
 const sendLive = (res, out) => send(res, out.status, out.body);
 
@@ -398,6 +450,19 @@ async function handleApi(req, res, pathname, query = {}) {
     if (!gp[2] && req.method === 'PUT') return send(res, 200, await guessPick(gp[1], (await readBody(req)).playerId));
     if (!gp[2] && req.method === 'DELETE') {
       try { await guess.deleteDay(gp[1]); } catch { return send(res, 404, { error: 'Brak dnia Guess the Pro' }); }
+      return send(res, 200, { ok: true });
+    }
+  }
+  if (pathname === '/api/path' && req.method === 'GET') return send(res, 200, await pathDays());
+  if (pathname === '/api/path/fill' && req.method === 'POST') return send(res, 200, await pathFill((await readBody(req)).days));
+  if (pathname === '/api/path/config' && req.method === 'PUT') return send(res, 200, await pathSetConfig(await readBody(req)));
+  const pp = pathname.match(/^\/api\/path\/([^/]+)(\/draw)?$/);
+  if (pp) {
+    if (!DATE_RE.test(pp[1])) return send(res, 400, { error: 'Nieprawidłowa data' });
+    if (pp[2] && req.method === 'POST') return send(res, 200, await pathDraw(pp[1]));
+    if (!pp[2] && req.method === 'PUT') return send(res, 200, await pathPick(pp[1], (await readBody(req)).playerId));
+    if (!pp[2] && req.method === 'DELETE') {
+      try { await careerPath.deleteDay(pp[1]); } catch { return send(res, 404, { error: 'Brak dnia Ścieżki kariery' }); }
       return send(res, 200, { ok: true });
     }
   }

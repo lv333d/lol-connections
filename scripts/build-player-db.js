@@ -9,6 +9,7 @@ import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT, slugify } from './lib/puzzles.js';
 import { cargoQuery, cargoStr, login } from './lib/leaguepedia.js';
+import { buildCareers } from './build-careers.js';
 
 const DATA_DIR = path.join(ROOT, 'data');
 const fresh = process.argv.includes('--fresh');
@@ -417,6 +418,8 @@ async function main() {
   await writeFile(path.join(DATA_DIR, 'players.json'), JSON.stringify(out) + '\n');
   await writeFile(path.join(DATA_DIR, 'players-index.json'), JSON.stringify(out.map(({ id, nick, name, tournaments }) => ({ id, nick, name, t: tournaments }))) + '\n');
   await writeFile(path.join(DATA_DIR, 'teams.json'), JSON.stringify(teams, null, 1) + '\n');
+  // Career Path: every player's team path, in its own file (data/careers.json).
+  await buildCareers({ fresh });
 
   step('Podsumowanie');
   console.log(`  graczy: ${out.length} (emeryci: ${out.filter(p => p.retired).length}, trenerzy: ${out.filter(p => p.coach).length}, w tym tylko trenerzy: ${out.filter(p => p.coachOnly).length})`);
