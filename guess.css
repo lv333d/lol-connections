@@ -125,3 +125,6 @@
   #guessRows > .gp-row { scroll-margin-top: 70px; scroll-margin-bottom: 16px; }
 }
 @media (max-width: 520px) { .gp-titles, .gp-debut { flex-direction: column; gap: 0; line-height: 1; } }
+
+/* The guess count has no "/max" after it: keep it off the panel edge (like the ‹ arrow on the left). */
+.board-line .grid-status { padding-right: 10px; }
