@@ -1,0 +1,50 @@
+{
+ "date": "2026-12-07",
+ "number": 16,
+ "playerId": "rekkles",
+ "career": [
+  {
+   "id": "fnatic",
+   "name": "Fnatic",
+   "short": "FNC",
+   "before": true
+  },
+  {
+   "id": "elements",
+   "name": "Elements",
+   "short": "EL"
+  },
+  {
+   "id": "fnatic",
+   "name": "Fnatic",
+   "short": "FNC"
+  },
+  {
+   "id": "g2-esports",
+   "name": "G2 Esports",
+   "short": "G2"
+  },
+  {
+   "id": "karmine-corp",
+   "name": "Karmine Corp",
+   "short": "KC",
+   "league": "LFL"
+  },
+  {
+   "id": "fnatic",
+   "name": "Fnatic",
+   "short": "FNC"
+  },
+  {
+   "id": "t1-esports-academy",
+   "name": "T1 Esports Academy",
+   "short": "T1.EA",
+   "league": "LCK CL"
+  },
+  {
+   "id": "los-ratones",
+   "name": "Los Ratones",
+   "short": "LR"
+  }
+ ]
+}

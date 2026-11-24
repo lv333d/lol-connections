@@ -1,0 +1,28 @@
+{
+ "date": "2026-12-06",
+ "number": 15,
+ "playerId": "hans-sama",
+ "career": [
+  {
+   "id": "misfits-gaming",
+   "name": "Misfits Gaming",
+   "short": "MSF",
+   "before": true
+  },
+  {
+   "id": "rogue-european-team",
+   "name": "Rogue",
+   "short": ""
+  },
+  {
+   "id": "team-liquid",
+   "name": "Team Liquid",
+   "short": "TL"
+  },
+  {
+   "id": "g2-esports",
+   "name": "G2 Esports",
+   "short": "G2"
+  }
+ ]
+}
