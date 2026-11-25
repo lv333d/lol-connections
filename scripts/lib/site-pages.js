@@ -1,6 +1,6 @@
 // Static, per-language HTML for the public site (used by scripts/build-site.js).
-// Each template (index.html, guess.html — English in the repo, which the local admin server serves as is)
-// becomes /, /pl, /es, /fr (+ /guess) with the language's text already in the HTML: <html lang>, translated
+// Each template (index.html = Guess the Pro, path.html, grid.html — English in the repo, which the local admin server serves as is)
+// becomes /, /pl, /es, /fr (+ /path, /grid) with the language's text already in the HTML: <html lang>, translated
 // description and Open Graph tags, canonical + hreflang (x-default = English at /), the game's UI strings
 // (data-i18n keys from grid.js / guess.js I18N) — the same text the game's applyI18n() fills in, so nothing changes for players and search engines get the rules without running JS.
 import { readFile } from 'node:fs/promises';
@@ -10,14 +10,14 @@ import { LANGS, OG_LOCALE, META } from './site-i18n.js';
 
 export const SITE = 'https://connect4.lol';
 export const PAGES = [
-  { id: 'grid', template: 'index.html', slug: '', i18nFrom: 'grid.js' },
-  { id: 'guess', template: 'guess.html', slug: 'guess', i18nFrom: 'guess.js' },
-  { id: 'path', template: 'path.html', slug: 'path', i18nFrom: 'path.js' }
+  { id: 'guess', template: 'index.html', slug: '', i18nFrom: 'guess.js' },
+  { id: 'path', template: 'path.html', slug: 'path', i18nFrom: 'path.js' },
+  { id: 'grid', template: 'grid.html', slug: 'grid', i18nFrom: 'grid.js' }
 ];
 
-/** Site path of a page in a language: / , /guess, /pl, /pl/guess… (same rule as site.js SITE.path). */
+/** Site path of a page in a language: / , /grid, /pl, /pl/grid… (same rule as site.js SITE.path). */
 export const pagePath = (lang, slug) => ((lang === 'en' ? '' : '/' + lang) + (slug ? '/' + slug : '')) || '/';
-/** Output file in dist/ — cleanUrls serves pl/guess.html at /pl/guess and pl/index.html at /pl. */
+/** Output file in dist/ — cleanUrls serves pl/grid.html at /pl/grid and pl/index.html at /pl. */
 export const pageFile = (lang, slug) => path.join(lang === 'en' ? '' : lang, (slug || 'index') + '.html');
 
 const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -84,8 +84,8 @@ export async function buildPages(root) {
 
       // Links between pages and the language picker stay in this language.
       html = html.replace(/href="\/" class="game-tab/g, `href="${pagePath(lang, '')}" class="game-tab`)
-        .replace(/href="\/guess" class="game-tab/g, `href="${pagePath(lang, 'guess')}" class="game-tab`)
         .replace(/href="\/path" class="game-tab/g, `href="${pagePath(lang, 'path')}" class="game-tab`)
+        .replace(/href="\/grid" class="game-tab/g, `href="${pagePath(lang, 'grid')}" class="game-tab`)
         .replace(`<option value="${lang}">`, `<option value="${lang}" selected>`);
 
       out.push({ file: pageFile(lang, page.slug), html, url, lang, page: page.slug });

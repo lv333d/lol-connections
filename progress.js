@@ -1,4 +1,4 @@
-/* Daily streaks shared by both games (index.html, guess.html), from the games' own saves in localStorage —
+/* Daily streaks shared by all games (index.html = Guess the Pro, path.html, grid.html), from the games' own saves in localStorage —
    nothing new is stored, so players who played before this file existed get their streaks at once.
 
    Saves: Grid lolg_state_<date> { cells, guessesLeft, wrong, gameOver, finishedOn? },

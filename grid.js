@@ -182,7 +182,7 @@ function fetchBoard(date) {
 /** Image shown for a condition (team/league logo, badge, flag or the teammate's portrait). */
 function conditionImage(c) {
   switch (c.kind) {
-    case 'league': return `assets/logos/leagues/${c.id}.webp`;
+    case 'league': return `assets/logos/leagues-white/${c.id}.webp`; // white trace (make-league-logos.js)
     case 'team': return `assets/logos/teams/${encodeURIComponent(c.id)}.webp`;
     case 'coach': case 'retired': return `assets/badges/${c.kind}.svg`;
     case 'trophy': return `assets/badges/${c.id}.webp`;
@@ -273,7 +273,7 @@ function conditionBadge(c, small = false) {
   const icon = el('div', 'cond-icon');
   switch (c.kind) {
     case 'league':
-      // Drop an official logo at assets/logos/leagues/{ID}.webp to replace the emblem.
+      // Drop an official logo at assets/logos/leagues/{ID}.webp (and run make-league-logos.js) to replace the emblem.
       icon.appendChild(logo(conditionImage(c), 'emblem-league', c.id, { 'data-league': c.id }));
       break;
     case 'team':
@@ -707,7 +707,7 @@ function endGame() {
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 
 function buildShareText() {
-  return `⚔ LoL Connect #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\n${SITE.url(currentLang, '')}`;
+  return `⚔ LoL Connect #${board.boardId} — ${score()}/9\n\n${emojiGrid()}\n\n${SITE.url(currentLang, 'grid')}`;
 }
 
 function showResult() {

@@ -513,6 +513,45 @@ header.site-header::after { display: none; }
 .game-panel:has(#gameArea.hidden) .grid-status { visibility: hidden; }
 .game-panel .game-area > .actions { margin-top: 14px; }
 
+/* Guess the Pro / Career Path: the nickname box with a diamond button (a square turned 45°) on its right, sitting in a
+   V-shaped notch cut into the box; the button acts like Enter. --h is the box height, --gap the even gap between the
+   notch and the diamond. The 1 px frame is the .gp-field background showing around the input (both cut alike). */
+.gp-search-row {
+  --h: 46px; --gap: 5px; --side: calc(var(--h) * 0.7071);
+  display: flex; align-items: center;
+}
+.gp-field {
+  flex: 1; min-width: 0; height: var(--h); padding: 1px; background: rgba(200, 170, 110, 0.35);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--h) / 2) 50%, 100% 100%, 0 100%);
+  transition: background 0.2s;
+}
+.gp-field:has(.search-input:focus) { background: var(--gold); }
+.gp-field .search-input {
+  display: block; height: 100%; padding: 0 calc(var(--h) / 2 + 10px) 0 14px; border: 0; border-radius: 0;
+  background: #0b1120; box-shadow: none;
+  clip-path: polygon(0 0, calc(100% - 1.4px) 0, calc(100% - 1.4px - (var(--h) - 2px) / 2) 50%, calc(100% - 1.4px) 100%, 0 100%);
+}
+.gp-field .search-input:focus { box-shadow: none; }
+.gp-submit {
+  flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  width: var(--side); height: var(--side); padding: 0;
+  /* Centre of the diamond: the notch tip + its half-width + the gap measured across the 45° edges. */
+  margin: 0 calc(var(--h) / 2 - var(--side) / 2) 0 calc(var(--gap) * 1.4142 - var(--side) / 2);
+  transform: rotate(45deg);
+  border: 1px solid var(--gold); border-radius: 3px; cursor: pointer; color: var(--gold-light);
+  background: linear-gradient(135deg, #2a3038 0%, #111317 100%);
+  box-shadow: inset 0 0 6px rgba(200, 170, 110, 0.15);
+  transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+.gp-submit svg { width: 20px; height: 20px; transform: rotate(-45deg); transition: transform 0.2s; }
+.gp-submit:hover {
+  border-color: var(--gold-light); color: #fff; background: linear-gradient(135deg, #343b45 0%, #161a1e 100%);
+  box-shadow: inset 0 0 8px rgba(255, 230, 180, 0.25), 0 0 14px rgba(200, 170, 110, 0.4);
+}
+.gp-submit:hover svg { transform: rotate(-45deg) translateX(2px); }
+.gp-submit:active { transform: rotate(45deg) scale(0.94); }
+.gp-submit:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
 /* ---------- Footer: one line + language ---------- */
 /* Footer welded to the bottom of the screen: the page is a column at least one screen tall, the game takes the
    free space and the footer sits last, with nothing under it but its own padding (short pages: one guess on a phone). */
@@ -570,6 +609,10 @@ body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
   .game-panel {
     margin-top: 14px; padding: 8px 20px 20px; border: 1px solid var(--border); border-radius: 12px;
     background: rgba(8, 13, 25, 0.55); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    /* The same height in every game (about the Grid's), so a game that has just started doesn't look empty;
+       on short screens no taller than what fits between the header and the footer. */
+    min-height: min(640px, calc(100vh - 170px));
+    min-height: min(640px, calc(100dvh - 170px));
   }
 }
 
@@ -648,3 +691,56 @@ body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
 
 /* ---------- Player counters (live.js) ---------- */
 .live-line { margin: -2px 0 8px; text-align: center; font-size: 0.78rem; font-weight: 600; color: var(--cyan); }
+
+/* ---------- Mystery player card (dossier.js; Guess the Pro, Career Path) ---------- */
+.dossier {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 18px;
+  width: 340px; max-width: 100%; margin: 4px auto 16px; padding: 12px 22px 12px 12px;
+  border: 1px solid var(--border); border-radius: 8px; background: rgba(20, 28, 46, 0.45);
+}
+.dossier:empty { display: none; }
+.dossier-photo {
+  position: relative; width: 96px; aspect-ratio: 1; overflow: hidden; border-radius: 8px;
+  border: 1px solid rgba(200, 170, 110, 0.35); background: #111a2c;
+}
+.dossier-open .dossier-photo { border-color: var(--gold); }
+.dossier-silhouette { position: absolute; left: 10%; bottom: 0; width: 80%; fill: #2a3650; }
+/* The "?" as a small gold badge in the corner of the frame. */
+.dossier-q {
+  position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+  font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 800; color: #0a101c;
+  background: var(--gold); box-shadow: 0 0 0 2px #111a2c;
+}
+.dossier-img, .dossier-initials { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+.dossier-initials { display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold-light); }
+.dossier-body { min-width: 0; }
+.dossier-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+.dossier-nick {
+  margin-top: 2px; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 800; line-height: 1.2;
+  color: var(--gold-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.dossier-name { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Censored: the same sample text for every player, blurred beyond reading. The line doesn't clip it (no hard edge
+   where the blur meets the box): it gets room to fade out on every side. */
+.dossier-nick:has(.censored), .dossier-name:has(.censored) { overflow: visible; }
+.censored { display: inline-block; padding: 0 4px; filter: blur(7px); opacity: 0.75; user-select: none; }
+.dossier-name .censored { filter: blur(5px); }
+/* Room for the blur inside the lines that clip long text: no hard edge where it meets the box. */
+.dossier-nick, .dossier-name { padding: 6px 12px; margin-left: -12px; margin-right: -12px; }
+.dossier-nick { margin-top: -4px; margin-bottom: -6px; }
+.dossier-name { margin-bottom: -6px; }
+/* The game just ended: the card turns over (dossier.js swaps the sides while it is edge-on). */
+.dossier.flip-out { animation: dossier-flip-out 0.3s ease-in forwards; }
+.dossier.flip-in { animation: dossier-flip-in 0.4s ease-out; }
+@keyframes dossier-flip-out { from { transform: perspective(900px) rotateY(0); } to { transform: perspective(900px) rotateY(90deg); } }
+@keyframes dossier-flip-in {
+  from { transform: perspective(900px) rotateY(-90deg); }
+  70% { transform: perspective(900px) rotateY(8deg); }
+  to { transform: perspective(900px) rotateY(0); }
+}
+@media (max-width: 520px) {
+  .dossier { gap: 14px; margin: 0 0 12px; padding: 10px; }
+  .dossier-photo { width: 76px; }
+  .dossier-nick { font-size: 1.25rem; }
+}

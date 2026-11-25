@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Warianty — znak zapytania na karcie gracza</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Review page: the mystery player card (dossier.js / style.css) with different "?" treatments, side by side,
+       at desktop size and phone size. Only the portrait changes between variants. */
+    body { display: block; padding: 24px; background: #050811; }
+    h1 { font: 700 1.1rem 'Montserrat', sans-serif; color: var(--gold-light); margin: 0 0 4px; }
+    .hint { color: var(--text-muted); font-size: 0.8rem; margin: 0 0 22px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 26px 20px; }
+    .variant h2 { font: 700 0.8rem 'Montserrat', sans-serif; color: var(--cyan); margin: 0 0 4px; letter-spacing: 0.5px; }
+    .variant p { font-size: 0.74rem; color: var(--text-muted); margin: 0 0 10px; min-height: 2.2em; }
+    .variant .dossier { margin: 0 0 10px; }
+    .variant .phone .dossier { width: 300px; gap: 14px; padding: 10px; }
+    .variant .phone .dossier-photo { width: 76px; }
+    .variant .phone .dossier-nick { font-size: 1.25rem; }
+
+    /* Shared silhouette pieces (the page's own .dossier-q is reset per variant). */
+    .dossier-photo .q { position: absolute; pointer-events: none; line-height: 1; }
+
+    /* A — now: "?" on the chest, Montserrat */
+    .vA .q { left: 0; right: 0; bottom: 6%; text-align: center; font: 800 1.45rem 'Montserrat', sans-serif; color: var(--gold-light); }
+
+    /* B — the head is the "?": body only, a big "?" where the head would be */
+    .vB .dossier-silhouette circle { display: none; }
+    .vB .q { left: 0; right: 0; top: 8%; text-align: center; font: 800 2.6rem 'Montserrat', sans-serif; color: #3a4a68; }
+
+    /* C — whole silhouette, a small gold badge with "?" in the corner of the frame */
+    .vC .q {
+      right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font: 800 0.85rem 'Montserrat', sans-serif; color: #0a101c; background: var(--gold); box-shadow: 0 0 0 2px #111a2c;
+    }
+
+    /* D — "?" cut out of the chest (background colour on the silhouette) */
+    .vD .q { left: 0; right: 0; bottom: 7%; text-align: center; font: 800 1.6rem 'Montserrat', sans-serif; color: #111a2c; }
+
+    /* E — outline silhouette (dashed), "?" inside the head */
+    .vE .dossier-silhouette { fill: none; stroke: rgba(200, 170, 110, 0.55); stroke-width: 2; stroke-dasharray: 5 4; }
+    .vE .q { left: 0; right: 0; top: 24%; text-align: center; font: 800 1.2rem 'Montserrat', sans-serif; color: var(--gold-light); }
+
+    /* F — a big faint "?" behind the silhouette */
+    .vF .q { inset: 0; display: flex; align-items: center; justify-content: center; font: 800 6rem 'Montserrat', sans-serif; color: rgba(200, 170, 110, 0.3); z-index: 0; }
+    .vF .dossier-silhouette { z-index: 1; left: 22%; width: 56%; fill: rgba(42, 54, 80, 0.75); }
+
+    /* G — no silhouette: just a large "?" in the frame */
+    .vG .dossier-silhouette { display: none; }
+    .vG .q { inset: 0; display: flex; align-items: center; justify-content: center; font: 800 2.8rem 'Montserrat', sans-serif; color: var(--gold-light); }
+
+    /* H — silhouette in gold tone, "?" on the head in the frame's dark colour */
+    .vH .dossier-silhouette { fill: rgba(200, 170, 110, 0.35); }
+    .vH .q { left: 0; right: 0; top: 23%; text-align: center; font: 800 1.35rem 'Montserrat', sans-serif; color: #111a2c; }
+  </style>
+</head>
+<body>
+  <h1>Znak zapytania na karcie gracza — warianty</h1>
+  <p class="hint">Każdy wariant: karta na komputerze (340 px) i na telefonie. Tekst obok jak na stronie (rozmyty przykładowy).</p>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const VARIANTS = [
+      ['A', 'Obecny', '„?” na tułowiu, Montserrat.'],
+      ['B', 'Głowa jako „?”', 'Sama sylwetka tułowia, duży „?” w miejscu głowy.'],
+      ['C', 'Odznaka w rogu', 'Pełna sylwetka, mała złota odznaka „?” w rogu ramki.'],
+      ['D', 'Wycięty z tułowia', '„?” w kolorze tła, jakby wycięty z sylwetki.'],
+      ['E', 'Kontur', 'Przerywany złoty kontur sylwetki, „?” w głowie.'],
+      ['F', 'Duży „?” w tle', 'Wielki, blady „?” za sylwetką.'],
+      ['G', 'Bez sylwetki', 'Sam duży „?” w ramce.'],
+      ['H', 'Złota sylwetka', 'Sylwetka w złotym tonie, ciemny „?” na głowie.']
+    ];
+    const SIL = '<svg class="dossier-silhouette" viewBox="0 0 100 110" aria-hidden="true"><circle cx="50" cy="38" r="20"/><path d="M10 110c0-24 17-42 40-42s40 18 40 42z"/></svg>';
+    const card = () => `<section class="dossier"><div class="dossier-photo">${SIL}<span class="q">?</span></div>
+      <div class="dossier-body"><div class="dossier-label">Who is today’s pro?</div>
+      <div class="dossier-nick"><span class="censored">Nickname</span></div>
+      <div class="dossier-name"><span class="censored">Firstname Lastname</span></div></div></section>`;
+    document.getElementById('grid').innerHTML = VARIANTS.map(([id, name, desc]) =>
+      `<div class="variant v${id}"><h2>${id} — ${name}</h2><p>${desc}</p>${card()}<div class="phone">${card()}</div></div>`).join('');
+  </script>
+</body>
+</html>

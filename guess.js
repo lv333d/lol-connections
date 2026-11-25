@@ -16,7 +16,7 @@ const I18N = {
     noPuzzleTitle: '📅 Brak gracza na dziś', noPuzzleText: 'Wróć jutro po nową zagadkę!',
     nextBoardIn: 'Nowy gracz za', nextBoardSoon: 'Nowy gracz już wkrótce',
     guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
-    searchPh: 'Wpisz nick gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
+    searchPh: 'Wpisz nick gracza…', submitLabel: 'Zgadnij', mysteryLabel: 'Kim jest gracz dnia?', unknownValue: 'ukryte', noResults: 'Brak graczy o takim nicku.', used: 'już był',
     colPlayer: 'Gracz', colNat: 'Kraj', colPos: 'Pozycja', colLeague: 'Liga', colTeam: 'Drużyna', colTitles: 'Trofea międzynar.', colDebut: 'Debiut tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Szukany gracz grał kiedyś w {teams}',
     natPart: 'zgadza się jedna z narodowości',
@@ -41,7 +41,7 @@ const I18N = {
     noPuzzleTitle: '📅 No player today', noPuzzleText: 'Come back tomorrow for a new puzzle!',
     nextBoardIn: 'New player in', nextBoardSoon: 'New player coming soon',
     guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
-    searchPh: 'Type a player’s nickname…', noResults: 'No player matches.', used: 'guessed',
+    searchPh: 'Type a player’s nickname…', submitLabel: 'Guess', mysteryLabel: 'Who is today’s pro?', unknownValue: 'hidden', noResults: 'No player matches.', used: 'guessed',
     colPlayer: 'Player', colNat: 'Country', colPos: 'Position', colLeague: 'League', colTeam: 'Team', colTitles: 'Int\'l titles', colDebut: 'Tier\u00A01 debut',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'The answer played for {teams} at some point',
     natPart: 'one of the nationalities matches',
@@ -66,7 +66,7 @@ const I18N = {
     noPuzzleTitle: '📅 No hay jugador hoy', noPuzzleText: '¡Vuelve mañana por un nuevo acertijo!',
     nextBoardIn: 'Nuevo jugador en', nextBoardSoon: 'Nuevo jugador muy pronto',
     guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
-    searchPh: 'Escribe el nick del jugador…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
+    searchPh: 'Escribe el nick del jugador…', submitLabel: 'Adivinar', mysteryLabel: '¿Quién es el jugador del día?', unknownValue: 'oculto', noResults: 'Ningún jugador coincide.', used: 'ya probado',
     colPlayer: 'Jugador', colNat: 'País', colPos: 'Posición', colLeague: 'Liga', colTeam: 'Equipo', colTitles: 'Títulos int.', colDebut: 'Debut tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungla', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'El jugador buscado jugó en {teams} en algún momento',
     natPart: 'coincide una de las nacionalidades',
@@ -91,7 +91,7 @@ const I18N = {
     noPuzzleTitle: '📅 Pas de joueur aujourd\'hui', noPuzzleText: 'Revenez demain pour une nouvelle énigme !',
     nextBoardIn: 'Nouveau joueur dans', nextBoardSoon: 'Nouveau joueur très bientôt',
     guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
-    searchPh: 'Tapez le pseudo du joueur…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
+    searchPh: 'Tapez le pseudo du joueur…', submitLabel: 'Deviner', mysteryLabel: 'Qui est le joueur du jour ?', unknownValue: 'caché', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
     colPlayer: 'Joueur', colNat: 'Pays', colPos: 'Poste', colLeague: 'Ligue', colTeam: 'Équipe', colTitles: 'Titres int.', colDebut: 'Débuts tier\u00A01',
     roles: { top: 'Top', jungle: 'Jungle', mid: 'Mid', bot: 'Bot', support: 'Support' }, sharedOrg: 'Le joueur recherché a joué pour {teams} à un moment',
     natPart: 'une des nationalités correspond',
@@ -278,7 +278,7 @@ function leagueTile(p, ok) {
   }
   const major = MAJOR_LEAGUES.includes(p.league);
   return tile('gp-league', ok, ok === 'part' ? `${p.league} — ${t('leaguePart')}` : p.league, major
-    ? logo(`assets/logos/leagues/${p.league}.webp`, 'emblem-league', p.league, { 'data-league': p.league })
+    ? logo(`assets/logos/leagues-captioned/${p.league}.webp`, 'emblem-league', p.league, { 'data-league': p.league })
     : el('span', 'gp-text', esc(p.league)));
 }
 
@@ -401,7 +401,7 @@ const tileDemo = (cls, html, delay) => `<span class="gp-cell onb-tile ${cls}" st
 function guessDemos() {
   const row = `<div class="onb-demo onb-guess" aria-hidden="true"><span class="onb-who"><img src="players/caps.webp" alt="">Caps</span>`
     + tileDemo('no', '<img src="assets/flags/dk.svg" alt="">', 0.2) + tileDemo('ok', '<b>MID</b>', 0.45)
-    + tileDemo('part', '<img src="assets/logos/leagues/LEC.webp" alt="">', 0.7) + tileDemo('no', '<b>1</b><i>↑</i>', 0.95) + '</div>';
+    + tileDemo('part', '<img src="assets/logos/leagues-captioned/LEC.webp" alt="" class="gp-league-logo">', 0.7) + tileDemo('no', '<b>1</b><i>↑</i>', 0.95) + '</div>';
   const colours = `<div class="onb-demo onb-guess onb-static" aria-hidden="true">`
     + tileDemo('ok', '✓', 0) + tileDemo('part', '~', 0) + tileDemo('no', '✗', 0) + tileDemo('no', '<b>2019</b><i>↑</i>', 0) + '</div>';
   return [row, colours, ''];
@@ -483,12 +483,23 @@ function answerCard(target) {
   target.appendChild(text);
 }
 
+/* ---------- The mystery player card over the search (dossier.js): revealed when the game is over ---------- */
+function renderDossier() {
+  DOSSIER.render($('dossier'), {
+    key: selectedDate,
+    label: t('mysteryLabel'), labelRevealed: t('answerWas'),
+    revealed: state.gameOver,
+    photo: { id: answer.id, nick: answer.nick },
+    nick: answer.nick, name: answer.name || '',
+    unknown: t('unknownValue')
+  });
+}
+
 function render() {
   $('boardNo').textContent = '#' + day.number; // the day's number, beside the date
   $('guessesLeft').textContent = state.guesses.length;
   $('guessSearch').classList.toggle('hidden', state.gameOver);
-  $('answerCard').classList.toggle('hidden', !state.gameOver);
-  if (state.gameOver) answerCard($('answerCard'));
+  renderDossier();
   const rows = $('guessRows');
   rows.innerHTML = '';
   // Newest guess on top, right under the search box (the first one ends up at the bottom); phones scroll the new
@@ -590,7 +601,7 @@ function emojiRows() {
 }
 
 function buildShareText() {
-  return `⚔ LoL Connect · Guess the Pro #${day.number} — ${state.won ? '🎯 ' + state.guesses.length : '🏳️'}\n\n${emojiRows()}\n\n${SITE.url(currentLang, 'guess')}`;
+  return `⚔ LoL Connect · Guess the Pro #${day.number} — ${state.won ? '🎯 ' + state.guesses.length : '🏳️'}\n\n${emojiRows()}\n\n${SITE.url(currentLang, '')}`;
 }
 
 /** The game ends: finishedOn (the UTC day it ended) tells streaks a day's puzzle from an archive game (progress.js). */
@@ -658,15 +669,19 @@ function showToast(msg) {
 
 /* ---------- Events ---------- */
 
+/** Enter or the arrow button: the highlighted result, else the first one not guessed yet. */
+function submitSearch() {
+  const idx = activeResult >= 0 ? activeResult : resultItems.findIndex(p => !state.guesses.includes(p.id));
+  if (idx >= 0 && !state.guesses.includes(resultItems[idx].id)) guess(resultItems[idx].id);
+}
 $('searchInput').addEventListener('input', e => renderResults(e.target.value));
+// The arrow keeps the focus in the box (no blur closing the list) and acts like Enter.
+$('btnSubmitGuess').addEventListener('mousedown', e => e.preventDefault());
+$('btnSubmitGuess').addEventListener('click', () => { submitSearch(); $('searchInput').focus(); });
 $('searchInput').addEventListener('keydown', e => {
   if (e.key === 'ArrowDown') { e.preventDefault(); moveActive(1); }
   else if (e.key === 'ArrowUp') { e.preventDefault(); moveActive(-1); }
-  else if (e.key === 'Enter') {
-    e.preventDefault();
-    const idx = activeResult >= 0 ? activeResult : resultItems.findIndex(p => !state.guesses.includes(p.id));
-    if (idx >= 0 && !state.guesses.includes(resultItems[idx].id)) guess(resultItems[idx].id);
-  } else if (e.key === 'Escape') clearSearch();
+  else if (e.key === 'Enter') { e.preventDefault(); submitSearch(); } else if (e.key === 'Escape') clearSearch();
 });
 // The list closes when focus leaves the box (a tap elsewhere) and comes back with the text on refocus.
 $('searchInput').addEventListener('blur', () => { $('searchResults').innerHTML = ''; $('searchInput').setAttribute('aria-expanded', 'false'); });

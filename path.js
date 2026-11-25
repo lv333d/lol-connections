@@ -18,7 +18,7 @@ const I18N = {
     noPuzzleTitle: '📅 Brak ścieżki na dziś', noPuzzleText: 'Wróć jutro po nową zagadkę!',
     nextBoardIn: 'Nowa ścieżka za', nextBoardSoon: 'Nowa ścieżka już wkrótce',
     guessesLabel: 'Próby:', giveUp: 'Poddaj się', results: 'Wyniki',
-    searchPh: 'Wpisz nick gracza…', noResults: 'Brak graczy o takim nicku.', used: 'już był',
+    searchPh: 'Wpisz nick gracza…', submitLabel: 'Zgadnij', mysteryLabel: 'Kim jest gracz dnia?', unknownValue: 'ukryte', noResults: 'Brak graczy o takim nicku.', used: 'już był',
     wrong: 'To nie {nick}', hidden: 'Ukryta drużyna', team: 'Drużyna {n}: {name}',
     answerWas: 'Szukany gracz', winTitle: '🏆 Zgadnięte!', loseTitle: '⚔ Koniec gry', score: 'Próby: {n}/{max}',
     share: '𝕏 Udostępnij wynik', shareNative: '📤 Udostępnij wynik', copy: '📋 Kopiuj wynik', copied: 'Skopiowano!',
@@ -38,7 +38,7 @@ const I18N = {
     noPuzzleTitle: '📅 No path today', noPuzzleText: 'Come back tomorrow for a new puzzle!',
     nextBoardIn: 'New path in', nextBoardSoon: 'New path coming soon',
     guessesLabel: 'Guesses:', giveUp: 'Give up', results: 'Results',
-    searchPh: 'Type a player’s nickname…', noResults: 'No player matches.', used: 'guessed',
+    searchPh: 'Type a player’s nickname…', submitLabel: 'Guess', mysteryLabel: 'Who is today’s pro?', unknownValue: 'hidden', noResults: 'No player matches.', used: 'guessed',
     wrong: 'Not {nick}', hidden: 'Hidden team', team: 'Team {n}: {name}',
     answerWas: 'The player was', winTitle: '🏆 Got it!', loseTitle: '⚔ Game over', score: 'Guesses: {n}/{max}',
     share: '𝕏 Share result', shareNative: '📤 Share result', copy: '📋 Copy result', copied: 'Copied!',
@@ -57,7 +57,7 @@ const I18N = {
     noPuzzleTitle: '📅 Hoy no hay trayectoria', noPuzzleText: '¡Vuelve mañana por un nuevo acertijo!',
     nextBoardIn: 'Nueva trayectoria en', nextBoardSoon: 'Nueva trayectoria muy pronto',
     guessesLabel: 'Intentos:', giveUp: 'Rendirse', results: 'Resultados',
-    searchPh: 'Escribe el nick del jugador…', noResults: 'Ningún jugador coincide.', used: 'ya probado',
+    searchPh: 'Escribe el nick del jugador…', submitLabel: 'Adivinar', mysteryLabel: '¿Quién es el jugador del día?', unknownValue: 'oculto', noResults: 'Ningún jugador coincide.', used: 'ya probado',
     wrong: 'No es {nick}', hidden: 'Equipo oculto', team: 'Equipo {n}: {name}',
     answerWas: 'El jugador era', winTitle: '🏆 ¡Acertaste!', loseTitle: '⚔ Fin del juego', score: 'Intentos: {n}/{max}',
     share: '𝕏 Compartir resultado', shareNative: '📤 Compartir resultado', copy: '📋 Copiar resultado', copied: '¡Copiado!',
@@ -76,7 +76,7 @@ const I18N = {
     noPuzzleTitle: '📅 Pas de parcours aujourd’hui', noPuzzleText: 'Revenez demain pour une nouvelle énigme !',
     nextBoardIn: 'Nouveau parcours dans', nextBoardSoon: 'Nouveau parcours très bientôt',
     guessesLabel: 'Essais :', giveUp: 'Abandonner', results: 'Résultats',
-    searchPh: 'Tapez le pseudo du joueur…', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
+    searchPh: 'Tapez le pseudo du joueur…', submitLabel: 'Deviner', mysteryLabel: 'Qui est le joueur du jour ?', unknownValue: 'caché', noResults: 'Aucun joueur trouvé.', used: 'déjà essayé',
     wrong: 'Ce n’est pas {nick}', hidden: 'Équipe cachée', team: 'Équipe {n} : {name}',
     answerWas: 'Le joueur était', winTitle: '🏆 Trouvé !', loseTitle: '⚔ Partie terminée', score: 'Essais : {n}/{max}',
     share: '𝕏 Partager le résultat', shareNative: '📤 Partager le résultat', copy: '📋 Copier le résultat', copied: 'Copié !',
@@ -289,6 +289,18 @@ function answerCard(target) {
   target.appendChild(text);
 }
 
+/* ---------- The mystery player card over the path (dossier.js): revealed when the game is over ---------- */
+function renderDossier() {
+  DOSSIER.render($('dossier'), {
+    key: selectedDate,
+    label: t('mysteryLabel'), labelRevealed: t('answerWas'),
+    revealed: state.gameOver,
+    photo: { id: answer.id, nick: answer.nick },
+    nick: answer.nick, name: answer.name || '',
+    unknown: t('unknownValue')
+  });
+}
+
 function render(animate = false) {
   const shownBefore = justShown;
   const shown = state.gameOver ? day.career.length : shownAfter(misses(), day.career.length);
@@ -296,8 +308,7 @@ function render(animate = false) {
   renderPath($('pathBar'), shown, animate ? shownBefore : Infinity);
   $('guessesLeft').textContent = state.guesses.length;
   $('guessSearch').classList.toggle('hidden', state.gameOver);
-  $('answerCard').classList.toggle('hidden', !state.gameOver);
-  if (state.gameOver) answerCard($('answerCard'));
+  renderDossier();
   const list = $('pathGuesses');
   list.innerHTML = '';
   state.guesses.forEach((id, k) => {
@@ -605,15 +616,19 @@ function showToast(msg) {
 
 /* ---------- Events ---------- */
 
+/** Enter or the arrow button: the highlighted result, else the first one not guessed yet. */
+function submitSearch() {
+  const idx = activeResult >= 0 ? activeResult : resultItems.findIndex(p => !state.guesses.includes(p.id));
+  if (idx >= 0 && !state.guesses.includes(resultItems[idx].id)) guess(resultItems[idx].id);
+}
 $('searchInput').addEventListener('input', e => renderResults(e.target.value));
+// The arrow keeps the focus in the box (no blur closing the list) and acts like Enter.
+$('btnSubmitGuess').addEventListener('mousedown', e => e.preventDefault());
+$('btnSubmitGuess').addEventListener('click', () => { submitSearch(); $('searchInput').focus(); });
 $('searchInput').addEventListener('keydown', e => {
   if (e.key === 'ArrowDown') { e.preventDefault(); moveActive(1); }
   else if (e.key === 'ArrowUp') { e.preventDefault(); moveActive(-1); }
-  else if (e.key === 'Enter') {
-    e.preventDefault();
-    const idx = activeResult >= 0 ? activeResult : resultItems.findIndex(p => !state.guesses.includes(p.id));
-    if (idx >= 0 && !state.guesses.includes(resultItems[idx].id)) guess(resultItems[idx].id);
-  } else if (e.key === 'Escape') clearSearch();
+  else if (e.key === 'Enter') { e.preventDefault(); submitSearch(); } else if (e.key === 'Escape') clearSearch();
 });
 $('searchInput').addEventListener('blur', () => { $('searchResults').innerHTML = ''; $('searchInput').setAttribute('aria-expanded', 'false'); });
 $('searchInput').addEventListener('focus', e => renderResults(e.target.value));

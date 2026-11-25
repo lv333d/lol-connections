@@ -56,7 +56,7 @@ function readBody(req) {
 
 async function serveStatic(req, res, pathname) {
   let rel = decodeURIComponent(pathname === '/' ? '/index.html' : pathname).replace(/^\/+/, '');
-  // Clean URLs like on the live site (vercel.json cleanUrls): /guess → guess.html.
+  // Clean URLs like on the live site (vercel.json cleanUrls): /grid → grid.html.
   if (!path.extname(rel) && /^[\w-]+$/.test(rel)) rel += '.html';
   const file = path.resolve(ROOT, rel);
   const top = rel.split(/[\\/]/)[0];

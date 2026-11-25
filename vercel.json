@@ -41,11 +41,21 @@
   "redirects": [
     {
       "source": "/connections",
-      "destination": "/",
+      "destination": "/grid",
       "permanent": true
     },
     {
       "source": "/:lang(pl|es|fr)/connections",
+      "destination": "/:lang/grid",
+      "permanent": true
+    },
+    {
+      "source": "/guess",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(pl|es|fr)/guess",
       "destination": "/:lang",
       "permanent": true
     }

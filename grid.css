@@ -154,8 +154,10 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
 }
 /* The two conditions at the top of the search window: big enough to read the logos (phones: see below). */
 .cond.small .cond-icon { width: 64px; height: 64px; }
-/* Team and league logos are designed for light backgrounds (Fnatic, Dignitas, LCK are dark) — give them a light plate. */
-.cond-team .cond-icon > img, .cond-league .cond-icon > img {
+/* Team logos are designed for light backgrounds (Fnatic, Dignitas are dark) — give them a light plate. League logos are
+   white traces on a transparent background (scripts/make-league-logos.js): no plate. */
+.cond-league .cond-icon > img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)); }
+.cond-team .cond-icon > img {
   background: #ece6d6; border-radius: 10px; padding: 5px;
   width: 100%; height: 100%; object-fit: contain;
   box-shadow: 0 0 0 1px rgba(200, 170, 110, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);

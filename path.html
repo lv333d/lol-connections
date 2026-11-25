@@ -3,7 +3,7 @@
 <head>
   <script>
   /* Remembered language: the language menu stores the visitor's choice (lolc_lang, footer.js), and the English
-     pages (/, /guess and /path — where search results and links without a language land) open in that language. Links to
+     pages (/, /path and /grid — where search results and links without a language land) open in that language. Links to
      /pl, /es and /fr are left alone. Only an explicit choice counts, never the browser language, so crawlers and
      new visitors always get the page they asked for. */
   (function () {
@@ -63,9 +63,9 @@
         </div>
       </div>
       <nav class="game-tabs" aria-label="Game mode">
-        <a href="/" class="game-tab"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>Grid</a>
-        <a href="/guess" class="game-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>Guess the Pro</a>
+        <a href="/" class="game-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 21c.5-4 3.5-6.5 7.5-6.5s7 2.5 7.5 6.5"/><path d="M17.5 3.5a2.3 2.3 0 1 1 3 2.2c-.6.3-.9.7-.9 1.4"/><circle cx="19.6" cy="10" r=".4" fill="currentColor"/></svg>Guess the Pro</a>
         <a href="/path" class="game-tab" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="4.5" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="19.5" cy="12" r="2.5"/><path d="M7 12h2.5M14.5 12H17"/></svg><span data-i18n="pathTab"></span><span class="tab-new" data-until="2026-12-06"><span class="visually-hidden" data-i18n="newLabel"></span></span></a>
+        <a href="/grid" class="game-tab"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><rect x="9.5" y="16" width="5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></svg>Grid</a>
       </nav>
       <div class="header-actions">
         <div id="streakBox" class="hbtn hbtn-streak" role="img"><span class="hbtn-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5 4.5 5.5 4.5 10.2A4.6 4.6 0 0 1 12 17a4.6 4.6 0 0 1-4.5-4.8c0-1.7.7-3 1.6-4 .1 1.6.9 2.6 1.9 2.9C10.6 8 11 5 12 2z"/><path d="M12 22a7 7 0 0 1-7-7c0-2.2.8-4 2-5.4A6 6 0 0 0 12 20a6 6 0 0 0 5-9.4c1.2 1.4 2 3.2 2 5.4a7 7 0 0 1-7 7z" opacity=".55"/></svg><span id="streakCount">–</span></span><span class="hbtn-lbl" data-i18n="streakLabel"></span></div>
@@ -90,13 +90,19 @@
       </div>
 
       <div id="gameArea" class="game-area hidden">
+        <!-- The day's player: a silhouette and censored text, revealed when the game is over (dossier.js). -->
+        <section id="dossier" class="dossier"></section>
         <!-- The career: a circle per team, in order; hidden ones show "?" (path.js). -->
         <div id="pathBar" class="path-bar" role="list"></div>
-        <div id="answerCard" class="gp-answer hidden"></div>
 
         <div id="guessSearch" class="gp-search">
-          <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
-                 role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+          <div class="gp-search-row">
+            <div class="gp-field">
+              <input id="searchInput" data-i18n-ph="searchPh" class="search-input" type="search" autocomplete="off" spellcheck="false"
+                     role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+            </div>
+            <button id="btnSubmitGuess" type="button" class="gp-submit" data-i18n-title="submitLabel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
           <ul id="searchResults" class="search-results gp-results" role="listbox"></ul>
         </div>
 
@@ -166,6 +172,7 @@
   <script src="progress.js"></script>
   <script src="onboarding.js"></script>
   <script src="live.js"></script>
+  <script src="dossier.js"></script>
   <script src="path.js"></script>
   <script src="footer.js"></script>
 </body>

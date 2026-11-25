@@ -12,7 +12,7 @@ const SITE = (() => {
   try { saved = localStorage.getItem('lolc_lang'); } catch { /* storage blocked */ }
   const htmlLang = document.documentElement.lang;
   const lang = built && LANGS.includes(htmlLang) ? htmlLang : (LANGS.includes(saved) ? saved : browserLang);
-  /** '' (Grid) or 'guess' — from /pl/guess, /guess.html, /index.html… */
+  /** '' (Guess the Pro), 'path' or 'grid' — from /pl/grid, /grid.html, /index.html… */
   const page = location.pathname.replace(/^\/(pl|es|fr)(?=\/|$)/, '').replace(/\.html$/, '')
     .replace(/^\/+|\/+$/g, '').replace(/^index$/, '');
   const path = (l, p = page) => ((l === 'en' ? '' : '/' + l) + (p ? '/' + p : '')) || '/';
@@ -48,7 +48,7 @@ const SITE = (() => {
 
 /* New vs returning visitors in Umami, without cookies or an identifier: localStorage keeps only the visit days per
    game (lolc_visits: { grid: [...], guess: [...], path: [...] }, UTC YYYY-MM-DD — the same day as todayKey() in the games — the
-   newest VISIT_DAYS each). Every view of a built game page ('' = grid or 'guess') adds today to that game. Once per
+   newest VISIT_DAYS each). Every view of a built game page ('' = guess, 'path', 'grid') adds today to that game. Once per
    browser tab session (sessionStorage lolc_visit_sent, set after the event went to umami.track) the days before today
    are counted and sent as one "visit" event: grid and guess (each game's own days) and type (new without any earlier
    day in either game); the page the visit started on is the event's own URL in Umami. Later views in the
@@ -58,10 +58,10 @@ const SITE = (() => {
    storage counts as new. Not sent from the admin preview (?preview=) or from the source pages of the local admin
    server (not built). */
 (() => {
-  if (!SITE.built || !['', 'guess', 'path'].includes(SITE.page)) return;
+  if (!SITE.built || !['', 'path', 'grid'].includes(SITE.page)) return;
   if (new URLSearchParams(location.search).has('preview')) return;
   const VISIT_DAYS = 120;
-  const mode = SITE.page === 'guess' ? 'guess' : SITE.page === 'path' ? 'path' : 'grid';
+  const mode = SITE.page === 'grid' ? 'grid' : SITE.page === 'path' ? 'path' : 'guess';
   const GAMES = ['grid', 'guess', 'path'];
   const today = new Date().toISOString().slice(0, 10); // same UTC day as todayKey() in the games
   const isDay = d => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d);

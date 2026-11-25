@@ -1,4 +1,4 @@
-/* Footer shared by all games (index.html, guess.html): one line — "Fan project · Legal notice · TikTok · Discord"
+/* Footer shared by all games (index.html = Guess the Pro, path.html, grid.html): one line — "Fan project · Legal notice · TikTok · Discord"
    — under the game, the full legal notice in a modal, plus the "next game" link in the result popups.
    TikTok and Discord links come from data/site-config.json (set in the admin panel); an empty link is hidden.
    The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects.
@@ -20,9 +20,9 @@
   const LANGS = Object.keys(TEXT);
   const pick = lang => (LANGS.includes(lang) ? lang : 'en');
 
-  // "Next game" link in each game's result popup (#nextGame): Grid → Guess the Pro → Career Path → Grid.
-  const GAMES = [{ slug: '', icon: 'icon-grid3', name: 'Grid' }, { slug: 'guess', text: '?', name: 'Guess the Pro' },
-    { slug: 'path', text: '⋯', name: 'Career Path' }];
+  // "Next game" link in each game's result popup (#nextGame): Guess the Pro → Career Path → Grid → Guess the Pro.
+  const GAMES = [{ slug: '', text: '?', name: 'Guess the Pro' }, { slug: 'path', text: '⋯', name: 'Career Path' },
+    { slug: 'grid', icon: 'icon-grid3', name: 'Grid' }];
   const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
   function renderNextGame(lang) {
     const a = document.getElementById('nextGame');
