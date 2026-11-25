@@ -1,0 +1,8 @@
+{
+  "_doc": [
+    "Transfers reported as all but done that Leaguepedia doesn't show yet — Guess the Pro's current team and league use them (npm run build-guess / the panel's database refresh).",
+    "player: id from data/players.json; team: the new team as Leaguepedia names it; from: what Leaguepedia shows when the entry is added ('' = free agent); until: last day the entry counts (YYYY-MM-DD); source: where it was reported.",
+    "Each refresh drops an entry by itself once Leaguepedia shows the player on the new team (confirmed) or on any other team than 'from' (fell through: Leaguepedia's team counts again), or after 'until'."
+  ],
+  "transfers": []
+}

@@ -152,6 +152,38 @@ for (const batch of chunk(pool.map(p => p.wikiPage), 150)) {
   (await cargoQuery({ tables: 'Players', fields: 'OverviewPage,Team', where: `OverviewPage IN (${batch.map(cargoStr).join(',')})`, fresh }))
     .forEach(r => { const p = byPage.get(r.OverviewPage.toLowerCase()); if (p && r.Team) currentTeam.set(p.id, r.Team); });
 }
+
+// Transfers announced but not on Leaguepedia yet (data/pending-transfers.json, kept by hand): the new team counts as
+// the current one while Leaguepedia still shows what it showed when the entry was added (`from`, '' = free agent),
+// until `until` (YYYY-MM-DD). Each run drops an entry Leaguepedia has caught up with — the player is on the new team
+// (confirmed) or on any other (the move fell through: Leaguepedia's team counts again) — and an expired one.
+const PENDING_FILE = path.join(DATA_DIR, 'pending-transfers.json');
+let pending = null;
+try { pending = JSON.parse(await readFile(PENDING_FILE, 'utf8')); } catch { /* no file: nothing pending */ }
+if (pending?.transfers?.length) {
+  const today = new Date().toISOString().slice(0, 10);
+  const nickOf = new Map(pool.map(p => [p.id, p.nick]));
+  const keep = [];
+  for (const tr of pending.transfers) {
+    const who = nickOf.get(tr.player) || tr.player;
+    const now = currentTeam.get(tr.player) || '';
+    if (!nickOf.has(tr.player)) console.log(`  ⚠ oczekujący transfer: ${tr.player} — nie ma takiego gracza w puli, pomijam`);
+    else if (now && orgKey(now) === orgKey(tr.team)) console.log(`  ✓ transfer potwierdzony na Leaguepedii: ${who} → ${tr.team} (usuwam z listy)`);
+    else if (orgKey(now || '-') !== orgKey(tr.from || '-')) console.log(`  ✗ transfer nie doszedł do skutku: ${who} → ${tr.team}; Leaguepedia: ${now || 'bez drużyny'} (usuwam z listy)`);
+    else if (tr.until && today > tr.until) console.log(`  ⌛ transfer wygasł ${tr.until}: ${who} → ${tr.team} (usuwam z listy)`);
+    else {
+      currentTeam.set(tr.player, tr.team);
+      console.log(`  ⇢ oczekujący transfer: ${who} → ${tr.team} (Leaguepedia: ${now || 'bez drużyny'})`);
+      keep.push(tr);
+      continue;
+    }
+    if (!nickOf.has(tr.player)) keep.push(tr);   // a typo stays in the file to be fixed, not silently lost
+  }
+  if (keep.length !== pending.transfers.length) {
+    await writeFile(PENDING_FILE, JSON.stringify({ ...pending, transfers: keep }, null, 2) + '\n');
+  }
+}
+
 // The team's league: where it played last in the past CURRENT_MONTHS (official domestic leagues only — no
 // showmatches, streamer cups, EWC, Demacia Cup or cross-league events), from the rosters of the team's name.
 const since = new Date();

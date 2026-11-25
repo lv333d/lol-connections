@@ -740,7 +740,28 @@ body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
   to { transform: perspective(900px) rotateY(0); }
 }
 @media (max-width: 520px) {
-  .dossier { gap: 14px; margin: 0 0 12px; padding: 10px; }
+  .dossier { width: 100%; gap: 14px; margin: 0 0 12px; padding: 10px; }
   .dossier-photo { width: 76px; }
   .dossier-nick { font-size: 1.25rem; }
+}
+
+/* ---------- Notice under the games, at the top of the footer (site.js): a small quiet box, not a banner ---------- */
+.site-notice {
+  display: flex; align-items: center; justify-content: center; gap: 6px; width: fit-content; max-width: 100%;
+  margin: 0 auto 4px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: rgba(20, 28, 46, 0.45); font-size: 0.68rem; line-height: 1.35; color: var(--text-muted); text-align: center;
+}
+.site-notice svg { flex-shrink: 0; width: 12px; height: 12px; opacity: 0.8; }
+@media (max-width: 520px) { .site-notice { font-size: 0.64rem; padding: 6px 10px; } }
+/* Phones held sideways (wide but short): the notice, the footer line and the language share one row. */
+@media (min-width: 600px) and (max-height: 560px) {
+  .site-footer { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 14px; max-width: none; padding-top: 4px; }
+  .site-footer .site-notice { margin: 0; }
+}
+/* Phones held upright: the footer line and the language share one row under the notice (two rows instead of
+   three; the links and the picker keep their 44 px touch height). */
+@media (max-width: 520px) and (min-height: 561px) {
+  .site-footer { display: grid; grid-template-columns: auto auto; justify-content: center; align-items: center; column-gap: 10px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+  .site-footer .site-notice { grid-column: 1 / -1; justify-self: center; margin-bottom: 0; }
+  .site-footer .lang-select { padding-right: 0; }
 }

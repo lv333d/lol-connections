@@ -79,9 +79,11 @@ async function withRetry(params, method) {
   }
 }
 
-async function cached(key, fn) {
+/** The cached value of key, else fn() stored under it; fresh: always fn(), and the cache gets the new value (so a
+ *  later run without fresh sees today's data, not the copy from before the last fresh run). */
+async function cached(key, fn, fresh = false) {
   const file = path.join(CACHE_DIR, createHash('sha1').update(key).digest('hex') + '.json');
-  try { return JSON.parse(await readFile(file, 'utf8')); } catch { /* miss */ }
+  if (!fresh) try { return JSON.parse(await readFile(file, 'utf8')); } catch { /* miss */ }
   const value = await fn();
   await mkdir(CACHE_DIR, { recursive: true });
   await writeFile(file, JSON.stringify(value));
@@ -91,7 +93,7 @@ async function cached(key, fn) {
 /**
  * Runs a Cargo query and follows pagination. Field aliases ("T.Name=Tournament") become row keys.
  * Every result page is cached on disk, so an interrupted import resumes where it stopped;
- * pass { fresh: true } to bypass the cache.
+ * pass { fresh: true } to ask Leaguepedia again (the cache is updated with the answer).
  * @returns {Promise<Record<string, string>[]>}
  */
 export async function cargoQuery({ tables, fields, where = '', joinOn = '', groupBy = '', orderBy = '', fresh = false }) {
@@ -105,7 +107,7 @@ export async function cargoQuery({ tables, fields, where = '', joinOn = '', grou
       const data = await withRetry(params, 'POST');
       return (data.cargoquery || []).map(r => r.title);
     };
-    const page = fresh ? await fetchPage() : await cached(JSON.stringify(params), fetchPage);
+    const page = await cached(JSON.stringify(params), fetchPage, fresh);
     rows.push(...page);
     if (page.length < CARGO_PAGE) return rows;
   }

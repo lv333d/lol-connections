@@ -101,3 +101,22 @@ const SITE = (() => {
     }
   }, 300);
 })();
+
+/* Notice under every game (the first line of the footer), in the page's language. Temporary: remove the text
+   below (NOTICE = null) after the database update it announces. */
+(() => {
+  const NOTICE = {
+    pl: 'Drużyny zaktualizujemy po offseasonie.',
+    en: 'Teams will be updated after the offseason.',
+    es: 'Actualizaremos los equipos tras la pretemporada.',
+    fr: 'Équipes mises à jour après l’intersaison.'
+  };
+  const footer = document.querySelector('.site-footer');
+  if (!NOTICE || !footer) return;
+  const box = document.createElement('p');
+  box.className = 'site-notice';
+  box.setAttribute('role', 'note');
+  box.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg><span></span>';
+  box.lastChild.textContent = NOTICE[SITE.lang] || NOTICE.en;
+  footer.prepend(box);
+})();
