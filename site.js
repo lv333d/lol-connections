@@ -106,10 +106,10 @@ const SITE = (() => {
    below (NOTICE = null) after the database update it announces. */
 (() => {
   const NOTICE = {
-    pl: 'Drużyny zaktualizujemy po offseasonie.',
-    en: 'Teams will be updated after the offseason.',
-    es: 'Actualizaremos los equipos tras la pretemporada.',
-    fr: 'Équipes mises à jour après l’intersaison.'
+    pl: 'Aktualizacja drużyn po zakończeniu offseasonu.',
+    en: 'Teams will be updated once the off-season concludes.',
+    es: 'Actualización de equipos al concluir la pretemporada.',
+    fr: 'Mise à jour des équipes à la fin de l’intersaison.'
   };
   const footer = document.querySelector('.site-footer');
   if (!NOTICE || !footer) return;
