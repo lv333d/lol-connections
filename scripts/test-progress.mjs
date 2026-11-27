@@ -37,10 +37,27 @@ assert.deepEqual(plain(P.streak('grid')), { current: 0, best: 3, today: false })
 P = load({ [`lolg_state_${day(-6)}`]: grid(7, { finishedOn: day(0) }) });
 assert.deepEqual(plain(P.streak('grid')), { current: 0, best: 0, today: false });
 
-// 5. Each game has its own streak: Grid today and two days ago, Guess yesterday → Grid 1, Guess 1 (never 3 together).
+// 5. One streak for the site: Grid today and two days ago, Guess yesterday → shared 3; each mode's own stays 1.
 P = load({ [`lolg_state_${day(0)}`]: grid(2, { finishedOn: day(0) }), [`lolgp_state_${day(-1)}`]: gp(1, true), [`lolg_state_${day(-2)}`]: grid(9) });
+assert.deepEqual(plain(P.streak()), { current: 3, best: 3, today: true });
 assert.equal(P.streak('grid').current, 1);
 assert.equal(P.streak('guess').current, 1);
+
+// 5b. Nobody loses a streak with the update: the shared one is at least every mode's own (union of the days),
+//     a lost or given-up game counts like a win, and Career Path counts too.
+P = load({
+  [`lolgp_state_${day(-1)}`]: gp(4, false), [`lolgp_state_${day(-2)}`]: gp(2, true), [`lolgp_state_${day(-3)}`]: gp(9, true),
+  [`lolpa_state_${day(-4)}`]: { guesses: ['a'], gameOver: true, won: false }, [`lolg_state_${day(-6)}`]: grid(9)
+});
+assert.equal(P.streak('guess').current, 3);
+assert.deepEqual(plain(P.streak()), { current: 4, best: 4, today: false });
+for (const m of ['grid', 'guess', 'path']) assert.ok(P.streak().current >= P.streak(m).current);
+
+// 5c. Today's status per mode (the "play also today" links): done / started / not started.
+P = load({ [`lolg_state_${day(0)}`]: grid(3), [`lolgp_state_${day(0)}`]: { guesses: ['x'], gameOver: false, won: false }, [`lolpa_state_${day(-1)}`]: gp(1, true) });
+assert.equal(P.todayStatus('grid'), 'done');
+assert.equal(P.todayStatus('guess'), 'started');
+assert.equal(P.todayStatus('path'), '');
 
 // 6. Unreadable saves and other keys are ignored.
 P = load({ [`lolg_state_${day(0)}`]: '{not json', lolc_lang: 'pl', lolg_state_bad: grid(9) });
@@ -57,4 +74,4 @@ assert.equal(P.resultLine('guess', 'en', day(0), 11), 'Streak: 5 🔥 — come b
 assert.equal(P.streak('grid').current, 5);
 P = load({ [`lolg_state_${day(0)}`]: grid(9) }, `?preview=${day(0)}`);
 assert.equal(P.resultLine('grid', 'pl', day(0), 37), '');
-console.log('progress.js: 8 scenarios OK');
+console.log('progress.js: 10 scenarios OK');

@@ -40,6 +40,16 @@
   ],
   "redirects": [
     {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
       "source": "/connections",
       "destination": "/grid",
       "permanent": true

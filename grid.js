@@ -31,7 +31,7 @@ const I18N = {
     onbSkip: "Pomiń",
     onbDone: "Gramy!",
     onbSteps: [["Siatka 3×3", "W każdym polu wpisz pro-gracza, który pasuje <strong>i</strong> do wiersza, <strong>i</strong> do kolumny — na przykład grał w T1 i wygrał Worlds."], ["9 prób", "Kliknij pole, wpisz nick gracza i wybierz go z listy. Błędna odpowiedź też zużywa próbę, a każdej osoby użyjesz tylko raz. Trenerzy też się liczą."]],
-    answers: '{n} odp.', btnGuideLabel: 'Poradnik',
+    answers: '{n} odp.', btnGuideLabel: 'Poradnik', condInfo: 'Więcej o warunku',
     cond: {
       coach: 'Trener', coachLong: 'Był trenerem',
       retired: 'Emerytowany gracz', retiredLong: 'Zakończył karierę zawodniczą',
@@ -57,7 +57,7 @@ const I18N = {
     onbSkip: "Skip",
     onbDone: "Let's play!",
     onbSteps: [["3×3 grid", "In each cell, name a pro player who fits the row <strong>and</strong> the column — for example, played for T1 and won Worlds."], ["9 guesses", "Tap a cell, type the player’s nickname and pick them from the list. A wrong answer uses a guess too, and each person can be used once. Coaches count as well."]],
-    answers: '{n} ans.', btnGuideLabel: 'Guide',
+    answers: '{n} ans.', btnGuideLabel: 'Guide', condInfo: 'About this condition',
     cond: {
       coach: 'Coach', coachLong: 'Worked as a coach',
       retired: 'Retired player', retiredLong: 'Retired from playing',
@@ -83,7 +83,7 @@ const I18N = {
     onbSkip: "Saltar",
     onbDone: "¡A jugar!",
     onbSteps: [["Cuadrícula 3×3", "En cada casilla, escribe un jugador pro que cumpla la fila <strong>y</strong> la columna — por ejemplo, jugó en T1 y ganó Worlds."], ["9 intentos", "Toca una casilla, escribe el nick del jugador y elígelo de la lista. Un fallo también gasta un intento y cada persona se usa una sola vez. Los entrenadores también cuentan."]],
-    answers: '{n} resp.', btnGuideLabel: 'Guía',
+    answers: '{n} resp.', btnGuideLabel: 'Guía', condInfo: 'Sobre esta condición',
     cond: {
       coach: 'Entrenador', coachLong: 'Fue entrenador',
       retired: 'Jugador retirado', retiredLong: 'Se retiró como jugador',
@@ -109,7 +109,7 @@ const I18N = {
     onbSkip: "Passer",
     onbDone: "On joue !",
     onbSteps: [["Grille 3×3", "Dans chaque case, trouvez un joueur pro qui remplit la ligne <strong>et</strong> la colonne — par exemple, a joué chez T1 et gagné les Worlds."], ["9 essais", "Touchez une case, tapez le pseudo du joueur et choisissez-le dans la liste. Une erreur coûte aussi un essai, et chaque personne ne sert qu’une fois. Les coachs comptent aussi."]],
-    answers: '{n} rép.', btnGuideLabel: 'Guide',
+    answers: '{n} rép.', btnGuideLabel: 'Guide', condInfo: 'À propos de cette condition',
     cond: {
       coach: 'Coach', coachLong: 'A été coach',
       retired: 'Joueur retraité', retiredLong: 'A pris sa retraite de joueur',
@@ -128,7 +128,6 @@ const t = (key, vars) => fill((I18N[currentLang] && I18N[currentLang][key]) ?? I
 const tc = (key, vars) => fill(I18N[currentLang].cond[key] ?? I18N.en.cond[key] ?? key, vars);
 const esc = str => { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; };
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
-const normalize = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9가-힣一-龥]/g, '');
 const todayKey = () => new Date().toISOString().slice(0, 10);
 
 // State
@@ -142,6 +141,8 @@ let state = null;
 let players = [];
 /** @type {Map<string, PlayerIndexEntry>} */
 let playerById = new Map();
+/** Merged player ids (data/player-merge.json) → the id kept; other ids unchanged. */
+let canonId = id => id;
 const boardCache = new Map();
 let loadSeq = 0;
 let activeCell = -1, activeResult = -1, resultItems = [];
@@ -267,9 +268,6 @@ function conditionText(c) {
 function conditionBadge(c, small = false) {
   const { short, long } = conditionText(c);
   const wrap = el('div', `cond cond-${c.kind}` + (small ? ' small' : ''));
-  wrap.title = long;
-  // Touch screens don't show titles: a tap shows the same text as a toast.
-  wrap.addEventListener('click', () => showToast(long));
   const icon = el('div', 'cond-icon');
   switch (c.kind) {
     case 'league':
@@ -300,17 +298,91 @@ function conditionBadge(c, small = false) {
   wrap.appendChild(caption);
   // "i" on the board's category cards: the full condition, with a team's former names (they count too). The dot
   // stays small; its ::after gives it a 44×44 px touch area (grid.css).
+  // A tap or click on the card shows the same text in a bubble next to it (tooltip below).
   if (!small) {
     const more = c.kind === 'team' && c.aliases?.length ? `${long}. ${tc('aka')}: ${c.aliases.join(', ')}` : long;
     const info = el('button', 'cond-info', 'i');
     info.type = 'button';
-    info.title = more;
-    info.setAttribute('aria-label', more);
-    info.addEventListener('click', e => { e.stopPropagation(); showToast(more); });
+    info.setAttribute('aria-label', `${t('condInfo')}: ${short}`);
+    bindTip(info, more);
+    wrap.addEventListener('click', e => { if (!e.target.closest('.cond-info')) toggleTip(info, more); });
     wrap.appendChild(info);
+  } else {
+    wrap.addEventListener('click', () => toggleTip(wrap, long));
   }
   return wrap;
 }
+
+/* ---------- Condition bubble (the "i" on the row and column cards) ----------
+   One bubble (#condTip, role="tooltip") at a time, placed next to the button that opened it: above it, or below
+   when there is no room above, and moved sideways to stay on screen (the arrow keeps pointing at the button).
+   Mouse: shows on hover, a click pins it. Touch: a tap opens / closes it. Keyboard: Enter or Space on the button.
+   Closes on a click outside, Esc (before anything else Esc does), opening another one, scrolling or resizing.
+   While open, the button points at it with aria-describedby. */
+let tipFor = null, tipPinned = false, tipHideTimer = 0;
+const tipBox = (() => {
+  const box = el('div', 'cond-tip hidden');
+  box.id = 'condTip';
+  box.setAttribute('role', 'tooltip');
+  box.appendChild(el('span', 'cond-tip-text'));
+  document.body.appendChild(box);
+  box.addEventListener('pointerenter', () => clearTimeout(tipHideTimer));
+  box.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !tipPinned) scheduleCloseTip(); });
+  return box;
+})();
+
+function openTip(anchor, text, pinned) {
+  clearTimeout(tipHideTimer);
+  if (tipFor && tipFor !== anchor) closeTip();
+  tipFor = anchor;
+  tipPinned = pinned;
+  tipBox.firstChild.textContent = text;
+  tipBox.classList.remove('hidden', 'below');
+  anchor.setAttribute('aria-describedby', 'condTip');
+  anchor.classList.add('tip-open');
+  placeTip();
+}
+
+function placeTip() {
+  if (!tipFor) return;
+  const r = tipFor.getBoundingClientRect();
+  const w = tipBox.offsetWidth, h = tipBox.offsetHeight, gap = 10, edge = 8;
+  const below = r.top - gap - h < edge;
+  const cx = r.left + r.width / 2;
+  const left = Math.max(edge, Math.min(cx - w / 2, window.innerWidth - w - edge));
+  const top = below ? Math.min(r.bottom + gap, window.innerHeight - h - edge) : r.top - gap - h;
+  tipBox.classList.toggle('below', below);
+  tipBox.style.left = left + 'px';
+  tipBox.style.top = Math.max(edge, top) + 'px';
+  tipBox.style.setProperty('--arrow-x', Math.max(12, Math.min(w - 12, cx - left)) + 'px');
+}
+
+function closeTip() {
+  clearTimeout(tipHideTimer);
+  if (!tipFor) return;
+  tipFor.removeAttribute('aria-describedby');
+  tipFor.classList.remove('tip-open');
+  tipFor = null;
+  tipPinned = false;
+  tipBox.classList.add('hidden');
+}
+const scheduleCloseTip = () => { clearTimeout(tipHideTimer); tipHideTimer = setTimeout(closeTip, 150); };
+function toggleTip(anchor, text) {
+  if (tipFor === anchor && tipPinned) closeTip(); else openTip(anchor, text, true);
+}
+function bindTip(btn, text) {
+  btn.addEventListener('click', e => { e.stopPropagation(); toggleTip(btn, text); });
+  // Hover only for a real mouse: on touch the tap (click) does it, or the bubble would open and close at once.
+  btn.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && !(tipFor === btn && tipPinned)) openTip(btn, text, false); });
+  btn.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && tipFor === btn && !tipPinned) scheduleCloseTip(); });
+  btn.addEventListener('blur', () => { if (tipFor === btn && !btn.matches(':hover')) closeTip(); });
+}
+document.addEventListener('click', e => { if (tipFor && !tipFor.contains(e.target) && !tipBox.contains(e.target) && !e.target.closest('.cond')) closeTip(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && tipFor) { const a = tipFor; closeTip(); a.focus?.(); e.stopImmediatePropagation(); }
+}, true);
+window.addEventListener('scroll', closeTip, { passive: true });
+window.addEventListener('resize', closeTip);
 
 /* ---------- Game ---------- */
 
@@ -323,8 +395,10 @@ function applyI18n() {
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
+  if (availableDates.length) updateNavButtons();
   renderCountdown();
   PROGRESS.renderHeader('grid', currentLang);
+  TODAY.render(currentLang);
   if (board) renderLive();
 }
 
@@ -360,7 +434,10 @@ narrowScreen.addEventListener('change', () => { if (selectedDate) $('dateDisplay
 function updateNavButtons() {
   $('btnPrevDate').disabled = selectedDateIndex <= 0;
   $('btnNextDate').disabled = selectedDateIndex < 0 || selectedDateIndex >= availableDates.length - 1;
+  fitDateNav(availableDates.map(formatDate), availableDates.length); // arrows stay put (site.js)
 }
+window.addEventListener('lolc:fonts', () => { if (availableDates.length) updateNavButtons(); });
+narrowScreen.addEventListener('change', () => { if (availableDates.length) updateNavButtons(); });
 
 /** The guide's first step: an animated cell (T1 × Worlds → Faker). */
 const GRID_DEMO = `<div class="onb-demo onb-grid" aria-hidden="true">
@@ -383,8 +460,7 @@ async function init() {
   applyI18n();
   maybeOnboard();
   const [manifest, index] = await Promise.all([fetchJson('grid/index.json'), fetchJson('data/players-index.json', { revalidate: true })]);
-  players = (index || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
-  playerById = new Map(players.map(p => [p.id, p]));
+  ({ players, byId: playerById, canon: canonId } = PLAYER_SEARCH.prepare(index));
 
   if (PREVIEW) {
     availableDates = [PREVIEW];
@@ -432,6 +508,9 @@ async function loadDate(date) {
   $('noPuzzleScreen').classList.add('hidden');
   board = b;
   state = loadState(date) || newState();
+  // Saves made before two records of one player were merged point at the kept id now (it is in the answers).
+  state.cells = state.cells.map(id => id && canonId(id));
+  state.wrong = state.wrong.map(w => ({ ...w, id: canonId(w.id) }));
   sendResult();   // a finished game the server didn't get yet
   refreshLive();
   if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
@@ -574,21 +653,9 @@ function setSearchMsg(msg, bad = false) {
   $('searchMsg').classList.toggle('bad', bad);
 }
 
+/** The shared ranking (search.js): nick first, then words of the real name; typos only as a last resort. */
 function search(query) {
-  const q = normalize(query);
-  if (!q) return [];
-  const ranked = [];
-  for (const p of players) {
-    let rank = -1;
-    if (p.n === q) rank = 0;
-    else if (p.n.startsWith(q)) rank = 1;
-    else if (p.n.includes(q)) rank = 2;
-    else if (p.nm.includes(q)) rank = 3;
-    if (rank >= 0) ranked.push([rank, p]);
-  }
-  // Within a match tier, better-known players (more tournaments played) come first.
-  ranked.sort((a, b) => a[0] - b[0] || (b[1].t || 0) - (a[1].t || 0) || a[1].nick.localeCompare(b[1].nick));
-  return ranked.slice(0, MAX_RESULTS).map(x => x[1]);
+  return PLAYER_SEARCH.find(players, query, { limit: MAX_RESULTS });
 }
 
 function renderResults(query) {
@@ -633,6 +700,7 @@ function guess(id) {
   if (activeCell < 0 || state.gameOver || state.guessesLeft <= 0) return;
   if (state.cells.includes(id)) return;
   const cell = activeCell;
+  if (state.guessesLeft === MAX_GUESSES && !PREVIEW) PROGRESS.started('grid', selectedDate);
   state.guessesLeft--;
   const ok = cellAnswers(cell).includes(id);
   if (ok) state.cells[cell] = id;
@@ -701,8 +769,15 @@ const score = () => state.cells.filter(Boolean).length;
 function endGame() {
   state.gameOver = true;
   state.finishedOn = todayKey();
-  PROGRESS.renderHeader('grid', currentLang);
-  setTimeout(sendResult, 0);   // after the move is saved
+  const st = state, date = selectedDate;
+  // After the move is saved: the header's streak and the events read the save.
+  setTimeout(() => {
+    PROGRESS.renderHeader('grid', currentLang);
+    const n = st.cells.filter(Boolean).length;
+    if (!PREVIEW) PROGRESS.finished('grid', date, { result: n === 9 ? 'won' : st.guessesLeft > 0 ? 'gave-up' : 'lost', tries: MAX_GUESSES - st.guessesLeft, score: n });
+    sendResult();
+    TODAY.render(currentLang);
+  }, 0);
 }
 const emojiGrid = () => [0, 1, 2].map(r => [0, 1, 2].map(c => (state.cells[r * 3 + c] ? '🟩' : '⬜')).join('')).join('\n');
 
@@ -717,6 +792,7 @@ function showResult() {
   const line = PROGRESS.resultLine('grid', currentLang, selectedDate, board.boardId);
   $('streakLine').textContent = line;
   $('streakLine').classList.toggle('hidden', !line);
+  TODAY.render(currentLang);
   $('resultOverlay').classList.remove('hidden');
 }
 

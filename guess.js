@@ -121,7 +121,6 @@ const fill = (s, vars) => Object.keys(vars || {}).reduce((acc, k) => acc.replace
 const t = (key, vars) => fill((I18N[currentLang] && I18N[currentLang][key]) ?? I18N.en[key] ?? key, vars);
 const esc = str => { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; };
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
-const normalize = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9가-힣一-龥]/g, '');
 const todayKey = () => new Date().toISOString().slice(0, 10);
 const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
 
@@ -298,6 +297,25 @@ function numTile(cls, value, cmp, upKey, downKey) {
   return c;
 }
 
+/** The next slot: "?" in place of the player and a card back for each category (decoration only, hidden from screen
+ *  readers). `fresh`: it has just made room for a guess, so it fades in. */
+function slotRow(fresh) {
+  const row = el('div', 'gp-row gp-slot' + (fresh ? ' gp-slot-in' : ''));
+  row.setAttribute('aria-hidden', 'true');
+  const who = el('div', 'gp-player');
+  who.append(el('span', 'avatar gp-slot-avatar', '?'), el('span', 'gp-slot-nick'));
+  row.appendChild(who);
+  for (let i = 0; i < 6; i++) row.appendChild(el('div', 'gp-cell'));
+  return row;
+}
+
+/** A new guess: the player shows at once, the six category cards start face down (the site's mark, flat in one colour, on
+ *  a dark back) and turn over one by one — the other way round than the mystery card and slower (guess.css). */
+const CARDS_MS = 2400;  // six cards at 150 bpm (guess.css): the last one has turned over
+const DOSSIER_MS = 700; // then the mystery card turns over (dossier.js: 0.3 s out + 0.4 s in)
+const REVEAL_MS = CARDS_MS + DOSSIER_MS + 300; // then the popup
+let slotTimer = 0, dossierTimer = 0;
+
 function guessRow(p, animate, extraClass = '') {
   const cmp = compare(p);
   const row = el('div', 'gp-row' + (animate ? ' gp-new' : '') + (p.id === answer.id ? ' gp-correct' : '') + extraClass);
@@ -361,8 +379,10 @@ function applyI18n() {
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
+  if (availableDates.length) updateNavButtons();
   renderCountdown();
   PROGRESS.renderHeader('guess', currentLang);
+  TODAY.render(currentLang);
   if (day) renderLive();
   scheduleFit();
 }
@@ -394,7 +414,10 @@ narrowScreen.addEventListener('change', () => { if (selectedDate) $('dateDisplay
 function updateNavButtons() {
   $('btnPrevDate').disabled = selectedDateIndex <= 0;
   $('btnNextDate').disabled = selectedDateIndex < 0 || selectedDateIndex >= availableDates.length - 1;
+  fitDateNav(availableDates.map(formatDate), availableDates.length); // arrows stay put (site.js)
 }
+window.addEventListener('lolc:fonts', () => { if (availableDates.length) updateNavButtons(); });
+narrowScreen.addEventListener('change', () => { if (availableDates.length) updateNavButtons(); });
 
 /** The guide's two steps show a guess row turning over and the colours. */
 const tileDemo = (cls, html, delay) => `<span class="gp-cell onb-tile ${cls}" style="animation-delay:${delay}s">${html}</span>`;
@@ -421,8 +444,7 @@ async function init() {
   applyI18n();
   maybeOnboard();
   const [manifest, pool] = await Promise.all([fetchJson('guess/index.json'), fetchJson('data/guess-players.json', { revalidate: true })]);
-  players = (pool || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
-  playerById = new Map(players.map(p => [p.id, p]));
+  ({ players, byId: playerById } = PLAYER_SEARCH.prepare(pool));
 
   if (PREVIEW) {
     availableDates = [PREVIEW];
@@ -484,11 +506,11 @@ function answerCard(target) {
 }
 
 /* ---------- The mystery player card over the search (dossier.js): revealed when the game is over ---------- */
-function renderDossier() {
+function renderDossier(revealed = state.gameOver) {
   DOSSIER.render($('dossier'), {
     key: selectedDate,
     label: t('mysteryLabel'), labelRevealed: t('answerWas'),
-    revealed: state.gameOver,
+    revealed,
     photo: { id: answer.id, nick: answer.nick },
     nick: answer.nick, name: answer.name || '',
     unknown: t('unknownValue')
@@ -499,15 +521,29 @@ function render() {
   $('boardNo').textContent = '#' + day.number; // the day's number, beside the date
   $('guessesLeft').textContent = state.guesses.length;
   $('guessSearch').classList.toggle('hidden', state.gameOver);
-  renderDossier();
+  // The game has just ended (the winning guess, or the answer after giving up, is turning over): the mystery card at
+  // the top turns over only after the row's last card.
+  clearTimeout(dossierTimer);
+  if (state.gameOver && justAdded) {
+    renderDossier(false);
+    const date = selectedDate;
+    dossierTimer = setTimeout(() => { if (date === selectedDate && state.gameOver) renderDossier(true); }, CARDS_MS);
+  } else renderDossier();
   const rows = $('guessRows');
   rows.innerHTML = '';
   // Newest guess on top, right under the search box (the first one ends up at the bottom); phones scroll the new
   // one into view under the search bar that stays at the top of the screen.
   // After giving up, the answer's own row goes on top so its categories can be compared with the guesses.
+  // Until the game is over, the next slot (a row of card backs) stays on top of the guesses. Right after a guess the
+  // guess takes its place, and a new slot slides in on top only once the guess's last card has turned over.
+  clearTimeout(slotTimer);
+  if (!state.gameOver && !justAdded) rows.appendChild(slotRow(false));
+  else if (!state.gameOver) {
+    slotTimer = setTimeout(() => { if (!state.gameOver && !rows.querySelector('.gp-slot')) rows.prepend(slotRow(true)); }, CARDS_MS);
+  }
   if (state.gameOver && !state.won) rows.appendChild(guessRow(answer, justAdded === answer.id, ' gp-revealed'));
   [...state.guesses].reverse().forEach(id => rows.appendChild(guessRow(playerById.get(id), id === justAdded)));
-  if (justAdded && narrowScreen.matches) rows.firstElementChild?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  if (justAdded && narrowScreen.matches) rows.querySelector('.gp-new')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   justAdded = '';
   fitAll();
   $('btnGiveUp').classList.toggle('hidden', state.gameOver);
@@ -516,20 +552,9 @@ function render() {
 
 /* ---------- Search ---------- */
 
+/** The shared ranking (search.js): nick first, then words of the real name; typos only as a last resort. */
 function search(query) {
-  const q = normalize(query);
-  if (!q) return [];
-  const ranked = [];
-  for (const p of players) {
-    let rank = -1;
-    if (p.n === q) rank = 0;
-    else if (p.n.startsWith(q)) rank = 1;
-    else if (p.n.includes(q)) rank = 2;
-    else if (p.nm.includes(q)) rank = 3;
-    if (rank >= 0) ranked.push([rank, p]);
-  }
-  ranked.sort((a, b) => a[0] - b[0] || b[1].intl - a[1].intl || a[1].nick.localeCompare(b[1].nick));
-  return ranked.slice(0, MAX_RESULTS).map(x => x[1]);
+  return PLAYER_SEARCH.find(players, query, { limit: MAX_RESULTS, score: p => p.intl || 0 });
 }
 
 function renderResults(query) {
@@ -576,13 +601,14 @@ function moveActive(delta) {
 function guess(id) {
   if (state.gameOver || state.guesses.includes(id)) return;
   state.guesses.push(id);
+  if (state.guesses.length === 1 && !PREVIEW) PROGRESS.started('guess', selectedDate);
   justAdded = id;
   if (id === answer.id) state.won = true;
   if (state.won) endGame();
   saveState();
   clearSearch();
   render();
-  if (state.gameOver) setTimeout(showResult, 900); // after the row's reveal animation
+  if (state.gameOver) setTimeout(showResult, REVEAL_MS); // after the row's cards have turned over
   else $('searchInput').focus();
 }
 
@@ -608,8 +634,14 @@ function buildShareText() {
 function endGame() {
   state.gameOver = true;
   state.finishedOn = todayKey();
-  PROGRESS.renderHeader('guess', currentLang);
-  setTimeout(sendResult, 0);   // after the move is saved
+  const st = state, date = selectedDate;
+  // After the move is saved: the header's streak and the events read the save.
+  setTimeout(() => {
+    PROGRESS.renderHeader('guess', currentLang);
+    if (!PREVIEW) PROGRESS.finished('guess', date, { result: st.won ? 'won' : 'gave-up', tries: st.guesses.length });
+    sendResult();
+    TODAY.render(currentLang);
+  }, 0);
 }
 
 /* ---------- Player counters (live.js; nothing shows when the API doesn't answer) ---------- */
@@ -648,6 +680,7 @@ function showResult() {
   const line = PROGRESS.resultLine('guess', currentLang, selectedDate, day.number);
   $('streakLine').textContent = line;
   $('streakLine').classList.toggle('hidden', !line);
+  TODAY.render(currentLang);
   $('resultOverlay').classList.remove('hidden');
 }
 
@@ -698,7 +731,7 @@ $('btnGiveUpConfirm').addEventListener('click', () => {
   saveState();
   justAdded = answer.id; // the revealed answer row flips in
   render();
-  setTimeout(showResult, 900);
+  setTimeout(showResult, REVEAL_MS);
 });
 $('btnShowResults').addEventListener('click', showResult);
 $('btnGuide').addEventListener('click', openGuide);

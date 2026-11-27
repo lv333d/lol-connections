@@ -2,7 +2,7 @@
 // Usage: npm run build-players [-- --fresh]     (--fresh ignores the .cache/leaguepedia response cache)
 // Output:
 //   data/players.json        full database for scripts (teams, leagues, trophies, teammates)
-//   data/players-index.json  slim { id, nick, name } list for the browser search
+//   data/players-index.json  slim { id, nick, name } list for the browser search (+ { id, alias } for merged ids)
 //   data/teams.json          organizations with merged renames and logo file names
 // Which team names form one organization is decided by Leaguepedia renames plus data/team-overrides.json.
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
@@ -10,6 +10,7 @@ import path from 'node:path';
 import { ROOT, slugify } from './lib/puzzles.js';
 import { cargoQuery, cargoStr, login } from './lib/leaguepedia.js';
 import { buildCareers } from './build-careers.js';
+import { readMergeMap, mergePlayers, playerIndex } from './lib/player-merge.js';
 
 const DATA_DIR = path.join(ROOT, 'data');
 const fresh = process.argv.includes('--fresh');
@@ -78,8 +79,9 @@ const isRetiredPlayer = prof => prof?.IsRetired === '1'
 // academy and ERLs included) started this long ago counts as retired too.
 const INACTIVE_MONTHS = 18;
 const nickFromPage = page => page.replace(/\s*\(.*\)\s*$/, '');
-// MediaWiki titles always start upper-case ("kkOma" is stored as page "KkOma").
-const pageKey = link => link.charAt(0).toUpperCase() + link.slice(1);
+// MediaWiki titles always start upper-case ("kkOma" is stored as page "KkOma"), and "_" is a space
+// ("Hope (Wang_Jie)" is "Hope (Wang Jie)" — without this one person got two records).
+const pageKey = link => { const l = link.replace(/_/g, ' '); return l.charAt(0).toUpperCase() + l.slice(1); };
 const ENTITIES = { nbsp: ' ', amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', '#39': "'" };
 const decodeEntities = s => (s || '').replace(/&(nbsp|amp|quot|apos|lt|gt|#39);/g, (_, e) => ENTITIES[e]).replace(/\s+/g, ' ').trim();
 
@@ -381,7 +383,10 @@ async function main() {
     return Object.keys(kept).length ? { viaCoaching: kept } : {};
   };
 
-  const out = kept
+  // Same person under two links that Leaguepedia didn't resolve (data/player-merge.json), and a real name from
+  // the page's disambiguation when the profile has none — scripts/lib/player-merge.js.
+  const mergeMap = await readMergeMap(ROOT);
+  const built = kept
     .map(p => ({
       id: idOf.get(p.wikiPage), nick: p.nick, name: p.name, wikiPage: p.wikiPage,
       retired: p.retired, coach: p.coach, ...(p.coachOnly ? { coachOnly: true } : {}), nationality: p.nationality,
@@ -395,6 +400,8 @@ async function main() {
       tournaments: p.pages.size
     }))
     .sort((a, b) => a.nick.localeCompare(b.nick, 'en', { sensitivity: 'base' }) || a.id.localeCompare(b.id));
+  const { players: out, merged } = mergePlayers(built, mergeMap);
+  if (merged.length) console.log(`  scalone duplikaty: ${merged.map(([d, k]) => `${d}→${k}`).join(', ')}`);
 
   const franchises = new Map();
   for (const name of teamUsage.keys()) {

@@ -83,17 +83,67 @@
 #guessRows > .gp-revealed { border-bottom: 2px solid rgba(200, 170, 110, 0.6); }
 .gp-revealed .gp-nick::after { content: ' 🏳️'; }
 
-/* A new guess flips in tile by tile. */
-.gp-new > * { animation: gp-flip .45s ease-out both; }
-.gp-new > :nth-child(2) { animation-delay: .08s; }
-.gp-new > :nth-child(3) { animation-delay: .16s; }
-.gp-new > :nth-child(4) { animation-delay: .24s; }
-.gp-new > :nth-child(5) { animation-delay: .32s; }
-.gp-new > :nth-child(6) { animation-delay: .40s; }
-.gp-new > :nth-child(7) { animation-delay: .48s; }
-.gp-new > :nth-child(8) { animation-delay: .56s; }
-@keyframes gp-flip { from { opacity: 0; transform: rotateX(80deg); } }
-@media (prefers-reduced-motion: reduce) { .gp-new > * { animation: none; } }
+/* A new guess: the player appears at once, the category cards start face down — the site's mark, flat and in one
+   colour, on a dark back — and turn over one after another, the opposite way to the mystery card (dossier: out to +90°,
+   in from −90°) and slower. The back is two layers over the tile (::before dark back, ::after mark) that vanish
+   at the half-turn, when the card is edge-on. */
+.gp-new > .gp-player { animation: gp-appear .3s ease-out both; }
+/* One card per beat at 150 bpm (0.4 s apart); each turn takes one beat. */
+.gp-new > .gp-cell { --d: 0s; animation: gp-turn .4s cubic-bezier(.45, .05, .35, 1) var(--d) both, gp-cover .4s var(--d) both; }
+.gp-new > .gp-cell::before, .gp-new > .gp-cell::after, .gp-slot > .gp-cell::before, .gp-slot > .gp-cell::after {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+}
+.gp-new > .gp-cell::before, .gp-new > .gp-cell::after { animation: gp-back .4s var(--d) both; }
+.gp-new > .gp-cell::before, .gp-slot > .gp-cell::before {
+  border-radius: inherit; border: 1px solid rgba(200, 170, 110, 0.35);
+  background: #0e1628;
+}
+.gp-new > .gp-cell::after, .gp-slot > .gp-cell::after {
+  /* The mark only — the L and the three squares (design/logo-modern.svg without its frame) — in one flat colour. */
+  inset: 24%; background: rgba(200, 170, 110, 0.16);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='36 40 180 176'%3E%3Cpath d='M44 40H74A8 8 0 0 1 82 48V166A8 8 0 0 0 90 174H208A8 8 0 0 1 216 182V208A8 8 0 0 1 208 216H44A8 8 0 0 1 36 208V48A8 8 0 0 1 44 40Z'/%3E%3Crect x='133' y='40' width='40' height='40' rx='9'/%3E%3Crect x='176' y='83' width='40' height='40' rx='9'/%3E%3Crect x='90' y='126' width='40' height='40' rx='9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='36 40 180 176'%3E%3Cpath d='M44 40H74A8 8 0 0 1 82 48V166A8 8 0 0 0 90 174H208A8 8 0 0 1 216 182V208A8 8 0 0 1 208 216H44A8 8 0 0 1 36 208V48A8 8 0 0 1 44 40Z'/%3E%3Crect x='133' y='40' width='40' height='40' rx='9'/%3E%3Crect x='176' y='83' width='40' height='40' rx='9'/%3E%3Crect x='90' y='126' width='40' height='40' rx='9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.gp-new > .gp-cell:nth-child(3) { --d: .4s; }
+.gp-new > .gp-cell:nth-child(4) { --d: .8s; }
+.gp-new > .gp-cell:nth-child(5) { --d: 1.2s; }
+.gp-new > .gp-cell:nth-child(6) { --d: 1.6s; }
+.gp-new > .gp-cell:nth-child(7) { --d: 2s; }
+.gp-new > .gp-together { animation: gp-appear .4s ease-out 2.4s both; }
+@keyframes gp-appear { from { opacity: 0; transform: translateY(-4px); } }
+@keyframes gp-turn {
+  0% { transform: perspective(500px) rotateY(0); }
+  45% { transform: perspective(500px) rotateY(-90deg); }
+  45.01% { transform: perspective(500px) rotateY(90deg); }
+  85% { transform: perspective(500px) rotateY(-8deg); }
+  100% { transform: perspective(500px) rotateY(0); }
+}
+@keyframes gp-back { 0%, 45% { opacity: 1; } 45.01%, 100% { opacity: 0; } }
+/* While face down the tile's own frame and glow (green / yellow / red) would give the answer away. */
+@keyframes gp-cover { 0%, 45% { border-color: #4b4130; background: #0e1628; box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .gp-new > *, .gp-new > .gp-cell::before, .gp-new > .gp-cell::after { animation: none; }
+  .gp-new > .gp-cell::before, .gp-new > .gp-cell::after { display: none; }
+}
+
+/* The next slot, always on top of the guesses until the game is over (guess.js slotRow): a row of card backs; the
+   guess entered takes its place and its cards turn over, and a new slot appears above it. */
+.gp-slot > .gp-cell { border-color: #4b4130; background: #0e1628; }
+.gp-slot-avatar {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 50%;
+  background: #0e1628; border: 1px solid #4b4130; color: rgba(200, 170, 110, 0.35); font-family: 'Cinzel', serif; font-weight: 700;
+}
+.gp-slot-nick { display: block; width: 58%; height: 8px; border-radius: 4px; background: rgba(200, 170, 110, 0.1); }
+.gp-slot.gp-slot-in { animation: gp-slot-grow .35s ease-out both; overflow: hidden; }
+@keyframes gp-slot-grow { from { opacity: 0; max-height: 0; margin-bottom: 0; padding-bottom: 0; } to { opacity: 1; max-height: 120px; } }
+@media (max-width: 520px) { .gp-slot-nick { width: 70%; height: 6px; } }
+@media (prefers-reduced-motion: reduce) { .gp-slot.gp-slot-in { animation: none; } }
+
+/* "Give up" sits at the bottom of the game panel (which reaches down to the footer), not right under the rows. */
+.game-panel:has(#guessRows) { display: flex; flex-direction: column; }
+.game-panel:has(#guessRows) > .game-area:not(.hidden) { flex: 1 0 auto; display: flex; flex-direction: column; }
+.game-panel:has(#guessRows) > .game-area > .gp-search, .game-panel:has(#guessRows) > .game-area > .gp-table { width: 100%; }
+.game-panel:has(#guessRows) > .game-area > .actions { margin-top: auto; padding-top: 14px; }
 
 /* The answer, after the game. */
 .gp-answer, .gp-result-player { display: flex; align-items: center; justify-content: center; gap: 14px; }

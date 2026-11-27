@@ -192,6 +192,19 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
 /* The dot stays small; 17 + 2 × 14 = 45 px to tap. */
 .cond-info::after { content: ''; position: absolute; inset: -14px; }
 .cond-info:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.cond-info.tip-open, .cond-info:hover { background: var(--cyan); color: #04141a; }
+/* The bubble of a condition (grid.js openTip): fixed next to its button, arrow pointing at it. */
+.cond-tip {
+  position: fixed; z-index: 1000; max-width: min(300px, calc(100vw - 16px)); padding: 8px 12px; border-radius: 6px;
+  background: #0d1527; border: 1px solid var(--gold); color: var(--gold-light); font-size: 0.82rem; font-weight: 600;
+  line-height: 1.4; text-align: center; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55), 0 0 10px rgba(200, 170, 110, 0.2);
+}
+.cond-tip::after {
+  content: ''; position: absolute; left: var(--arrow-x, 50%); bottom: -6px; width: 10px; height: 10px; margin-left: -5px;
+  background: #0d1527; border: solid var(--gold); border-width: 0 1px 1px 0; transform: rotate(45deg);
+}
+.cond-tip.below::after { bottom: auto; top: -6px; border-width: 1px 0 0 1px; }
+.cond { cursor: pointer; }
 /* Trophy cut-outs and the retired icon (a mouse hung up on a hook) sit on the same light plate as team logos. */
 .cond-trophy .cond-icon > img, .cond-retired .cond-icon > img {
   background: #ece6d6; border-radius: 10px; padding: 3px;

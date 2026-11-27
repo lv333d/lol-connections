@@ -1,0 +1,11 @@
+{
+  "_comment": "Same person under two Leaguepedia links (a redirect or an alternate spelling the build did not resolve): duplicate id → id kept. Applied by scripts/build-player-db.js on every build and once to the existing data by scripts/merge-duplicate-players.js. The old ids stay readable in saved games (players-index.json alias entries). Players who only share a nick (Faker / Faker (Noh Woo-seok)) are different people: never list them here.",
+  "merge": {
+    "airwaks-2": "airwaks",
+    "godv": "godv-wei-zhen",
+    "hjarnan-2": "hjarnan",
+    "hope-wang-jie-2": "hope-wang-jie",
+    "jiizuke-2": "jiizuke",
+    "maplestreet-2": "maplestreet"
+  }
+}

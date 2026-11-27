@@ -1,5 +1,5 @@
 /* Footer shared by all games (index.html = Guess the Pro, path.html, grid.html): one line — "Fan project · Legal notice · TikTok · Discord"
-   — under the game, the full legal notice in a modal, plus the "next game" link in the result popups.
+   — under the game and the full legal notice in a modal (the links to the other games are today.js).
    TikTok and Discord links come from data/site-config.json (set in the admin panel); an empty link is hidden.
    The Riot Games sentence follows Riot's "Legal Jibber Jabber" policy for fan projects.
    On built pages (site.js SITE.built) it also owns the language picker (#langSelect, in the footer): choosing a
@@ -19,28 +19,6 @@
   };
   const LANGS = Object.keys(TEXT);
   const pick = lang => (LANGS.includes(lang) ? lang : 'en');
-
-  // "Next game" link in each game's result popup (#nextGame): Guess the Pro → Career Path → Grid → Guess the Pro.
-  const GAMES = [{ slug: '', text: '?', name: 'Guess the Pro' }, { slug: 'path', text: '⋯', name: 'Career Path' },
-    { slug: 'grid', icon: 'icon-grid3', name: 'Grid' }];
-  const NEXT = { pl: 'Następna gra', en: 'Next game', es: 'Siguiente juego', fr: 'Jeu suivant' };
-  function renderNextGame(lang) {
-    const a = document.getElementById('nextGame');
-    if (!a) return;
-    const next = GAMES[(GAMES.findIndex(g => g.slug === SITE.page) + 1) % GAMES.length];
-    // Built pages keep the language in the URL; the local admin server serves the plain templates.
-    a.href = SITE.built ? SITE.path(lang, next.slug) : '/' + next.slug;
-    a.innerHTML = '';
-    const label = document.createElement('span');
-    label.className = 'next-game-label';
-    label.textContent = NEXT[lang] || NEXT.en;
-    const name = document.createElement('span');
-    name.className = 'next-game-name';
-    // Grid has a drawn icon (.icon-grid3 in style.css), Guess the Pro a character.
-    const icon = Object.assign(document.createElement('span'), { className: next.icon || 'next-game-char', textContent: next.text || '' });
-    name.append(icon, `${typeof next.name === 'string' ? next.name : next.name[lang] || next.name.en} →`);
-    a.append(label, name);
-  }
 
   const el = (tag, props = {}) => Object.assign(document.createElement(tag), props);
 
@@ -81,7 +59,6 @@
       if (links.discord) items.push(el('a', { className: 'footer-link', href: links.discord, target: '_blank', rel: 'noopener', textContent: 'Discord' }));
       line.replaceChildren(...items);
     }
-    renderNextGame(lang);
   }
 
   let currentLang = SITE.lang;

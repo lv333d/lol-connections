@@ -99,7 +99,6 @@ const fill = (s, vars) => Object.keys(vars || {}).reduce((acc, k) => acc.replace
 const t = (key, vars) => fill((I18N[currentLang] && I18N[currentLang][key]) ?? I18N.en[key] ?? key, vars);
 const esc = str => { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; };
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
-const normalize = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9가-힣一-龥]/g, '');
 const todayKey = () => new Date().toISOString().slice(0, 10);
 const addDays = (dateStr, days) => { const d = new Date(dateStr + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); };
 
@@ -108,6 +107,7 @@ let availableDates = [], selectedDate = '', selectedDateIndex = -1;
 let nextBoardDate = '', countdownTimer = null;
 let day = null, answer = null, state = null;
 let players = [], playerById = new Map();
+let canonId = id => id; // merged player ids (data/player-merge.json) → the id kept
 let loadSeq = 0;
 let activeResult = -1, resultItems = [], justShown = 0;
 
@@ -355,8 +355,10 @@ function applyI18n() {
   if (canNativeShare()) $('btnShare').textContent = t('shareNative');
   $('langSelect').value = currentLang;
   $('dateDisplay').textContent = selectedDate ? formatDate(selectedDate) : '';
+  if (availableDates.length) updateNavButtons();
   renderCountdown();
   PROGRESS.renderHeader('path', currentLang);
+  TODAY.render(currentLang);
   if (day) { renderLive(); render(); }
 }
 
@@ -389,7 +391,10 @@ narrowScreen.addEventListener('change', () => {
 function updateNavButtons() {
   $('btnPrevDate').disabled = selectedDateIndex <= 0;
   $('btnNextDate').disabled = selectedDateIndex < 0 || selectedDateIndex >= availableDates.length - 1;
+  fitDateNav(availableDates.map(formatDate), availableDates.length); // arrows stay put (site.js)
 }
+window.addEventListener('lolc:fonts', () => { if (availableDates.length) updateNavButtons(); });
+narrowScreen.addEventListener('change', () => { if (availableDates.length) updateNavButtons(); });
 
 /* ---------- Guide (onboarding.js) ---------- */
 
@@ -415,8 +420,7 @@ async function init() {
   applyI18n();
   maybeOnboard();
   const [manifest, index] = await Promise.all([fetchJson('path/index.json'), fetchJson('data/players-index.json', { revalidate: true })]);
-  players = (index || []).map(p => ({ ...p, n: normalize(p.nick), nm: normalize(p.name) }));
-  playerById = new Map(players.map(p => [p.id, p]));
+  ({ players, byId: playerById, canon: canonId } = PLAYER_SEARCH.prepare(index));
   if (PREVIEW) {
     availableDates = [PREVIEW];
     loadDate(PREVIEW);
@@ -456,6 +460,7 @@ async function loadDate(date) {
   day = d;
   answer = playerById.get(d.playerId) || { id: d.playerId, nick: d.playerId, name: '' };
   state = loadState(date) || newState();
+  state.guesses = state.guesses.map(canonId); // ids of merged duplicate records → the kept record
   if (PREVIEW && previewParams.has('solved')) state.gameOver = true;
   justShown = 0;
   sendResult();   // a finished game the server didn't get yet
@@ -467,20 +472,9 @@ async function loadDate(date) {
 
 /* ---------- Search (any player, with portraits) ---------- */
 
+/** The shared ranking (search.js): nick first, then words of the real name; typos only as a last resort. */
 function search(query) {
-  const q = normalize(query);
-  if (!q) return [];
-  const ranked = [];
-  for (const p of players) {
-    let rank = -1;
-    if (p.n === q) rank = 0;
-    else if (p.n.startsWith(q)) rank = 1;
-    else if (p.n.includes(q)) rank = 2;
-    else if (p.nm.includes(q)) rank = 3;
-    if (rank >= 0) ranked.push([rank, p]);
-  }
-  ranked.sort((a, b) => a[0] - b[0] || (b[1].t || 0) - (a[1].t || 0) || a[1].nick.localeCompare(b[1].nick));
-  return ranked.slice(0, MAX_RESULTS).map(x => x[1]);
+  return PLAYER_SEARCH.find(players, query, { limit: MAX_RESULTS });
 }
 
 function renderResults(query) {
@@ -529,6 +523,7 @@ function moveActive(delta) {
 function guess(id) {
   if (state.gameOver || state.guesses.includes(id)) return;
   state.guesses.push(id);
+  if (state.guesses.length === 1 && !PREVIEW) PROGRESS.started('path', selectedDate);
   if (id === answer.id) state.won = true;
   if (state.won || state.guesses.length >= MAX_GUESSES) endGame();
   saveState();
@@ -546,8 +541,14 @@ function guess(id) {
 function endGame() {
   state.gameOver = true;
   state.finishedOn = todayKey();
-  PROGRESS.renderHeader('path', currentLang);
-  setTimeout(sendResult, 0);
+  const st = state, date = selectedDate;
+  // After the move is saved: the header's streak and the events read the save.
+  setTimeout(() => {
+    PROGRESS.renderHeader('path', currentLang);
+    if (!PREVIEW) PROGRESS.finished('path', date, { result: st.won ? 'won' : st.guesses.length >= MAX_GUESSES ? 'lost' : 'gave-up', tries: st.guesses.length });
+    sendResult();
+    TODAY.render(currentLang);
+  }, 0);
 }
 
 let live = { date: '', cfg: null, data: null };
@@ -595,6 +596,7 @@ function showResult() {
   const line = PROGRESS.resultLine('path', currentLang, selectedDate, day.number);
   $('streakLine').textContent = line;
   $('streakLine').classList.toggle('hidden', !line);
+  TODAY.render(currentLang);
   $('resultOverlay').classList.remove('hidden');
 }
 

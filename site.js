@@ -23,6 +23,51 @@ const SITE = (() => {
   return { LANGS, built, lang, page, path, url: (l, p) => ORIGIN + path(l, p), save };
 })();
 
+/* The ‹ date › line keeps its arrows in place: the box between them (.date-box: "#12" + the date, centred) gets
+   the width of the longest number plus the longest date the arrows can reach (the page's own days, in its language
+   and format), measured with the page's own font. The games call it whenever the date is shown. */
+function fitDateNav(labels, count) {
+  const date = document.getElementById('dateDisplay'), no = document.getElementById('boardNo');
+  const box = date?.closest('.date-box');
+  if (!box || !labels.length) return;
+  const measure = (el, texts) => {
+    const probe = el.cloneNode();
+    probe.removeAttribute('id');
+    probe.style.cssText = 'position:absolute;visibility:hidden;width:auto;min-width:0;overflow:visible';
+    box.parentNode.appendChild(probe);
+    let w = 0;
+    for (const t of texts) { probe.textContent = t; w = Math.max(w, probe.getBoundingClientRect().width); }
+    probe.remove();
+    return w;
+  };
+  const gap = no ? parseFloat(getComputedStyle(no).marginRight) || 0 : 0;
+  const noW = no && count ? measure(no, ['#' + '8'.repeat(String(count).length)]) + gap : 0;
+  box.style.width = Math.ceil(measure(date, [...new Set(labels)]) + noW + 1) + 'px';
+}
+// Web fonts can arrive after the first measurement: measure again once they are in.
+document.fonts?.ready.then(() => window.dispatchEvent(new Event('lolc:fonts')));
+
+/* Umami custom events of the games (progress.js sends them): TRACK(name, data) waits for the deferred Umami script
+   (every 300 ms, up to ~10 s) and sends; nothing from the admin preview (?preview=) or the unbuilt pages of the local
+   admin server, and nothing when this browser opted out (umami.disabled — the Umami script itself checks it too). */
+const TRACK = (() => {
+  const off = !SITE.built || new URLSearchParams(location.search).has('preview');
+  const queue = [];
+  let timer = 0, tries = 0;
+  const flush = () => {
+    if (typeof window.umami?.track === 'function') {
+      clearInterval(timer); timer = 0;
+      while (queue.length) { const [n, d] = queue.shift(); try { window.umami.track(n, d); } catch { /* ignore */ } }
+    } else if (++tries >= 34) { clearInterval(timer); timer = 0; queue.length = 0; } // blocked or offline
+  };
+  return (name, data) => {
+    if (off) return;
+    try { if (localStorage.getItem('umami.disabled')) return; } catch { /* storage blocked: Umami decides */ }
+    queue.push([name, data]);
+    if (!timer) { tries = 0; timer = setInterval(flush, 300); flush(); }
+  };
+})();
+
 /* Owner's own traffic: ?notrack=1 on any page sets umami.disabled in localStorage (the Umami script then sends
    nothing from this browser), ?notrack=0 removes it. The parameter is dropped from the address afterwards. */
 (() => {

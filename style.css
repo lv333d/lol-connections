@@ -414,23 +414,9 @@ header::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 ::-webkit-scrollbar-corner { background: transparent; }
 
-/* Link to the next game at the bottom of a result popup. */
-.next-game {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  margin-top: 20px; padding: 12px 14px; border-radius: 6px; text-decoration: none;
-  border: 1px solid rgba(200, 170, 110, 0.4); background: rgba(200, 170, 110, 0.06);
-  transition: background .2s, border-color .2s;
-}
-.next-game:hover, .next-game:focus-visible { background: rgba(200, 170, 110, 0.14); border-color: var(--gold); outline: none; }
-.next-game-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
-.next-game-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
-
 /* Grid's drawn icon in the text colour: a 3x3 grid (the ▦ character draws 4x4 in most fonts). */
 .icon-grid3 { display: inline-block; width: 0.8em; height: 0.8em; flex-shrink: 0; background: currentColor; }
 .icon-grid3 { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M0 0h4v4H0zM5 0h4v4H5zM10 0h4v4h-4zM0 5h4v4H0zM5 5h4v4H5zM10 5h4v4h-4zM0 10h4v4H0zM5 10h4v4H5zM10 10h4v4h-4z'/%3E%3C/svg%3E") center / contain no-repeat; }
-/* Icon centred on the "next game" name. */
-.next-game-name { display: inline-flex; align-items: center; gap: 8px; }
-.next-game-name .icon-grid3, .next-game-char { color: var(--gold); }
 
 /* ==========================================================================
    Page shell (both games): header — logo, game tabs, streak / stats / guide —, the board line (‹ #37 date ›
@@ -504,6 +490,10 @@ header.site-header::after { display: none; }
 .board-no { font-weight: 800; font-size: 0.9rem; color: var(--cyan); margin-right: 6px; }
 .board-no:empty { display: none; }
 .date-display { font-size: 0.82rem; font-weight: 600; color: var(--gold-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+/* The ‹ › arrows stay put whatever the day: site.js fitDateNav sizes the box between them for the longest number
+   and date the arrows can reach (in the page's language); "#12 date" sits centred in it. */
+.date-box { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 0; }
+.board-no { font-variant-numeric: tabular-nums; }
 .board-line .grid-status {
   display: flex; align-items: baseline; gap: 5px; margin: 0; flex-shrink: 0;
   font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; text-transform: none; letter-spacing: 0;
@@ -553,10 +543,11 @@ header.site-header::after { display: none; }
 .gp-submit:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 
 /* ---------- Footer: one line + language ---------- */
-/* Footer welded to the bottom of the screen: the page is a column at least one screen tall, the game takes the
-   free space and the footer sits last, with nothing under it but its own padding (short pages: one guess on a phone). */
+/* Footer at the bottom of the screen: the page is a column at least one screen tall, the game panel stretches
+   over the free space (no empty gap between the game and the footer) and the footer sits last. */
 body:has(> .site-footer) { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
-body:has(> .site-footer) > .app { width: 100%; flex: 1 0 auto; }
+body:has(> .site-footer) > .app { width: 100%; flex: 1 0 auto; display: flex; flex-direction: column; }
+body:has(> .site-footer) > .app > .game-panel { flex: 1 0 auto; }
 body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
 .site-footer {
   display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 640px; margin: 16px auto 0;
@@ -609,10 +600,7 @@ body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
   .game-panel {
     margin-top: 14px; padding: 8px 20px 20px; border: 1px solid var(--border); border-radius: 12px;
     background: rgba(8, 13, 25, 0.55); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
-    /* The same height in every game (about the Grid's), so a game that has just started doesn't look empty;
-       on short screens no taller than what fits between the header and the footer. */
-    min-height: min(640px, calc(100vh - 170px));
-    min-height: min(640px, calc(100dvh - 170px));
+    /* Stretches down to the footer (the page shell above), so there is no empty gap under the game. */
   }
 }
 
@@ -764,4 +752,89 @@ body:has(> .site-footer) > .site-footer { flex-shrink: 0; margin-top: auto; }
   .site-footer { display: grid; grid-template-columns: auto auto; justify-content: center; align-items: center; column-gap: 10px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
   .site-footer .site-notice { grid-column: 1 / -1; justify-self: center; margin-bottom: 0; }
   .site-footer .lang-select { padding-right: 0; }
+}
+
+/* ==========================================================================
+   Result popup (all games): one screen, never scrolled as a whole. The parts keep their natural size; only the
+   emoji result shrinks (today.js fitResult: the font steps down to fit, and only as a last resort the emoji block
+   alone scrolls). Short screens get tighter spacing.
+   ========================================================================== */
+#resultOverlay .modal { max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow: hidden; padding-bottom: 20px; }
+#resultOverlay .modal > * { flex-shrink: 0; }
+#resultOverlay .emoji-grid {
+  flex-shrink: 1; min-height: 0; max-width: 100%; overflow: hidden; margin: 14px auto;
+  font-size: clamp(0.8rem, calc((100dvh - 470px) / (var(--emoji-rows, 3) * 1.8)), 1.4rem);
+}
+#resultOverlay .emoji-grid.scroll { overflow-y: auto; overscroll-behavior: contain; }
+#resultOverlay .result-actions { margin-top: 14px; }
+#resultOverlay .streak-line { margin-top: 12px; }
+#resultOverlay .grid-countdown { margin-top: 14px; padding-top: 10px; }
+
+/* "Play also today" — the other games and whether they were played today (today.js). */
+.play-also { width: 100%; margin-top: 14px; }
+.play-also:empty { display: none; }
+.play-also-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 6px; }
+.play-also-links { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.play-also-link {
+  flex: 1 1 0; min-width: 0; max-width: 220px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 2px 7px; padding: 6px 10px; border-radius: 6px; text-decoration: none; color: var(--gold-light);
+  border: 1px solid rgba(200, 170, 110, 0.45); background: rgba(200, 170, 110, 0.07); transition: background .2s, border-color .2s;
+}
+.play-also-link:hover, .play-also-link:focus-visible { background: rgba(200, 170, 110, 0.15); border-color: var(--gold); outline: none; }
+.play-also-link.is-done { border-color: rgba(74, 224, 136, 0.35); background: rgba(74, 224, 136, 0.05); }
+.play-also-icon { display: inline-flex; color: var(--gold); flex-shrink: 0; }
+.play-also-icon svg { width: 16px; height: 16px; }
+.play-also-name { font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.86rem; white-space: nowrap; }
+.play-also-done { font-weight: 700; color: #4ae088; font-size: 0.9rem; }
+.today-chip {
+  flex-shrink: 0; padding: 1px 7px; border-radius: 999px; font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.4px; white-space: nowrap; border: 1px solid currentColor;
+}
+.today-chip-new { color: var(--cyan); }
+.today-chip-started { color: #ffb547; }
+.today-chip-done { color: #4ae088; }
+
+/* Phones and short windows: tighter popup. */
+@media (max-height: 760px), (max-width: 520px) {
+  #resultOverlay .modal { padding: 18px 14px 14px; max-height: calc(100vh - 20px); max-height: calc(100dvh - 20px); }
+  #resultOverlay .modal h2 { margin-bottom: 8px; font-size: 1.1rem; padding: 0 30px; }
+  #resultOverlay .result-score { font-size: 1.5rem; line-height: 1.2; }
+  #resultOverlay .gp-result-player { margin: 2px 0 6px; gap: 10px; }
+  #resultOverlay .gp-result-player .avatar { width: 48px; height: 48px; }
+  #resultOverlay .gp-answer-nick { font-size: 1.2rem; }
+  #resultOverlay .path-bar-small { --circle: 34px; gap: 12px; margin-bottom: 2px; }
+  #resultOverlay .emoji-grid { margin: 8px auto; line-height: 1.6; }
+  #resultOverlay .result-actions { margin-top: 8px; gap: 8px; }
+  #resultOverlay .result-actions .btn { padding-top: 10px; padding-bottom: 10px; }
+  #resultOverlay .streak-line { margin-top: 8px; font-size: 0.85rem; }
+  #resultOverlay .grid-countdown { margin-top: 8px; padding-top: 6px; font-size: 0.64rem; }
+  #resultOverlay .grid-countdown-time { font-size: 1.2rem; margin-top: 0; }
+  .play-also { margin-top: 10px; }
+  .play-also-link { padding: 4px 8px; gap: 5px; }
+  .play-also-name { font-size: 0.78rem; }
+}
+@media (max-height: 660px) {
+  #resultOverlay .modal { padding-top: 12px; }
+  #resultOverlay .grid-countdown { display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+  #resultOverlay .play-also-label { margin-bottom: 4px; }
+}
+
+/* Phones held sideways (wide, under ~480 px tall): the popup uses the width — result on the left, buttons and links
+   on the right — so it still fits one screen. Only if even that doesn't fit, the popup itself scrolls (last resort;
+   the emoji block already scrolls first). */
+@media (max-height: 480px) and (min-width: 600px) {
+  #resultOverlay .modal {
+    max-width: 760px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-auto-flow: row dense;
+    column-gap: 22px; align-content: start; align-items: center; justify-items: center; overflow-y: auto; padding: 12px 16px;
+  }
+  #resultOverlay .modal > * { grid-column: 1; }
+  #resultOverlay .modal > .modal-close { grid-column: 2; }
+  #resultOverlay .result-actions, #resultOverlay .streak-line, #resultOverlay .grid-countdown, #resultOverlay .play-also { grid-column: 2; margin-top: 6px; }
+  #resultOverlay .result-actions { grid-row: 1 / span 2; align-self: end; }
+  #resultOverlay .modal h2 { font-size: 1rem; margin-bottom: 4px; padding: 0; }
+  #resultOverlay .gp-result-player .avatar { width: 40px; height: 40px; }
+  #resultOverlay .path-bar-small { --circle: 30px; gap: 8px; }
+  #resultOverlay .grid-countdown { display: flex; align-items: baseline; justify-content: center; gap: 8px; padding-top: 4px; }
+  #resultOverlay .grid-countdown-time { font-size: 1.05rem; }
+  .play-also-label { margin-bottom: 2px; }
 }

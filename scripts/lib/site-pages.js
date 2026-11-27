@@ -1,7 +1,7 @@
 // Static, per-language HTML for the public site (used by scripts/build-site.js).
 // Each template (index.html = Guess the Pro, path.html, grid.html — English in the repo, which the local admin server serves as is)
 // becomes /, /pl, /es, /fr (+ /path, /grid) with the language's text already in the HTML: <html lang>, translated
-// description and Open Graph tags, canonical + hreflang (x-default = English at /), the game's UI strings
+// <title>, description and Open Graph / Twitter tags (each game its own preview picture), canonical + hreflang (x-default = English at /), the game's UI strings
 // (data-i18n keys from grid.js / guess.js I18N) — the same text the game's applyI18n() fills in, so nothing changes for players and search engines get the rules without running JS.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -63,6 +63,13 @@ export async function buildPages(root) {
         `  <meta property="og:locale" content="${OG_LOCALE[lang]}">`,
         ...LANGS.filter(l => l !== lang).map(l => `  <meta property="og:locale:alternate" content="${OG_LOCALE[l]}">`)
       ].join('\n'), 'og:url');
+      // Title and link preview in the page's language; each game has its own picture (scripts/make-og-images.js).
+      const image = `${SITE}/assets/og/${page.id}-${lang}.png`;
+      html = replaceOnce(html, /<title>[^<]*<\/title>/, `<title>${escHtml(meta.title)}</title>`, '<title>');
+      html = replaceOnce(html, /<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${image}">`, 'og:image');
+      html = replaceOnce(html, /<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${image}">
+  <meta name="twitter:image:alt" content="${escAttr(meta.imageAlt)}">`, 'twitter:image');
+      html = replaceOnce(html, /<meta property="og:image:alt" content="[^"]*">/, `<meta property="og:image:alt" content="${escAttr(meta.imageAlt)}">`, 'og:image:alt');
       html = html.replace(/(<meta (?:property="og|name="twitter):title" content=")[^"]*"/g, `$1${escAttr(meta.ogTitle)}"`)
         .replace(/(<meta (?:property="og|name="twitter):description" content=")[^"]*"/g, `$1${escAttr(ogDesc)}"`);
       html = html.replace(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/, (m, json) => {
@@ -70,6 +77,8 @@ export async function buildPages(root) {
         for (const node of data['@graph']) {
           if (node['@type'] === 'WebSite') continue;
           Object.assign(node, { url, description: meta.desc, inLanguage: lang });
+          if (node.image) node.image = { ...node.image, url: image };
+          if (node.screenshot) node.screenshot = image;
         }
         return `<script type="application/ld+json">\n  ${JSON.stringify(data).replace(/</g, '\\u003c')}\n  </script>`;
       });

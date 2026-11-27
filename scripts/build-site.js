@@ -11,7 +11,7 @@ import { SITE, buildPages, sitemap } from './lib/site-pages.js';
 
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
-  '404.html', 'site.js', 'progress.js', 'onboarding.js', 'live.js', 'dossier.js', 'grid.js', 'guess.js', 'path.js', 'footer.js', 'style.css', 'grid.css', 'guess.css', 'path.css', 'icon.svg',
+  '404.html', 'site.js', 'progress.js', 'search.js', 'onboarding.js', 'live.js', 'today.js', 'dossier.js', 'grid.js', 'guess.js', 'path.js', 'footer.js', 'style.css', 'grid.css', 'guess.css', 'path.css', 'icon.svg',
   'site.webmanifest', 'grid', 'guess', 'path', 'players', 'assets', 'data/players-index.json', 'data/guess-players.json', 'data/site-config.json',
   '_headers' // Cloudflare Pages / Netlify response headers
 ];

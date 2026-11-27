@@ -31,7 +31,7 @@
   <meta property="og:url" content="https://connect4.lol/">
   <meta property="og:title" content="Guess the Pro — LoL Connect">
   <meta property="og:description" content="Guess the daily League of Legends pro player.">
-  <meta property="og:image" content="https://connect4.lol/assets/og-image.png">
+  <meta property="og:image" content="https://connect4.lol/assets/og/guess-en.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="LoL Connect — daily League of Legends esports puzzles">
@@ -39,7 +39,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Guess the Pro — LoL Connect">
   <meta name="twitter:description" content="Guess the daily League of Legends pro player.">
-  <meta name="twitter:image" content="https://connect4.lol/assets/og-image.png">
+  <meta name="twitter:image" content="https://connect4.lol/assets/og/guess-en.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="grid.css">
   <link rel="stylesheet" href="guess.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Guess the Pro","url":"https://connect4.lol/","description":"Guess the daily League of Legends pro player.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og-image.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og-image.png"}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Guess the Pro","url":"https://connect4.lol/","description":"Guess the daily League of Legends pro player.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og/guess-en.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og/guess-en.png"}]}
   </script>
 </head>
 <body>
@@ -77,7 +77,7 @@
       <div class="board-line">
         <div class="date-nav-wrap">
           <button id="btnPrevDate" class="date-nav-btn" aria-label="Previous day">‹</button>
-          <span id="boardNo" class="board-no"></span><span id="dateDisplay" class="date-display"></span>
+          <span class="date-box"><span id="boardNo" class="board-no"></span><span id="dateDisplay" class="date-display"></span></span>
           <button id="btnNextDate" class="date-nav-btn" aria-label="Next day">›</button>
         </div>
         <div class="grid-status"><span id="guessesLabel" data-i18n="guessesLabel"></span> <strong id="guessesLeft" class="guesses-left"></strong></div>
@@ -123,6 +123,7 @@
         </div>
       </div>
     </main>
+
   </div>
 
   <!-- Footer: one line (footer.js fills it: fan project · legal notice · TikTok · Discord) and the language. -->
@@ -156,7 +157,8 @@
         <div id="nextBoardLabel"></div>
         <div id="nextBoardTime" class="grid-countdown-time"></div>
       </div>
-      <a id="nextGame" class="next-game" href="/"></a>
+      <!-- The other games of the day and whether they were played today (today.js). -->
+      <div id="playAlso" class="play-also"></div>
     </div>
   </div>
 
@@ -178,8 +180,10 @@
 
   <script src="site.js"></script>
   <script src="progress.js"></script>
+  <script src="search.js"></script>
   <script src="onboarding.js"></script>
   <script src="live.js"></script>
+  <script src="today.js"></script>
   <script src="dossier.js"></script>
   <script src="guess.js"></script>
   <script src="footer.js"></script>

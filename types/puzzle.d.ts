@@ -68,6 +68,8 @@ export interface GridBoard {
 
 /** data/players-index.json — slim list loaded by the browser for the search modal. */
 export interface PlayerIndexEntry { id: string; nick: string; name: string; /** tournaments played — search ranking */ t: number }
+/** Also in players-index.json: an id merged into another record (data/player-merge.json) — search.js resolves it. */
+export interface PlayerIndexAlias { id: string; alias: string }
 
 /** data/teams.json — franchises (renames such as SK Telecom T1 → T1 are merged). */
 export interface Team { id: string; name: string; short: string; logo: string;
