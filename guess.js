@@ -287,37 +287,59 @@ function teamTile(p, cmp) {
   const title = ok === 'part' ? `${name} — ${t('sharedOrg', { teams: cmp.shared.join(', ') })}` : name;
   if (!p.team) return tile('gp-team', ok, title, el('span', 'gp-text gp-none', esc(t('none'))));
   const img = logo(`assets/logos/teams/${encodeURIComponent(p.team.id)}.webp`, 'emblem-team', p.team.short);
-  if (img.tagName === 'IMG') markDarkLogo(img, p.team.id);
+  if (img.tagName === 'IMG') fitLogo(img, p.team.id);
   return tile('gp-team', ok, title, img);
 }
 
-/* Logos that are dark themselves (Dplus KIA, BRION, TSM…) get a light halo instead of the dark one (guess.css):
-   once loaded, the logo's average brightness over its visible pixels is measured on a small canvas — once per team. */
-const DARK_LOGO = 0.06; // mean relative luminance below which a logo counts as dark
-const logoTone = new Map(); // team id → true (dark) | false
-function markDarkLogo(img, id) {
-  const apply = () => img.classList.toggle('logo-dark', logoTone.get(id) === true);
-  if (logoTone.has(id)) return apply();
+/* Team logos, measured once per team after loading (a 64×64 canvas, the logo fitted in as on the tile):
+   - size: logos are drawn with very different amounts of empty space and shapes (GEN fills its square, BLG and T1 are
+     thin wordmarks), so each is scaled to cover about the same area (LOGO_AREA of its box) and its visible part is
+     centred — never past the tile's edge (LOGO_MAX); emblems are never shrunk (LOGO_MIN), only solid squares are;
+   - halo: logos that are dark themselves (Dplus KIA, BRION, TSM…) get a light halo instead of the dark one (guess.css). */
+const DARK_LOGO = 0.06;  // mean relative luminance of the visible pixels below which a logo counts as dark
+const LOGO_AREA = 0.42;  // target share of the logo box covered by the logo (the median of the current logos)
+const LOGO_MAX = 1.24;   // the logo box is 78% of the tile: up to ~97% of the tile
+const LOGO_MIN = 1.05;      // compact emblems (round, shields) are never shrunk: they would look smaller than the rest
+const LOGO_MIN_SOLID = 0.85; // only logos that are a filled square (NA, SEN: > 90% of their outline) get smaller
+const logoFit = new Map(); // team id → { dark, s, dx, dy }
+function fitLogo(img, id) {
+  const apply = () => {
+    const f = logoFit.get(id);
+    if (!f) return;
+    img.classList.toggle('logo-dark', f.dark);
+    img.style.transform = `scale(${f.s.toFixed(3)}) translate(${f.dx.toFixed(1)}%, ${f.dy.toFixed(1)}%)`;
+  };
+  if (logoFit.has(id)) return apply();
   img.addEventListener('load', () => {
-    if (!logoTone.has(id)) {
-      try {
-        const c = document.createElement('canvas');
-        c.width = c.height = 32;
-        const g = c.getContext('2d', { willReadFrequently: true });
-        g.drawImage(img, 0, 0, 32, 32);
-        const d = g.getImageData(0, 0, 32, 32).data;
-        const lin = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
-        let sum = 0, n = 0;
-        for (let i = 0; i < d.length; i += 4) {
-          if (d[i + 3] < 128) continue;
-          sum += 0.2126 * lin(d[i]) + 0.7152 * lin(d[i + 1]) + 0.0722 * lin(d[i + 2]);
-          n++;
-        }
-        logoTone.set(id, n > 0 && sum / n < DARK_LOGO);
-      } catch { logoTone.set(id, false); }
-    }
+    if (!logoFit.has(id)) logoFit.set(id, measureLogo(img));
     apply();
   }, { once: true });
+}
+function measureLogo(img) {
+  const N = 64;
+  try {
+    const c = document.createElement('canvas');
+    c.width = c.height = N;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    const k = Math.min(N / img.naturalWidth, N / img.naturalHeight); // object-fit: contain
+    const w = img.naturalWidth * k, h = img.naturalHeight * k;
+    g.drawImage(img, (N - w) / 2, (N - h) / 2, w, h);
+    const d = g.getImageData(0, 0, N, N).data;
+    const lin = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    let sum = 0, n = 0, x0 = N, y0 = N, x1 = -1, y1 = -1;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const i = (y * N + x) * 4;
+      if (d[i + 3] < 100) continue;
+      sum += 0.2126 * lin(d[i]) + 0.7152 * lin(d[i + 1]) + 0.0722 * lin(d[i + 2]);
+      n++;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    if (!n) return { dark: false, s: 1, dx: 0, dy: 0 };
+    const bw = (x1 - x0 + 1) / N, bh = (y1 - y0 + 1) / N;
+    const area = n / (N * N), solid = area / (bw * bh) > 0.9;
+    const s = Math.min(LOGO_MAX / Math.max(bw, bh), Math.max(solid ? LOGO_MIN_SOLID : LOGO_MIN, Math.sqrt(LOGO_AREA / area)));
+    return { dark: sum / n < DARK_LOGO, s, dx: (0.5 - (x0 + x1 + 1) / 2 / N) * 100, dy: (0.5 - (y0 + y1 + 1) / 2 / N) * 100 };
+  } catch { return { dark: false, s: 1, dx: 0, dy: 0 }; }
 }
 
 function numTile(cls, value, cmp, upKey, downKey) {
