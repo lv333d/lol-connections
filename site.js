@@ -4,7 +4,7 @@
    local admin server pick the language from the saved choice or the browser and switch it in place. */
 const SITE = (() => {
   const LANGS = ['pl', 'en', 'es', 'fr'];
-  const ORIGIN = 'https://connect4.lol';
+  const ORIGIN = 'https://lolconnect.net';
   const built = document.documentElement.hasAttribute('data-built');
   const browserLang = (navigator.languages?.length ? navigator.languages : [navigator.language || ''])
     .map(l => l.slice(0, 2).toLowerCase()).find(l => LANGS.includes(l)) || 'en';

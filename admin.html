@@ -291,7 +291,7 @@
         <div class="stats-source">
           <span class="muted">Źródło:</span>
           <button class="btn btn-sm" id="srcLocal">💻 Lokalne (przykładowe)</button>
-          <button class="btn btn-sm btn-ghost" id="srcLive">🌐 connect4.lol</button>
+          <button class="btn btn-sm btn-ghost" id="srcLive">🌐 lolconnect.net</button>
           <span class="muted" id="srcNote"></span>
         </div>
         <div class="db-box" id="seedBox" style="margin-top:12px">
@@ -961,7 +961,7 @@
     $('cfgSaveStatus').textContent = 'Zapisuję…';
     try {
       await api(`/api/admin/config${statsView.source === 'live' ? '?source=live' : ''}`, { method: 'PUT', body: { showThreshold: Number($('cfgThreshold').value) } });
-      $('cfgSaveStatus').textContent = statsView.source === 'live' ? 'Zapisano na connect4.lol (strona pobierze w ciągu ~5 min).' : 'Zapisano lokalnie.';
+      $('cfgSaveStatus').textContent = statsView.source === 'live' ? 'Zapisano na lolconnect.net (strona pobierze w ciągu ~5 min).' : 'Zapisano lokalnie.';
     } catch (e) { $('cfgSaveStatus').textContent = e.message; }
   });
   document.querySelector('[data-page="stats"]').addEventListener('click', () => loadStats());

@@ -361,11 +361,11 @@ async function publish() {
 
 // The game served here talks to the same /api/result, /api/stats, /api/config as on Vercel, backed by an in-memory
 // store with sample data (admin: "Statystyki" → none / low / high). The admin's statistics can instead come from
-// the live site: ADMIN_TOKEN (and optionally STATS_URL, default https://connect4.lol) in .env.local — the token
+// the live site: ADMIN_TOKEN (and optionally STATS_URL, default https://lolconnect.net) in .env.local — the token
 // stays on this server.
 const statsStore = memoryStore();
 let statsLevel = 'none';
-const STATS_URL = (process.env.STATS_URL || 'https://connect4.lol').replace(/\/+$/, '');
+const STATS_URL = (process.env.STATS_URL || 'https://lolconnect.net').replace(/\/+$/, '');
 const localCtx = req => ({
   store: statsStore,
   ipHash: '',   // no rate limit locally

@@ -9,13 +9,13 @@
   (function () {
     try {
       var d = document.documentElement, l = localStorage.getItem('lolc_lang');
-      if (!d.hasAttribute('data-built') || d.lang !== 'en' || !/^(pl|es|fr)$/.test(l || '')) return;
+      if (window.__lolcMoving || !d.hasAttribute('data-built') || d.lang !== 'en' || !/^(pl|es|fr)$/.test(l || '')) return;
       var p = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/\/+$/, '');
       location.replace('/' + l + p + location.search + location.hash);
     } catch (e) { /* storage blocked */ }
   })();
   </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="6edf7be9-7565-4b43-9c79-726ecbb19a5b" data-domains="lolconnect.net"></script>
   <meta charset="UTF-8">
   <!-- Relative URLs (assets, data, scripts) resolve from the site root, also on /pl/guess etc. -->
   <base href="/">
@@ -24,14 +24,14 @@
   <title>Guess the Pro — LoL Connect</title>
   <meta name="description" content="Guess the daily League of Legends pro player. Each guess shows what they share with the answer: nationality, league, team, international titles, debut year and whether they played together.">
   <meta name="robots" content="max-image-preview:large">
-  <link rel="canonical" href="https://connect4.lol/">
+  <link rel="canonical" href="https://lolconnect.net/">
   <!-- Open Graph / Facebook / Discord -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="LoL Connect">
-  <meta property="og:url" content="https://connect4.lol/">
+  <meta property="og:url" content="https://lolconnect.net/">
   <meta property="og:title" content="Guess the Pro — LoL Connect">
   <meta property="og:description" content="Guess the daily League of Legends pro player.">
-  <meta property="og:image" content="https://connect4.lol/assets/og/guess-en.png">
+  <meta property="og:image" content="https://lolconnect.net/assets/og/guess-en.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="LoL Connect — daily League of Legends esports puzzles">
@@ -39,7 +39,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Guess the Pro — LoL Connect">
   <meta name="twitter:description" content="Guess the daily League of Legends pro player.">
-  <meta name="twitter:image" content="https://connect4.lol/assets/og/guess-en.png">
+  <meta name="twitter:image" content="https://lolconnect.net/assets/og/guess-en.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="grid.css">
   <link rel="stylesheet" href="guess.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://connect4.lol/#website","name":"LoL Connect","url":"https://connect4.lol/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Guess the Pro","url":"https://connect4.lol/","description":"Guess the daily League of Legends pro player.","isPartOf":{"@id":"https://connect4.lol/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://connect4.lol/assets/og/guess-en.png","width":1200,"height":630},"screenshot":"https://connect4.lol/assets/og/guess-en.png"}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://lolconnect.net/#website","name":"LoL Connect","url":"https://lolconnect.net/","inLanguage":["en","pl","es","fr"]},{"@type":["VideoGame","WebApplication"],"name":"LoL Connect — Guess the Pro","url":"https://lolconnect.net/","description":"Guess the daily League of Legends pro player.","isPartOf":{"@id":"https://lolconnect.net/#website"},"genre":"Puzzle","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":["en","pl","es","fr"],"isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":{"@type":"ImageObject","url":"https://lolconnect.net/assets/og/guess-en.png","width":1200,"height":630},"screenshot":"https://lolconnect.net/assets/og/guess-en.png"}]}
   </script>
 </head>
 <body>

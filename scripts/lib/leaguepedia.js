@@ -8,7 +8,7 @@ import { ROOT } from './puzzles.js';
 try { process.loadEnvFile(path.join(ROOT, '.env.local')); } catch { /* optional */ }
 
 const API = 'https://lol.fandom.com/api.php';
-const USER_AGENT = 'LoLConnectBot/1.0 (https://connect4.lol; data import for a fan puzzle game)';
+const USER_AGENT = 'LoLConnectBot/1.0 (https://lolconnect.net; data import for a fan puzzle game)';
 const CACHE_DIR = path.join(ROOT, '.cache', 'leaguepedia');
 const MAX_INTERVAL_MS = 15_000;
 const MAX_RETRIES = 6;

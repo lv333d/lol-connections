@@ -4,10 +4,11 @@
 // - writes every page in every language from the English templates (scripts/lib/site-pages.js):
 //   / and /guess, and the same under /pl, /es, /fr;
 // - writes robots.txt and sitemap.xml (the pages only — never the board JSON files).
-import { cp, rm, mkdir, access, writeFile } from 'node:fs/promises';
+import { cp, rm, mkdir, access, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT } from './lib/puzzles.js';
 import { SITE, buildPages, sitemap } from './lib/site-pages.js';
+import { withMoveScript } from './lib/domain-move.js';
 
 const DIST = path.join(ROOT, 'dist');
 const PUBLIC = [
@@ -25,6 +26,9 @@ for (const entry of PUBLIC) {
   await cp(src, path.join(DIST, entry), { recursive: true });
   copied++;
 }
+
+// The 404 page moves visitors of the old domain too (with their saves), like every other page.
+await writeFile(path.join(DIST, '404.html'), withMoveScript(await readFile(path.join(ROOT, '404.html'), 'utf8')));
 
 const pages = await buildPages(ROOT);
 for (const { file, html } of pages) {

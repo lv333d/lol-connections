@@ -7,8 +7,9 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 import { LANGS, OG_LOCALE, META } from './site-i18n.js';
+import { NEW_ORIGIN, withMoveScript } from './domain-move.js';
 
-export const SITE = 'https://connect4.lol';
+export const SITE = NEW_ORIGIN;
 export const PAGES = [
   { id: 'guess', template: 'index.html', slug: '', i18nFrom: 'guess.js' },
   { id: 'path', template: 'path.html', slug: 'path', i18nFrom: 'path.js' },
@@ -97,6 +98,7 @@ export async function buildPages(root) {
         .replace(/href="\/grid" class="game-tab/g, `href="${pagePath(lang, 'grid')}" class="game-tab`)
         .replace(`<option value="${lang}">`, `<option value="${lang}" selected>`);
 
+      html = withMoveScript(html); // connect4.lol → lolconnect.net, phase 1 (scripts/lib/domain-move.js)
       out.push({ file: pageFile(lang, page.slug), html, url, lang, page: page.slug });
     }
   }
