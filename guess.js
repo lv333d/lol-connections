@@ -286,7 +286,38 @@ function teamTile(p, cmp) {
   const name = p.team ? p.team.name : t('none');
   const title = ok === 'part' ? `${name} — ${t('sharedOrg', { teams: cmp.shared.join(', ') })}` : name;
   if (!p.team) return tile('gp-team', ok, title, el('span', 'gp-text gp-none', esc(t('none'))));
-  return tile('gp-team', ok, title, logo(`assets/logos/teams/${encodeURIComponent(p.team.id)}.webp`, 'emblem-team', p.team.short));
+  const img = logo(`assets/logos/teams/${encodeURIComponent(p.team.id)}.webp`, 'emblem-team', p.team.short);
+  if (img.tagName === 'IMG') markDarkLogo(img, p.team.id);
+  return tile('gp-team', ok, title, img);
+}
+
+/* Logos that are dark themselves (Dplus KIA, BRION, TSM…) get a light halo instead of the dark one (guess.css):
+   once loaded, the logo's average brightness over its visible pixels is measured on a small canvas — once per team. */
+const DARK_LOGO = 0.06; // mean relative luminance below which a logo counts as dark
+const logoTone = new Map(); // team id → true (dark) | false
+function markDarkLogo(img, id) {
+  const apply = () => img.classList.toggle('logo-dark', logoTone.get(id) === true);
+  if (logoTone.has(id)) return apply();
+  img.addEventListener('load', () => {
+    if (!logoTone.has(id)) {
+      try {
+        const c = document.createElement('canvas');
+        c.width = c.height = 32;
+        const g = c.getContext('2d', { willReadFrequently: true });
+        g.drawImage(img, 0, 0, 32, 32);
+        const d = g.getImageData(0, 0, 32, 32).data;
+        const lin = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+        let sum = 0, n = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          if (d[i + 3] < 128) continue;
+          sum += 0.2126 * lin(d[i]) + 0.7152 * lin(d[i + 1]) + 0.0722 * lin(d[i + 2]);
+          n++;
+        }
+        logoTone.set(id, n > 0 && sum / n < DARK_LOGO);
+      } catch { logoTone.set(id, false); }
+    }
+    apply();
+  }, { once: true });
 }
 
 function numTile(cls, value, cmp, upKey, downKey) {
