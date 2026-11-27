@@ -384,6 +384,29 @@ document.addEventListener('keydown', e => {
 window.addEventListener('scroll', closeTip, { passive: true });
 window.addEventListener('resize', closeTip);
 
+/* ---------- Condition names that don't fit get smaller ----------
+   A caption keeps its size when it fits (two lines at most, no word wider than the card) and steps down to
+   CAPTION_MIN_PX otherwise, so "JACKEYLOVE" or "KOREA POŁUDNIOWA" is never cut. Run after every render, when the
+   search window opens, on resize and once the web fonts are in. */
+const CAPTION_MIN_PX = 6;
+function fitCaptions(root = document) {
+  root.querySelectorAll('.cond-caption').forEach(c => {
+    c.style.fontSize = '';
+    c.style.letterSpacing = '';
+    if (!c.clientWidth) return; // hidden
+    let px = parseFloat(getComputedStyle(c).fontSize);
+    while ((c.scrollWidth > c.clientWidth + 0.5 || c.scrollHeight > c.clientHeight + 0.5) && px > CAPTION_MIN_PX) {
+      px = Math.max(CAPTION_MIN_PX, px - 0.5);
+      c.style.fontSize = px + 'px';
+      c.style.letterSpacing = '0'; // shrunk captions drop the extra spacing first
+    }
+  });
+}
+let captionFrame = 0;
+const scheduleCaptions = () => { cancelAnimationFrame(captionFrame); captionFrame = requestAnimationFrame(() => fitCaptions()); };
+window.addEventListener('resize', scheduleCaptions);
+document.fonts?.ready.then(scheduleCaptions);
+
 /* ---------- Game ---------- */
 
 function applyI18n() {
@@ -624,6 +647,7 @@ function render() {
 
   $('btnGiveUp').classList.toggle('hidden', state.gameOver);
   $('btnShowResults').classList.toggle('hidden', !state.gameOver);
+  scheduleCaptions();
 }
 
 /* ---------- Search modal ---------- */
@@ -640,6 +664,7 @@ function openSearch(i) {
   setSearchMsg(t('typeMore'));
   renderResults('');
   $('searchOverlay').classList.remove('hidden');
+  fitCaptions($('searchConds'));
   $('searchInput').focus();
 }
 

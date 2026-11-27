@@ -41,7 +41,8 @@ function fitDateNav(labels, count) {
     return w;
   };
   const gap = no ? parseFloat(getComputedStyle(no).marginRight) || 0 : 0;
-  const noW = no && count ? measure(no, ['#' + '8'.repeat(String(count).length)]) + gap : 0;
+  // At least three digits: a day's number can be past the count of days the arrows reach (admin preview: one day).
+  const noW = no ? measure(no, ['#' + '8'.repeat(Math.max(3, String(count || 0).length))]) + gap : 0;
   box.style.width = Math.ceil(measure(date, [...new Set(labels)]) + noW + 1) + 'px';
 }
 // Web fonts can arrive after the first measurement: measure again once they are in.
