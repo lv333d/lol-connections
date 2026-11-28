@@ -157,20 +157,20 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
 .cond.small .cond-icon { width: 64px; height: 64px; }
 /* League logos are white traces on a transparent background (scripts/make-league-logos.js): straight on the card. */
 .cond-league .cond-icon > img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)); }
-/* As in Guess the Pro: team logos without the light plate, with a soft halo — dark by default, light for
-   logos that are dark themselves (grid.js fitLogo marks them .logo-dark and evens out their size). */
-.cond-team .cond-icon > img {
+/* As in Guess the Pro: team logos, trophies and the coach/retired icons without a light plate, with a soft halo — dark
+   by default, light for logos that are dark themselves (grid.js fitLogo marks them and evens out their size). */
+:is(.cond-team, .cond-trophy, .cond-coach, .cond-retired) .cond-icon > img {
   width: 78%; height: 78%; object-fit: contain;
   filter: drop-shadow(0 0 3.5px rgba(5, 8, 17, 0.45)) drop-shadow(0 0 1px rgba(5, 8, 17, 0.25));
 }
-.cond-team .cond-icon > img.logo-dark {
+:is(.cond-team, .cond-trophy, .cond-coach, .cond-retired) .cond-icon > img.logo-dark {
   filter: drop-shadow(0 0 1px rgba(240, 230, 210, 0.75)) drop-shadow(0 0 3.5px rgba(240, 230, 210, 0.4));
 }
 /* Logos only partly near-black (100 Thieves' "100", the ELEMENTS lettering, Liquid's shield edge): a tight light outline only —
    a wide glow would fill the gaps of thin lettering ("THIEVES"). */
-.cond-team .cond-icon > img.logo-mixed { filter: drop-shadow(0 0 0.8px rgba(240, 230, 210, 0.8)); }
+:is(.cond-team, .cond-trophy, .cond-coach, .cond-retired) .cond-icon > img.logo-mixed { filter: drop-shadow(0 0 0.8px rgba(240, 230, 210, 0.8)); }
 /* Black one-colour logos in negative: white, with the default dark halo. */
-.cond-team .cond-icon > img.logo-neg {
+:is(.cond-team, .cond-trophy, .cond-coach, .cond-retired) .cond-icon > img.logo-neg {
   filter: invert(1) drop-shadow(0 0 3.5px rgba(5, 8, 17, 0.45)) drop-shadow(0 0 1px rgba(5, 8, 17, 0.25));
 }
 .cond.small .cond-caption { font-size: 0.78rem; }
@@ -216,12 +216,6 @@ button.cell:active { background: rgba(200, 170, 110, 0.14); border-color: var(--
 }
 .cond-tip.below::after { bottom: auto; top: -6px; border-width: 1px 0 0 1px; }
 .cond { cursor: pointer; }
-/* Trophy cut-outs and the retired icon (a mouse hung up on a hook) sit on the same light plate as team logos. */
-.cond-trophy .cond-icon > img, .cond-retired .cond-icon > img {
-  background: #ece6d6; border-radius: 10px; padding: 3px;
-  width: 100%; height: 100%; object-fit: contain;
-  box-shadow: 0 0 0 1px rgba(200, 170, 110, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
-}
 
 .cond-teammate .avatar { width: 100%; height: 100%; border: 2px solid var(--gold); }
 .cond-teammate .handshake {

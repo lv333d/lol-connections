@@ -242,7 +242,7 @@ function logo(src, emblemClass, text, attrs = {}) {
   return img;
 }
 
-/* Team logos (as in Guess the Pro, guess.js fitLogo, tuned for the Grid's dark cards), measured once per team after loading (a 64×64 canvas, the logo fitted in as on the tile):
+/* Team logos, trophies and the coach/retired icons (as in Guess the Pro, guess.js fitLogo, tuned for the Grid's dark cards), measured once per team after loading (a 64×64 canvas, the logo fitted in as on the tile):
    - size: logos are drawn with very different amounts of empty space and shapes (GEN fills its square, BLG and T1 are
      thin wordmarks), so each is scaled to cover about the same area (LOGO_AREA of its box) and its visible part is
      centred — never past the tile's edge (LOGO_MAX); emblems are never shrunk (LOGO_MIN), only solid squares are;
@@ -256,7 +256,7 @@ const LOGO_AREA = 0.42;  // target share of the logo box covered by the logo (th
 const LOGO_MAX = 1.24;   // the logo box is 78% of the tile: up to ~97% of the tile
 const LOGO_MIN = 1.05;      // compact emblems (round, shields) are never shrunk: they would look smaller than the rest
 const LOGO_MIN_SOLID = 0.85; // only logos that are a filled square (NA, SEN: > 90% of their outline) get smaller
-const logoFit = new Map(); // team id → { dark, mixed, neg, s, dx, dy }
+const logoFit = new Map(); // team id (or kind:id) → { dark, mixed, neg, s, dx, dy }
 function fitLogo(img, id) {
   const apply = () => {
     const f = logoFit.get(id);
@@ -278,8 +278,9 @@ function measureLogo(img) {
     const c = document.createElement('canvas');
     c.width = c.height = N;
     const g = c.getContext('2d', { willReadFrequently: true });
-    const k = Math.min(N / img.naturalWidth, N / img.naturalHeight); // object-fit: contain
-    const w = img.naturalWidth * k, h = img.naturalHeight * k;
+    const nw = img.naturalWidth || N, nh = img.naturalHeight || N; // an SVG with only a viewBox may report 0
+    const k = Math.min(N / nw, N / nh); // object-fit: contain
+    const w = nw * k, h = nh * k;
     g.drawImage(img, (N - w) / 2, (N - h) / 2, w, h);
     const d = g.getImageData(0, 0, N, N).data;
     const lin = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
@@ -340,10 +341,10 @@ function conditionBadge(c, small = false) {
       break;
     case 'coach':
     case 'retired':
-      icon.appendChild(logo(conditionImage(c), 'emblem-team', short));
-      break;
     case 'trophy':
-      icon.appendChild(logo(conditionImage(c), 'emblem-team', short));
+      { const img = logo(conditionImage(c), 'emblem-team', short);
+        if (img.tagName === 'IMG') fitLogo(img, `${c.kind}:${c.id}`);
+        icon.appendChild(img); }
       break;
     case 'nationality':
       icon.appendChild(logo(conditionImage(c), 'emblem-team', c.id.toUpperCase()));
