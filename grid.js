@@ -242,6 +242,65 @@ function logo(src, emblemClass, text, attrs = {}) {
   return img;
 }
 
+/* Team logos (as in Guess the Pro, guess.js fitLogo, tuned for the Grid's dark cards), measured once per team after loading (a 64×64 canvas, the logo fitted in as on the tile):
+   - size: logos are drawn with very different amounts of empty space and shapes (GEN fills its square, BLG and T1 are
+     thin wordmarks), so each is scaled to cover about the same area (LOGO_AREA of its box) and its visible part is
+     centred — never past the tile's edge (LOGO_MAX); emblems are never shrunk (LOGO_MIN), only solid squares are;
+   - halo: dark logos (BRION) get a strong light halo, partly dark ones (100T, Liquid) a thin light outline, black
+     one-colour ones (SR, TSM) are shown in negative (grid.css). */
+const DARK_LOGO = 0.06;  // mean relative luminance of the visible pixels below which a logo counts as dark
+const DARK_PART = 0.2;   // …or this share of its visible pixels is near-black (ELEMENTS lettering, 100, Liquid's shield edge)
+const DARK_PX = 0.03;    // relative luminance of a near-black pixel
+const NEG_DARK = 0.85, NEG_SAT = 0.1; // a black one-colour logo (SR, Dplus KIA, TSM…) is shown in negative instead
+const LOGO_AREA = 0.42;  // target share of the logo box covered by the logo (the median of the current logos)
+const LOGO_MAX = 1.24;   // the logo box is 78% of the tile: up to ~97% of the tile
+const LOGO_MIN = 1.05;      // compact emblems (round, shields) are never shrunk: they would look smaller than the rest
+const LOGO_MIN_SOLID = 0.85; // only logos that are a filled square (NA, SEN: > 90% of their outline) get smaller
+const logoFit = new Map(); // team id → { dark, mixed, neg, s, dx, dy }
+function fitLogo(img, id) {
+  const apply = () => {
+    const f = logoFit.get(id);
+    if (!f) return;
+    img.classList.toggle('logo-dark', f.dark && !f.neg);
+    img.classList.toggle('logo-mixed', f.mixed && !f.dark && !f.neg);
+    img.classList.toggle('logo-neg', f.neg);
+    img.style.transform = `scale(${f.s.toFixed(3)}) translate(${f.dx.toFixed(1)}%, ${f.dy.toFixed(1)}%)`;
+  };
+  if (logoFit.has(id)) return apply();
+  img.addEventListener('load', () => {
+    if (!logoFit.has(id)) logoFit.set(id, measureLogo(img));
+    apply();
+  }, { once: true });
+}
+function measureLogo(img) {
+  const N = 64;
+  try {
+    const c = document.createElement('canvas');
+    c.width = c.height = N;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    const k = Math.min(N / img.naturalWidth, N / img.naturalHeight); // object-fit: contain
+    const w = img.naturalWidth * k, h = img.naturalHeight * k;
+    g.drawImage(img, (N - w) / 2, (N - h) / 2, w, h);
+    const d = g.getImageData(0, 0, N, N).data;
+    const lin = v => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    let sum = 0, dark = 0, sat = 0, n = 0, x0 = N, y0 = N, x1 = -1, y1 = -1;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const i = (y * N + x) * 4;
+      if (d[i + 3] < 100) continue;
+      const L = 0.2126 * lin(d[i]) + 0.7152 * lin(d[i + 1]) + 0.0722 * lin(d[i + 2]);
+      sum += L; if (L < DARK_PX) dark++;
+      sat += (Math.max(d[i], d[i + 1], d[i + 2]) - Math.min(d[i], d[i + 1], d[i + 2])) / 255;
+      n++;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    if (!n) return { dark: false, mixed: false, neg: false, s: 1, dx: 0, dy: 0 };
+    const bw = (x1 - x0 + 1) / N, bh = (y1 - y0 + 1) / N;
+    const area = n / (N * N), solid = area / (bw * bh) > 0.9;
+    const s = Math.min(LOGO_MAX / Math.max(bw, bh), Math.max(solid ? LOGO_MIN_SOLID : LOGO_MIN, Math.sqrt(LOGO_AREA / area)));
+    return { dark: sum / n < DARK_LOGO, mixed: dark / n >= DARK_PART, neg: dark / n >= NEG_DARK && sat / n < NEG_SAT, s, dx: (0.5 - (x0 + x1 + 1) / 2 / N) * 100, dy: (0.5 - (y0 + y1 + 1) / 2 / N) * 100 };
+  } catch { return { dark: false, mixed: false, neg: false, s: 1, dx: 0, dy: 0 }; }
+}
+
 /** Country name in the current language, from an ISO alpha-2 code. */
 function countryName(code) {
   try { return new Intl.DisplayNames([currentLang], { type: 'region' }).of(code.toUpperCase()) || code.toUpperCase(); }
@@ -275,7 +334,9 @@ function conditionBadge(c, small = false) {
       icon.appendChild(logo(conditionImage(c), 'emblem-league', c.id, { 'data-league': c.id }));
       break;
     case 'team':
-      icon.appendChild(logo(conditionImage(c), 'emblem-team', c.short || c.label));
+      { const img = logo(conditionImage(c), 'emblem-team', c.short || c.label);
+        if (img.tagName === 'IMG') fitLogo(img, c.id);
+        icon.appendChild(img); }
       break;
     case 'coach':
     case 'retired':
